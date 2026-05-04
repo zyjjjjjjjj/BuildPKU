@@ -11,12 +11,17 @@ config_version=5
 [application]
 
 config/name="BuildPKU"
-config/features=PackedStringArray("4.6", "GL Compatibility")
+run/main_scene="uid://bcbum02nfn5q3"
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [dotnet]
 
 project/assembly_name="BuildPKU"
+
+[editor]
+
+movie_writer/movie_file="D:/Projects/build-pku/movie/test.avi"
 
 [editor_plugins]
 

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://y3obg77ehc4b"]
+
+[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="1_n8bkc"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/Grid.cs" id="2_uvy8r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uvy8r"]
+radius = 0.01
+
+[node name="building" type="Node2D" unique_id=229562284]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(0.5, -38)
+scale = Vector2(0.8203125, 1.3906249)
+texture = ExtResource("1_n8bkc")
+
+[node name="grid" type="Area2D" parent="." unique_id=1952473878 groups=["tmpBuilding"]]
+position = Vector2(-64, -64)
+script = ExtResource("2_uvy8r")
+GridSize = Vector2i(2, 2)
+ShapeMask = Array[bool]([true, true, true, true])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="grid" unique_id=1933684458]
+shape = SubResource("CircleShape2D_uvy8r")
