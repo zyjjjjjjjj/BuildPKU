@@ -6,3 +6,4 @@ movie/
 .vs/
 bin/
 BuildPKU.sln.DotSettings.user
+addons/rider-plugin/
