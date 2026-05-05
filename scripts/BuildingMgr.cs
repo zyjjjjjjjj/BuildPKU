@@ -5,10 +5,10 @@ using System.Collections.Generic;
 public partial class BuildingMgr : Node2D
 {
     private string _selectedBuildingName = string.Empty;
-    private string _selectedBuildingID = string.Empty;
+    private string _selectedBuildingId = string.Empty;
     private GridMgr _gridMgr;
-    private Node2D _tmpBuilding;
-    private List<Node2D> _spawnedBuildings = new List<Node2D>();
+    private BuildingBase _tmpBuilding;
+    private List<BuildingBase> _spawnedBuildings = new List<BuildingBase>();
     [Signal]
     public delegate void SpawnedBuildingEventHandler(Node2D building);
     public override void _Ready()
@@ -74,11 +74,11 @@ public partial class BuildingMgr : Node2D
     {
         GD.Print($"选择：{displayName}");
         _selectedBuildingName = displayName;
-        _selectedBuildingID = buildingId;
+        _selectedBuildingId = buildingId;
         if (_tmpBuilding != null) _tmpBuilding.Name = "tmpBuilding_toBeFreed";
         _tmpBuilding?.QueueFree();
         var buildingScene = GD.Load<PackedScene>($"res://buildings/{buildingId}.tscn");
-        _tmpBuilding = buildingScene.Instantiate<Node2D>();
+        _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
         _tmpBuilding.Name = "tmpBuilding";
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
@@ -88,8 +88,8 @@ public partial class BuildingMgr : Node2D
     public void SpawnBuilding(Vector2 worldPos)
     {
         var localPos = worldPos - Position;
-        var buildingScene = GD.Load<PackedScene>($"res://buildings/{_selectedBuildingID}.tscn");
-        var building = buildingScene.Instantiate<Node2D>();
+        var buildingScene = GD.Load<PackedScene>($"res://buildings/{_selectedBuildingId}.tscn");
+        var building = buildingScene.Instantiate<BuildingBase>();
         building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingName;
         var gridPos = building.GetNode<Grid>("grid").Position;
         building.Position = localPos - gridPos;

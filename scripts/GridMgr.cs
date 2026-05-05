@@ -10,11 +10,21 @@ public partial class GridMgr : Node2D
     private int _cellSize = 64;
     private int _boundary = 2;
     private bool _showGrid = true;
-    private Dictionary<Vector2I, Area2D> _idx2area = new Dictionary<Vector2I, Area2D>();
-    private Dictionary<Area2D, Vector2I> _area2idx = new Dictionary<Area2D, Vector2I>();
+    private Dictionary<Vector2I, CellArea> _idx2area = new Dictionary<Vector2I, CellArea>();
+    private Dictionary<CellArea, Vector2I> _area2idx = new Dictionary<CellArea, Vector2I>();
     private bool _refreshPreviewScheduled = false;
     private readonly Dictionary<Vector2I, string> _occupied = new();
-    private Node2D _buildingMgr;
+    private BuildingMgr _buildingMgr;
+    private Camera2D _camera;
+    private Camera2D Camera
+    {
+        get
+        {
+            if (Engine.IsEditorHint())
+                return null;
+            return _camera ??= GetViewport().GetCamera2D();
+        }
+    }
     [Export]
     public int GridWidth
     {
@@ -67,19 +77,27 @@ public partial class GridMgr : Node2D
     }
     public override void _Ready()
     {
-        _buildingMgr = GetNodeOrNull<Node2D>("../buildingMgr");
-
+        _buildingMgr = GetTree().CurrentScene.GetNodeOrNull<BuildingMgr>("buildingMgr");
         if (_buildingMgr == null)
         {
-            GD.PrintErr("找不到 ../buildingMgr，请检查节点路径");
+            throw new InvalidOperationException("BuildingMgr 是 null，请检查节点路径");
         }
-
+        _buildingMgr.SpawnedBuilding += _updateOccupation;
         if (!Engine.IsEditorHint())
         {
             CreateGrid();
         }
         ShowGrid = false;
     }
+
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        if (!_refreshPreviewScheduled) return;
+        _refreshPreviewScheduled = false;
+        QueueRedraw();
+    }
+
     private void CreateGrid()
     {
         foreach (Node child in GetChildren())
@@ -102,49 +120,17 @@ public partial class GridMgr : Node2D
     }
     private void CreateCell(Vector2I gridIdx)
     {
-        var area = new Area2D();
+        var area = new CellArea();
         area.Name = $"Cell_{gridIdx.X}_{gridIdx.Y}";
         area.Position = new Vector2(gridIdx.X * CellSize, gridIdx.Y * CellSize);
-
-        var collision = new CollisionShape2D();
-        var shape = new RectangleShape2D();
-
-        shape.Size = new Vector2(CellSize - 0.1f, CellSize - 0.1f);
-        collision.Shape = shape;
-
-        area.AddChild(collision);
-
-        var highlight = new Polygon2D();
-        highlight.Name = "highlight";
-        highlight.Polygon = new Vector2[]
-        {
-            new Vector2(0, 0),
-            new Vector2(CellSize, 0),
-            new Vector2(CellSize, CellSize),
-            new Vector2(0, CellSize)
-        };
-        highlight.Color = new Color(0, 1, 0, 0.35f);
-        highlight.Visible = false;
-        highlight.ZIndex = 100;
-
-        area.AddChild(highlight);
-
-        // 如果你还想保留点击格子放置建筑，就打开这一行。
-        // area.InputEvent += (viewport, @event, shapeIdx) =>
-        // {
-        //     OnCellInputEvent(viewport, @event, shapeIdx, gridIdx);
-        // };
-
         area.AreaEntered += otherArea =>
         {
             OnCellAreaEntered(otherArea, area);
         };
-        
         area.AreaExited += otherArea =>
         {
             OnCellAreaExited(otherArea, area);
         };
-
         AddChild(area);
         _idx2area.Add(gridIdx, area);
         _area2idx.Add(area, gridIdx);
@@ -166,7 +152,7 @@ public partial class GridMgr : Node2D
         if(_refreshPreviewScheduled)
             return;
         _refreshPreviewScheduled = true;
-        CallDeferred(nameof(_refreshPreview));
+        // CallDeferred(nameof(_refreshPreview));
     }
     private void _refreshPreview()
     {
@@ -193,20 +179,8 @@ public partial class GridMgr : Node2D
                 var idx = new Vector2I(originIdx.X + i, originIdx.Y + j);
                 if (!_inBounds(idx))
                     continue;
-                if (_occupied.ContainsKey(idx))
-                {
-                    var area = _idx2area[idx];
-                    var highlight = area.GetNode<Polygon2D>("highlight");
-                    highlight.Color = new Color(1, 0, 0, 0.35f);
-                    highlight.Visible = true;
-                }
-                else
-                {
-                    var area = _idx2area[idx];
-                    var highlight = area.GetNode<Polygon2D>("highlight");
-                    highlight.Color = new Color(0, 1, 0, 0.35f);
-                    highlight.Visible = true;
-                }
+                var area = _idx2area[idx];
+                area.SetHighlight(_occupied.ContainsKey(idx) ? CellArea.CellState.Conflict : CellArea.CellState.Empty);
             }
         }
         _refreshPreviewScheduled = false;
@@ -215,42 +189,34 @@ public partial class GridMgr : Node2D
     {
         foreach (var area in _area2idx)
         {
-            var highlight = area.Key.GetNodeOrNull<Polygon2D>("highlight");
-            if (highlight == null)
-                continue;
-            if (!ShowGrid)
+            if (!ShowGrid || !_isOccupied(area.Value))
             {
-                highlight.Visible = false;
+                area.Key.SetHighlight(CellArea.CellState.Null);
                 continue;
             }
-            if(_isOccupied(area.Value))
-            {
-                highlight.Color = new Color(0.3f, 0.3f, 0.3f, 0.8f);
-                highlight.Visible = true;
-            }
-            else
-            {
-                highlight.Visible = false;
-            }
+            area.Key.SetHighlight(CellArea.CellState.Occupied);
         }
     }
     public override void _Draw()
     {
         if (!ShowGrid)
             return;
+        var lineWidth = 10f;
+        if(Camera!=null)
+            lineWidth = 2f / Camera.Zoom.X;
         for (int x = 0; x <= GridWidth; x++)
         {
             var from = new Vector2(x * CellSize, 0);
             var to = new Vector2(x * CellSize, GridHeight * CellSize);
 
-            DrawLine(from, to, Colors.White, 3f);
+            DrawLine(from, to, new Color(1f,1f,1f,0.5f), lineWidth);
         }
         for (int y = 0; y <= GridHeight; y++)
         {
             var from = new Vector2(0, y * CellSize);
             var to = new Vector2(GridWidth * CellSize, y * CellSize);
 
-            DrawLine(from, to, Colors.White, 3f);
+            DrawLine(from, to, new Color(1f,1f,1f,0.5f), lineWidth);
         }
         _refreshPreview();
     }
@@ -291,7 +257,6 @@ public partial class GridMgr : Node2D
         }
         return GridIdxToWorld(originIdx);
     }
-
     private void _updateOccupation(Node2D newBuilding)
     {
         var grid = newBuilding.GetNode<Grid>("grid");

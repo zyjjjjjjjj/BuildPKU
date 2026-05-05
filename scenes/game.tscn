@@ -4,23 +4,21 @@
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/GridMgr.cs" id="2_lnu2h"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
 
-[node name="Node2D" type="Node2D" unique_id=1578770113]
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
-zoom = Vector2(0.71, 0.71)
+[node name="root" type="Node2D" unique_id=1578770113]
 
 [node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
-scale = Vector2(4.8320313, 4.8320313)
+position = Vector2(1278.7384, 1598.5015)
+scale = Vector2(18.004086, 22.992163)
 texture = ExtResource("1_yqjtg")
 
 [node name="gridMgr" type="Node2D" parent="." unique_id=1318667080]
-position = Vector2(-415, -422)
 script = ExtResource("2_lnu2h")
-GridWidth = 13
-GridHeight = 13
-ShowGrid = false
+GridWidth = 40
+GridHeight = 50
 
 [node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
 script = ExtResource("3_lbhrr")
 
-[connection signal="SpawnedBuilding" from="buildingMgr" to="gridMgr" method="_updateOccupation"]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
+position = Vector2(1223, 1458)
+zoom = Vector2(0.29, 0.29)

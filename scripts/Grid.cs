@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 
 [Tool]
-public partial class Grid : Area2D
+public partial class Grid : Node2D
 {
     private Vector2I _gridSize = new(1, 1);
     [Export]
@@ -31,7 +31,17 @@ public partial class Grid : Area2D
         }
     }
 
-    [Export] private int _cellSize = 64;
+    private int _cellSize = 64;
+    [Export] 
+    public int CellSize
+    {
+        get => _cellSize;
+        set
+        {
+            _cellSize = Mathf.Max(1, value);
+            QueueRedraw();
+        }
+    }
 
     public override void _Ready()
     {
