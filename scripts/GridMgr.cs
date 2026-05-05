@@ -15,6 +15,17 @@ public partial class GridMgr : Node2D
     private bool _refreshPreviewScheduled = false;
     private readonly Dictionary<Vector2I, string> _occupied = new();
     private BuildingMgr _buildingMgr;
+    private BuildingMgr BuildingMgr
+    {
+        get
+        {
+            if (Engine.IsEditorHint())
+                return null;
+            if (_buildingMgr == null)
+                _buildingMgr = (BuildingMgr)GetNode("BuildingMgr");
+            return _buildingMgr;
+        }
+    }
     private Camera2D _camera;
     private Camera2D Camera
     {
@@ -77,12 +88,14 @@ public partial class GridMgr : Node2D
     }
     public override void _Ready()
     {
-        _buildingMgr = GetTree().CurrentScene.GetNodeOrNull<BuildingMgr>("buildingMgr");
+        _buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
         if (_buildingMgr == null)
         {
             throw new InvalidOperationException("BuildingMgr 是 null，请检查节点路径");
         }
         _buildingMgr.SpawnedBuilding += _updateOccupation;
+        if(Camera!=null)
+            ((CameraCtrl)Camera).CameraZoom += QueueRedraw;
         if (!Engine.IsEditorHint())
         {
             CreateGrid();
@@ -157,31 +170,24 @@ public partial class GridMgr : Node2D
     private void _refreshPreview()
     {
         _clearPreview();
-        if(!ShowGrid)
+        if(!ShowGrid || BuildingMgr == null)
         {
             _refreshPreviewScheduled = false;
             return;
         }
-        var tmpBuilding = _buildingMgr.GetNodeOrNull<Node2D>("tmpBuilding");
+        var tmpBuilding = BuildingMgr.GetNodeOrNull<BuildingBase>("tmpBuilding");
         if (tmpBuilding == null)
         {
             _refreshPreviewScheduled = false;
             return;
         }
-        var grid = tmpBuilding.GetNode<Grid>("grid");
-        var originIdx = WorldToGridIdx(grid.GlobalPosition);
-        for(int i=0;i<grid.GridSize.X;i++)
+        var collisionPoints = tmpBuilding.GetCollisionAreas();
+        foreach (var collisionPoint in collisionPoints)
         {
-            for(int j=0;j<grid.GridSize.Y;j++)
-            {
-                if (!grid.ShapeMask[i + j * grid.GridSize.X])
-                    continue;
-                var idx = new Vector2I(originIdx.X + i, originIdx.Y + j);
-                if (!_inBounds(idx))
-                    continue;
-                var area = _idx2area[idx];
-                area.SetHighlight(_occupied.ContainsKey(idx) ? CellArea.CellState.Conflict : CellArea.CellState.Empty);
-            }
+            var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
+            if (!_inBounds(idx))
+                continue;
+            _idx2area[idx].SetHighlight(_isOccupied(idx) ? CellArea.CellState.Conflict : CellArea.CellState.Empty);
         }
         _refreshPreviewScheduled = false;
     }
@@ -199,6 +205,7 @@ public partial class GridMgr : Node2D
     }
     public override void _Draw()
     {
+        _refreshPreview();
         if (!ShowGrid)
             return;
         var lineWidth = 10f;
@@ -218,7 +225,6 @@ public partial class GridMgr : Node2D
 
             DrawLine(from, to, new Color(1f,1f,1f,0.5f), lineWidth);
         }
-        _refreshPreview();
     }
     private bool _inBounds(Vector2I idx)
     {
@@ -231,6 +237,7 @@ public partial class GridMgr : Node2D
     public Vector2I WorldToGridIdx(Vector2 worldPos)
     {
         var localPos = worldPos - Position;
+        localPos -= new Vector2(0.5f * CellSize, 0.5f * CellSize);
         int x = Mathf.RoundToInt(localPos.X / CellSize);
         int y = Mathf.RoundToInt(localPos.Y / CellSize);
         return new Vector2I(x, y);
@@ -238,42 +245,33 @@ public partial class GridMgr : Node2D
 
     public Vector2 GridIdxToWorld(Vector2I idx)
     {
-        var localPos = new Vector2(idx.X * CellSize, idx.Y * CellSize);
-        return localPos + Position;
+        var localPos = new Vector2((idx.X + 0.5f) * CellSize, (idx.Y + 0.5f) * CellSize);
+        return localPos + GlobalPosition;
     }
-    public Vector2? CheckSpace(Grid grid)
+    public Vector2? CheckSpace(BuildingBase building)
     {
-        var originIdx = WorldToGridIdx(grid.GlobalPosition);
-        for(int i=0;i<grid.GridSize.X;i++)
+        var collisionPoints = building.GetCollisionAreas();
+        Vector2? offset=null;
+        foreach (var collisionPoint in collisionPoints)
         {
-            for(int j=0;j<grid.GridSize.Y;j++)
-            {
-                if (!grid.ShapeMask[i + j * grid.GridSize.X])
-                    continue;
-                var idx = new Vector2I(originIdx.X + i, originIdx.Y + j);
-                if (!_inBounds(idx) || _isOccupied(idx))
-                    return null;
-            }
+            var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
+            if (!_inBounds(idx) || _isOccupied(idx))
+                return null;
+            offset = GridIdxToWorld(idx) - collisionPoint.GlobalPosition;
         }
-        return GridIdxToWorld(originIdx);
+        return offset;
     }
-    private void _updateOccupation(Node2D newBuilding)
+    private void _updateOccupation(BuildingBase newBuilding)
     {
-        var grid = newBuilding.GetNode<Grid>("grid");
-        var originIdx = WorldToGridIdx(grid.GlobalPosition);
-        for (int i = 0; i < grid.GridSize.X; i++)
+        var collisionPoints = newBuilding.GetCollisionAreas();
+        foreach (var collisionPoint in collisionPoints)
         {
-            for (int j = 0; j < grid.GridSize.Y; j++)
+            var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
+            if (!_inBounds(idx) || _isOccupied(idx))
             {
-                if (!grid.ShapeMask[i + j * grid.GridSize.X])
-                    continue;
-                var idx = new Vector2I(originIdx.X + i, originIdx.Y + j);
-                if (!_inBounds(idx) || _isOccupied(idx))
-                {
-                    GD.PrintErr("尝试占用一个已经被占用的格子，或者越界了！请检查逻辑！");
-                }
-                _occupied[idx] = newBuilding.Name;
+                GD.PrintErr("尝试占用一个已经被占用的格子，或者越界了！请检查逻辑！");
             }
+            _occupied[idx] = newBuilding.Name;
         }
         QueueRedraw();
     }

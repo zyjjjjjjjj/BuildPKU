@@ -15,6 +15,10 @@ run/main_scene="uid://bcbum02nfn5q3"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameConfig="*uid://b83ijqa5ugdjy"
+
 [dotnet]
 
 project/assembly_name="BuildPKU"

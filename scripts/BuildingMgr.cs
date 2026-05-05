@@ -10,7 +10,7 @@ public partial class BuildingMgr : Node2D
     private BuildingBase _tmpBuilding;
     private List<BuildingBase> _spawnedBuildings = new List<BuildingBase>();
     [Signal]
-    public delegate void SpawnedBuildingEventHandler(Node2D building);
+    public delegate void SpawnedBuildingEventHandler(BuildingBase building);
     public override void _Ready()
     {
         _gridMgr = GetNode<GridMgr>("../gridMgr");
@@ -33,10 +33,7 @@ public partial class BuildingMgr : Node2D
         {
             if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
             {
-                var grid = _tmpBuilding.GetNode<Grid>("grid");
-                var actualGridPos = _gridMgr.CheckSpace(grid);
-                if(actualGridPos.HasValue)
-                    SpawnBuilding(actualGridPos.Value);
+                TrySpawnBuilding();
             }
         }
         
@@ -67,6 +64,13 @@ public partial class BuildingMgr : Node2D
                 _gridMgr.ShowGrid = false;
                 GD.Print("取消选择");
                 break;
+            
+            case Key.Q:
+                _tmpBuilding?.RotateBuilding(false);
+                break;
+            case Key.E:
+                _tmpBuilding?.RotateBuilding(true);
+                break;
         }
     }
 
@@ -85,16 +89,22 @@ public partial class BuildingMgr : Node2D
         _gridMgr.ShowGrid = true;
     }
 
-    public void SpawnBuilding(Vector2 worldPos)
+    public void TrySpawnBuilding()
     {
-        var localPos = worldPos - Position;
+        var offset = _gridMgr.CheckSpace(_tmpBuilding);
+        if(offset.HasValue)
+            SpawnBuilding(offset.Value + _tmpBuilding.Position);
+    }
+
+    public void SpawnBuilding(Vector2 localPos)
+    {
         var buildingScene = GD.Load<PackedScene>($"res://buildings/{_selectedBuildingId}.tscn");
         var building = buildingScene.Instantiate<BuildingBase>();
-        building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingName;
-        var gridPos = building.GetNode<Grid>("grid").Position;
-        building.Position = localPos - gridPos;
         AddChild(building);
         _spawnedBuildings.Add(building);
+        building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingName;
+        building.Position = localPos;
+        building.RotationStep = _tmpBuilding.RotationStep;
         EmitSignalSpawnedBuilding(building);
     }
 }

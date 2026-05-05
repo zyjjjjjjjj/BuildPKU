@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/GridMgr.cs" id="2_lnu2h"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
+[ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/CameraCtrl.cs" id="4_lbhrr"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 
@@ -17,8 +18,14 @@ GridWidth = 40
 GridHeight = 50
 
 [node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
+y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
 position = Vector2(1223, 1458)
-zoom = Vector2(0.29, 0.29)
+zoom = Vector2(0.27, 0.27)
+script = ExtResource("4_lbhrr")
+MoveSpeed = 0.6
+ZoomSpeed = 0.02
+MinZoom = 0.2
+MaxZoom = 2.0

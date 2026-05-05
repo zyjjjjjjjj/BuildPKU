@@ -8,27 +8,27 @@
 script = ExtResource("1_35vvo")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-position = Vector2(-128.25, -13)
+position = Vector2(-130.25, 23)
 scale = Vector2(0.44140625, 1.3906249)
 texture = ExtResource("1_41nb5")
 
 [node name="Sprite2D4" type="Sprite2D" parent="." unique_id=433952825]
-position = Vector2(1.4999962, -75)
+position = Vector2(-0.5000038, -39)
 scale = Vector2(2.4296875, 0.48437503)
 texture = ExtResource("1_41nb5")
 
 [node name="Sprite2D3" type="Sprite2D" parent="." unique_id=532116711]
-position = Vector2(0.99998474, -11.5)
+position = Vector2(-1.000015, 24.5)
 scale = Vector2(0.43750015, 1.4765626)
 texture = ExtResource("1_41nb5")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1825863515]
-position = Vector2(129.99997, -11.999999)
+position = Vector2(127.99997, 24)
 scale = Vector2(0.44531235, 1.4038085)
 texture = ExtResource("1_41nb5")
 
 [node name="grid" type="Node2D" parent="." unique_id=2046688671 groups=["tmpBuilding"]]
-position = Vector2(-159, -108)
+position = Vector2(-161, -72)
 script = ExtResource("2_35vvo")
 GridSize = Vector2i(5, 3)
 ShapeMask = Array[bool]([true, true, true, true, true, true, false, true, false, true, true, false, true, false, true])
