@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="1_h5r06"]
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/BuildingBase.cs" id="1_jhlaq"]
-[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/Grid.cs" id="2_jhlaq"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/BuildingGrid.cs" id="3_jhlaq"]
 
 [node name="building" type="Node2D" unique_id=229562284]
 script = ExtResource("1_jhlaq")
@@ -11,11 +11,11 @@ script = ExtResource("1_jhlaq")
 modulate = Color(0, 1, 0, 1)
 position = Vector2(1, -1)
 rotation = -1.5731673
-scale = Vector2(0.44140625, 0.89062494)
+scale = Vector2(0.44140628, 0.89062494)
 texture = ExtResource("1_h5r06")
 
 [node name="grid" type="Node2D" parent="." unique_id=855007586 groups=["tmpBuilding"]]
 position = Vector2(-65, -33)
-script = ExtResource("2_jhlaq")
+script = ExtResource("3_jhlaq")
 GridSize = Vector2i(2, 1)
 ShapeMask = Array[bool]([true, true])

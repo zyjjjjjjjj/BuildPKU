@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 
 [Tool]
-public partial class Grid : Node2D
+public partial class BuildingGrid : Node2D
 {
     private Vector2I _gridSize = new(1, 1);
     [Export]
@@ -18,6 +18,7 @@ public partial class Grid : Node2D
     }
 
     private Array<bool> _shapeMask;
+    public int CellSize = 64;
 
     [Export]
     public Array<bool> ShapeMask
@@ -27,18 +28,6 @@ public partial class Grid : Node2D
         {
             _shapeMask = value;
             ResizeShapeMask();
-            QueueRedraw();
-        }
-    }
-
-    private int _cellSize = 64;
-    [Export] 
-    public int CellSize
-    {
-        get => _cellSize;
-        set
-        {
-            _cellSize = Mathf.Max(1, value);
             QueueRedraw();
         }
     }
@@ -73,18 +62,17 @@ public partial class Grid : Node2D
 
         for (var x = 0; x <= _gridSize.X; x++)
         {
-            var from = new Vector2(x * _cellSize, 0);
-            var to = new Vector2(x * _cellSize, _gridSize.Y * _cellSize);
+            var from = new Vector2(x * CellSize, 0);
+            var to = new Vector2(x * CellSize, _gridSize.Y * CellSize);
             DrawLine(from, to, Colors.Gray, 3);
         }
 
         for (var y = 0; y <= _gridSize.Y; y++)
         {
-            var from = new Vector2(0, y * _cellSize);
-            var to = new Vector2(_gridSize.X * _cellSize, y * _cellSize);
+            var from = new Vector2(0, y * CellSize);
+            var to = new Vector2(_gridSize.X * CellSize, y * CellSize);
             DrawLine(from, to, Colors.Gray, 3);
         }
-        
         DrawMaskCells();
     }
     
@@ -99,8 +87,8 @@ public partial class Grid : Node2D
                 if(!occupied)
                     continue;
                 var rect = new Rect2(
-                    new Vector2(x * _cellSize, y * _cellSize),
-                    new Vector2(_cellSize, _cellSize)
+                    new Vector2(x * CellSize, y * CellSize),
+                    new Vector2(CellSize, CellSize)
                 );
                 DrawRect(rect, new Color(1.0f,0,0,0.3f), true);
             }

@@ -41,8 +41,8 @@ public partial class BuildingBase : Node2D
 		}
 	}
 
-	public Grid GridNode => _getGridNode();
-	public Vector2I GridSize => GridNode.GridSize;
+	public BuildingGrid BuildingGridNode => _getGridNode();
+	public Vector2I GridSize => BuildingGridNode.GridSize;
 
 	private List<Vector2I> _currentShape;
 	public List<Vector2I> CurrentShape
@@ -54,7 +54,7 @@ public partial class BuildingBase : Node2D
 			_currentShape = new List<Vector2I>();
 			for(int idx=0;idx<GridSize.X*GridSize.Y;idx++)
 			{
-				if (!GridNode.ShapeMask[idx]) continue;
+				if (!BuildingGridNode.ShapeMask[idx]) continue;
 				var localIdx = new Vector2I(idx % GridSize.X, idx / GridSize.X);
 				localIdx = _rotate90Clockwise(localIdx, _rotationStep);
 				_currentShape.Add(localIdx);
@@ -62,11 +62,18 @@ public partial class BuildingBase : Node2D
 			return _currentShape;
 		}
 	}
+	
+	private GridMgr _gridMgr;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
+		if(_gridMgr == null)
+			throw new Exception("GridMgr not found");
+		var scale = _gridMgr.CellSize / BuildingGridNode.CellSize;
 		_setUpCollision();
+		Scale = new Vector2(scale, scale);
 		Rotation = 0f;
 	}
 
@@ -82,15 +89,15 @@ public partial class BuildingBase : Node2D
 			shape.Radius = 1f;
 			collision.Shape = shape;
 			collisionPoint.AddChild(collision);
-			collisionPoint.Position = (new Vector2(0.5f,0.5f) +offset) * GameConfig.Instance.CellSize;
+			collisionPoint.Position = (new Vector2(0.5f,0.5f) +offset) * BuildingGridNode.CellSize;
 			collisionPoint.AddToGroup("tmpBuilding");
 			grid.AddChild(collisionPoint);
 		}
 	}
 
-	private Grid _getGridNode()
+	private BuildingGrid _getGridNode()
 	{
-		var grid = GetNodeOrNull<Grid>("grid");
+		var grid = GetNodeOrNull<BuildingGrid>("grid");
 		if(grid == null)
 			throw new InvalidOperationException("未找到 grid 节点，请检查节点路径");
 		return grid;
@@ -125,7 +132,7 @@ public partial class BuildingBase : Node2D
 	public List<Area2D> GetCollisionAreas()
 	{
 		var areas = new List<Area2D>();
-		foreach (var child in GetNode<Grid>("grid").GetChildren())
+		foreach (var child in GetNode<BuildingGrid>("grid").GetChildren())
 		{
 			if (child is Area2D area)
 			{

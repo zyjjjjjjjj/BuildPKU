@@ -56,6 +56,7 @@ public partial class GridMgr : Node2D
             QueueRedraw();
         }
     }
+
     [Export]
     public int CellSize
     {
@@ -66,6 +67,7 @@ public partial class GridMgr : Node2D
             QueueRedraw();
         }
     }
+
     [Export]
     public int Boundary
     {
@@ -248,8 +250,11 @@ public partial class GridMgr : Node2D
         var localPos = new Vector2((idx.X + 0.5f) * CellSize, (idx.Y + 0.5f) * CellSize);
         return localPos + GlobalPosition;
     }
-    public Vector2? CheckSpace(BuildingBase building)
+    public Vector2? CheckSpace(BuildingBase building, out int zIdx)
     {
+        zIdx = GridHeight;
+        if(building == null)
+             return null;
         var collisionPoints = building.GetCollisionAreas();
         Vector2? offset=null;
         foreach (var collisionPoint in collisionPoints)
@@ -258,6 +263,8 @@ public partial class GridMgr : Node2D
             if (!_inBounds(idx) || _isOccupied(idx))
                 return null;
             offset = GridIdxToWorld(idx) - collisionPoint.GlobalPosition;
+            if(idx.Y < zIdx)
+                zIdx = idx.Y;
         }
         return offset;
     }

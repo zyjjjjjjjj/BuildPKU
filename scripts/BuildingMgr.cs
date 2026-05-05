@@ -13,7 +13,7 @@ public partial class BuildingMgr : Node2D
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
     public override void _Ready()
     {
-        _gridMgr = GetNode<GridMgr>("../gridMgr");
+        _gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
         if (_gridMgr == null)
         {
             GD.PrintErr("未找到 gridMgr 节点");
@@ -91,12 +91,12 @@ public partial class BuildingMgr : Node2D
 
     public void TrySpawnBuilding()
     {
-        var offset = _gridMgr.CheckSpace(_tmpBuilding);
+        var offset = _gridMgr.CheckSpace(_tmpBuilding, out var zIdx);
         if(offset.HasValue)
-            SpawnBuilding(offset.Value + _tmpBuilding.Position);
+            SpawnBuilding(offset.Value + _tmpBuilding.Position, zIdx);
     }
 
-    public void SpawnBuilding(Vector2 localPos)
+    public void SpawnBuilding(Vector2 localPos, int zIdx)
     {
         var buildingScene = GD.Load<PackedScene>($"res://buildings/{_selectedBuildingId}.tscn");
         var building = buildingScene.Instantiate<BuildingBase>();
@@ -105,6 +105,7 @@ public partial class BuildingMgr : Node2D
         building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingName;
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
+        building.ZIndex = zIdx;
         EmitSignalSpawnedBuilding(building);
     }
 }
