@@ -10,3 +10,4 @@ addons/rider-plugin/
 .mcp.json
 addons/godot_mcp/
 .claude/
+.DS_Store

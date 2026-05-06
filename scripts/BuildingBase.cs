@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public partial class BuildingBase : Node2D
 {
+	[Export] private const float Research = 0;
+	[Export] private const float Education = 0;
+	[Export] private const float Life = 0;
+	[Export] private const float Population = 0;
+	[Export] private const float Cost = 0;
+	
 	private int _rotationStep = 0;
 	public int RotationStep
 	{

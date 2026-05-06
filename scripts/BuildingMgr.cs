@@ -91,6 +91,7 @@ public partial class BuildingMgr : Node2D
 
     public void TrySpawnBuilding()
     {
+        if (_tmpBuilding == null) return;
         var offset = _gridMgr.CheckSpace(_tmpBuilding, out var zIdx);
         if(offset.HasValue)
             SpawnBuilding(offset.Value + _tmpBuilding.Position, zIdx);
