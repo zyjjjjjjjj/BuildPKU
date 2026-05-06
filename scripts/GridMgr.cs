@@ -92,6 +92,7 @@ public partial class GridMgr : Node2D
     }
     public override void _Ready()
     {
+        if (Engine.IsEditorHint()) return;
         _buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
         if (_buildingMgr == null)
         {
@@ -100,10 +101,8 @@ public partial class GridMgr : Node2D
         _buildingMgr.SpawnedBuilding += _updateOccupation;
         if(Camera!=null)
             ((CameraCtrl)Camera).CameraZoom += QueueRedraw;
-        if (!Engine.IsEditorHint())
-        {
-            CreateGrid();
-        }
+        CreateGrid();
+            
         ShowGrid = false;
     }
 

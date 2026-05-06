@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dmtygt5cvj1tn"]
+
+[ext_resource type="Script" uid="uid://jdkmy2i8qg6v" path="res://scripts/TopBar.cs" id="1_27bld"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974]
+
+[node name="HUDRoot" type="Control" parent="." unique_id=643724016]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="HBoxContainer" parent="HUDRoot" unique_id=1462200729]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_right = 30.0
+offset_bottom = 23.0
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("1_27bld")
+
+[node name="YearLabel" type="Label" parent="HUDRoot/TopBar" unique_id=1259621921]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "0000"
+
+[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar" unique_id=1880808890]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "下一年"

@@ -3,8 +3,20 @@ using Godot;
 public partial class TimeMgr : Node
 {
 	public static TimeMgr Instance { get; private set; }
-	
-	public int CurrentYear = 1900;
+
+	private int _currentYear;
+	public int CurrentYear
+	{
+		get
+		{
+			return _currentYear;
+		}
+		private set
+		{
+			_currentYear = value;
+			EmitSignalYearAdvanced(_currentYear);
+		}
+	}
 	public int EndYear = 2026;
 	public int InitialYear = 1900;
 	[Signal] public delegate void YearAdvancedEventHandler(int newYear);
@@ -27,7 +39,6 @@ public partial class TimeMgr : Node
 		{
 			CurrentYear++;
 			GD.Print(CurrentYear);
-			EmitSignal(SignalName.YearAdvanced, CurrentYear);
 		}
 	}
 	
