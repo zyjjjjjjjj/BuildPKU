@@ -7,3 +7,6 @@ movie/
 bin/
 BuildPKU.sln.DotSettings.user
 addons/rider-plugin/
+.mcp.json
+addons/godot_mcp/
+.claude/

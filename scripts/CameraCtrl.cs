@@ -11,12 +11,21 @@ public partial class CameraCtrl : Camera2D
 	[Export] public float ZoomSpeed = 0.1f;
 	[Export] public float MinZoom = 0.5f;
 	[Export] public float MaxZoom = 3.0f;
+	private Vector2 _leftTop;
+	private Vector2 _rightBottom;
+	private GridMgr _gridMgr;
 	[Signal]
 	public delegate void CameraZoomEventHandler();
 
 	public override void _Ready()
 	{
 		MakeCurrent();
+		_gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
+		if (_gridMgr == null){
+			throw new InvalidOperationException("GridMgr 是 null，请检查节点路径");
+		}
+		_leftTop = _gridMgr.GlobalPosition;
+		_rightBottom = _leftTop + _gridMgr.GridSize*_gridMgr.CellSize;
 	}
 
 	public override void _Process(double delta)
@@ -74,6 +83,11 @@ public partial class CameraCtrl : Camera2D
 
 		// Zoom.X 越大，画面越远，所以移动速度也乘 Zoom.X，体感更稳定
 		Position += direction * MoveSpeed * 1000 * (float)delta / Zoom.X;
+		
+		Position = new Vector2(
+			Mathf.Clamp(Position.X, _leftTop.X, _rightBottom.X),
+			Mathf.Clamp(Position.Y, _leftTop.Y, _rightBottom.Y)
+		);
 	}
 
 	private void ZoomOut()

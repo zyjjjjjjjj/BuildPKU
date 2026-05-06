@@ -22,8 +22,13 @@ y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
-position = Vector2(1223, 1458)
+position = Vector2(1308, 1487)
 zoom = Vector2(0.27, 0.27)
+limit_enabled = false
+limit_left = -12000
+limit_top = -1000
+limit_right = 38000
+limit_bottom = 4299
 script = ExtResource("4_lbhrr")
 MoveSpeed = 0.6
 ZoomSpeed = 0.02

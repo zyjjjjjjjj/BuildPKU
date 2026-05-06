@@ -7,6 +7,8 @@ public partial class GridMgr : Node2D
 {
     private int _gridWidth = 8;
     private int _gridHeight = 6;
+
+    public Vector2I GridSize => new(_gridWidth, _gridHeight);
     private int _cellSize = 64;
     private int _boundary = 2;
     private bool _showGrid = true;
