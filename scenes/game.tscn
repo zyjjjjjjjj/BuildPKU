@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/GridMgr.cs" id="2_lnu2h"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/CameraCtrl.cs" id="4_lbhrr"]
-[ext_resource type="PackedScene" uid="uid://dmtygt5cvj1tn" path="res://scenes/hud_ui.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" path="res://scenes/hud_ui.tscn" id="5_iywne"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 
@@ -23,17 +23,18 @@ y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
-position = Vector2(1308, 1487)
-zoom = Vector2(0.27, 0.27)
+position = Vector2(1253, 1589)
+zoom = Vector2(0.2, 0.2)
 limit_enabled = false
 limit_left = -12000
 limit_top = -1000
 limit_right = 38000
 limit_bottom = 4299
 script = ExtResource("4_lbhrr")
-MoveSpeed = 0.6
-ZoomSpeed = 0.02
-MinZoom = 0.2
-MaxZoom = 2.0
+_moveSpeed = 1000.0
+_dragSpeed = 100.0
+_zoomFactor = 1.05
+_minZoom = 0.2
+_maxZoom = 0.9
 
 [node name="CanvasLayer" parent="." unique_id=1735141974 instance=ExtResource("5_iywne")]

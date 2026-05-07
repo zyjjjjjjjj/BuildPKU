@@ -3,17 +3,30 @@ using System;
 
 public partial class CameraCtrl : Camera2D
 {
-	[Export] public float MoveSpeed = 600f;
-
+	[Export] private float _moveSpeed = 600f;
+	public float MoveSpeed => _moveSpeed / Zoom.X;
+	[Export] private float _dragSpeed = 400f;
+	public float DragSpeed => _dragSpeed / Zoom.X;
 	// 边缘移动的触发范围，单位为屏幕宽高的百分比
-	[Export] public float EdgeRatio = 0.1f;
+	[Export] private float _edgeRatio = 0.1f;
+	[Export] private float _zoomFactor = 1.1f;
+	[Export] private float _minZoom = 0.5f;
+	[Export] private float _maxZoom = 3.0f;
 
-	[Export] public float ZoomSpeed = 0.1f;
-	[Export] public float MinZoom = 0.5f;
-	[Export] public float MaxZoom = 3.0f;
+	private enum Mode
+	{
+		Edit,
+		Normal,
+	}
+	private Mode _mode = Mode.Normal;
 	private Vector2 _leftTop;
 	private Vector2 _rightBottom;
+	
 	private GridMgr _gridMgr;
+	private BuildingMgr _buildingMgr;
+	private bool _isMiddleDragging;
+	private Vector2 _lastMousePos;
+
 	[Signal]
 	public delegate void CameraZoomEventHandler();
 
@@ -24,13 +37,34 @@ public partial class CameraCtrl : Camera2D
 		if (_gridMgr == null){
 			throw new InvalidOperationException("GridMgr 是 null，请检查节点路径");
 		}
+		_buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
+		if (_buildingMgr == null)
+		{
+			throw new InvalidOperationException("BuildingMgr 是 null，请检查节点路径");
+		}
+		_buildingMgr.EnterEditorMode += () =>
+		{
+			_mode = Mode.Edit;
+		};
+		_buildingMgr.ExitEditorMode += () =>
+		{
+			_mode = Mode.Normal;
+		};
 		_leftTop = _gridMgr.GlobalPosition;
 		_rightBottom = _leftTop + _gridMgr.GridSize*_gridMgr.CellSize;
 	}
 
 	public override void _Process(double delta)
 	{
-		HandleEdgeMove(delta);
+		switch (_mode)
+		{
+			case Mode.Edit:
+				HandleMove_Edit(delta);
+				break;
+			case Mode.Normal:
+				HandleMove_Normal(delta);
+				break;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
@@ -43,62 +77,82 @@ public partial class CameraCtrl : Camera2D
 
 		if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
 		{
-			ZoomIn();
+			ZoomByFactor(_zoomFactor);
 		}
 		else if (mouseEvent.ButtonIndex == MouseButton.WheelDown)
 		{
-			ZoomOut();
+			ZoomByFactor(1f / _zoomFactor);
 		}
 	}
 
-	private void HandleEdgeMove(double delta)
+	private void HandleMove_Edit(double delta)
+	{
+		if(!MouseInEdge())
+			return;
+		Vector2 mousePos = GetViewport().GetMousePosition();
+		var screenCenter = GetViewportRect().Size / 2;
+		Vector2 direction = (mousePos - screenCenter).Normalized();
+		Position += direction * MoveSpeed * (float)delta;
+		ClampCameraPosition();
+	}
+
+	private bool MouseInEdge()
 	{
 		Vector2 mousePos = GetViewport().GetMousePosition();
 		Vector2 viewportSize = GetViewportRect().Size;
-		Vector2 edgeSize = viewportSize * EdgeRatio;
-		Vector2 direction = Vector2.Zero;
+		Vector2 edgeSize = viewportSize * _edgeRatio;
+		if (mousePos.X <= edgeSize.X || mousePos.X >= viewportSize.X - edgeSize.X)
+		{
+			return true;
+		}
+		if (mousePos.Y <= edgeSize.Y || mousePos.Y >= viewportSize.Y - edgeSize.Y)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 
-		if (mousePos.X <= edgeSize.X)
+	private void HandleMove_Normal(double delta)
+	{
+		bool middlePressed = Input.IsMouseButtonPressed(MouseButton.Middle);
+		if (!middlePressed)
 		{
-			direction.X -= 1;
-		}
-		else if (mousePos.X >= viewportSize.X - edgeSize.X)
-		{
-			direction.X += 1;
-		}
-
-		if (mousePos.Y <= edgeSize.Y)
-		{
-			direction.Y -= 1;
-		}
-		else if (mousePos.Y >= viewportSize.Y - edgeSize.Y)
-		{
-			direction.Y += 1;
-		}
-
-		if (direction == Vector2.Zero)
+			_isMiddleDragging = false;
 			return;
+		}
 
-		direction = direction.Normalized();
+		Vector2 currentMousePos = GetViewport().GetMousePosition();
+		if (!_isMiddleDragging)
+		{
+			// 刚开始按下这一帧，只记录位置，不移动相机
+			_isMiddleDragging = true;
+			_lastMousePos = currentMousePos;
+			return;
+		}
 
-		// Zoom.X 越大，画面越远，所以移动速度也乘 Zoom.X，体感更稳定
-		Position += direction * MoveSpeed * 1000 * (float)delta / Zoom.X;
-		
+		Vector2 mouseDelta = currentMousePos - _lastMousePos;
+
+		Position -= mouseDelta * DragSpeed * (float)delta;
+
+		_lastMousePos = currentMousePos;
+
+		ClampCameraPosition();
+	}
+
+	private void ClampCameraPosition()
+	{
 		Position = new Vector2(
 			Mathf.Clamp(Position.X, _leftTop.X, _rightBottom.X),
 			Mathf.Clamp(Position.Y, _leftTop.Y, _rightBottom.Y)
 		);
 	}
 
-	private void ZoomOut()
+	private void ZoomByFactor(float factor)
 	{
-		float newZoom = Mathf.Max(MinZoom, Zoom.X - ZoomSpeed);
+		float newZoom = Mathf.Clamp(Zoom.X * factor, _minZoom, _maxZoom);
 		Zoom = new Vector2(newZoom, newZoom);
-	}
 
-	private void ZoomIn()
-	{
-		float newZoom = Mathf.Min(MaxZoom, Zoom.X + ZoomSpeed);
-		Zoom = new Vector2(newZoom, newZoom);
+		EmitSignal(SignalName.CameraZoom);
 	}
 }

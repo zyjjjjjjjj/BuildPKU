@@ -9,8 +9,32 @@ public partial class BuildingMgr : Node2D
     private GridMgr _gridMgr;
     private BuildingBase _tmpBuilding;
     private List<BuildingBase> _spawnedBuildings = new List<BuildingBase>();
+    private bool _isEditing = false;
+    public bool IsEditing
+    {
+        get => _isEditing;
+        set
+        {
+            _isEditing = value;
+            if (_isEditing)
+            {
+                EmitSignalEnterEditorMode();
+                return;
+            }
+            _selectedBuildingName = string.Empty;
+            _tmpBuilding?.QueueFree();
+            _tmpBuilding = null;
+            GD.Print("取消选择");
+            EmitSignalExitEditorMode();
+        }
+    }
+
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
+    [Signal]
+    public delegate void EnterEditorModeEventHandler();
+    [Signal]
+    public delegate void ExitEditorModeEventHandler();
     public override void _Ready()
     {
         _gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
@@ -31,7 +55,7 @@ public partial class BuildingMgr : Node2D
     {
         if (@event is InputEventMouseButton mouseEvent)
         {
-            if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left)
+            if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left && IsEditing)
             {
                 TrySpawnBuilding();
             }
@@ -58,11 +82,7 @@ public partial class BuildingMgr : Node2D
                 break;
             
             case Key.Escape:
-                _selectedBuildingName = string.Empty;
-                _tmpBuilding?.QueueFree();
-                _tmpBuilding = null;
-                _gridMgr.ShowGrid = false;
-                GD.Print("取消选择");
+                IsEditing = false;
                 break;
             
             case Key.Q:
@@ -76,6 +96,7 @@ public partial class BuildingMgr : Node2D
 
     private void SelectBuilding(string buildingId, string displayName)
     {
+        IsEditing = true;
         GD.Print($"选择：{displayName}");
         _selectedBuildingName = displayName;
         _selectedBuildingId = buildingId;
@@ -86,7 +107,6 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding.Name = "tmpBuilding";
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
-        _gridMgr.ShowGrid = true;
     }
 
     public void TrySpawnBuilding()

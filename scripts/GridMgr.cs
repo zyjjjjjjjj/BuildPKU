@@ -93,22 +93,29 @@ public partial class GridMgr : Node2D
     public override void _Ready()
     {
         if (Engine.IsEditorHint()) return;
+        ShowGrid = false;
         _buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
         if (_buildingMgr == null)
         {
             throw new InvalidOperationException("BuildingMgr 是 null，请检查节点路径");
         }
         _buildingMgr.SpawnedBuilding += _updateOccupation;
+        _buildingMgr.EnterEditorMode += () =>
+        {
+            ShowGrid = true;
+        };
+        _buildingMgr.ExitEditorMode += () =>
+        {            
+            ShowGrid = false;
+        };
         if(Camera!=null)
             ((CameraCtrl)Camera).CameraZoom += QueueRedraw;
         CreateGrid();
-            
-        ShowGrid = false;
     }
 
     public override void _Process(double delta)
     {
-        base._Process(delta);
+        if (Engine.IsEditorHint()) return;
         if (!_refreshPreviewScheduled) return;
         _refreshPreviewScheduled = false;
         QueueRedraw();
@@ -208,7 +215,8 @@ public partial class GridMgr : Node2D
     }
     public override void _Draw()
     {
-        _refreshPreview();
+        if(!Engine.IsEditorHint())
+            _refreshPreview();
         if (!ShowGrid)
             return;
         var lineWidth = 10f;
