@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/GridMgr.cs" id="2_lnu2h"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/CameraCtrl.cs" id="4_lbhrr"]
-[ext_resource type="PackedScene" path="res://scenes/hud_ui.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://dmtygt5cvj1tn" path="res://scenes/hud_ui.tscn" id="5_iywne"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 
@@ -31,8 +31,8 @@ limit_top = -1000
 limit_right = 38000
 limit_bottom = 4299
 script = ExtResource("4_lbhrr")
-_moveSpeed = 1000.0
 _dragSpeed = 100.0
+_edgeRatio = 0.001
 _zoomFactor = 1.05
 _minZoom = 0.2
 _maxZoom = 0.9

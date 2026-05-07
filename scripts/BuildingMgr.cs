@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public partial class BuildingMgr : Node2D
 {
-    private string _selectedBuildingName = string.Empty;
     private string _selectedBuildingId = string.Empty;
     private GridMgr _gridMgr;
     private BuildingBase _tmpBuilding;
@@ -21,7 +20,6 @@ public partial class BuildingMgr : Node2D
                 EmitSignalEnterEditorMode();
                 return;
             }
-            _selectedBuildingName = string.Empty;
             _tmpBuilding?.QueueFree();
             _tmpBuilding = null;
             GD.Print("取消选择");
@@ -35,6 +33,8 @@ public partial class BuildingMgr : Node2D
     public delegate void EnterEditorModeEventHandler();
     [Signal]
     public delegate void ExitEditorModeEventHandler();
+    
+    private BuildingSideBar  _sideBar;
     public override void _Ready()
     {
         _gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
@@ -42,6 +42,8 @@ public partial class BuildingMgr : Node2D
         {
             GD.PrintErr("未找到 gridMgr 节点");
         }
+        _sideBar =  GetTree().CurrentScene.GetNode<BuildingSideBar>("CanvasLayer/HUDRoot/BuildingSideBar");
+        _sideBar.SideBarBuildingSelected += SelectBuilding;
     }
 
     public override void _Process(double delta)
@@ -69,22 +71,6 @@ public partial class BuildingMgr : Node2D
 
         switch (keyEvent.Keycode)
         {
-            case Key.Key1:
-                SelectBuilding("dorm", "宿舍");
-                break;
-
-            case Key.Key2:
-                SelectBuilding("building", "实验室");
-                break;
-
-            case Key.Key3:
-                SelectBuilding("green", "绿地");
-                break;
-            
-            case Key.Escape:
-                IsEditing = false;
-                break;
-            
             case Key.Q:
                 _tmpBuilding?.RotateBuilding(false);
                 break;
@@ -94,11 +80,14 @@ public partial class BuildingMgr : Node2D
         }
     }
 
-    private void SelectBuilding(string buildingId, string displayName)
+    private void SelectBuilding(string buildingId)
     {
+        if(buildingId == string.Empty)
+        {
+            IsEditing = false;
+            return;
+        }
         IsEditing = true;
-        GD.Print($"选择：{displayName}");
-        _selectedBuildingName = displayName;
         _selectedBuildingId = buildingId;
         if (_tmpBuilding != null) _tmpBuilding.Name = "tmpBuilding_toBeFreed";
         _tmpBuilding?.QueueFree();
@@ -123,7 +112,7 @@ public partial class BuildingMgr : Node2D
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
         _spawnedBuildings.Add(building);
-        building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingName;
+        building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingId;
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dmtygt5cvj1tn"]
 
 [ext_resource type="Script" uid="uid://jdkmy2i8qg6v" path="res://scripts/TopBar.cs" id="1_27bld"]
+[ext_resource type="Script" uid="uid://c7yfp5347830e" path="res://scripts/BuildingSideBar.cs" id="2_lecxb"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974]
 
@@ -33,3 +34,28 @@ text = "0000"
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "下一年"
+
+[node name="BuildingSideBar" type="PanelContainer" parent="HUDRoot" unique_id=1250344828]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -93.0
+offset_top = -175.0
+offset_bottom = 222.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("2_lecxb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuildingSideBar" unique_id=1548977131]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="HUDRoot/BuildingSideBar/VBoxContainer" unique_id=1839966837]
+layout_mode = 2
+size_flags_vertical = 3
+allow_reselect = true
+fixed_column_width = 64
+icon_mode = 0
+fixed_icon_size = Vector2i(64, 64)

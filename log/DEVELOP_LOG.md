@@ -19,3 +19,9 @@
 ![image-20260507013709090](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260507013709090.png)
 
 加了一个时间管理器，可以控制年份前进。加了一个hud ui显示。加了一个摄像机的移动限制。
+
+# 5.7
+
+加了右侧选择建筑的，现在支持快捷键选择点击选择，右键和escape以及重复点击快捷键或右侧栏来取消。
+
+![image-20260508012944541](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260508012944541.png)

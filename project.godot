@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+MCPGameBridge="res://addons/godot_mcp/game_bridge/mcp_game_bridge.gd"
 TimeMgr="*uid://c8ph1gtv4p4o6"
 
 [dotnet]
