@@ -105,6 +105,7 @@ public partial class BuildingSideBar : PanelContainer
 
 	private void _DeselectAll()
 	{
+		_onSelectedIndex = -1;
 		_itemList.DeselectAll();
 		EmitSignal(SignalName.SideBarBuildingSelected, string.Empty);
 	}
