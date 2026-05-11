@@ -4,20 +4,22 @@ using System.Collections.Generic;
 
 public partial class BuildingBase : Node2D
 {
-	[Export] private float _research = 0f;
-	[Export] private float _education = 0f;
-	[Export] private float _life = 0f;
-	[Export] private float _population = 0f;
-	[Export] private float _cost = 0f;
+	public float _research = 0f;
+	public float _education = 0f;
+	public float _environment = 0f;
+	public float _population = 0f;
+	public float _cost = 0f;
+	public float _benefit = 0f;
 	private float _researchMultiplier = 1f;
 	private float _educationMultiplier = 1f;
 	private float _lifeMultiplier = 1f;
 	private float _populationMultiplier = 1f;
 	public float Cost => _cost;
+	public float Benefit => _benefit;
 	public float Population => _population * _populationMultiplier;
 	public float Research => _research * _researchMultiplier;
 	public float Education => _education * _educationMultiplier;
-	public float Life => _life * _lifeMultiplier;
+	public float Environment => _environment * _lifeMultiplier;
 
 
 	private int _rotationStep = 0;
@@ -156,6 +158,16 @@ public partial class BuildingBase : Node2D
 			}
 		}
 		return areas;
+	}
+	
+	public void InitializeProperties(BuildingData data)
+	{
+		_research = data.Research;
+		_education = data.Education;
+		_environment = data.Environment;
+		_population = data.Population;
+		_cost = data.Cost;
+		_benefit = data.Benefit;
 	}
 }
 

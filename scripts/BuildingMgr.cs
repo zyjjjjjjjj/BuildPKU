@@ -1,6 +1,22 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+
+public class BuildingData
+{
+    public string Id{get;set;}
+    public string Name{get;set;}
+    public string IconPath => "res://icon.svg";
+    public string ScenePath => $"res://buildings/{Id}.tscn";
+    public float Research { get; set; }
+    public float Education { get; set; }
+    public float Environment { get; set; }
+    public float Cost { get; set; }
+    public float Benefit { get; set; }
+    public float Population { get; set; }
+}
+
 
 public partial class BuildingMgr : Node2D
 {
@@ -27,6 +43,11 @@ public partial class BuildingMgr : Node2D
         }
     }
 
+    private Dictionary<string, BuildingData> _allBuildingDict;
+    private string _buildingListJsonPath = "res://buildings/BuildingsID.json";
+
+    public Dictionary<string, BuildingData> AllBuildingDict => _allBuildingDict;
+
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
     [Signal]
@@ -44,6 +65,38 @@ public partial class BuildingMgr : Node2D
         }
         _sideBar =  GetTree().CurrentScene.GetNode<BuildingSideBar>("CanvasLayer/HUDRoot/BuildingSideBar");
         _sideBar.SideBarBuildingSelected += SelectBuilding;
+        _allBuildingDict = LoadBuildingList();
+    }
+    
+    private Dictionary<string, BuildingData> LoadBuildingList()
+    {
+        if (!FileAccess.FileExists(_buildingListJsonPath))
+        {
+            GD.PrintErr($"JSON 文件不存在: {_buildingListJsonPath}");
+            return null;
+        }
+
+        using var file = FileAccess.Open(_buildingListJsonPath, FileAccess.ModeFlags.Read);
+        string jsonString = file.GetAsText();
+
+        var list =  JsonSerializer.Deserialize<List<BuildingData>>(jsonString);
+        if (list == null)
+        {
+            GD.PrintErr("BuildingData JSON 解析失败");
+            return null;
+        }
+
+        var dict = new Dictionary<string, BuildingData>();
+        foreach (var building in list)
+        {
+            if (!dict.TryAdd(building.Id, building))
+            {
+                GD.PrintErr($"重复的 BuildingData Id: {building.Id}");
+                continue;
+            }
+        }
+
+        return dict;
     }
 
     public override void _Process(double delta)
@@ -91,7 +144,7 @@ public partial class BuildingMgr : Node2D
         _selectedBuildingId = buildingId;
         if (_tmpBuilding != null) _tmpBuilding.Name = "tmpBuilding_toBeFreed";
         _tmpBuilding?.QueueFree();
-        var buildingScene = GD.Load<PackedScene>($"res://buildings/{buildingId}.tscn");
+        var buildingScene = GD.Load<PackedScene>(AllBuildingDict[buildingId].ScenePath);
         _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
         _tmpBuilding.Name = "tmpBuilding";
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
@@ -108,7 +161,7 @@ public partial class BuildingMgr : Node2D
 
     public void SpawnBuilding(Vector2 localPos, int zIdx)
     {
-        var buildingScene = GD.Load<PackedScene>($"res://buildings/{_selectedBuildingId}.tscn");
+        var buildingScene = GD.Load<PackedScene>(AllBuildingDict[_selectedBuildingId].ScenePath);
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
         _spawnedBuildings.Add(building);
@@ -116,6 +169,7 @@ public partial class BuildingMgr : Node2D
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;
+        building.InitializeProperties(AllBuildingDict[_selectedBuildingId]);
         EmitSignalSpawnedBuilding(building);
     }
 }

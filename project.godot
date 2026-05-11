@@ -17,7 +17,6 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-MCPGameBridge="res://addons/godot_mcp/game_bridge/mcp_game_bridge.gd"
 TimeMgr="*uid://c8ph1gtv4p4o6"
 
 [dotnet]
@@ -30,7 +29,7 @@ movie_writer/movie_file="D:/Projects/build-pku/movie/test.avi"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_mcp/plugin.cfg", "res://addons/rider-plugin/plugin.cfg")
+enabled=PackedStringArray("res://addons/rider-plugin/plugin.cfg")
 
 [godot_mcp]
 

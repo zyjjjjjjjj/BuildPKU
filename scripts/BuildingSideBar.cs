@@ -11,46 +11,31 @@ public partial class BuildingSideBar : PanelContainer
 	[Signal] public delegate void SideBarBuildingSelectedEventHandler(string id);
 	const string JsonPath = "res://buildings/BuildingsID.json";
 
-	private List<BuildingData> _buildingList;
+	private Dictionary<string, BuildingData> _buildingList;
 	private BuildingMgr _buildingMgr;
 
 	private long _onSelectedIndex = -1;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
-		LoadBuildingList();
-
+		_buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
+		_buildingList = _buildingMgr.AllBuildingDict;
 		InitializeItemList();
-		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
-	}
-
-	private void LoadBuildingList()
-	{
-		if (!FileAccess.FileExists(JsonPath))
-		{
-			GD.PrintErr($"JSON 文件不存在: {JsonPath}");
-			return;
-		}
-
-		using var file = FileAccess.Open(JsonPath, FileAccess.ModeFlags.Read);
-		string jsonString = file.GetAsText();
-
-		_buildingList = JsonSerializer.Deserialize<List<BuildingData>>(jsonString);
 	}
 	private void InitializeItemList()
 	{
+		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
 		// 清空并填充
 		_itemList.Clear();
-        
-		foreach (var data in _buildingList)
+		foreach (var pair in _buildingList)
 		{
-			string displayText = data.Name;
-            
+			var data = pair.Value;
+			var displayText = data.Name;
 			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
 			_itemList.AddItem(displayText, icon);
 			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
 		}
+		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
 
 	private void _OnSideBarSelectedBuilding(long index)
@@ -114,11 +99,4 @@ public partial class BuildingSideBar : PanelContainer
 	public override void _Process(double delta)
 	{
 	}
-}
-
-public class BuildingData
-{
-	public string Id{get;set;}
-	public string Name{get;set;}
-	public string IconPath{get;set;}
 }
