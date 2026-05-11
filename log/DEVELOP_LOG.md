@@ -27,7 +27,7 @@
 ![image-20260508012944541](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260508012944541.png)
 
 # 5.11
-
+![alt text](image-3.png)
 金钱系统，包括初始金钱，每年自然增长，放建筑花钱和钱不够的提示。另外把读取buildingjson重新提了一个工具类文件出来。
 
-![image-20260511173921790](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260511173921790.png)
+实现ScoreMgr, 计分板, 优化单例类实现方式
