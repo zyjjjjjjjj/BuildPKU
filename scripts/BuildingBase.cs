@@ -80,16 +80,11 @@ public partial class BuildingBase : Node2D
 			return _currentShape;
 		}
 	}
-	
-	private GridMgr _gridMgr;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
-		if(_gridMgr == null)
-			throw new Exception("GridMgr not found");
-		var scale = _gridMgr.CellSize / BuildingGridNode.CellSize;
+		var scale = GridMgr.Instance.CellSize / BuildingGridNode.CellSize;
 		_setUpCollision();
 		Scale = new Vector2(scale, scale);
 		Rotation = 0f;

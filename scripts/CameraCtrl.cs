@@ -22,8 +22,6 @@ public partial class CameraCtrl : Camera2D
 	private Vector2 _leftTop;
 	private Vector2 _rightBottom;
 	
-	private GridMgr _gridMgr;
-	private BuildingMgr _buildingMgr;
 	private bool _isMiddleDragging;
 	private Vector2 _lastMousePos;
 
@@ -33,25 +31,16 @@ public partial class CameraCtrl : Camera2D
 	public override void _Ready()
 	{
 		MakeCurrent();
-		_gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
-		if (_gridMgr == null){
-			throw new InvalidOperationException("GridMgr 是 null，请检查节点路径");
-		}
-		_buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
-		if (_buildingMgr == null)
-		{
-			throw new InvalidOperationException("BuildingMgr 是 null，请检查节点路径");
-		}
-		_buildingMgr.EnterEditorMode += () =>
+		BuildingMgr.Instance.EnterEditorMode += () =>
 		{
 			_mode = Mode.Edit;
 		};
-		_buildingMgr.ExitEditorMode += () =>
+		BuildingMgr.Instance.ExitEditorMode += () =>
 		{
 			_mode = Mode.Normal;
 		};
-		_leftTop = _gridMgr.GlobalPosition;
-		_rightBottom = _leftTop + _gridMgr.GridSize*_gridMgr.CellSize;
+		_leftTop = GridMgr.Instance.GlobalPosition;
+		_rightBottom = _leftTop + GridMgr.Instance.GridSize*GridMgr.Instance.CellSize;
 	}
 
 	public override void _Process(double delta)

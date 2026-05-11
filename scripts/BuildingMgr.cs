@@ -21,7 +21,6 @@ public partial class BuildingMgr : Node2D
 {
     public static BuildingMgr Instance { get; private set; }
     private string _selectedBuildingId = string.Empty;
-    private GridMgr _gridMgr;
     private BuildingBase _tmpBuilding;
     public readonly List<BuildingBase> SpawnedBuildings = [];
     private Label _buildWarningLabel;
@@ -70,11 +69,6 @@ public partial class BuildingMgr : Node2D
     
     public override void _Ready()
     {
-        _gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
-        if (_gridMgr == null)
-        {
-            GD.PrintErr("未找到 gridMgr 节点");
-        }
         _sideBar =  GetTree().CurrentScene.GetNode<BuildingSideBar>("CanvasLayer/HUDRoot/BuildingSideBar");
         _sideBar.SideBarBuildingSelected += SelectBuilding;
         _allBuildingDict = BuildingDatabase.GetAll();
@@ -137,7 +131,7 @@ public partial class BuildingMgr : Node2D
         if (_tmpBuilding == null)
             return;
 
-        var offset = _gridMgr.CheckSpace(_tmpBuilding, out var zIdx);
+        var offset = GridMgr.Instance.CheckSpace(_tmpBuilding, out var zIdx);
         if (!offset.HasValue)
             return;
 
