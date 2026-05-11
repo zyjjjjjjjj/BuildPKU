@@ -37,12 +37,8 @@ public partial class MoneyMgr : Node
 	
 	public override void _Ready()
 	{
-		CurrentMoney = InitialMoney;
-
-		if (TimeMgr.Instance != null)
-		{
-			TimeMgr.Instance.YearAdvanced += _OnYearAdvanced;
-		}
+		_currentMoney = InitialMoney;
+		TimeMgr.Instance.YearAdvanced += _OnYearAdvanced;
 	}
 
 	private void _OnYearAdvanced(int year)

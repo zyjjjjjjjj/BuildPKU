@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 public class BuildingData
 {
@@ -54,8 +55,6 @@ public partial class BuildingMgr : Node2D
     [Signal]
     public delegate void ExitEditorModeEventHandler();
     
-    private BuildingSideBar  _sideBar;
-    
     public override void _EnterTree()
     {
         Instance = this;
@@ -66,11 +65,10 @@ public partial class BuildingMgr : Node2D
         if(Instance == this)
             Instance = null;
     }
-    
+
     public override void _Ready()
     {
-        _sideBar =  GetTree().CurrentScene.GetNode<BuildingSideBar>("CanvasLayer/HUDRoot/BuildingSideBar");
-        _sideBar.SideBarBuildingSelected += SelectBuilding;
+        BuildingSideBar.Instance.SideBarBuildingSelected += SelectBuilding;
         _allBuildingDict = BuildingDatabase.GetAll();
     }
 
@@ -126,7 +124,7 @@ public partial class BuildingMgr : Node2D
         AddChild(_tmpBuilding);
     }
 
-    public void TrySpawnBuilding()
+    public void TrySpawnBuilding(bool cost=true)
     {
         if (_tmpBuilding == null)
             return;
@@ -139,7 +137,7 @@ public partial class BuildingMgr : Node2D
         if (buildingData == null)
             return;
 
-        if (!MoneyMgr.Instance.TrySpend(buildingData.Cost))
+        if (cost && !MoneyMgr.Instance.TrySpend(buildingData.Cost))
         {
             WarningPanel.Instance.ShowWarning($"钱不够，需要 ￥{buildingData.Cost}");
             return;
@@ -154,11 +152,29 @@ public partial class BuildingMgr : Node2D
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
         SpawnedBuildings.Add(building);
-        building.Name = SpawnedBuildings.Count.ToString() + '_' + _selectedBuildingId;
+        building.Name = _selectedBuildingId + '_' + SpawnedBuildings.Count.ToString();
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;
         building.InitializeProperties(AllBuildingDict[_selectedBuildingId]);
         EmitSignalSpawnedBuilding(building);
+    }
+
+    public void SetUpInitialBuildings()
+    {
+        var initialBuild = GetChildren();
+        foreach (var node in initialBuild)
+        {
+            if(node is BuildingBase building)
+            {
+                _tmpBuilding = building;
+                _selectedBuildingId = Regex.Replace(building.Name, @"\d+$", "");
+                _tmpBuilding.Name = "tmpBuilding";
+                TrySpawnBuilding(false);
+                _tmpBuilding.Name = "tobedeleted";
+                _tmpBuilding.QueueFree();
+                _tmpBuilding = null;
+            }
+        }
     }
 }

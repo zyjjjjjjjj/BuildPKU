@@ -11,8 +11,7 @@ public partial class TopBar : HBoxContainer
 	{		
 		_yearLabel = GetNode<Label>("YearLabel");
 		TimeMgr.Instance.YearAdvanced += _yearUpdate;
-		_yearUpdate(TimeMgr.Instance.CurrentYear);
-		
+		_yearUpdate(TimeMgr.Instance.InitialYear);
 		_nextYearButton = GetNode<Button>("NextYearButton");
 		_nextYearButton.Pressed += () => TimeMgr.Instance.AdvanceYear();
 	}

@@ -24,6 +24,11 @@ public partial class ScoreBoard : PanelContainer
 	{
 		set => _popLabel.Text = $"{value:F2}";
 	}
+
+	public float Money
+	{
+		set => _moneyLabel.Text = $"{value:F2}";
+	}
 	public float ResWeight
 	{
 		set => _resWeightLabel.Text = $"{value:F2}";
@@ -61,7 +66,7 @@ public partial class ScoreBoard : PanelContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		InitializeLabels();
+		InitializeScores();
 		MoneyMgr.Instance.MoneyChanged += _updateMoney;
 		ScoreMgr.Instance.ScoreChanged += _updateScore;
 	}
@@ -70,20 +75,6 @@ public partial class ScoreBoard : PanelContainer
 	public override void _Process(double delta)
 	{
 		
-	}
-
-	private void InitializeLabels()
-	{
-	// 	_repLabel = GetNode<Label>("VBoxContainer/RepBoard/Score");
-	// 	_resLabel = GetNode<Label>("VBoxContainer/ResBoard/Score");
-	// 	_eduLabel = GetNode<Label>("VBoxContainer/EduBoard/Score");
-	// 	_envLabel = GetNode<Label>("VBoxContainer/EnvBoard/Score");
-	// 	_popLabel = GetNode<Label>("VBoxContainer/PopBoard/Score");
-	// 	_resWeightLabel = GetNode<Label>("VBoxContainer/ResBoard/Weight");
-	// 	_eduWeightLabel = GetNode<Label>("VBoxContainer/EduBoard/Weight");
-	// 	_envWeightLabel = GetNode<Label>("VBoxContainer/EnvBoard/Weight");
-		InitializeScores();
-		return;
 	}
 	
 	
@@ -97,6 +88,7 @@ public partial class ScoreBoard : PanelContainer
 		ResWeight = 0;
 		EduWeight = 0;
 		EnvWeight = 0;
+		Money = MoneyMgr.Instance.InitialMoney;
 		return;
 	}
 	

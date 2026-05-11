@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bcbum02nfn5q3"]
 
+[ext_resource type="Script" uid="uid://bpbwgwof5ifvx" path="res://scripts/GameMgr.cs" id="1_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/GridMgr.cs" id="2_lnu2h"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
@@ -10,20 +11,7 @@
 [ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/TimeMgr.cs" id="8_0tnpc"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
-
-[node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
-position = Vector2(1278.7384, 1598.5015)
-scale = Vector2(18.004086, 22.992163)
-texture = ExtResource("1_yqjtg")
-
-[node name="gridMgr" type="Node2D" parent="." unique_id=1318667080]
-script = ExtResource("2_lnu2h")
-GridWidth = 40
-GridHeight = 50
-
-[node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
-y_sort_enabled = true
-script = ExtResource("3_lbhrr")
+script = ExtResource("1_0tnpc")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
 position = Vector2(1253, 1589)
@@ -40,7 +28,19 @@ _zoomFactor = 1.05
 _minZoom = 0.2
 _maxZoom = 0.9
 
-[node name="CanvasLayer" parent="." unique_id=1735141974 instance=ExtResource("5_iywne")]
+[node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
+position = Vector2(1278.7384, 1598.5015)
+scale = Vector2(18.004086, 22.992163)
+texture = ExtResource("1_yqjtg")
+
+[node name="gridMgr" type="Node2D" parent="." unique_id=1318667080]
+script = ExtResource("2_lnu2h")
+GridWidth = 40
+GridHeight = 50
+
+[node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
+y_sort_enabled = true
+script = ExtResource("3_lbhrr")
 
 [node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
 script = ExtResource("6_p57ef")
@@ -50,3 +50,5 @@ script = ExtResource("7_gee14")
 
 [node name="TimeMgr" type="Node" parent="." unique_id=1872149243]
 script = ExtResource("8_0tnpc")
+
+[node name="CanvasLayer" parent="." unique_id=1735141974 instance=ExtResource("5_iywne")]

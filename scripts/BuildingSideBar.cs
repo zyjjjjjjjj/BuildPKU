@@ -3,11 +3,25 @@ using Godot;
 
 public partial class BuildingSideBar : PanelContainer
 {
+	public static BuildingSideBar Instance { get; private set; }
 	[Export] private ItemList _itemList;
 	
 	[Signal] public delegate void SideBarBuildingSelectedEventHandler(string id);
 
 	private long _onSelectedIndex = -1;
+	
+	
+	public override void _EnterTree()
+	{
+		Instance = this;
+	}
+
+	public override void _ExitTree()
+	{
+		if(Instance == this)
+			Instance = null;
+	}
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
