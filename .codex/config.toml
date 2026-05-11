@@ -1,6 +1,0 @@
-[mcp_servers.godot-mcp]
-args = [
-    "-y",
-    "@satelliteoflove/godot-mcp",
-]
-command = "npx"

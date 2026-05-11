@@ -11,3 +11,4 @@ addons/rider-plugin/
 addons/godot_mcp/
 .claude/
 .DS_Store
+.codex/
