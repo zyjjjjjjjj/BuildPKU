@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://jdkmy2i8qg6v" path="res://scripts/TopBar.cs" id="1_27bld"]
 [ext_resource type="Script" uid="uid://c7yfp5347830e" path="res://scripts/BuildingSideBar.cs" id="2_lecxb"]
+[ext_resource type="Script" uid="uid://dmi3lgy7hhtc1" path="res://scenes/ScoreBoard.cs" id="3_lecxb"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974]
 
@@ -59,3 +60,113 @@ allow_reselect = true
 fixed_column_width = 64
 icon_mode = 0
 fixed_icon_size = Vector2i(64, 64)
+
+[node name="ScoreBoard" type="PanelContainer" parent="HUDRoot" unique_id=533308985]
+layout_mode = 1
+script = ExtResource("3_lecxb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/ScoreBoard" unique_id=298085871]
+layout_mode = 2
+
+[node name="RepBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/VBoxContainer" unique_id=1421732847]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/RepBoard" unique_id=1646741562]
+layout_mode = 2
+text = "全球声誉:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/RepBoard" unique_id=491607657]
+layout_mode = 2
+text = "0000"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/RepBoard" unique_id=390936908]
+layout_mode = 2
+text = "="
+
+[node name="ResBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/VBoxContainer" unique_id=1059200549]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/ResBoard" unique_id=1857152148]
+layout_mode = 2
+text = "科研:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/ResBoard" unique_id=1060563017]
+layout_mode = 2
+text = "0000"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/ResBoard" unique_id=116565305]
+layout_mode = 2
+text = "×"
+
+[node name="Label4" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/ResBoard" unique_id=1607995093]
+layout_mode = 2
+text = "权重:"
+
+[node name="Weight" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/ResBoard" unique_id=823646389]
+layout_mode = 2
+text = "0000"
+
+[node name="Label6" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/ResBoard" unique_id=348918084]
+layout_mode = 2
+text = "+"
+
+[node name="EduBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/VBoxContainer" unique_id=535232566]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EduBoard" unique_id=108725855]
+layout_mode = 2
+text = "教学:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EduBoard" unique_id=1394569197]
+layout_mode = 2
+text = "0000"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EduBoard" unique_id=1404301652]
+layout_mode = 2
+text = "×"
+
+[node name="Label4" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EduBoard" unique_id=425947429]
+layout_mode = 2
+text = "权重:"
+
+[node name="Weight" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EduBoard" unique_id=1258484906]
+layout_mode = 2
+text = "0000"
+
+[node name="Label6" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EduBoard" unique_id=1495324596]
+layout_mode = 2
+text = "+"
+
+[node name="EnvBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/VBoxContainer" unique_id=1463965267]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EnvBoard" unique_id=130983533]
+layout_mode = 2
+text = "环境:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EnvBoard" unique_id=375428011]
+layout_mode = 2
+text = "0000"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EnvBoard" unique_id=1705974370]
+layout_mode = 2
+text = "×"
+
+[node name="Label4" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EnvBoard" unique_id=1055042485]
+layout_mode = 2
+text = "权重:"
+
+[node name="Weight" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/EnvBoard" unique_id=806325664]
+layout_mode = 2
+text = "0000"
+
+[node name="PopBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/VBoxContainer" unique_id=1153925428]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/PopBoard" unique_id=2018163991]
+layout_mode = 2
+text = "人口:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/VBoxContainer/PopBoard" unique_id=1817101457]
+layout_mode = 2
+text = "0000"

@@ -23,7 +23,7 @@ public partial class BuildingMgr : Node2D
     private string _selectedBuildingId = string.Empty;
     private GridMgr _gridMgr;
     private BuildingBase _tmpBuilding;
-    private List<BuildingBase> _spawnedBuildings = new List<BuildingBase>();
+    public List<BuildingBase> SpawnedBuildings = new List<BuildingBase>();
     private bool _isEditing = false;
     public bool IsEditing
     {
@@ -164,8 +164,8 @@ public partial class BuildingMgr : Node2D
         var buildingScene = GD.Load<PackedScene>(AllBuildingDict[_selectedBuildingId].ScenePath);
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
-        _spawnedBuildings.Add(building);
-        building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingId;
+        SpawnedBuildings.Add(building);
+        building.Name = SpawnedBuildings.Count.ToString() + '_' + _selectedBuildingId;
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;
