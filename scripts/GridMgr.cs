@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [Tool]
 public partial class GridMgr : Node2D
 {
+    public static GridMgr Instance { get; private set; }
     private int _gridWidth = 8;
     private int _gridHeight = 6;
 
@@ -16,18 +17,6 @@ public partial class GridMgr : Node2D
     private Dictionary<CellArea, Vector2I> _area2idx = new Dictionary<CellArea, Vector2I>();
     private bool _refreshPreviewScheduled = false;
     private readonly Dictionary<Vector2I, string> _occupied = new();
-    private BuildingMgr _buildingMgr;
-    private BuildingMgr BuildingMgr
-    {
-        get
-        {
-            if (Engine.IsEditorHint())
-                return null;
-            if (_buildingMgr == null)
-                _buildingMgr = (BuildingMgr)GetNode("BuildingMgr");
-            return _buildingMgr;
-        }
-    }
     private Camera2D _camera;
     private Camera2D Camera
     {
@@ -90,21 +79,27 @@ public partial class GridMgr : Node2D
             QueueRedraw();
         }
     }
+    
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
+
+    public override void _ExitTree()
+    {
+        if(Instance == this)
+            Instance = null;
+    }
     public override void _Ready()
     {
         if (Engine.IsEditorHint()) return;
         ShowGrid = false;
-        _buildingMgr = GetTree().CurrentScene.GetNode<BuildingMgr>("buildingMgr");
-        if (_buildingMgr == null)
-        {
-            throw new InvalidOperationException("BuildingMgr 是 null，请检查节点路径");
-        }
-        _buildingMgr.SpawnedBuilding += _updateOccupation;
-        _buildingMgr.EnterEditorMode += () =>
+        BuildingMgr.Instance.SpawnedBuilding += _updateOccupation;
+        BuildingMgr.Instance.EnterEditorMode += () =>
         {
             ShowGrid = true;
         };
-        _buildingMgr.ExitEditorMode += () =>
+        BuildingMgr.Instance.ExitEditorMode += () =>
         {            
             ShowGrid = false;
         };
@@ -180,12 +175,12 @@ public partial class GridMgr : Node2D
     private void _refreshPreview()
     {
         _clearPreview();
-        if(!ShowGrid || BuildingMgr == null)
+        if(!ShowGrid || BuildingMgr.Instance == null)
         {
             _refreshPreviewScheduled = false;
             return;
         }
-        var tmpBuilding = BuildingMgr.GetNodeOrNull<BuildingBase>("tmpBuilding");
+        var tmpBuilding = BuildingMgr.Instance.GetNodeOrNull<BuildingBase>("tmpBuilding");
         if (tmpBuilding == null)
         {
             _refreshPreviewScheduled = false;

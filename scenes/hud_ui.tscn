@@ -1,8 +1,13 @@
 [gd_scene format=3 uid="uid://dmtygt5cvj1tn"]
 
 [ext_resource type="Script" uid="uid://jdkmy2i8qg6v" path="res://scripts/TopBar.cs" id="1_27bld"]
-[ext_resource type="Script" uid="uid://xebu77u17w22" path="res://scenes/HUD.cs" id="1_lecxb"]
 [ext_resource type="Script" uid="uid://c7yfp5347830e" path="res://scripts/BuildingSideBar.cs" id="2_lecxb"]
+[ext_resource type="Script" uid="uid://xebu77u17w22" path="res://scripts/WarningPanel.cs" id="4_dh3a3"]
+[ext_resource type="Script" uid="uid://bfbjfqcb276r4" path="res://scripts/ScoreBoard.cs" id="4_vha3o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vha3o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dh3a3"]
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974]
 
@@ -13,34 +18,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_lecxb")
-
-[node name="TopBar" type="HBoxContainer" parent="HUDRoot" unique_id=1462200729]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -30.0
-offset_right = 30.0
-offset_bottom = 23.0
-grow_horizontal = 2
-alignment = 1
-script = ExtResource("1_27bld")
-
-[node name="YearLabel" type="Label" parent="HUDRoot/TopBar" unique_id=1259621921]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "0000"
-
-[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar" unique_id=1880808890]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "下一年"
-
-[node name="MoneyLabel" type="Label" parent="HUDRoot/TopBar" unique_id=2068169863]
-layout_mode = 2
-theme_override_font_sizes/font_size = 36
-text = "￥1234"
 
 [node name="BuildingSideBar" type="PanelContainer" parent="HUDRoot" unique_id=1250344828]
 layout_mode = 1
@@ -68,12 +45,222 @@ fixed_column_width = 64
 icon_mode = 0
 fixed_icon_size = Vector2i(64, 64)
 
-[node name="BuildWarningLabel" type="Label" parent="HUDRoot" unique_id=1322624406]
-layout_mode = 0
-offset_left = 727.0
-offset_top = 551.0
-offset_right = 1149.0
-offset_bottom = 618.0
+[node name="ScoreBoard" type="PanelContainer" parent="HUDRoot" unique_id=414033882 node_paths=PackedStringArray("_repLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_moneyLabel", "_resWeightLabel", "_eduWeightLabel", "_envWeightLabel")]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 155.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_vha3o")
+script = ExtResource("4_vha3o")
+_repLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/RepBoard/Score")
+_resLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard/Score")
+_eduLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard/Score")
+_envLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard/Score")
+_popLabel = NodePath("HBoxContainer/TopRight/TopRight/HBoxContainer/PopBoard/Score")
+_moneyLabel = NodePath("HBoxContainer/TopRight/TopRight/HBoxContainer/MoneyBoard/Score")
+_resWeightLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard/Weight")
+_eduWeightLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard/Weight")
+_envWeightLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard/Weight")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUDRoot/ScoreBoard" unique_id=1049101124]
+layout_mode = 2
+
+[node name="TopLeft" type="PanelContainer" parent="HUDRoot/ScoreBoard/HBoxContainer" unique_id=1263989155]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TopLeft" type="MarginContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft" unique_id=305374694]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft" unique_id=821738219]
+layout_mode = 2
+
+[node name="RepBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer" unique_id=1091718575]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/RepBoard" unique_id=1427369766]
+layout_mode = 2
+text = "全球声誉:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/RepBoard" unique_id=302661807]
+layout_mode = 2
+text = "0000"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/RepBoard" unique_id=1993613095]
+layout_mode = 2
+text = "="
+
+[node name="ResBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer" unique_id=309792828]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard" unique_id=1297574312]
+layout_mode = 2
+text = "科研:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard" unique_id=1612041681]
+layout_mode = 2
+text = "0000"
+
+[node name="Label2" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard" unique_id=1919637106]
+layout_mode = 2
+text = "×"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard" unique_id=1919186328]
+layout_mode = 2
+text = "权重:"
+
+[node name="Weight" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard" unique_id=1439138396]
+layout_mode = 2
+text = "0000"
+
+[node name="Label4" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/ResBoard" unique_id=1671146366]
+layout_mode = 2
+text = "+"
+
+[node name="EduBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer" unique_id=1977255177]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard" unique_id=1668828243]
+layout_mode = 2
+text = "教学:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard" unique_id=2011933437]
+layout_mode = 2
+text = "0000"
+
+[node name="Label2" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard" unique_id=1986932721]
+layout_mode = 2
+text = "×"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard" unique_id=1242708977]
+layout_mode = 2
+text = "权重:"
+
+[node name="Weight" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard" unique_id=1008959045]
+layout_mode = 2
+text = "0000"
+
+[node name="Label4" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EduBoard" unique_id=1819231003]
+layout_mode = 2
+text = "+"
+
+[node name="EnvBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer" unique_id=1889022952]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard" unique_id=207984402]
+layout_mode = 2
+text = "环境:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard" unique_id=490144320]
+layout_mode = 2
+text = "0000"
+
+[node name="Label2" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard" unique_id=140287549]
+layout_mode = 2
+text = "×"
+
+[node name="Label3" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard" unique_id=971323259]
+layout_mode = 2
+text = "权重:"
+
+[node name="Weight" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard" unique_id=865172146]
+layout_mode = 2
+text = "0000"
+
+[node name="Label4" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard" unique_id=1923134745]
+layout_mode = 2
+text = "+"
+
+[node name="Spacer" type="Control" parent="HUDRoot/ScoreBoard/HBoxContainer" unique_id=72129781]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TopRight" type="PanelContainer" parent="HUDRoot/ScoreBoard/HBoxContainer" unique_id=1380431058]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="TopRight" type="MarginContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight" unique_id=1234798578]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="VBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight" unique_id=2093991129]
+layout_mode = 2
+
+[node name="PopBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight/HBoxContainer" unique_id=1476486207]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight/HBoxContainer/PopBoard" unique_id=2075019868]
+layout_mode = 2
+text = "人口:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight/HBoxContainer/PopBoard" unique_id=772126061]
+layout_mode = 2
+text = "0000"
+
+[node name="MoneyBoard" type="HBoxContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight/HBoxContainer" unique_id=1647634317]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight/HBoxContainer/MoneyBoard" unique_id=1153067127]
+layout_mode = 2
+text = "资金:"
+
+[node name="Score" type="Label" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight/TopRight/HBoxContainer/MoneyBoard" unique_id=499301880]
+layout_mode = 2
+text = "0000"
+
+[node name="TopBar" type="HBoxContainer" parent="HUDRoot" unique_id=1462200729]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -162.0
+offset_right = 162.0
+offset_bottom = 58.0
+grow_horizontal = 2
+alignment = 1
+script = ExtResource("1_27bld")
+
+[node name="YearLabel" type="Label" parent="HUDRoot/TopBar" unique_id=1259621921]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "0000"
+
+[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar" unique_id=1880808890]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "下一年"
+
+[node name="WarningPanel" type="PanelContainer" parent="HUDRoot" unique_id=155276741]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_dh3a3")
+script = ExtResource("4_dh3a3")
+
+[node name="WarningLabel" type="Label" parent="HUDRoot/WarningPanel" unique_id=1322624406]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.9137255, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 2

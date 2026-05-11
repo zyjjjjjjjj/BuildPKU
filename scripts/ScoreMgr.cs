@@ -1,0 +1,142 @@
+using Godot;
+using System;
+
+public partial class ScoreMgr : Node
+{
+	public static ScoreMgr Instance { get; private set; }
+	public float Reputation => Research * ResWeight + Education * EduWeight + Environment * EnvWeight;
+	public float Research => ResBase * Population;
+	public float ResBase
+	{
+		get => _resBase;
+		set
+		{
+			_resBase = value;
+			EmitSignalScoreChanged();
+		}
+	}
+	private float _resBase = 0;
+	public float Education => EduBase * Population;
+	public float EduBase
+	{
+		get => _eduBase;
+		set
+		{
+			_eduBase = value;
+			EmitSignalScoreChanged();
+		}
+	}
+	private float _eduBase = 0;
+	public float Environment => EnvBase;
+	public float EnvBase
+	{
+		get => _envBase;
+		set
+		{
+			_envBase = value;
+			EmitSignalScoreChanged();
+		}
+	}
+	private float _envBase=0;
+
+	public float Population
+	{
+		get => _population;
+		set
+		{
+			_population = value;
+			EmitSignalScoreChanged();
+		}
+	}
+	private float _population=0;
+	public float ResWeight
+	{
+		get { return _resWeight; }
+		set
+		{
+			_resWeight = value;
+			EmitSignal(SignalName.ScoreChanged);
+		}
+	}
+	private float _resWeight=1;
+	public float EduWeight
+	{
+		get { return _eduWeight; }
+		set
+		{
+			_eduWeight = value;
+			EmitSignal(SignalName.ScoreChanged);
+		}
+	}
+	private float _eduWeight=1;
+	public float EnvWeight
+	{
+		get { return _envWeight; }
+		set
+		{
+			_envWeight = value;
+			EmitSignal(SignalName.ScoreChanged);
+		}
+	}
+	private float _envWeight=1;
+	
+	[Signal] public delegate void ScoreChangedEventHandler();
+
+	public override void _EnterTree()
+	{
+		Instance = this;
+	}
+
+	public override void _ExitTree()
+	{
+		if(Instance == this)
+			Instance = null;
+	}
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		BuildingMgr.Instance.SpawnedBuilding += UpdateScores;
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+	
+	private void InitializeScores()
+	{
+		Population = _population;
+		ResWeight = _resWeight;
+		EduWeight = _eduWeight;
+		EnvWeight = _envWeight;
+		return;
+	}
+
+
+	private void RecomputeScores()
+	{
+		var spawnedBuilding = BuildingMgr.Instance.SpawnedBuildings;
+		_resBase = 0f;
+		_eduBase = 0f;
+		_envBase = 0f;
+		_population = 0f;
+		foreach (var building in spawnedBuilding)
+		{
+			_resBase += building.Research;
+			_eduBase += building.Education;
+			_envBase += building.Environment;
+			_population += building.Population;
+		}
+		EmitSignalScoreChanged();
+	}
+
+	private void UpdateScores(BuildingBase building)
+	{
+		_resBase += building.Research;
+		_eduBase += building.Education;
+		_envBase += building.Environment;
+		_population += building.Population;
+		EmitSignal(SignalName.ScoreChanged);
+	}
+}

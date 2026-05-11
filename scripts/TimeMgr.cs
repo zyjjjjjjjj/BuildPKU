@@ -21,10 +21,20 @@ public partial class TimeMgr : Node
 	public int InitialYear = 1900;
 	[Signal] public delegate void YearAdvancedEventHandler(int newYear);
 	
+	public override void _EnterTree()
+	{
+		Instance = this;
+	}
+
+	public override void _ExitTree()
+	{
+		if(Instance == this)
+			Instance = null;
+	}
+	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		Instance = this;
 		CurrentYear = InitialYear;
 	}
 

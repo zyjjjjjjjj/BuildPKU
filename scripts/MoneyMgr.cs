@@ -5,12 +5,12 @@ public partial class MoneyMgr : Node
 {
 	public static MoneyMgr Instance { get; private set; }
 
-	[Export] public int InitialMoney = 2000;
-	[Export] public int MoneyPerYear = 100;
+	[Export] public float InitialMoney = 10000;
+	[Export] public float MoneyPerYear = 100;
 
-	private int _currentMoney;
+	private float _currentMoney;
 
-	public int CurrentMoney
+	public float CurrentMoney
 	{
 		get => _currentMoney;
 		private set
@@ -21,11 +21,22 @@ public partial class MoneyMgr : Node
 	}
 
 	[Signal]
-	public delegate void MoneyChangedEventHandler(int newMoney);
+	public delegate void MoneyChangedEventHandler(float newMoney);
 
-	public override void _Ready()
+	
+	public override void _EnterTree()
 	{
 		Instance = this;
+	}
+
+	public override void _ExitTree()
+	{
+		if(Instance == this)
+			Instance = null;
+	}
+	
+	public override void _Ready()
+	{
 		CurrentMoney = InitialMoney;
 
 		if (TimeMgr.Instance != null)
@@ -36,20 +47,22 @@ public partial class MoneyMgr : Node
 
 	private void _OnYearAdvanced(int year)
 	{
+		if(TimeMgr.Instance.InitialYear == year)
+			return;
 		AddMoney(MoneyPerYear);
 	}
 
-	public void AddMoney(int amount)
+	public void AddMoney(float amount)
 	{
 		CurrentMoney += amount;
 	}
 
-	public bool CanAfford(int cost)
+	public bool CanAfford(float cost)
 	{
 		return CurrentMoney >= cost;
 	}
 
-	public bool TrySpend(int cost)
+	public bool TrySpend(float cost)
 	{
 		if (!CanAfford(cost))
 			return false;

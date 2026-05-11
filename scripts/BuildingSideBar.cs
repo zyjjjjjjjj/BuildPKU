@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 public partial class BuildingSideBar : PanelContainer
@@ -6,31 +7,28 @@ public partial class BuildingSideBar : PanelContainer
 	
 	[Signal] public delegate void SideBarBuildingSelectedEventHandler(string id);
 
-	private BuildingMgr _buildingMgr;
-
 	private long _onSelectedIndex = -1;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
-
 		InitializeItemList();
-		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
 
 	private void InitializeItemList()
 	{
+		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
 		// 清空并填充
 		_itemList.Clear();
-        
-		foreach (var data in BuildingDatabase.GetAll())
+		foreach (var pair in BuildingDatabase.GetAll())
 		{
-			string displayText = $"{data.Name}\n￥{data.Cost}";
+			var data = pair.Value;
+			var displayText = $"{data.Name}\n￥{data.Cost}";
 
 			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
 			_itemList.AddItem(displayText, icon);
 			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
 		}
+		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
 
 	private void _OnSideBarSelectedBuilding(long index)

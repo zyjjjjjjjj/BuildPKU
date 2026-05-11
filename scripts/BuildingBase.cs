@@ -4,20 +4,22 @@ using System.Collections.Generic;
 
 public partial class BuildingBase : Node2D
 {
-	[Export] private float _research = 0f;
-	[Export] private float _education = 0f;
-	[Export] private float _life = 0f;
-	[Export] private float _population = 0f;
-	[Export] private float _cost = 0f;
-	private float _researchMultiplier = 1f;
-	private float _educationMultiplier = 1f;
-	private float _lifeMultiplier = 1f;
-	private float _populationMultiplier = 1f;
+	public float _research = 0f;
+	public float _education = 0f;
+	public float _environment = 0f;
+	public float _population = 0f;
+	public float _cost = 0f;
+	public float _benefit = 0f;
+	private float _resMultiplier = 1f;
+	private float _eduMultiplier = 1f;
+	private float _envMultiplier = 1f;
+	private float _popMultiplier = 1f;
 	public float Cost => _cost;
-	public float Population => _population * _populationMultiplier;
-	public float Research => _research * _researchMultiplier;
-	public float Education => _education * _educationMultiplier;
-	public float Life => _life * _lifeMultiplier;
+	public float Benefit => _benefit;
+	public float Population => _population * _popMultiplier;
+	public float Research => _research * _resMultiplier;
+	public float Education => _education * _eduMultiplier;
+	public float Environment => _environment * _envMultiplier;
 
 
 	private int _rotationStep = 0;
@@ -148,7 +150,7 @@ public partial class BuildingBase : Node2D
 	public List<Area2D> GetCollisionAreas()
 	{
 		var areas = new List<Area2D>();
-		foreach (var child in GetNode<BuildingGrid>("grid").GetChildren())
+		foreach (var child in BuildingGridNode.GetChildren())
 		{
 			if (child is Area2D area)
 			{
@@ -156,6 +158,16 @@ public partial class BuildingBase : Node2D
 			}
 		}
 		return areas;
+	}
+	
+	public void InitializeProperties(BuildingData data)
+	{
+		_research = data.Research;
+		_education = data.Education;
+		_environment = data.Environment;
+		_population = data.Population;
+		_cost = data.Cost;
+		_benefit = data.Benefit;
 	}
 }
 

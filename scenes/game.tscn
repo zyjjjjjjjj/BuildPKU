@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/CameraCtrl.cs" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dmtygt5cvj1tn" path="res://scenes/hud_ui.tscn" id="5_iywne"]
+[ext_resource type="Script" uid="uid://cpwyqocx4rhiv" path="res://scripts/ScoreMgr.cs" id="6_p57ef"]
+[ext_resource type="Script" uid="uid://dlelqsa4dfhac" path="res://scripts/MoneyMgr.cs" id="7_gee14"]
+[ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/TimeMgr.cs" id="8_0tnpc"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 
@@ -38,3 +41,12 @@ _minZoom = 0.2
 _maxZoom = 0.9
 
 [node name="CanvasLayer" parent="." unique_id=1735141974 instance=ExtResource("5_iywne")]
+
+[node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
+script = ExtResource("6_p57ef")
+
+[node name="MoneyMgr" type="Node" parent="." unique_id=250335711]
+script = ExtResource("7_gee14")
+
+[node name="TimeMgr" type="Node" parent="." unique_id=1872149243]
+script = ExtResource("8_0tnpc")

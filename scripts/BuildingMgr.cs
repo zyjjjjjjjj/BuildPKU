@@ -1,13 +1,29 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+
+public class BuildingData
+{
+    public string Id{get;set;}
+    public string Name{get;set;}
+    public string IconPath => "res://icon.svg";
+    public string ScenePath => $"res://buildings/{Id}.tscn";
+    public float Research { get; set; }
+    public float Education { get; set; }
+    public float Environment { get; set; }
+    public float Cost { get; set; }
+    public float Benefit { get; set; }
+    public float Population { get; set; }
+}
 
 public partial class BuildingMgr : Node2D
 {
+    public static BuildingMgr Instance { get; private set; }
     private string _selectedBuildingId = string.Empty;
     private GridMgr _gridMgr;
     private BuildingBase _tmpBuilding;
-    private List<BuildingBase> _spawnedBuildings = new List<BuildingBase>();
+    public readonly List<BuildingBase> SpawnedBuildings = [];
     private Label _buildWarningLabel;
     private Timer _buildWarningTimer;
     private bool _isEditing = false;
@@ -28,6 +44,9 @@ public partial class BuildingMgr : Node2D
             EmitSignalExitEditorMode();
         }
     }
+    public Dictionary<string, BuildingData> AllBuildingDict => _allBuildingDict;
+    private Dictionary<string, BuildingData> _allBuildingDict;
+    private string _buildingListJsonPath = "res://buildings/BuildingsID.json";
 
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
@@ -37,6 +56,18 @@ public partial class BuildingMgr : Node2D
     public delegate void ExitEditorModeEventHandler();
     
     private BuildingSideBar  _sideBar;
+    
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
+
+    public override void _ExitTree()
+    {
+        if(Instance == this)
+            Instance = null;
+    }
+    
     public override void _Ready()
     {
         _gridMgr = GetTree().CurrentScene.GetNode<GridMgr>("gridMgr");
@@ -46,6 +77,7 @@ public partial class BuildingMgr : Node2D
         }
         _sideBar =  GetTree().CurrentScene.GetNode<BuildingSideBar>("CanvasLayer/HUDRoot/BuildingSideBar");
         _sideBar.SideBarBuildingSelected += SelectBuilding;
+        _allBuildingDict = BuildingDatabase.GetAll();
     }
 
     public override void _Process(double delta)
@@ -93,7 +125,7 @@ public partial class BuildingMgr : Node2D
         _selectedBuildingId = buildingId;
         if (_tmpBuilding != null) _tmpBuilding.Name = "tmpBuilding_toBeFreed";
         _tmpBuilding?.QueueFree();
-        var buildingScene = GD.Load<PackedScene>($"res://buildings/{buildingId}.tscn");
+        var buildingScene = GD.Load<PackedScene>(AllBuildingDict[buildingId].ScenePath);
         _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
         _tmpBuilding.Name = "tmpBuilding";
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
@@ -109,13 +141,13 @@ public partial class BuildingMgr : Node2D
         if (!offset.HasValue)
             return;
 
-        var buildingData = BuildingDatabase.GetById(_selectedBuildingId);
+        var buildingData = AllBuildingDict[_selectedBuildingId];
         if (buildingData == null)
             return;
 
         if (!MoneyMgr.Instance.TrySpend(buildingData.Cost))
         {
-            HUD.Instance.ShowBuildWarning($"钱不够，需要 ￥{buildingData.Cost}");
+            WarningPanel.Instance.ShowWarning($"钱不够，需要 ￥{buildingData.Cost}");
             return;
         }
 
@@ -124,14 +156,15 @@ public partial class BuildingMgr : Node2D
 
     public void SpawnBuilding(Vector2 localPos, int zIdx)
     {
-        var buildingScene = GD.Load<PackedScene>($"res://buildings/{_selectedBuildingId}.tscn");
+        var buildingScene = GD.Load<PackedScene>(AllBuildingDict[_selectedBuildingId].ScenePath);
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
-        _spawnedBuildings.Add(building);
-        building.Name = _spawnedBuildings.Count.ToString() + '_' + _selectedBuildingId;
+        SpawnedBuildings.Add(building);
+        building.Name = SpawnedBuildings.Count.ToString() + '_' + _selectedBuildingId;
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;
+        building.InitializeProperties(AllBuildingDict[_selectedBuildingId]);
         EmitSignalSpawnedBuilding(building);
     }
 }
