@@ -25,12 +25,14 @@ public partial class BuildingSideBar : PanelContainer
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
 	}
 
 	private void InitializeItemList()
 	{
 		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
+		_itemList.MouseFilter = MouseFilterEnum.Stop;
 		// 清空并填充
 		_itemList.Clear();
 		foreach (var pair in BuildingDatabase.GetAll())
@@ -43,6 +45,23 @@ public partial class BuildingSideBar : PanelContainer
 			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
 		}
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
+	}
+
+	public override void _GuiInput(InputEvent @event)
+	{
+		AcceptWheelEvent(@event);
+	}
+
+	private void AcceptWheelEvent(InputEvent @event)
+	{
+		if (@event is not InputEventMouseButton mouseEvent)
+			return;
+
+		if (!mouseEvent.Pressed)
+			return;
+
+		if (mouseEvent.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown or MouseButton.WheelLeft or MouseButton.WheelRight)
+			AcceptEvent();
 	}
 
 	private void _OnSideBarSelectedBuilding(long index)
