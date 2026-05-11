@@ -13,7 +13,7 @@ position = Vector2(-33, -0.7499969)
 scale = Vector2(0.48632815, 0.48046875)
 texture = ExtResource("1_h5r06")
 
-[node name="grid" type="Node2D" parent="." unique_id=855007586 groups=["tmpBuilding"]]
+[node name="grid" type="Node2D" parent="." unique_id=855007586]
 position = Vector2(-65, -33)
 script = ExtResource("3_jhlaq")
 ShapeMask = Array[bool]([true])

@@ -20,7 +20,7 @@ rotation = -1.5707964
 scale = Vector2(0.49999997, 1.0390626)
 texture = ExtResource("2_ulc0c")
 
-[node name="grid" type="Node2D" parent="." unique_id=633337854 groups=["tmpBuilding"]]
+[node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-66, 0)
 script = ExtResource("3_gcflx")
 GridSize = Vector2i(2, 3)
