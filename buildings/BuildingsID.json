@@ -1,5 +1,5 @@
 [
-	{"Id":"dorm","Name":"宿舍","IconPath":"res://icon.svg"},
-	{"Id":"building","Name":"实验室","IconPath":"res://icon.svg"},
-	{"Id":"green","Name":"草地","IconPath":"res://icon.svg"}
+	{"Id":"dorm","Name":"宿舍","IconPath":"res://icon.svg","Cost": 100},
+	{"Id":"building","Name":"实验室","IconPath":"res://icon.svg","Cost": 300},
+	{"Id":"green","Name":"草地","IconPath":"res://icon.svg","Cost": 50}
 ]

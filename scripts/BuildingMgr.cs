@@ -8,6 +8,8 @@ public partial class BuildingMgr : Node2D
     private GridMgr _gridMgr;
     private BuildingBase _tmpBuilding;
     private List<BuildingBase> _spawnedBuildings = new List<BuildingBase>();
+    private Label _buildWarningLabel;
+    private Timer _buildWarningTimer;
     private bool _isEditing = false;
     public bool IsEditing
     {
@@ -100,10 +102,24 @@ public partial class BuildingMgr : Node2D
 
     public void TrySpawnBuilding()
     {
-        if (_tmpBuilding == null) return;
+        if (_tmpBuilding == null)
+            return;
+
         var offset = _gridMgr.CheckSpace(_tmpBuilding, out var zIdx);
-        if(offset.HasValue)
-            SpawnBuilding(offset.Value + _tmpBuilding.Position, zIdx);
+        if (!offset.HasValue)
+            return;
+
+        var buildingData = BuildingDatabase.GetById(_selectedBuildingId);
+        if (buildingData == null)
+            return;
+
+        if (!MoneyMgr.Instance.TrySpend(buildingData.Cost))
+        {
+            HUD.Instance.ShowBuildWarning($"钱不够，需要 ￥{buildingData.Cost}");
+            return;
+        }
+
+        SpawnBuilding(offset.Value + _tmpBuilding.Position, zIdx);
     }
 
     public void SpawnBuilding(Vector2 localPos, int zIdx)

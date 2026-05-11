@@ -25,3 +25,9 @@
 加了右侧选择建筑的，现在支持快捷键选择点击选择，右键和escape以及重复点击快捷键或右侧栏来取消。
 
 ![image-20260508012944541](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260508012944541.png)
+
+# 5.11
+
+金钱系统，包括初始金钱，每年自然增长，放建筑花钱和钱不够的提示。另外把读取buildingjson重新提了一个工具类文件出来。
+
+![image-20260511173921790](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260511173921790.png)

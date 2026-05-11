@@ -1,17 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
 using Godot;
-using System.Text.Json;
-using FileAccess = Godot.FileAccess;
 
 public partial class BuildingSideBar : PanelContainer
 {
 	[Export] private ItemList _itemList;
 	
 	[Signal] public delegate void SideBarBuildingSelectedEventHandler(string id);
-	const string JsonPath = "res://buildings/BuildingsID.json";
 
-	private List<BuildingData> _buildingList;
 	private BuildingMgr _buildingMgr;
 
 	private long _onSelectedIndex = -1;
@@ -19,34 +13,20 @@ public partial class BuildingSideBar : PanelContainer
 	public override void _Ready()
 	{
 		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
-		LoadBuildingList();
 
 		InitializeItemList();
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
 
-	private void LoadBuildingList()
-	{
-		if (!FileAccess.FileExists(JsonPath))
-		{
-			GD.PrintErr($"JSON 文件不存在: {JsonPath}");
-			return;
-		}
-
-		using var file = FileAccess.Open(JsonPath, FileAccess.ModeFlags.Read);
-		string jsonString = file.GetAsText();
-
-		_buildingList = JsonSerializer.Deserialize<List<BuildingData>>(jsonString);
-	}
 	private void InitializeItemList()
 	{
 		// 清空并填充
 		_itemList.Clear();
         
-		foreach (var data in _buildingList)
+		foreach (var data in BuildingDatabase.GetAll())
 		{
-			string displayText = data.Name;
-            
+			string displayText = $"{data.Name}\n￥{data.Cost}";
+
 			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
 			_itemList.AddItem(displayText, icon);
 			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
@@ -114,11 +94,4 @@ public partial class BuildingSideBar : PanelContainer
 	public override void _Process(double delta)
 	{
 	}
-}
-
-public class BuildingData
-{
-	public string Id{get;set;}
-	public string Name{get;set;}
-	public string IconPath{get;set;}
 }
