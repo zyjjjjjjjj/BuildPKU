@@ -11,7 +11,24 @@
 [ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/TimeMgr.cs" id="8_0tnpc"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
+<<<<<<< Updated upstream
 script = ExtResource("1_0tnpc")
+=======
+
+[node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
+position = Vector2(1278.7384, 1598.5015)
+scale = Vector2(18.004086, 22.992163)
+texture = ExtResource("1_yqjtg")
+
+[node name="gridMgr" type="Node2D" parent="." unique_id=1318667080]
+script = ExtResource("2_lnu2h")
+GridWidth = 40
+GridHeight = 51
+
+[node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
+y_sort_enabled = true
+script = ExtResource("3_lbhrr")
+>>>>>>> Stashed changes
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
 position = Vector2(1253, 1589)

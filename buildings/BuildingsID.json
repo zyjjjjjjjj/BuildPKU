@@ -1,5 +1,10 @@
 [
 	{"Id":"dorm","Name":"宿舍","Research":0,"Education":0,"Environment":10,"Population":50,"Cost":1000,"Benefit":0},
-	{"Id":"building","Name":"实验室","Research":10,"Education":3,"Environment":0,"Population":0,"Cost":2000,"Benefit":200},
-	{"Id":"green","Name":"草地","Research":0,"Education":0,"Environment":100,"Population":0,"Cost":100,"Benefit":0}
+	{"Id":"lab","Name":"实验室","Research":5,"Education":3,"Environment":0,"Population":0,"Cost":2000,"Benefit":2000},
+	{"Id":"green","Name":"草地","Research":0,"Education":0,"Environment":10,"Population":0,"Cost":100,"Benefit":0},
+	{"Id":"lake","Name":"未名湖","Research":0,"Education":0,"Environment":50,"Population":100,"Cost":0,"Benefit":1000},
+	{"Id":"administration","Name":"行政楼","Research":1,"Education":1,"Environment":0,"Population":0,"Cost":0,"Benefit":500},
+	{"Id":"library","Name":"老图书馆","Research":3,"Education":10,"Environment":0,"Population":0,"Cost":0,"Benefit":0},
+	{"Id":"teaching","Name":"文教楼","Research":5,"Education":5,"Environment":0,"Population":0,"Cost":4000,"Benefit":200},
+	{"Id":"ground","Name":"体育场","Research":0,"Education":0,"Environment":200,"Population":20,"Cost":0,"Benefit":100}
 ]

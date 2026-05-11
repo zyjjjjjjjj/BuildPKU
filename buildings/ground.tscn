@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://c512m4r8t6wyn"]
+
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/BuildingBase.cs" id="1_vdsfo"]
+[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_ukytp"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/BuildingGrid.cs" id="3_48b88"]
+
+[node name="building" type="Node2D" unique_id=229562284]
+script = ExtResource("1_vdsfo")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(-34, 33)
+scale = Vector2(0.44140628, 0.89062494)
+texture = ExtResource("2_ukytp")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1870447676]
+modulate = Color(0, 1, 0, 1)
+position = Vector2(30.000008, 97)
+scale = Vector2(0.44140628, 0.89062494)
+texture = ExtResource("2_ukytp")
+
+[node name="grid" type="Node2D" parent="." unique_id=855007586 groups=["tmpBuilding"]]
+position = Vector2(-65, -33)
+script = ExtResource("3_48b88")
+GridSize = Vector2i(2, 3)
+ShapeMask = Array[bool]([true, false, true, true, false, true])
