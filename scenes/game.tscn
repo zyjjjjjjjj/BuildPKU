@@ -6,11 +6,19 @@
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/BuildingMgr.cs" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/CameraCtrl.cs" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dmtygt5cvj1tn" path="res://scenes/hud_ui.tscn" id="5_iywne"]
+[ext_resource type="PackedScene" uid="uid://1ypb2tqglwx7" path="res://buildings/lake.tscn" id="6_dinhu"]
 [ext_resource type="Script" uid="uid://cpwyqocx4rhiv" path="res://scripts/ScoreMgr.cs" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://c512m4r8t6wyn" path="res://buildings/ground.tscn" id="7_ca42v"]
 [ext_resource type="Script" uid="uid://dlelqsa4dfhac" path="res://scripts/MoneyMgr.cs" id="7_gee14"]
 [ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/TimeMgr.cs" id="8_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://b7sao50bcs3ng" path="res://buildings/library.tscn" id="8_rysoc"]
+[ext_resource type="PackedScene" uid="uid://cdkiwedf5pfc5" path="res://buildings/villa.tscn" id="9_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://bnbxru6vnmj4" path="res://buildings/dorm.tscn" id="10_264po"]
 [ext_resource type="Script" uid="uid://xg2m81631lfr" path="res://scripts/BuffMgr.cs" id="10_kvpfn"]
 [ext_resource type="Script" uid="uid://wj2b2cbsepp0" path="res://scripts/CardMgr.cs" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://bq0be548k7ovq" path="res://buildings/administration.tscn" id="11_264po"]
+[ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
+[ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -43,6 +51,31 @@ GridHeight = 50
 [node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
 y_sort_enabled = true
 script = ExtResource("3_lbhrr")
+
+[node name="lake00" parent="buildingMgr" unique_id=229562284 instance=ExtResource("6_dinhu")]
+position = Vector2(1152, 1019)
+
+[node name="ground01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
+position = Vector2(1410, 1050)
+
+[node name="library00" parent="buildingMgr" unique_id=542408753 instance=ExtResource("8_rysoc")]
+position = Vector2(1152, 1407)
+
+[node name="villa01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
+position = Vector2(1023, 1344)
+
+[node name="dorm01" parent="buildingMgr" unique_id=1412420651 instance=ExtResource("10_264po")]
+position = Vector2(987, 1478)
+
+[node name="administration00" parent="buildingMgr" unique_id=1249148625 instance=ExtResource("11_264po")]
+position = Vector2(1026, 1085)
+
+[node name="teaching01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
+position = Vector2(1660, 1344)
+rotation = 1.5707964
+
+[node name="lab01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
+position = Vector2(1536, 1413)
 
 [node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
 script = ExtResource("6_p57ef")

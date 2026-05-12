@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="1_n8bkc"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/BuildingGrid.cs" id="3_cy2av"]
 
-[node name="building" type="Node2D" unique_id=229562284]
+[node name="canteen" type="Node2D" unique_id=229562284]
 script = ExtResource("1_cy2av")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
