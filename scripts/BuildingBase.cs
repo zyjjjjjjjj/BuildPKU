@@ -179,20 +179,13 @@ public partial class BuildingBase : Node2D
 
 	public void RecomputeAdjBonus()
 	{
-		GD.Print($"recompute{Id}");
 		ResetMultiplier();
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		if(neighbors.Count == 0)
-			GD.Print("no neighbors");
 		var adjBuffs = BuffMgr.Instance.GetAdjBuffsById(Id);
-		if(adjBuffs.Count == 0)
-			GD.Print("no adjBuffs");
 		foreach (var adjBuff in adjBuffs)
 		{
-			GD.Print($"adjBuff from {adjBuff.Data.Effect.SrcBuildingId}");
 			if (neighbors.Contains(adjBuff.Data.Effect.SrcBuildingId))
 			{
-				GD.Print("apply");
 				ApplyMutiplier(adjBuff.Data.Effect.Targets, adjBuff.Data.Effect.Multiplier);
 			}
 		}
