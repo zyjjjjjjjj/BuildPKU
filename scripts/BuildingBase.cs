@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public partial class BuildingBase : Node2D
 {
+	public string Id;
 	public float _research = 0f;
 	public float _education = 0f;
 	public float _environment = 0f;
 	public float _population = 0f;
 	public float _cost = 0f;
 	public float _benefit = 0f;
+	private float _benMultiplier = 1f;
 	private float _resMultiplier = 1f;
 	private float _eduMultiplier = 1f;
 	private float _envMultiplier = 1f;
@@ -163,6 +165,72 @@ public partial class BuildingBase : Node2D
 		_population = data.Population;
 		_cost = data.Cost;
 		_benefit = data.Benefit;
+	}
+	
+	public void ApplyAdjBonus(BuffEffectData effect)
+	{
+		if(effect.EffectType != "AdjBonus")
+			return;
+		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
+		if(!neighbors.Contains(effect.SrcBuildingId))
+			return;
+		ApplyMutiplier(effect.Targets, effect.Multiplier);
+	}
+
+	public void RecomputeAdjBonus()
+	{
+		GD.Print($"recompute{Id}");
+		ResetMultiplier();
+		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
+		if(neighbors.Count == 0)
+			GD.Print("no neighbors");
+		var adjBuffs = BuffMgr.Instance.GetAdjBuffsById(Id);
+		if(adjBuffs.Count == 0)
+			GD.Print("no adjBuffs");
+		foreach (var adjBuff in adjBuffs)
+		{
+			GD.Print($"adjBuff from {adjBuff.Data.Effect.SrcBuildingId}");
+			if (neighbors.Contains(adjBuff.Data.Effect.SrcBuildingId))
+			{
+				GD.Print("apply");
+				ApplyMutiplier(adjBuff.Data.Effect.Targets, adjBuff.Data.Effect.Multiplier);
+			}
+		}
+	}
+
+	private void ResetMultiplier()
+	{
+		_resMultiplier = 1f;
+		_eduMultiplier = 1f;
+		_envMultiplier = 1f;
+		_popMultiplier = 1f;
+		_benMultiplier = 1f;
+		return;
+	}
+	
+	private void ApplyMutiplier(List<string> targets, float multiplier)
+	{
+		foreach (var target in targets)
+		{
+			switch (target)
+			{
+				case "Research":
+					_resMultiplier *= multiplier;
+					break;
+				case "Education":
+					_eduMultiplier *= multiplier;
+					break;
+				case "Environment":
+					_envMultiplier *= multiplier;
+					break;
+				case "Population":
+					_popMultiplier *= multiplier;
+					break;
+				case "Benefit":
+					_benMultiplier *= multiplier;
+					break;
+			}
+		}
 	}
 }
 

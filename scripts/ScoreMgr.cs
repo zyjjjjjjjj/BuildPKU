@@ -1,11 +1,12 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class ScoreMgr : Node
 {
 	public static ScoreMgr Instance { get; private set; }
 	public float Reputation => Research * ResWeight + Education * EduWeight + Environment * EnvWeight;
-	public float Research => ResBase * Population;
+	public float Research => ResBase;
 	public float ResBase
 	{
 		get => _resBase;
@@ -16,7 +17,7 @@ public partial class ScoreMgr : Node
 		}
 	}
 	private float _resBase = 0;
-	public float Education => EduBase * Population;
+	public float Education => EduBase;
 	public float EduBase
 	{
 		get => _eduBase;
@@ -96,8 +97,10 @@ public partial class ScoreMgr : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		BuildingMgr.Instance.SpawnedBuilding += UpdateScores;
+		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeScores();
+		BuffMgr.Instance.BuffsChanged += RecomputeScores;
 	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -121,21 +124,21 @@ public partial class ScoreMgr : Node
 		_eduBase = 0f;
 		_envBase = 0f;
 		_population = 0f;
-		foreach (var building in spawnedBuilding)
+		foreach (var building in spawnedBuilding.SelectMany(pair => pair.Value))
 		{
 			_resBase += building.Research;
 			_eduBase += building.Education;
 			_envBase += building.Environment;
 			_population += building.Population;
 		}
-		EmitSignalScoreChanged();
+		RecomputeScoreWeights();
 	}
 	public void RecomputeScoreWeights()
 	{
 		var context = new ScoreContext();
 
 		if (BuffMgr.Instance != null)
-			BuffMgr.Instance.ApplyBuffs(context);
+			BuffMgr.Instance.ApplyWeightBuffs(context);
 
 		_resWeight = context.ResWeight;
 		_eduWeight = context.EduWeight;

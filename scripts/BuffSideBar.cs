@@ -28,7 +28,7 @@ public partial class BuffSideBar : PanelContainer
         foreach (var child in _buffList.GetChildren())
             child.QueueFree();
 
-        foreach (var buff in BuffMgr.Instance.ActiveBuffs)
+        foreach (var buff in BuffMgr.Instance.ActiveWeightBuffs)
         {
             var label = new Label();
 

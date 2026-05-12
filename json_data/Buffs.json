@@ -1,46 +1,49 @@
 [
   {
-    "Id": "research_priority_buff",
-    "Name": "科研优先",
-    "Description": "科研评分权重提高 20%。",
-    "DurationYears": -1,
-    "Effects": [
-      {
-        "EffectType": "ScoreWeightMultiplier",
-        "Target": "Research",
-        "Multiplier": 1.2
-      }
-    ]
+	"Id": "research_priority_buff",
+	"Name": "科研优先",
+	"Description": "科研评分权重提高 20%。",
+	"DurationYears": -1,
+	"": {
+		"EffectType": "ScoreWeightMultiplier",
+		"Targets": ["Research"],
+		"Multiplier": 1.2
+	  }
   },
   {
-    "Id": "green_campus_buff",
-    "Name": "绿色校园",
-    "Description": "环境评分权重提高 50%。",
-    "DurationYears": 10,
-    "Effects": [
-      {
-        "EffectType": "ScoreWeightMultiplier",
-        "Target": "Environment",
-        "Multiplier": 1.5
-      }
-    ]
+	"Id": "green_campus_buff",
+	"Name": "绿色校园",
+	"Description": "环境评分权重提高 50%。",
+	"DurationYears": 10,
+	"Effect": 
+	  {
+		"EffectType": "ScoreWeightMultiplier",
+		"Targets": ["Environment"],
+		"Multiplier": 1.5
+	  }
   },
   {
-    "Id": "academic_reputation_buff",
-    "Name": "学术声望",
-    "Description": "科研与教学评分权重提高 25%。",
-    "DurationYears": -1,
-    "Effects": [
-      {
-        "EffectType": "ScoreWeightMultiplier",
-        "Target": "Research",
-        "Multiplier": 1.25
-      },
-      {
-        "EffectType": "ScoreWeightMultiplier",
-        "Target": "Education",
-        "Multiplier": 1.25
-      }
-    ]
+	"Id": "academic_reputation_buff",
+	"Name": "学术声望",
+	"Description": "科研与教学评分权重提高 25%。",
+	"DurationYears": -1,
+	"Effect": {
+		"EffectType": "ScoreWeightMultiplier",
+		"Targets": ["Research", "Education"],
+		"Multiplier": 1.25
+	  }
+  },
+  {
+	"Id": "biology_century_buff",
+	"Name": "生物学的世纪",
+	"Description": "与绿地相邻的实验室科研产出提高20%。",
+	"DurationYears": -1,
+	"Effect": {
+		"EffectType": "AdjBonus",
+		"Targets": ["Research"],
+		"Multiplier": 1.2,
+		"DestBuildingId": "lab",
+		"SrcBuildingId": "green"
+	}
   }
 ]

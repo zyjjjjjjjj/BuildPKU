@@ -94,7 +94,6 @@ public partial class GridMgr : Node2D
     {
         if (Engine.IsEditorHint()) return;
         ShowGrid = false;
-        BuildingMgr.Instance.SpawnedBuilding += _updateOccupation;
         BuildingMgr.Instance.EnterEditorMode += () =>
         {
             ShowGrid = true;
@@ -272,7 +271,7 @@ public partial class GridMgr : Node2D
         }
         return offset;
     }
-    private void _updateOccupation(BuildingBase newBuilding)
+    public void UpdateOccupation(BuildingBase newBuilding)
     {
         var collisionPoints = newBuilding.GetCollisionAreas();
         foreach (var collisionPoint in collisionPoints)
@@ -285,5 +284,48 @@ public partial class GridMgr : Node2D
             _occupied[idx] = newBuilding.Name;
         }
         QueueRedraw();
+    }
+
+    public HashSet<string> GetNeighbors(BuildingBase building)
+    {
+        var collisionPoints = building.GetCollisionAreas();
+        HashSet<Vector2I> self =  new HashSet<Vector2I>();
+        HashSet<string> neighbors = new HashSet<string>();
+        foreach (var collisionPoint in collisionPoints)
+        {
+            var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
+            if(_inBounds(idx))
+                self.Add(idx);
+        }
+        List<Vector2I> directions = new List<Vector2I>()
+        {
+            new Vector2I(1,0),
+            new Vector2I(-1,0),
+            new Vector2I(0,1),
+            new Vector2I(0,-1),
+        };
+        foreach(var point in self)
+        {
+            foreach(var dir in directions)
+            {
+                var neighborIdx = point + dir;
+                if(!self.Contains(neighborIdx) && _inBounds(neighborIdx) && _isOccupied(neighborIdx))
+                {
+                    neighbors.Add(_occupied[neighborIdx]);
+                }
+            }
+        }
+        return neighbors;
+    }
+    
+    public HashSet<string> GetNeighborBuildingIds(BuildingBase building)
+    {
+        var neighborNames = GetNeighbors(building);
+        HashSet<string> neighborIds = new HashSet<string>();
+        foreach(var name in neighborNames)
+        {
+            neighborIds.Add(name.Split('_')[0]);
+        }
+        return neighborIds;
     }
 }

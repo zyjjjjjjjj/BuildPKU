@@ -23,7 +23,7 @@ public partial class BuildingMgr : Node2D
     public static BuildingMgr Instance { get; private set; }
     private string _selectedBuildingId = string.Empty;
     private BuildingBase _tmpBuilding;
-    public readonly List<BuildingBase> SpawnedBuildings = [];
+    public readonly Dictionary<string, List<BuildingBase>> SpawnedBuildings = new();
     private bool _isEditing = false;
     public bool IsEditing
     {
@@ -152,12 +152,24 @@ public partial class BuildingMgr : Node2D
         var buildingScene = GD.Load<PackedScene>(AllBuildingDict[_selectedBuildingId].ScenePath);
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
-        SpawnedBuildings.Add(building);
+        if(SpawnedBuildings.TryGetValue(_selectedBuildingId, out var list))
+            list.Add(building);
+        else
+            SpawnedBuildings[_selectedBuildingId] = [building];
         building.Name = _selectedBuildingId + '_' + SpawnedBuildings.Count.ToString();
+        building.Id = _selectedBuildingId;
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;
         building.InitializeProperties(AllBuildingDict[_selectedBuildingId]);
+        building.RecomputeAdjBonus();
+        GridMgr.Instance.UpdateOccupation(building);
+        var neighbors = GridMgr.Instance.GetNeighbors(building);
+        foreach (var name in neighbors)
+        {
+            var neighbor = GetNode<BuildingBase>(name);
+            neighbor.RecomputeAdjBonus();
+        }
         EmitSignalSpawnedBuilding(building);
     }
 

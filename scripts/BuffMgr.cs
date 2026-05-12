@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BuffData
 {
@@ -8,15 +9,17 @@ public class BuffData
     public string Name { get; set; }
     public string Description { get; set; }
     public int DurationYears { get; set; }
-    public List<BuffEffectData> Effects { get; set; }
+    public BuffEffectData Effect { get; set; }
 }
 
 public class BuffEffectData
 {
     public string EffectType { get; set; }
-    public string Target { get; set; }
+    public List<string> Targets { get; set; }
     public float Multiplier { get; set; }
     public float AddValue { get; set; }
+    public string DestBuildingId { get; set; }
+    public string SrcBuildingId { get; set; }
 }
 
 public class ActiveBuff
@@ -50,10 +53,12 @@ public class ScoreContext
 public partial class BuffMgr : Node
 {
     public static BuffMgr Instance { get; private set; }
-
-    private readonly List<ActiveBuff> _activeBuffs = [];
-
-    public IReadOnlyList<ActiveBuff> ActiveBuffs => _activeBuffs;
+    
+    public IReadOnlyList<ActiveBuff> ActiveWeightBuffs => _activeWeightBuffs;
+    private readonly List<ActiveBuff> _activeWeightBuffs = [];
+    
+    public IReadOnlyDictionary<string, List<ActiveBuff>> ActiveAdjBuffs => _activeAdjBuffs;
+    private readonly Dictionary<string, List<ActiveBuff>> _activeAdjBuffs = new Dictionary<string, List<ActiveBuff>>();
 
     [Signal]
     public delegate void BuffsChangedEventHandler();
@@ -79,56 +84,100 @@ public partial class BuffMgr : Node
         if (data == null)
             return;
 
-        _activeBuffs.Add(new ActiveBuff
+        var newBuff = new ActiveBuff
         {
             Data = data,
             StartYear = TimeMgr.Instance.CurrentYear
-        });
-
+        };
+        switch (data.Effect.EffectType)
+        {
+            case "ScoreWeightMultiplier":
+                _activeWeightBuffs.Add(newBuff);
+                break;
+            case "AdjBonus":
+                if(_activeAdjBuffs.TryGetValue(data.Effect.DestBuildingId, out var buffList))
+                    buffList.Add(newBuff);
+                else
+                    _activeAdjBuffs[data.Effect.DestBuildingId] = [newBuff];
+                break;
+        }
+        //only apply adj buff immediately
+        if (data.Effect.EffectType == "AdjBonus")
+        {
+            var effect = data.Effect;
+            var id = effect.DestBuildingId;
+            BuildingMgr.Instance.SpawnedBuildings.TryGetValue(id, out var buildings);
+            if (buildings == null)
+                return;
+            foreach (var building in buildings)
+            {
+                building.ApplyAdjBonus(effect);
+            }
+        }
         EmitSignalBuffsChanged();
-        ScoreMgr.Instance.RecomputeScoreWeights();
     }
 
     private void OnYearAdvanced(int year)
     {
-        int removed = _activeBuffs.RemoveAll(buff => buff.IsExpired(year));
-
-        EmitSignalBuffsChanged();
-
-        if (removed > 0)
-            ScoreMgr.Instance.RecomputeScoreWeights();
-    }
-    
-    public void ApplyBuffs(ScoreContext context)
-    {
-        foreach (var buff in _activeBuffs)
+        var removed = _activeWeightBuffs.RemoveAll(buff => buff.IsExpired(year));
+        List<string> influencedBuildingIds = [];
+        foreach (var pair in _activeAdjBuffs)
         {
-            foreach (var effect in buff.Data.Effects)
+            if(pair.Value.Any(buff => buff.IsExpired(year)))
+                influencedBuildingIds.Add(pair.Key);
+            removed += pair.Value.RemoveAll(buff => buff.IsExpired(year));
+        }
+
+        foreach (var id in influencedBuildingIds)
+        {
+            BuildingMgr.Instance.SpawnedBuildings.TryGetValue(id, out var buildings);
+            if (buildings == null)
+                continue;
+            foreach (var building in buildings)
             {
-                switch (effect.EffectType)
-                {
-                    case "ScoreWeightMultiplier":
-                        ApplyScoreWeightMultiplier(context, effect);
-                        break;
-                }
+                building.RecomputeAdjBonus();
+            }
+        }
+        
+        if (removed > 0)
+        {
+            EmitSignalBuffsChanged();
+        }
+    }
+    public void ApplyWeightBuffs(ScoreContext context)
+    {
+        foreach (var buff in _activeWeightBuffs.Where(buff => buff.Data.Effect.EffectType == "ScoreWeightMultiplier"))
+        {
+            ApplyWeightBuff(context, buff);
+        }
+    }
+
+    public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
+    {
+        var effect = buff.Data.Effect;
+        if (effect.EffectType != "ScoreWeightMultiplier")
+            return;
+        foreach (var target in effect.Targets)
+        {
+            switch (target)
+            {
+                case "Research":
+                    context.ResWeight *= effect.Multiplier;
+                    break;
+                case "Education":
+                    context.EduWeight *= effect.Multiplier;
+                    break;
+                case "Environment":
+                    context.EnvWeight *= effect.Multiplier;
+                    break;
             }
         }
     }
 
-    private void ApplyScoreWeightMultiplier(ScoreContext context, BuffEffectData effect)
+    public List<ActiveBuff> GetAdjBuffsById(string id)
     {
-        switch (effect.Target)
-        {
-            case "Research":
-                context.ResWeight *= effect.Multiplier;
-                break;
-            case "Education":
-                context.EduWeight *= effect.Multiplier;
-                break;
-            case "Environment":
-                context.EnvWeight *= effect.Multiplier;
-                break;
-        }
+        _activeAdjBuffs.TryGetValue(id, out var adjBuffs);
+        return adjBuffs ?? [];
     }
     
 }
