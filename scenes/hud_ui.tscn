@@ -54,6 +54,7 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 155.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_vha3o")
 script = ExtResource("4_vha3o")
 _repLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/RepBoard/Score")
@@ -68,11 +69,13 @@ _envWeightLabel = NodePath("HBoxContainer/TopLeft/TopLeft/VBoxContainer/EnvBoard
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HUDRoot/ScoreBoard" unique_id=1049101124]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TopLeft" type="PanelContainer" parent="HUDRoot/ScoreBoard/HBoxContainer" unique_id=1263989155]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="TopLeft" type="MarginContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopLeft" unique_id=305374694]
 layout_mode = 2
@@ -185,11 +188,13 @@ text = "+"
 [node name="Spacer" type="Control" parent="HUDRoot/ScoreBoard/HBoxContainer" unique_id=72129781]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="TopRight" type="PanelContainer" parent="HUDRoot/ScoreBoard/HBoxContainer" unique_id=1380431058]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="TopRight" type="MarginContainer" parent="HUDRoot/ScoreBoard/HBoxContainer/TopRight" unique_id=1234798578]
 layout_mode = 2
@@ -235,6 +240,7 @@ offset_left = -162.0
 offset_right = 162.0
 offset_bottom = 58.0
 grow_horizontal = 2
+mouse_filter = 2
 alignment = 1
 script = ExtResource("1_27bld")
 
@@ -259,6 +265,7 @@ offset_left = -40.0
 offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_dh3a3")
 script = ExtResource("4_dh3a3")
 
@@ -280,6 +287,7 @@ offset_top = -20.0
 offset_right = 40.0
 offset_bottom = 20.0
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("6_47rti")
 _buffList = NodePath("MarginContainer/VBoxContainer/BuffList")
 

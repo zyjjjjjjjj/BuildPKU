@@ -19,6 +19,7 @@ public partial class BuffSideBar : PanelContainer
 
     public override void _Ready()
     {
+        BuffMgr.Instance.BuffsDecay += Refresh;
         BuffMgr.Instance.BuffsChanged += Refresh;
         Refresh();
     }

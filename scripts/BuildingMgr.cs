@@ -77,19 +77,23 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding.Position = GetLocalMousePosition();
     }
     
-    public override void _UnhandledInput(InputEvent @event)
+    public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseEvent)
         {
             if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left && IsEditing)
             {
+                if (GetViewport().GuiGetHoveredControl() != null)
+                {
+                    // var hovered = GetViewport().GuiGetHoveredControl();
+                    // GD.Print(hovered == null ? "no ui" : hovered.GetPath());
+                    return;
+                }
+
                 TrySpawnBuilding();
             }
         }
-    }
-    
-    public override void _Input(InputEvent @event)
-    {
+        
         if (@event is not InputEventKey keyEvent)
             return;
 

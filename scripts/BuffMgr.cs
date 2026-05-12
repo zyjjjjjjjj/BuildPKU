@@ -62,7 +62,8 @@ public partial class BuffMgr : Node
 
     [Signal]
     public delegate void BuffsChangedEventHandler();
-
+    [Signal]
+    public delegate void BuffsDecayEventHandler();
     public override void _EnterTree()
     {
         Instance = this;
@@ -143,6 +144,7 @@ public partial class BuffMgr : Node
         {
             EmitSignalBuffsChanged();
         }
+        EmitSignalBuffsDecay();
     }
     public void ApplyWeightBuffs(ScoreContext context)
     {
