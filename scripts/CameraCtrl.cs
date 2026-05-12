@@ -49,8 +49,10 @@ public partial class CameraCtrl : Camera2D
 		{
 			case Mode.Edit:
 				HandleMove_Edit(delta);
+				HandleMove_Normal(delta);
 				break;
 			case Mode.Normal:
+				HandleMove_Edit(delta);
 				HandleMove_Normal(delta);
 				break;
 		}
