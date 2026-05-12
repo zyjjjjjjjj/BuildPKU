@@ -15,6 +15,12 @@ run/main_scene="uid://bcbum02nfn5q3"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
 [dotnet]
 
 project/assembly_name="BuildPKU"
