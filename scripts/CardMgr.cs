@@ -11,9 +11,8 @@ public class CardData
     public string Rarity { get; set; }
     public int MinYear { get; set; }
     public bool Repeatable { get; set; }
-    public int DurationYears { get; set; }
-    
-    public string BuffId { get; set; }
+
+    public List<string> BuffIds { get; set; }
 }
 
 public partial class CardMgr : Node
@@ -108,10 +107,22 @@ public partial class CardMgr : Node
         _currentChoices.Clear();
         CardChoicePanel.Instance.HideChoices();
         
-        if (card.CardType == "Buff")
+        if (card.CardType == "Buff" && card.BuffIds != null)
         {
-            var buff = BuffDatabase.GetById(card.BuffId);
-            BuffMgr.Instance.AddBuff(buff);
+            var buffs = new List<BuffData>();
+
+            foreach (var buffId in card.BuffIds)
+            {
+                var buff = BuffDatabase.GetById(buffId);
+
+                if (buff == null)
+                    continue;
+
+                buffs.Add(buff);
+                BuffMgr.Instance.AddBuff(buff);
+            }
+
+            BuffSideBar.Instance.AddCard(card, buffs);
         }
     }
 }

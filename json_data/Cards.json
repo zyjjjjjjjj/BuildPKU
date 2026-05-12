@@ -7,8 +7,7 @@
   "Rarity": "Common",
   "MinYear": 1905,
   "Repeatable": false,
-  "DurationYears": -1,
-  "BuffId": "research_priority_buff"
+  "BuffIds": ["research_priority_buff"]
   },
   {
 	"Id": "campus_greening",
@@ -18,8 +17,7 @@
 	"Rarity": "Common",
 	"MinYear": 1905,
 	"Repeatable": false,
-	"DurationYears": -1,
-	"BuffId": "green_campus_buff"
+	"BuffIds": ["green_campus_buff"]
   },
   {
 	"Id": "academic_reputation",
@@ -29,8 +27,7 @@
 	"Rarity": "Epic",
 	"MinYear": 1905,
 	"Repeatable": false,
-	"DurationYears": -1,
-	"BuffId": "academic_reputation_buff"
+	"BuffIds": ["academic_reputation_buff"]
   },
   {
 	"Id": "biology_century",
@@ -40,7 +37,6 @@
 	"Rarity": "Epic",
 	"MinYear": 1905,
 	"Repeatable": false,
-	"DurationYears": -1,
-	"BuffId": "biology_century_buff"
+	"BuffIds": ["biology_century_buff"]
   }
 ]

@@ -6,15 +6,10 @@ using System.Linq;
 public class BuffData
 {
     public string Id { get; set; }
-    public string Name { get; set; }
     public string Description { get; set; }
     public int DurationYears { get; set; }
-    public BuffEffectData Effect { get; set; }
-}
 
-public class BuffEffectData
-{
-    public string EffectType { get; set; }
+    public string BuffType { get; set; }
     public List<string> Targets { get; set; }
     public float Multiplier { get; set; }
     public float AddValue { get; set; }
@@ -90,29 +85,28 @@ public partial class BuffMgr : Node
             Data = data,
             StartYear = TimeMgr.Instance.CurrentYear
         };
-        switch (data.Effect.EffectType)
+        switch (data.BuffType)
         {
             case "ScoreWeightMultiplier":
                 _activeWeightBuffs.Add(newBuff);
                 break;
             case "AdjBonus":
-                if(_activeAdjBuffs.TryGetValue(data.Effect.DestBuildingId, out var buffList))
+                if(_activeAdjBuffs.TryGetValue(data.DestBuildingId, out var buffList))
                     buffList.Add(newBuff);
                 else
-                    _activeAdjBuffs[data.Effect.DestBuildingId] = [newBuff];
+                    _activeAdjBuffs[data.DestBuildingId] = [newBuff];
                 break;
         }
         //only apply adj buff immediately
-        if (data.Effect.EffectType == "AdjBonus")
+        if (data.BuffType == "AdjBonus")
         {
-            var effect = data.Effect;
-            var id = effect.DestBuildingId;
+            var id = data.DestBuildingId;
             BuildingMgr.Instance.SpawnedBuildings.TryGetValue(id, out var buildings);
             if (buildings == null)
                 return;
             foreach (var building in buildings)
             {
-                building.ApplyAdjBonus(effect);
+                building.ApplyAdjBonus(data);
             }
         }
         EmitSignalBuffsChanged();
@@ -148,7 +142,7 @@ public partial class BuffMgr : Node
     }
     public void ApplyWeightBuffs(ScoreContext context)
     {
-        foreach (var buff in _activeWeightBuffs.Where(buff => buff.Data.Effect.EffectType == "ScoreWeightMultiplier"))
+        foreach (var buff in _activeWeightBuffs.Where(buff => buff.Data.BuffType == "ScoreWeightMultiplier"))
         {
             ApplyWeightBuff(context, buff);
         }
@@ -156,21 +150,20 @@ public partial class BuffMgr : Node
 
     public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
     {
-        var effect = buff.Data.Effect;
-        if (effect.EffectType != "ScoreWeightMultiplier")
+        if (buff.Data.BuffType != "ScoreWeightMultiplier")
             return;
-        foreach (var target in effect.Targets)
+        foreach (var target in buff.Data.Targets)
         {
             switch (target)
             {
                 case "Research":
-                    context.ResWeight *= effect.Multiplier;
+                    context.ResWeight *= buff.Data.Multiplier;
                     break;
                 case "Education":
-                    context.EduWeight *= effect.Multiplier;
+                    context.EduWeight *= buff.Data.Multiplier;
                     break;
                 case "Environment":
-                    context.EnvWeight *= effect.Multiplier;
+                    context.EnvWeight *= buff.Data.Multiplier;
                     break;
             }
         }

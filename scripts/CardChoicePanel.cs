@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class CardChoicePanel : PanelContainer
 {
@@ -71,7 +72,28 @@ public partial class CardChoicePanel : PanelContainer
 
     private string FormatCardText(CardData card)
     {
-        string duration = card.DurationYears < 0 ? "永久" : $"持续 {card.DurationYears} 年";
+        string duration = FormatCardDuration(card);
         return $"{card.Name}\n\n{card.Description}\n\n{duration}";
     }
+
+    private string FormatCardDuration(CardData card)
+    {
+        if (card.BuffIds == null || card.BuffIds.Count == 0)
+            return "无持续效果";
+
+        var buffs = card.BuffIds
+            .Select(id => BuffDatabase.GetById(id))
+            .Where(buff => buff != null)
+            .ToList();
+
+        if (buffs.Count == 0)
+            return "无持续效果";
+
+        if (buffs.Any(buff => buff.DurationYears < 0))
+            return "永久";
+
+        int maxDuration = buffs.Max(buff => buff.DurationYears);
+        return $"持续 {maxDuration} 年";
+    }
+
 }

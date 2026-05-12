@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
+using System;
 
 public static class CardDatabase
 {
@@ -29,6 +30,14 @@ public static class CardDatabase
         using var file = FileAccess.Open(JsonPath, FileAccess.ModeFlags.Read);
         string jsonString = file.GetAsText();
 
-        _allCards = JsonSerializer.Deserialize<List<CardData>>(jsonString) ?? [];
+        try
+        {
+            _allCards = JsonSerializer.Deserialize<List<CardData>>(jsonString) ?? [];
+        }
+        catch (Exception e)
+        {
+            GD.PrintErr($"卡牌配置解析失败: {e.Message}");
+            _allCards = [];
+        }
     }
 }

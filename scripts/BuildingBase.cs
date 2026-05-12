@@ -167,14 +167,14 @@ public partial class BuildingBase : Node2D
 		_benefit = data.Benefit;
 	}
 	
-	public void ApplyAdjBonus(BuffEffectData effect)
+	public void ApplyAdjBonus(BuffData buffData)
 	{
-		if(effect.EffectType != "AdjBonus")
+		if(buffData.BuffType != "AdjBonus")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		if(!neighbors.Contains(effect.SrcBuildingId))
+		if(!neighbors.Contains(buffData.SrcBuildingId))
 			return;
-		ApplyMutiplier(effect.Targets, effect.Multiplier);
+		ApplyMutiplier(buffData.Targets, buffData.Multiplier);
 	}
 
 	public void RecomputeAdjBonus()
@@ -184,9 +184,9 @@ public partial class BuildingBase : Node2D
 		var adjBuffs = BuffMgr.Instance.GetAdjBuffsById(Id);
 		foreach (var adjBuff in adjBuffs)
 		{
-			if (neighbors.Contains(adjBuff.Data.Effect.SrcBuildingId))
+			if (neighbors.Contains(adjBuff.Data.SrcBuildingId))
 			{
-				ApplyMutiplier(adjBuff.Data.Effect.Targets, adjBuff.Data.Effect.Multiplier);
+				ApplyMutiplier(adjBuff.Data.Targets, adjBuff.Data.Multiplier);
 			}
 		}
 	}

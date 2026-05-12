@@ -84,11 +84,7 @@ public partial class BuildingMgr : Node2D
             if (mouseEvent.Pressed && mouseEvent.ButtonIndex == MouseButton.Left && IsEditing)
             {
                 if (GetViewport().GuiGetHoveredControl() != null)
-                {
-                    // var hovered = GetViewport().GuiGetHoveredControl();
-                    // GD.Print(hovered == null ? "no ui" : hovered.GetPath());
                     return;
-                }
 
                 TrySpawnBuilding();
             }
