@@ -5,7 +5,7 @@ using FileAccess = Godot.FileAccess;
 
 public static class BuildingDatabase
 {
-    private const string JsonPath = "res://buildings/BuildingsID.json";
+    private const string JsonPath = "res://json_data/Buildings.json";
     private static Dictionary<string, BuildingData> _allBuildingDict;
 
     public static Dictionary<string, BuildingData> GetAll()

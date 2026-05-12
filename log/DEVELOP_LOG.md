@@ -16,7 +16,7 @@
 
 # 5.6
 
-![image-20260507013709090](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260507013709090.png)
+![image-20260512112509439](D:\code\BuildPKU\log\image-20260507013709090.png)
 
 加了一个时间管理器，可以控制年份前进。加了一个hud ui显示。加了一个摄像机的移动限制。
 
@@ -24,7 +24,7 @@
 
 加了右侧选择建筑的，现在支持快捷键选择点击选择，右键和escape以及重复点击快捷键或右侧栏来取消。
 
-![image-20260508012944541](C:\Users\98599\AppData\Roaming\Typora\typora-user-images\image-20260508012944541.png)
+![image-20260508012944541](D:\code\BuildPKU\log\image-20260508012944541.png)
 
 # 5.11
 ![alt text](image-3.png)
@@ -34,3 +34,7 @@
 实现ScoreMgr, 计分板, 优化单例类实现方式
 
 实现初始建筑功能, 将建筑添加到buildingMgr子节点, 命名为ID加任意数字, 例如:Dorm35, Lab1
+
+# 5.12
+
+新增卡片选择功能，目前只实现了ui类和相应的管理类，没有实现卡片的逻辑，把jsondata统一挪到一个文件夹下面了。

@@ -1,0 +1,152 @@
+[
+  {
+    "Id": "research_priority",
+    "Name": "科研优先",
+    "Description": "科研评分权重提高 20%。",
+    "CardType": "Buff",
+    "Rarity": "Common",
+    "MinYear": 1905,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "teaching_reform",
+    "Name": "教学改革",
+    "Description": "教学评分权重提高 20%。",
+    "CardType": "Buff",
+    "Rarity": "Common",
+    "MinYear": 1905,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "campus_greening",
+    "Name": "校园绿化",
+    "Description": "环境评分权重提高 20%。",
+    "CardType": "Buff",
+    "Rarity": "Common",
+    "MinYear": 1905,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "temporary_research_fund",
+    "Name": "临时科研经费",
+    "Description": "科研评分权重提高 50%。",
+    "CardType": "Buff",
+    "Rarity": "Common",
+    "MinYear": 1905,
+    "Repeatable": true,
+    "DurationYears": 5
+  },
+  {
+    "Id": "student_activity_month",
+    "Name": "学生社团季",
+    "Description": "教学评分权重提高 30%。",
+    "CardType": "Buff",
+    "Rarity": "Common",
+    "MinYear": 1905,
+    "Repeatable": true,
+    "DurationYears": 5
+  },
+  {
+    "Id": "green_campus",
+    "Name": "绿色校园",
+    "Description": "环境评分权重提高 50%。",
+    "CardType": "Buff",
+    "Rarity": "Common",
+    "MinYear": 1905,
+    "Repeatable": true,
+    "DurationYears": 10
+  },
+  {
+    "Id": "library_teaching_bonus",
+    "Name": "文教联动",
+    "Description": "图书馆会强化教学楼的教育产出。",
+    "CardType": "Buff",
+    "Rarity": "Rare",
+    "MinYear": 1910,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "lab_research_network",
+    "Name": "实验室网络",
+    "Description": "实验室会强化科研产出。",
+    "CardType": "Buff",
+    "Rarity": "Rare",
+    "MinYear": 1910,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "lake_environment_bonus",
+    "Name": "湖区景观",
+    "Description": "湖泊会强化环境产出。",
+    "CardType": "Buff",
+    "Rarity": "Rare",
+    "MinYear": 1910,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "dorm_population_policy",
+    "Name": "住宿扩容",
+    "Description": "宿舍相关人口收益提高。",
+    "CardType": "Buff",
+    "Rarity": "Rare",
+    "MinYear": 1915,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "administration_efficiency",
+    "Name": "行政提效",
+    "Description": "行政楼带来的收益提高。",
+    "CardType": "Buff",
+    "Rarity": "Rare",
+    "MinYear": 1915,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "five_year_plan",
+    "Name": "五年规划",
+    "Description": "所有评分权重小幅提高。",
+    "CardType": "Buff",
+    "Rarity": "Epic",
+    "MinYear": 1920,
+    "Repeatable": true,
+    "DurationYears": 5
+  },
+  {
+    "Id": "academic_reputation",
+    "Name": "学术声望",
+    "Description": "科研与教学评分权重提高。",
+    "CardType": "Buff",
+    "Rarity": "Epic",
+    "MinYear": 1920,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "campus_master_plan",
+    "Name": "校园总体规划",
+    "Description": "建筑之间的加成效果提高。",
+    "CardType": "Buff",
+    "Rarity": "Epic",
+    "MinYear": 1925,
+    "Repeatable": false,
+    "DurationYears": -1
+  },
+  {
+    "Id": "golden_decade",
+    "Name": "黄金十年",
+    "Description": "未来十年所有评分权重大幅提高。",
+    "CardType": "Buff",
+    "Rarity": "Legendary",
+    "MinYear": 1930,
+    "Repeatable": false,
+    "DurationYears": 10
+  }
+]

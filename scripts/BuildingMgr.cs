@@ -24,8 +24,6 @@ public partial class BuildingMgr : Node2D
     private string _selectedBuildingId = string.Empty;
     private BuildingBase _tmpBuilding;
     public readonly List<BuildingBase> SpawnedBuildings = [];
-    private Label _buildWarningLabel;
-    private Timer _buildWarningTimer;
     private bool _isEditing = false;
     public bool IsEditing
     {

@@ -1,0 +1,109 @@
+using Godot;
+using System.Collections.Generic;
+using System.Linq;
+
+public class CardData
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string CardType { get; set; }
+    public string Rarity { get; set; }
+    public int MinYear { get; set; }
+    public bool Repeatable { get; set; }
+    public int DurationYears { get; set; }
+}
+
+public partial class CardMgr : Node
+{
+    public static CardMgr Instance { get; private set; }
+
+    [Export] private int _cardIntervalYears = 5;
+    [Export] private int _choiceCount = 3;
+
+    public bool IsChoosingCard { get; private set; }
+
+    private readonly HashSet<string> _pickedNonRepeatableCardIds = [];
+    private List<CardData> _currentChoices = [];
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
+
+    public override void _ExitTree()
+    {
+        if (Instance == this)
+            Instance = null;
+    }
+
+    public override void _Ready()
+    {
+        TimeMgr.Instance.YearAdvanced += OnYearAdvanced;
+        CardChoicePanel.Instance.CardChosen += OnCardChosen;
+    }
+
+    private void OnYearAdvanced(int year)
+    {
+        if ((year - TimeMgr.Instance.InitialYear) % _cardIntervalYears != 0)
+            return;
+
+        ShowCardChoices(year);
+    }
+
+    private void ShowCardChoices(int year)
+    {
+        var candidates = CardDatabase.GetAll()
+            .Where(card => card.MinYear <= year)
+            .Where(card => card.Repeatable || !_pickedNonRepeatableCardIds.Contains(card.Id))
+            .ToList();
+
+        _currentChoices = PickRandomCards(candidates, _choiceCount);
+
+        if (_currentChoices.Count == 0)
+        {
+            GD.Print($"No available cards in year {year}");
+            return;
+        }
+
+        IsChoosingCard = true;
+        CardChoicePanel.Instance.ShowChoices(_currentChoices);
+    }
+
+    private List<CardData> PickRandomCards(List<CardData> candidates, int count)
+    {
+        var rng = new RandomNumberGenerator();
+        rng.Randomize();
+
+        var result = new List<CardData>();
+
+        while (result.Count < count && candidates.Count > 0)
+        {
+            int index = rng.RandiRange(0, candidates.Count - 1);
+            result.Add(candidates[index]);
+            candidates.RemoveAt(index);
+        }
+
+        return result;
+    }
+
+    private void OnCardChosen(string cardId)
+    {
+        var card = _currentChoices.FirstOrDefault(card => card.Id == cardId);
+
+        if (card == null)
+        {
+            GD.PrintErr($"Chosen card not found: {cardId}");
+            return;
+        }
+
+        if (!card.Repeatable)
+            _pickedNonRepeatableCardIds.Add(card.Id);
+
+        GD.Print($"Chosen card: {card.Name}");
+
+        IsChoosingCard = false;
+        _currentChoices.Clear();
+        CardChoicePanel.Instance.HideChoices();
+    }
+}
