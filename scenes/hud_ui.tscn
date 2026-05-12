@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://xebu77u17w22" path="res://scripts/WarningPanel.cs" id="4_dh3a3"]
 [ext_resource type="Script" uid="uid://bfbjfqcb276r4" path="res://scripts/ScoreBoard.cs" id="4_vha3o"]
 [ext_resource type="PackedScene" uid="uid://c6s8apq5omgh7" path="res://scenes/card_choice_panel.tscn" id="5_dh3a3"]
+[ext_resource type="Script" uid="uid://dvxxuvj6ndyxd" path="res://scripts/BuffSideBar.cs" id="6_47rti"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vha3o"]
 
@@ -19,6 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="BuildingSideBar" type="PanelContainer" parent="HUDRoot" unique_id=1250344828]
 layout_mode = 1
@@ -268,3 +270,29 @@ horizontal_alignment = 2
 
 [node name="CardChoicePanel" parent="HUDRoot" unique_id=919018097 instance=ExtResource("5_dh3a3")]
 layout_mode = 1
+
+[node name="BuffSideBar" type="PanelContainer" parent="HUDRoot" unique_id=2072901608 node_paths=PackedStringArray("_buffList")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+script = ExtResource("6_47rti")
+_buffList = NodePath("MarginContainer/VBoxContainer/BuffList")
+
+[node name="MarginContainer" type="MarginContainer" parent="HUDRoot/BuffSideBar" unique_id=247178083]
+layout_direction = 2
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer" unique_id=443581935]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=800869803]
+layout_mode = 2
+text = "Buff栏"
+
+[node name="BuffList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=852263384]
+layout_mode = 2

@@ -77,7 +77,7 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding.Position = GetLocalMousePosition();
     }
     
-    public override void _Input(InputEvent @event)
+    public override void _UnhandledInput(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseEvent)
         {
@@ -86,7 +86,10 @@ public partial class BuildingMgr : Node2D
                 TrySpawnBuilding();
             }
         }
-        
+    }
+    
+    public override void _Input(InputEvent @event)
+    {
         if (@event is not InputEventKey keyEvent)
             return;
 

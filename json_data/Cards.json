@@ -1,13 +1,14 @@
 [
   {
-    "Id": "research_priority",
-    "Name": "科研优先",
-    "Description": "科研评分权重提高 20%。",
-    "CardType": "Buff",
-    "Rarity": "Common",
-    "MinYear": 1905,
-    "Repeatable": false,
-    "DurationYears": -1
+  "Id": "research_priority",
+  "Name": "科研优先",
+  "Description": "科研评分权重提高 20%。",
+  "CardType": "Buff",
+  "Rarity": "Common",
+  "MinYear": 1905,
+  "Repeatable": false,
+  "DurationYears": -1,
+  "BuffId": "research_priority_buff"
   },
   {
     "Id": "teaching_reform",
@@ -27,7 +28,8 @@
     "Rarity": "Common",
     "MinYear": 1905,
     "Repeatable": false,
-    "DurationYears": -1
+    "DurationYears": -1,
+    "BuffId": "green_campus_buff"
   },
   {
     "Id": "temporary_research_fund",
@@ -127,7 +129,8 @@
     "Rarity": "Epic",
     "MinYear": 1920,
     "Repeatable": false,
-    "DurationYears": -1
+    "DurationYears": -1,
+    "BuffId": "academic_reputation_buff"
   },
   {
     "Id": "campus_master_plan",

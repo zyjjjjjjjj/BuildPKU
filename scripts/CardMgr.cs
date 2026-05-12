@@ -12,6 +12,8 @@ public class CardData
     public int MinYear { get; set; }
     public bool Repeatable { get; set; }
     public int DurationYears { get; set; }
+    
+    public string BuffId { get; set; }
 }
 
 public partial class CardMgr : Node
@@ -105,5 +107,11 @@ public partial class CardMgr : Node
         IsChoosingCard = false;
         _currentChoices.Clear();
         CardChoicePanel.Instance.HideChoices();
+        
+        if (card.CardType == "Buff")
+        {
+            var buff = BuffDatabase.GetById(card.BuffId);
+            BuffMgr.Instance.AddBuff(buff);
+        }
     }
 }

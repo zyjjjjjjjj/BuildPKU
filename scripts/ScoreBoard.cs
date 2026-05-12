@@ -80,14 +80,16 @@ public partial class ScoreBoard : PanelContainer
 	
 	private void InitializeScores()
 	{
-		Reputation = 0;
-		Research = 0;
-		Education = 0;
-		Environment = 0;
-		Population = 0;
-		ResWeight = 0;
-		EduWeight = 0;
-		EnvWeight = 0;
+		Reputation = ScoreMgr.Instance.Reputation;
+		Research = ScoreMgr.Instance.Research;
+		Education = ScoreMgr.Instance.Education;
+		Environment = ScoreMgr.Instance.Environment;
+		Population = ScoreMgr.Instance.Population;
+
+		ResWeight = ScoreMgr.Instance.ResWeight;
+		EduWeight = ScoreMgr.Instance.EduWeight;
+		EnvWeight = ScoreMgr.Instance.EnvWeight;
+
 		Money = MoneyMgr.Instance.InitialMoney;
 		return;
 	}

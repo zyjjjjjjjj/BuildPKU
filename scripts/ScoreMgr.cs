@@ -130,6 +130,19 @@ public partial class ScoreMgr : Node
 		}
 		EmitSignalScoreChanged();
 	}
+	public void RecomputeScoreWeights()
+	{
+		var context = new ScoreContext();
+
+		if (BuffMgr.Instance != null)
+			BuffMgr.Instance.ApplyBuffs(context);
+
+		_resWeight = context.ResWeight;
+		_eduWeight = context.EduWeight;
+		_envWeight = context.EnvWeight;
+
+		EmitSignalScoreChanged();
+	}
 
 	private void UpdateScores(BuildingBase building)
 	{

@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://cpwyqocx4rhiv" path="res://scripts/ScoreMgr.cs" id="6_p57ef"]
 [ext_resource type="Script" uid="uid://dlelqsa4dfhac" path="res://scripts/MoneyMgr.cs" id="7_gee14"]
 [ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/TimeMgr.cs" id="8_0tnpc"]
+[ext_resource type="Script" uid="uid://xg2m81631lfr" path="res://scripts/BuffMgr.cs" id="10_kvpfn"]
 [ext_resource type="Script" uid="uid://wj2b2cbsepp0" path="res://scripts/CardMgr.cs" id="10_vtaks"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
@@ -52,7 +53,10 @@ script = ExtResource("7_gee14")
 [node name="TimeMgr" type="Node" parent="." unique_id=1872149243]
 script = ExtResource("8_0tnpc")
 
-[node name="CanvasLayer" parent="." unique_id=1735141974 instance=ExtResource("5_iywne")]
-
 [node name="CardMgr" type="Node" parent="." unique_id=1006147859]
 script = ExtResource("10_vtaks")
+
+[node name="BuffMgr" type="Node" parent="." unique_id=839735800]
+script = ExtResource("10_kvpfn")
+
+[node name="CanvasLayer" parent="." unique_id=1735141974 instance=ExtResource("5_iywne")]
