@@ -29,6 +29,19 @@ public partial class ScoreBoard : PanelContainer
 	{
 		set => _moneyLabel.Text = $"{value:F2}";
 	}
+	public float TotalBenefits
+	{
+		set => _totalBenLabel.Text = $"{value:F2}";
+	}
+	public float BuildingBenefits
+	{
+		set => _buildBenLabel.Text = $"{value:F2}";
+	}
+
+	public float Tuition
+	{
+		set => _tuiLabel.Text = $"{value:F2}";
+	}
 	public float ResWeight
 	{
 		set => _resWeightLabel.Text = $"{value:F2}";
@@ -48,6 +61,9 @@ public partial class ScoreBoard : PanelContainer
 	[Export] private Label _envLabel;
 	[Export] private Label _popLabel;
 	[Export] private Label _moneyLabel;
+	[Export] private Label _tuiLabel;
+	[Export] private Label _totalBenLabel;
+	[Export] private Label _buildBenLabel;
 	[Export] private Label _resWeightLabel;
 	[Export] private Label _eduWeightLabel;
 	[Export] private Label _envWeightLabel;
@@ -67,7 +83,7 @@ public partial class ScoreBoard : PanelContainer
 	public override void _Ready()
 	{
 		InitializeScores();
-		MoneyMgr.Instance.MoneyChanged += _updateMoney;
+		MoneyMgr.Instance.MoneyChanged += _updateScore;
 		ScoreMgr.Instance.ScoreChanged += _updateScore;
 	}
 
@@ -91,12 +107,10 @@ public partial class ScoreBoard : PanelContainer
 		EnvWeight = ScoreMgr.Instance.EnvWeight;
 
 		Money = MoneyMgr.Instance.InitialMoney;
+		Tuition = MoneyMgr.Instance.Tuition;
+		TotalBenefits = MoneyMgr.Instance.MoneyPerYear;
+		BuildingBenefits = MoneyMgr.Instance.BuildingBenefits;
 		return;
-	}
-	
-	private void _updateMoney(float amount)
-	{
-		_moneyLabel.Text = $"${amount:F2}";
 	}
 
 	private void _updateScore()
@@ -106,6 +120,10 @@ public partial class ScoreBoard : PanelContainer
 		_eduLabel.Text = $"{ScoreMgr.Instance.Education:F2}";
 		_envLabel.Text = $"{ScoreMgr.Instance.Environment:F2}";
 		_popLabel.Text = $"{ScoreMgr.Instance.Population:F2}";
+		_moneyLabel.Text = $"{MoneyMgr.Instance.CurrentMoney:F2}";
+		_tuiLabel.Text = $"{MoneyMgr.Instance.Tuition:F2}";
+		_totalBenLabel.Text = $"{MoneyMgr.Instance.MoneyPerYear:F2}";
+		_buildBenLabel.Text = $"{MoneyMgr.Instance.BuildingBenefits:F2}";
 		_resWeightLabel.Text = $"{ScoreMgr.Instance.ResWeight:F2}";
 		_eduWeightLabel.Text = $"{ScoreMgr.Instance.EduWeight:F2}";
 		_envWeightLabel.Text = $"{ScoreMgr.Instance.EnvWeight:F2}";

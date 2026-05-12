@@ -1,12 +1,13 @@
 using Godot;
 using System;
+using System.Linq;
 
 public partial class MoneyMgr : Node
 {
 	public static MoneyMgr Instance { get; private set; }
 
 	[Export] public float InitialMoney = 10000;
-	[Export] public float MoneyPerYear = 100;
+	[Export] public float Tuition = 1000;
 
 	private float _currentMoney;
 
@@ -16,12 +17,17 @@ public partial class MoneyMgr : Node
 		private set
 		{
 			_currentMoney = value;
-			EmitSignalMoneyChanged(_currentMoney);
+			EmitSignalMoneyChanged();
 		}
 	}
 
+	public float BuildingBenefits => _buildingBenefits;
+	private float _buildingBenefits = 0;
+
+	public float MoneyPerYear => Tuition * ScoreMgr.Instance.Population + _buildingBenefits;
+
 	[Signal]
-	public delegate void MoneyChangedEventHandler(float newMoney);
+	public delegate void MoneyChangedEventHandler();
 
 	
 	public override void _EnterTree()
@@ -39,6 +45,8 @@ public partial class MoneyMgr : Node
 	{
 		_currentMoney = InitialMoney;
 		TimeMgr.Instance.YearAdvanced += _OnYearAdvanced;
+		BuffMgr.Instance.BuffsChanged += RecomputeBenefits;
+		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeBenefits();
 	}
 
 	private void _OnYearAdvanced(int year)
@@ -65,6 +73,17 @@ public partial class MoneyMgr : Node
 
 		CurrentMoney -= cost;
 		return true;
+	}
+	
+	public void RecomputeBenefits()
+	{
+		_buildingBenefits = 0;
+		var spawnedBuilding = BuildingMgr.Instance.SpawnedBuildings;
+		foreach (var building in spawnedBuilding.SelectMany(pair => pair.Value))
+		{
+			_buildingBenefits += building.Benefit;
+		}
+		EmitSignalMoneyChanged();
 	}
 }
 
