@@ -53,15 +53,28 @@ public partial class BuffSideBar : PanelContainer
     private string BuildTooltip(ActiveCardView activeCard)
     {
         var lines = new List<string>();
+        int elapsedYears = TimeMgr.Instance.CurrentYear - activeCard.StartYear;
 
         foreach (var buff in activeCard.Buffs)
         {
-            string duration = buff.DurationYears < 0 ? "永久" : $"{buff.DurationYears} 年";
+            string duration;
+
+            if (buff.DurationYears < 0)
+            {
+                duration = "永久";
+            }
+            else
+            {
+                int remainingYears = Math.Max(0, buff.DurationYears - elapsedYears);
+                duration = remainingYears == 0? "已结束" : $"剩余 {remainingYears} 年";
+            }
+
             lines.Add($"{buff.Description} ({duration})");
         }
 
         return string.Join("\n", lines);
     }
+
     
     public void AddCard(CardData card, List<BuffData> buffs)
     {

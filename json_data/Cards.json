@@ -17,7 +17,7 @@
 	"Rarity": "Common",
 	"MinYear": 1905,
 	"Repeatable": false,
-	"BuffIds": ["green_campus_buff"]
+	"BuffIds": ["green_campus_buff", "research_priority_buff"]
   },
   {
 	"Id": "academic_reputation",
