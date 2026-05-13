@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6s8apq5omgh7"]
 
-[ext_resource type="Script" uid="uid://choqadqocouqt" path="res://scripts/CardChoicePanel.cs" id="1_m8m3p"]
+[ext_resource type="Script" uid="uid://choqadqocouqt" path="res://scripts/ui/CardChoicePanel.cs" id="1_m8m3p"]
 
 [node name="CardChoicePanel" type="PanelContainer" unique_id=919018097 node_paths=PackedStringArray("_titleLabel", "_cardButtons")]
 anchors_preset = 15

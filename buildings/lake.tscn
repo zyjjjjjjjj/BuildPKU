@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://1ypb2tqglwx7"]
 
-[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/BuildingBase.cs" id="1_c05e1"]
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_c05e1"]
 [ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_rlxah"]
-[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/BuildingGrid.cs" id="3_hn8h4"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_hn8h4"]
 
 [node name="lake" type="Node2D" unique_id=229562284]
 script = ExtResource("1_c05e1")
