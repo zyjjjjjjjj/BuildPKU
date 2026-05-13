@@ -3,12 +3,14 @@ using Godot;
 
 public partial class CellArea : Area2D
 {
+    public Vector2I Idx;
     public bool HighlightVisible = false;
     public Color HighlightColor = new Color(0, 1, 0, 0.35f);
     public override void _Ready()
     {
         ZIndex = 100;
         _setUpCollision();
+        MouseEntered += OnMouseEntered;
     }
 
     private void _setUpCollision()
@@ -63,5 +65,10 @@ public partial class CellArea : Area2D
                 break;
         }
         QueueRedraw();
+    }
+
+    private void OnMouseEntered()
+    {
+        GridMgr.Instance.ShowBuildingInfo(Idx);
     }
 }

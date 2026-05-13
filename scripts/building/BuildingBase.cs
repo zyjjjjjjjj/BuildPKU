@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public partial class BuildingBase : Node2D
 {
 	public string Id;
+	public string buildingName;
 	public float _research = 0f;
 	public float _education = 0f;
 	public float _environment = 0f;

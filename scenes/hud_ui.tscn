@@ -1,18 +1,22 @@
 [gd_scene format=3 uid="uid://dmtygt5cvj1tn"]
 
 [ext_resource type="Script" uid="uid://jdkmy2i8qg6v" path="res://scripts/ui/TopBar.cs" id="1_27bld"]
+[ext_resource type="Script" uid="uid://dxuiloo48i4ji" path="res://scripts/ui/UIMgr.cs" id="1_n3kp7"]
 [ext_resource type="Script" uid="uid://c7yfp5347830e" path="res://scripts/ui/BuildingSideBar.cs" id="2_lecxb"]
 [ext_resource type="Script" uid="uid://xebu77u17w22" path="res://scripts/ui/WarningPanel.cs" id="4_dh3a3"]
 [ext_resource type="Script" uid="uid://bfbjfqcb276r4" path="res://scripts/ui/ScoreBoard.cs" id="4_vha3o"]
 [ext_resource type="PackedScene" uid="uid://c6s8apq5omgh7" path="res://scenes/card_choice_panel.tscn" id="5_dh3a3"]
 [ext_resource type="Script" uid="uid://dvxxuvj6ndyxd" path="res://scripts/ui/BuffSideBar.cs" id="6_47rti"]
 [ext_resource type="PackedScene" uid="uid://bde655sxu03kn" path="res://scenes/game_over_panel.tscn" id="7_kkiei"]
+[ext_resource type="PackedScene" uid="uid://jel574idb8ic" path="res://scenes/building_info_panel.tscn" id="9_cq5av"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vha3o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dh3a3"]
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974 node_paths=PackedStringArray("_buildingInfoPanel")]
+script = ExtResource("1_n3kp7")
+_buildingInfoPanel = NodePath("BuildingInfoPanel")
 
 [node name="HUDRoot" type="Control" parent="." unique_id=643724016]
 layout_mode = 3
@@ -355,3 +359,7 @@ layout_mode = 2
 [node name="GameOverPanel" parent="HUDRoot" unique_id=227522188 instance=ExtResource("7_kkiei")]
 visible = false
 layout_mode = 1
+
+[node name="BuildingInfoPanel" parent="." unique_id=1650551941 instance=ExtResource("9_cq5av")]
+offset_right = 77.0
+offset_bottom = 158.0

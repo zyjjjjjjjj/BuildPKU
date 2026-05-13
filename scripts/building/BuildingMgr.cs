@@ -158,6 +158,7 @@ public partial class BuildingMgr : Node2D
             SpawnedBuildings[_selectedBuildingId] = [building];
         building.Name = _selectedBuildingId + '_' + SpawnedBuildings.Count.ToString();
         building.Id = _selectedBuildingId;
+        building.buildingName = AllBuildingDict[_selectedBuildingId].Name;
         building.Position = localPos;
         building.RotationStep = _tmpBuilding.RotationStep;
         building.ZIndex = zIdx;

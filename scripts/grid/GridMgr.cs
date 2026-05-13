@@ -104,6 +104,7 @@ public partial class GridMgr : Node2D
         };
         if(Camera!=null)
             ((CameraCtrl)Camera).CameraZoom += QueueRedraw;
+        
         CreateGrid();
     }
 
@@ -139,6 +140,7 @@ public partial class GridMgr : Node2D
     {
         var area = new CellArea();
         area.Name = $"Cell_{gridIdx.X}_{gridIdx.Y}";
+        area.Idx = gridIdx;
         area.Position = new Vector2(gridIdx.X * CellSize, gridIdx.Y * CellSize);
         area.AreaEntered += otherArea =>
         {
@@ -327,5 +329,24 @@ public partial class GridMgr : Node2D
             neighborIds.Add(name.Split('_')[0]);
         }
         return neighborIds;
+    }
+
+    public void ShowBuildingInfo(Vector2I idx)
+    {
+        if (!_occupied.TryGetValue(idx, out var name))
+        {
+            UIMgr.Instance.HideBuildingInfo();
+            return;
+        }
+        var building = BuildingMgr.Instance.GetNodeOrNull<BuildingBase>(name);
+        if (building == null)
+        {
+            UIMgr.Instance.HideBuildingInfo();
+            return;
+        }
+        else
+        {
+            UIMgr.Instance.ShowBuildingInfo(building);
+        }
     }
 }

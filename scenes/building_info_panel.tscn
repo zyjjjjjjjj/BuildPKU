@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://jel574idb8ic"]
+
+[ext_resource type="Script" uid="uid://cllss8mmt6jkr" path="res://scripts/ui/BuildingInfoPanel.cs" id="1_eqwah"]
+
+[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_eqwah")
+_idLabel = NodePath("VBoxContainer/HBoxContainer/Label2")
+_resLabel = NodePath("VBoxContainer/HBoxContainer2/Label2")
+_eduLabel = NodePath("VBoxContainer/HBoxContainer3/Label2")
+_envLabel = NodePath("VBoxContainer/HBoxContainer4/Label2")
+_popLabel = NodePath("VBoxContainer/HBoxContainer5/Label2")
+_benLabel = NodePath("VBoxContainer/HBoxContainer6/Label2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1228620002]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1830721401]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=632396339]
+layout_mode = 2
+text = "名称:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=619348152]
+layout_mode = 2
+text = "xxxx"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1215908476]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=1627265680]
+layout_mode = 2
+text = "科研:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=104962391]
+layout_mode = 2
+text = "xxxx"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer" unique_id=138416659]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=750545326]
+layout_mode = 2
+text = "教学:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer3" unique_id=787760676]
+layout_mode = 2
+text = "xxxx"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=935953785]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer4" unique_id=185552507]
+layout_mode = 2
+text = "环境:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer4" unique_id=1680821678]
+layout_mode = 2
+text = "xxxx"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=43489733]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer5" unique_id=1796683661]
+layout_mode = 2
+text = "人口:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer5" unique_id=1928074297]
+layout_mode = 2
+text = "xxxx"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer" unique_id=1036126194]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer6" unique_id=278392]
+layout_mode = 2
+text = "收益:"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer6" unique_id=1486020126]
+layout_mode = 2
+text = "xxxx"
