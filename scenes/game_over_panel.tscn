@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bde655sxu03kn"]
+
+[ext_resource type="Script" uid="uid://b5ysj0oje4ml1" path="res://scripts/ui/GameOverPanel.cs" id="1_dme80"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_88t8v"]
+bg_color = Color(0.72156864, 0, 0, 0.14509805)
+
+[node name="PanelContainer" type="PanelContainer" unique_id=227522188 node_paths=PackedStringArray("_label", "_mainMenuButton", "_replayButton")]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_88t8v")
+script = ExtResource("1_dme80")
+_label = NodePath("VBoxContainer/Label")
+_mainMenuButton = NodePath("VBoxContainer/Button")
+_replayButton = NodePath("VBoxContainer/Button2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=752771685]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 51
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=250466373]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 160
+text = "恭喜通关"
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=655204284]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "返回开始界面"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1540227219]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 80
+text = "重新开始"

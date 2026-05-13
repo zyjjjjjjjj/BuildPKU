@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bfbjfqcb276r4" path="res://scripts/ui/ScoreBoard.cs" id="4_vha3o"]
 [ext_resource type="PackedScene" uid="uid://c6s8apq5omgh7" path="res://scenes/card_choice_panel.tscn" id="5_dh3a3"]
 [ext_resource type="Script" uid="uid://dvxxuvj6ndyxd" path="res://scripts/ui/BuffSideBar.cs" id="6_47rti"]
+[ext_resource type="PackedScene" uid="uid://bde655sxu03kn" path="res://scenes/game_over_panel.tscn" id="7_kkiei"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vha3o"]
 
@@ -350,3 +351,7 @@ text = "Buff栏"
 
 [node name="BuffList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=852263384]
 layout_mode = 2
+
+[node name="GameOverPanel" parent="HUDRoot" unique_id=227522188 instance=ExtResource("7_kkiei")]
+visible = false
+layout_mode = 1

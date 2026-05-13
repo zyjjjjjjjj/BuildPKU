@@ -82,6 +82,8 @@ public partial class ScoreMgr : Node
 	private float _envWeight=1;
 	
 	[Signal] public delegate void ScoreChangedEventHandler();
+	[Signal] public delegate void GameCompletedEventHandler();
+	[Signal] public delegate void GameFailedEventHandler();
 
 	public override void _EnterTree()
 	{
@@ -99,6 +101,8 @@ public partial class ScoreMgr : Node
 	{
 		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeScores();
 		BuffMgr.Instance.BuffsChanged += RecomputeScores;
+		TimeMgr.Instance.YearAdvanced += CheckMileStones;
+		InitializeScores();
 	}
 
 
@@ -154,5 +158,34 @@ public partial class ScoreMgr : Node
 		_envBase += building.Environment;
 		_population += building.Population;
 		EmitSignal(SignalName.ScoreChanged);
+	}
+
+	private void CheckMileStones(int newYear)
+	{
+		var mileStone = MileStoneDatabase.GetNext(newYear);
+		if (mileStone == null)
+		{
+			throw new Exception("无尽头模式");
+		}
+		
+		if (mileStone.Year != newYear) return;
+		
+		if(Reputation >= mileStone.TargetScore)
+		{
+			GD.Print($"达成里程碑: {mileStone.Year}年, 目标声誉: {mileStone.TargetScore}");
+			if(MileStoneDatabase.IsLast(mileStone.Year))
+			{
+				GD.Print("游戏胜利");
+				EmitSignalGameCompleted();
+			}
+		}
+		else
+		{
+			GD.Print($"未达成里程碑: {mileStone.Year}年, 目标声誉: {mileStone.TargetScore}, 当前声誉: {Reputation}");
+			GD.Print("游戏失败");
+			EmitSignalGameFailed();
+		}
+
+		return;
 	}
 }

@@ -18,7 +18,7 @@ public partial class TimeMgr : Node
 		}
 	}
 	public int EndYear = 2026;
-	public int InitialYear = 1900;
+	public int InitialYear = 1952;
 	[Signal] public delegate void YearAdvancedEventHandler(int newYear);
 	
 	public override void _EnterTree()
@@ -48,7 +48,6 @@ public partial class TimeMgr : Node
 		if (CurrentYear < EndYear)
 		{
 			CurrentYear++;
-			GD.Print(CurrentYear);
 		}
 	}
 	

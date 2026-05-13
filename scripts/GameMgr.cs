@@ -27,4 +27,10 @@ public partial class GameMgr : Node2D
 	public override void _Process(double delta)
 	{
 	}
+
+	public void RestartGame()
+	{
+		GD.Print("restart");
+		GetTree().ReloadCurrentScene();
+	}
 }
