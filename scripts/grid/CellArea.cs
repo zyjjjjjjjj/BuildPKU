@@ -69,6 +69,18 @@ public partial class CellArea : Area2D
 
     private void OnMouseEntered()
     {
-        GridMgr.Instance.ShowBuildingInfo(Idx);
+        var name = GridMgr.Instance.GetNameByIdx(Idx);
+        if (name == null)
+        {
+            UIMgr.Instance.HideBuildingInfo();
+            return;
+        }
+        var building = BuildingMgr.Instance.GetNodeOrNull<BuildingBase>(name);
+        if (building == null)
+        {             
+            UIMgr.Instance.HideBuildingInfo();
+            return;
+        }
+        UIMgr.Instance.ShowBuildingInfo(building);
     }
 }

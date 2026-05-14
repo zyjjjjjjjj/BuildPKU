@@ -47,6 +47,7 @@ public partial class MoneyMgr : Node
 		TimeMgr.Instance.YearAdvanced += _OnYearAdvanced;
 		BuffMgr.Instance.BuffsChanged += RecomputeBenefits;
 		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeBenefits();
+		BuildingMgr.Instance.DestroyedBuilding += RecomputeBenefits;
 	}
 
 	private void _OnYearAdvanced(int year)
@@ -78,8 +79,8 @@ public partial class MoneyMgr : Node
 	public void RecomputeBenefits()
 	{
 		_buildingBenefits = 0;
-		var spawnedBuilding = BuildingMgr.Instance.SpawnedBuildings;
-		foreach (var building in spawnedBuilding.SelectMany(pair => pair.Value))
+		var spawnedBuildings = BuildingMgr.Instance.SpawnedBuildings;
+		foreach (var building in spawnedBuildings.SelectMany(pair => pair.Value))
 		{
 			_buildingBenefits += building.Benefit;
 		}

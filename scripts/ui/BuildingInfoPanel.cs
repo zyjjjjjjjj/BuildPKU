@@ -9,9 +9,16 @@ public partial class BuildingInfoPanel : PanelContainer
 	[Export] private Label _envLabel;
 	[Export] private Label _popLabel;
 	[Export] private Label _benLabel;
+	[Export] private Button _destroyButton;
+
+	private string _instanceName;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_destroyButton.Pressed += () => {
+			BuildingMgr.Instance.DestroyBuilding(_instanceName);
+			Visible = false;
+		};
 		Visible = false;
 	}
 
@@ -19,20 +26,23 @@ public partial class BuildingInfoPanel : PanelContainer
 	public override void _Process(double delta)
 	{
 		if (!Visible) return;
-		var pos = GetViewport().GetMousePosition() - Size;
-		if (pos.X < 0) pos.X += (Size.X + 20);
-		if (pos.Y < 0) pos.Y += (Size.Y + 20);
-		GlobalPosition = pos;
 	}
 
-	public void SetBuilding(BuildingBase building)
+	public void Show(BuildingBase building)
 	{
+		_instanceName = building.Name;
 		_idLabel.Text = building.buildingName;
 		_resLabel.Text = $"{building.Research:F2}";
 		_eduLabel.Text = $"{building.Education:F2}";
 		_envLabel.Text = $"{building.Environment:F2}";
 		_popLabel.Text = $"{building.Population:F2}";
 		_benLabel.Text = $"{building.Benefit:F2}";
+		//var pos = GetViewport().GetMousePosition() - Size;
+		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
+		if (pos.X < 0) pos.X += (Size.X + 20);
+		if (pos.Y < 0) pos.Y += (Size.Y + 20);
+		GlobalPosition = pos;
+		Visible = true;
 		return;
 	}
 }

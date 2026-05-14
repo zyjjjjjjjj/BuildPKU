@@ -273,17 +273,24 @@ public partial class GridMgr : Node2D
         }
         return offset;
     }
-    public void UpdateOccupation(BuildingBase newBuilding)
+    public void UpdateOccupation(BuildingBase newBuilding, bool destroy = false)
     {
         var collisionPoints = newBuilding.GetCollisionAreas();
         foreach (var collisionPoint in collisionPoints)
         {
             var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
-            if (!_inBounds(idx) || _isOccupied(idx))
+            if (destroy)
             {
-                GD.PrintErr("尝试占用一个已经被占用的格子，或者越界了！请检查逻辑！");
+                _occupied.Remove(idx);
             }
-            _occupied[idx] = newBuilding.Name;
+            else
+            {
+                if (!_inBounds(idx) || _isOccupied(idx))
+                {
+                    GD.PrintErr("尝试占用一个已经被占用的格子，或者越界了！请检查逻辑！");
+                }
+                _occupied[idx] = newBuilding.Name;
+            }
         }
         QueueRedraw();
     }
@@ -331,22 +338,8 @@ public partial class GridMgr : Node2D
         return neighborIds;
     }
 
-    public void ShowBuildingInfo(Vector2I idx)
+    public string GetNameByIdx(Vector2I idx)
     {
-        if (!_occupied.TryGetValue(idx, out var name))
-        {
-            UIMgr.Instance.HideBuildingInfo();
-            return;
-        }
-        var building = BuildingMgr.Instance.GetNodeOrNull<BuildingBase>(name);
-        if (building == null)
-        {
-            UIMgr.Instance.HideBuildingInfo();
-            return;
-        }
-        else
-        {
-            UIMgr.Instance.ShowBuildingInfo(building);
-        }
+        return _occupied.GetValueOrDefault(idx);
     }
 }

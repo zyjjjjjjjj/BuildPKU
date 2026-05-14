@@ -29,8 +29,7 @@ public partial class UIMgr : CanvasLayer
 	
 	public void ShowBuildingInfo(BuildingBase building)
 	{
-		_buildingInfoPanel.SetBuilding(building);
-		_buildingInfoPanel.Visible = true;
+		_buildingInfoPanel.Show(building);
 	}
 	
 	public void HideBuildingInfo()

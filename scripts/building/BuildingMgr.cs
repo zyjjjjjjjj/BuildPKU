@@ -24,6 +24,7 @@ public partial class BuildingMgr : Node2D
     private string _selectedBuildingId = string.Empty;
     private BuildingBase _tmpBuilding;
     public readonly Dictionary<string, List<BuildingBase>> SpawnedBuildings = new();
+    private int _spawningCnt = 0;
     private bool _isEditing = false;
     public bool IsEditing
     {
@@ -48,6 +49,8 @@ public partial class BuildingMgr : Node2D
 
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
+    [Signal]
+    public delegate void DestroyedBuildingEventHandler();
     [Signal]
     public delegate void EnterEditorModeEventHandler();
     [Signal]
@@ -156,7 +159,7 @@ public partial class BuildingMgr : Node2D
             list.Add(building);
         else
             SpawnedBuildings[_selectedBuildingId] = [building];
-        building.Name = _selectedBuildingId + '_' + SpawnedBuildings.Count.ToString();
+        building.Name = _selectedBuildingId + '_' + _spawningCnt++.ToString();
         building.Id = _selectedBuildingId;
         building.buildingName = AllBuildingDict[_selectedBuildingId].Name;
         building.Position = localPos;
@@ -167,10 +170,7 @@ public partial class BuildingMgr : Node2D
         GridMgr.Instance.UpdateOccupation(building);
         var neighbors = GridMgr.Instance.GetNeighbors(building);
         foreach (var name in neighbors)
-        {
-            var neighbor = GetNode<BuildingBase>(name);
-            neighbor.RecomputeAdjBonus();
-        }
+            GetNode<BuildingBase>(name).RecomputeAdjBonus();
         EmitSignalSpawnedBuilding(building);
     }
 
@@ -190,5 +190,18 @@ public partial class BuildingMgr : Node2D
                 _tmpBuilding = null;
             }
         }
+    }
+
+    public void DestroyBuilding(string buildingName)
+    {
+        GD.Print($"尝试销毁建筑 {buildingName}");
+        var building = GetNode<BuildingBase>(buildingName);
+        GridMgr.Instance.UpdateOccupation(building, true);
+        SpawnedBuildings[building.Id].Remove(building);
+        var neighbors = GridMgr.Instance.GetNeighbors(building);
+        foreach (var name in neighbors)        
+            GetNode<BuildingBase>(name).RecomputeAdjBonus();
+        building.QueueFree();
+        EmitSignalDestroyedBuilding();
     }
 }

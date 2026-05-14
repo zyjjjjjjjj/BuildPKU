@@ -100,6 +100,7 @@ public partial class ScoreMgr : Node
 	public override void _Ready()
 	{
 		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeScores();
+		BuildingMgr.Instance.DestroyedBuilding += RecomputeScores;
 		BuffMgr.Instance.BuffsChanged += RecomputeScores;
 		TimeMgr.Instance.YearAdvanced += CheckMileStones;
 		InitializeScores();
@@ -123,12 +124,12 @@ public partial class ScoreMgr : Node
 
 	private void RecomputeScores()
 	{
-		var spawnedBuilding = BuildingMgr.Instance.SpawnedBuildings;
+		var spawnedBuildings = BuildingMgr.Instance.SpawnedBuildings;
 		_resBase = 0f;
 		_eduBase = 0f;
 		_envBase = 0f;
 		_population = 0f;
-		foreach (var building in spawnedBuilding.SelectMany(pair => pair.Value))
+		foreach (var building in spawnedBuildings.SelectMany(pair => pair.Value))
 		{
 			_resBase += building.Research;
 			_eduBase += building.Education;

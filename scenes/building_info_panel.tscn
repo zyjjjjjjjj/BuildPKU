@@ -2,7 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cllss8mmt6jkr" path="res://scripts/ui/BuildingInfoPanel.cs" id="1_eqwah"]
 
-[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqwah"]
+bg_color = Color(1, 0.43659723, 0.36793825, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q35r8"]
+bg_color = Color(0.9999954, 0.2736621, 0.21635136, 1)
+
+[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_destroyButton")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_eqwah")
@@ -12,6 +18,7 @@ _eduLabel = NodePath("VBoxContainer/HBoxContainer3/Label2")
 _envLabel = NodePath("VBoxContainer/HBoxContainer4/Label2")
 _popLabel = NodePath("VBoxContainer/HBoxContainer5/Label2")
 _benLabel = NodePath("VBoxContainer/HBoxContainer6/Label2")
+_destroyButton = NodePath("VBoxContainer/Button")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1228620002]
 layout_mode = 2
@@ -81,3 +88,10 @@ text = "收益:"
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer6" unique_id=1486020126]
 layout_mode = 2
 text = "xxxx"
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=782685566]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_eqwah")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_q35r8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_eqwah")
+text = "拆除"
