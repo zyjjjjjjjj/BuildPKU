@@ -17,6 +17,8 @@ public class BuildingData
     public float Population { get; set; }
     public bool Destroyable { get; set; } = true;
     public int Limit { get; set; } = -1;
+    public string UpgradeTo { get; set; } = string.Empty;
+    public float UpgradeCost { get; set; } = 0f;
 }
 
 public static class BuildingDatabase

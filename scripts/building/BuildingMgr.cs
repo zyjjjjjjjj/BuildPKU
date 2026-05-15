@@ -30,6 +30,7 @@ public partial class BuildingMgr : Node2D
             EmitSignalExitEditorMode();
         }
     }
+    public bool _upgrading = false;
 
     public List<string> AvailableBuildingIds { get; private set; } = [];
 
@@ -164,13 +165,9 @@ public partial class BuildingMgr : Node2D
         else
             SpawnedBuildings[buildingData.Id] = [building];
         
-        GD.Print($"已建造 {building.Name}，总数: {SpawnedBuildings[buildingData.Id].Count}, limit: {buildingData.Limit}");
         if(buildingData.Limit > 0 && SpawnedBuildings[buildingData.Id].Count >= buildingData.Limit)
-        {
-            AvailableBuildingIds.Remove(buildingData.Id);
-            EmitSignalAvailableBuildingIdsChanged(false, buildingData.Id);
-            return;
-        }
+            ModifyAvailableBuildingList(false, buildingData.Id);
+        
         GridMgr.Instance.UpdateOccupation(building);
         
         //计算邻居相邻加成
@@ -179,6 +176,11 @@ public partial class BuildingMgr : Node2D
             GetNode<BuildingBase>(name).RecomputeAdjBonus();
         
         EmitSignalSpawnedBuilding(building);
+        if (_upgrading)
+        {
+            IsEditing = false;
+            _upgrading = false;
+        }
     }
 
     public void SetUpInitialBuildings()
@@ -210,5 +212,32 @@ public partial class BuildingMgr : Node2D
             GetNode<BuildingBase>(name).RecomputeAdjBonus();
         building.QueueFree();
         EmitSignalDestroyedBuilding();
+    }
+    
+    public void UpgradeBuilding(string buildingName)
+    {
+        var id = buildingName.Split("_")[0];
+        var newId = BuildingDatabase.GetById(id).UpgradeTo;
+        if (string.IsNullOrEmpty(newId))
+            return;
+        ModifyAvailableBuildingList(true, newId);
+        DestroyBuilding(buildingName);
+        _upgrading = true;
+        SelectBuilding(newId);
+    }
+    
+    public void ModifyAvailableBuildingList(bool add, string buildingId)
+    {
+        if(add)
+        {
+            if(AvailableBuildingIds.Contains(buildingId))
+                return;
+            AvailableBuildingIds.Add(buildingId);
+        }
+        else
+        {
+            AvailableBuildingIds.Remove(buildingId);
+        }
+        EmitSignalAvailableBuildingIdsChanged(add, buildingId);
     }
 }

@@ -4,13 +4,19 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_178os"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_thl7p"]
+bg_color = Color(0.8041714, 0.59711784, 0.24294862, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fnusm"]
+bg_color = Color(0.62228113, 0.45365012, 0.16160065, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqwah"]
 bg_color = Color(1, 0.43659723, 0.36793825, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q35r8"]
 bg_color = Color(0.9999954, 0.2736621, 0.21635136, 1)
 
-[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffLabel", "_destroyButton")]
+[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffLabel", "_destroyButton", "_upgradeButton")]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_eqwah")
@@ -22,6 +28,7 @@ _popLabel = NodePath("VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5
 _benLabel = NodePath("VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6/Label2")
 _buffLabel = NodePath("VBoxContainer/BuffLabel")
 _destroyButton = NodePath("VBoxContainer/Button")
+_upgradeButton = NodePath("VBoxContainer/Button2")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1228620002]
 layout_mode = 2
@@ -102,13 +109,34 @@ text = "收益:"
 layout_mode = 2
 text = "xxxx"
 
+[node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer" unique_id=1370966966]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
 [node name="BuffLabel" type="Label" parent="VBoxContainer" unique_id=1212198083]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_178os")
 
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer" unique_id=1028896219]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1728105388]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_thl7p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fnusm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_thl7p")
+text = "花费xxxxx升级"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer" unique_id=516191260]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
 [node name="Button" type="Button" parent="VBoxContainer" unique_id=782685566]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_eqwah")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_q35r8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_eqwah")
