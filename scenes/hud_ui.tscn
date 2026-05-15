@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://xebu77u17w22" path="res://scripts/ui/WarningPanel.cs" id="4_dh3a3"]
 [ext_resource type="Script" uid="uid://bfbjfqcb276r4" path="res://scripts/ui/ScoreBoard.cs" id="4_vha3o"]
 [ext_resource type="PackedScene" uid="uid://c6s8apq5omgh7" path="res://scenes/card_choice_panel.tscn" id="5_dh3a3"]
-[ext_resource type="Script" uid="uid://dvxxuvj6ndyxd" path="res://scripts/ui/BuffSideBar.cs" id="6_47rti"]
+[ext_resource type="Script" uid="uid://bjegp6lsmcvqg" path="res://scripts/ui/BuffSideBar.cs" id="6_47rti"]
 [ext_resource type="PackedScene" uid="uid://bde655sxu03kn" path="res://scenes/game_over_panel.tscn" id="7_kkiei"]
 [ext_resource type="PackedScene" uid="uid://jel574idb8ic" path="res://scenes/building_info_panel.tscn" id="9_cq5av"]
 
@@ -34,9 +34,9 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -88.0
-offset_top = -198.5
-offset_bottom = 198.5
+offset_left = -161.0
+offset_top = -270.0
+offset_bottom = 317.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("2_lecxb")
@@ -49,6 +49,7 @@ layout_mode = 2
 size_flags_vertical = 3
 allow_reselect = true
 max_text_lines = 2
+max_columns = 2
 fixed_column_width = 64
 icon_mode = 0
 fixed_icon_size = Vector2i(64, 64)
@@ -330,31 +331,60 @@ horizontal_alignment = 2
 [node name="CardChoicePanel" parent="HUDRoot" unique_id=919018097 instance=ExtResource("5_dh3a3")]
 layout_mode = 1
 
-[node name="BuffSideBar" type="PanelContainer" parent="HUDRoot" unique_id=2072901608 node_paths=PackedStringArray("_buffList")]
+[node name="BuffSideBar" type="PanelContainer" parent="HUDRoot" unique_id=2072901608 node_paths=PackedStringArray("_toggleButton", "_cardList", "_adjBonusTitleLabel", "_adjBonusList")]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
+offset_top = -253.0
+offset_right = 155.0
+offset_bottom = 310.0
 grow_vertical = 2
 script = ExtResource("6_47rti")
-_buffList = NodePath("MarginContainer/VBoxContainer/BuffList")
+_toggleButton = NodePath("MarginContainer/VBoxContainer/ToggleButton")
+_cardList = NodePath("MarginContainer/VBoxContainer/CardScroll/CardList")
+_adjBonusTitleLabel = NodePath("MarginContainer/VBoxContainer/AdjBonusTitleLabel")
+_adjBonusList = NodePath("MarginContainer/VBoxContainer/AdjBonusScroll/AdjBonusList")
 
 [node name="MarginContainer" type="MarginContainer" parent="HUDRoot/BuffSideBar" unique_id=247178083]
 layout_direction = 2
 layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer" unique_id=443581935]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=800869803]
+[node name="ToggleButton" type="Button" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=800869803]
 layout_mode = 2
-text = "Buff栏"
+text = "卡片栏"
 
-[node name="BuffList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=852263384]
+[node name="CardScroll" type="ScrollContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=405181208]
+custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="CardList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer/CardScroll" unique_id=852263384]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AdjBonusTitleLabel" type="Button" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=664586384]
+layout_mode = 2
+mouse_filter = 2
+text = "相邻加成效果"
+
+[node name="AdjBonusScroll" type="ScrollContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=333947954]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="AdjBonusList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer/AdjBonusScroll" unique_id=1878405303]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="GameOverPanel" parent="HUDRoot" unique_id=227522188 instance=ExtResource("7_kkiei")]
 visible = false

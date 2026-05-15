@@ -107,10 +107,10 @@ public partial class CardMgr : Node
         _currentChoices.Clear();
         CardChoicePanel.Instance.HideChoices();
         
+        var buffs = new List<BuffData>();
+
         if (card.CardType == "Buff" && card.BuffIds != null)
         {
-            var buffs = new List<BuffData>();
-
             foreach (var buffId in card.BuffIds)
             {
                 var buff = BuffDatabase.GetById(buffId);
@@ -121,8 +121,8 @@ public partial class CardMgr : Node
                 buffs.Add(buff);
                 BuffMgr.Instance.AddBuff(buff);
             }
-
-            BuffSideBar.Instance.AddCard(card, buffs);
         }
+
+        BuffSideBar.Instance.AddCard(card, buffs);
     }
 }

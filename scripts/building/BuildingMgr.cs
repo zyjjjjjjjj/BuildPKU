@@ -113,10 +113,10 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding?.QueueFree();
         var buildingScene = GD.Load<PackedScene>(BuildingDatabase.GetById(buildingId).ScenePath);
         _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
-        _tmpBuilding.GlobalPosition = GetLocalMousePosition();
         _tmpBuilding.Name = "tmpBuilding";
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
+        _tmpBuilding.GlobalPosition = GetLocalMousePosition();
     }
 
     public void TrySpawnBuilding(bool cost=true)
