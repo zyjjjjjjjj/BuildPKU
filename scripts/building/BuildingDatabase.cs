@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 
+public class BuildingData
+{
+    public string Id{get;set;}
+    public string Name{get;set;}
+    public string IconPath => "res://icon.svg";
+    public string ScenePath => $"res://buildings/{Id}.tscn";
+    public float Research { get; set; }
+    public float Education { get; set; }
+    public float Environment { get; set; }
+    public float Cost { get; set; }
+    public float Benefit { get; set; }
+    public float Population { get; set; }
+    public bool Destroyable { get; set; } = true;
+    public int Limit { get; set; } = -1;
+}
+
 public static class BuildingDatabase
 {
     private const string JsonPath = "res://json_data/Buildings.json";
@@ -12,6 +28,12 @@ public static class BuildingDatabase
     {
         EnsureLoaded();
         return _allBuildingDict;
+    }
+    
+    public static List<string> GetAllIds()
+    {
+        EnsureLoaded();
+        return new List<string>(_allBuildingDict.Keys);
     }
 
     public static BuildingData GetById(string id)

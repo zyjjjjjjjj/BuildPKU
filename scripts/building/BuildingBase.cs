@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class BuildingBase : Node2D
 {
 	public string Id;
-	public string buildingName;
+	public string BuildingName;
 	public float _research = 0f;
 	public float _education = 0f;
 	public float _environment = 0f;
@@ -77,6 +77,8 @@ public partial class BuildingBase : Node2D
 		}
 		private set => _relatedBuffs = value;
 	}
+
+	public bool Destroyable;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -151,14 +153,17 @@ public partial class BuildingBase : Node2D
 		return areas;
 	}
 	
-	public void InitializeProperties(BuildingData data)
+	public void InitializeFromData(BuildingData data)
 	{
+		BuildingName = data.Name;
 		_research = data.Research;
 		_education = data.Education;
 		_environment = data.Environment;
 		_population = data.Population;
 		_cost = data.Cost;
 		_benefit = data.Benefit;
+		 Destroyable = data.Destroyable;
+		 return;
 	}
 	
 	public void ApplyAdjBonus(ActiveBuff buff)

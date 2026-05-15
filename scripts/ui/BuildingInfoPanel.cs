@@ -33,13 +33,23 @@ public partial class BuildingInfoPanel : PanelContainer
 	public void Show(BuildingBase building)
 	{
 		_instanceName = building.Name;
-		_idLabel.Text = building.buildingName;
+		_idLabel.Text = building.BuildingName;
 		_resLabel.Text = $"{building.Research:F2}";
 		_eduLabel.Text = $"{building.Education:F2}";
 		_envLabel.Text = $"{building.Environment:F2}";
 		_popLabel.Text = $"{building.Population:F2}";
 		_benLabel.Text = $"{building.Benefit:F2}";
 		ShowRelatedBuffs(building);
+		if (building.Destroyable)
+		{
+			_destroyButton.Text = "拆除";
+			_destroyButton.Disabled = false;
+		}
+		else
+		{
+			_destroyButton.Text = "不可拆除";
+			_destroyButton.Disabled = true;
+		}
 		//var pos = GetViewport().GetMousePosition() - Size;
 		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
 		if (pos.X < 0) pos.X += (Size.X + 20);

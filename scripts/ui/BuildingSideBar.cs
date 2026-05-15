@@ -27,6 +27,7 @@ public partial class BuildingSideBar : PanelContainer
 	{
 		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
+		BuildingMgr.Instance.AvailableBuildingIdsChanged += UpdateItemList;
 	}
 
 	private void InitializeItemList()
@@ -35,9 +36,9 @@ public partial class BuildingSideBar : PanelContainer
 		_itemList.MouseFilter = MouseFilterEnum.Stop;
 		// 清空并填充
 		_itemList.Clear();
-		foreach (var pair in BuildingDatabase.GetAll())
+		foreach (var id in BuildingMgr.Instance.AvailableBuildingIds)
 		{
-			var data = pair.Value;
+			var data = BuildingDatabase.GetById(id);
 			var displayText = $"{data.Name}\n￥{data.Cost}";
 
 			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
@@ -45,6 +46,29 @@ public partial class BuildingSideBar : PanelContainer
 			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
 		}
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
+	}
+
+	private void UpdateItemList(bool add, string buildingId)
+	{
+		if(add)
+		{
+			var data = BuildingDatabase.GetById(buildingId);
+			var displayText = $"{data.Name}\n￥{data.Cost}";
+
+			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
+			_itemList.AddItem(displayText, icon);
+			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
+		}
+		else
+		{
+			for (var i = 0; i < _itemList.GetItemCount(); i++)
+			{
+				if (_itemList.GetItemMetadata(i).ToString() != buildingId) continue;
+				_itemList.RemoveItem(i);
+				break;
+			}
+		}
+		return;
 	}
 
 	public override void _GuiInput(InputEvent @event)

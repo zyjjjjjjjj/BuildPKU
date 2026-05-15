@@ -4,19 +4,6 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 
-public class BuildingData
-{
-    public string Id{get;set;}
-    public string Name{get;set;}
-    public string IconPath => "res://icon.svg";
-    public string ScenePath => $"res://buildings/{Id}.tscn";
-    public float Research { get; set; }
-    public float Education { get; set; }
-    public float Environment { get; set; }
-    public float Cost { get; set; }
-    public float Benefit { get; set; }
-    public float Population { get; set; }
-}
 
 public partial class BuildingMgr : Node2D
 {
@@ -43,9 +30,8 @@ public partial class BuildingMgr : Node2D
             EmitSignalExitEditorMode();
         }
     }
-    public Dictionary<string, BuildingData> AllBuildingDict => _allBuildingDict;
-    private Dictionary<string, BuildingData> _allBuildingDict;
-    private string _buildingListJsonPath = "res://buildings/BuildingsID.json";
+
+    public List<string> AvailableBuildingIds { get; private set; } = [];
 
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
@@ -55,6 +41,8 @@ public partial class BuildingMgr : Node2D
     public delegate void EnterEditorModeEventHandler();
     [Signal]
     public delegate void ExitEditorModeEventHandler();
+    [Signal]
+    public delegate void AvailableBuildingIdsChangedEventHandler(bool added, string buildingId);
     
     public override void _EnterTree()
     {
@@ -70,7 +58,7 @@ public partial class BuildingMgr : Node2D
     public override void _Ready()
     {
         BuildingSideBar.Instance.SideBarBuildingSelected += SelectBuilding;
-        _allBuildingDict = BuildingDatabase.GetAll();
+        AvailableBuildingIds = BuildingDatabase.GetAllIds();
     }
 
     public override void _Process(double delta)
@@ -121,7 +109,7 @@ public partial class BuildingMgr : Node2D
         _selectedBuildingId = buildingId;
         if (_tmpBuilding != null) _tmpBuilding.Name = "tmpBuilding_toBeFreed";
         _tmpBuilding?.QueueFree();
-        var buildingScene = GD.Load<PackedScene>(AllBuildingDict[buildingId].ScenePath);
+        var buildingScene = GD.Load<PackedScene>(BuildingDatabase.GetById(buildingId).ScenePath);
         _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
         _tmpBuilding.GlobalPosition = GetLocalMousePosition();
         _tmpBuilding.Name = "tmpBuilding";
@@ -138,7 +126,7 @@ public partial class BuildingMgr : Node2D
         if (!offset.HasValue)
             return;
 
-        var buildingData = AllBuildingDict[_selectedBuildingId];
+        var buildingData = BuildingDatabase.GetById(_selectedBuildingId);
         if (buildingData == null)
             return;
 
@@ -153,25 +141,43 @@ public partial class BuildingMgr : Node2D
 
     public void SpawnBuilding(Vector2 localPos, int zIdx)
     {
-        var buildingScene = GD.Load<PackedScene>(AllBuildingDict[_selectedBuildingId].ScenePath);
+        var buildingData = BuildingDatabase.GetById(_selectedBuildingId);
+        if (buildingData == null) 
+            return;
+        //实例化
+        var buildingScene = GD.Load<PackedScene>(buildingData.ScenePath);
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
-        if(SpawnedBuildings.TryGetValue(_selectedBuildingId, out var list))
-            list.Add(building);
-        else
-            SpawnedBuildings[_selectedBuildingId] = [building];
-        building.Name = _selectedBuildingId + '_' + _spawningCnt++.ToString();
-        building.Id = _selectedBuildingId;
-        building.buildingName = AllBuildingDict[_selectedBuildingId].Name;
-        building.Position = localPos;
-        building.RotationStep = _tmpBuilding.RotationStep;
+        building.Name = buildingData.Id + '_' + _spawningCnt++.ToString();
         building.ZIndex = zIdx;
-        building.InitializeProperties(AllBuildingDict[_selectedBuildingId]);
+        building.Position = localPos;
+        building.Id = buildingData.Id;
+        building.RotationStep = _tmpBuilding.RotationStep;
+        building.InitializeFromData(buildingData);
         building.RecomputeAdjBonus();
+        
+        //更新信息
+        if (SpawnedBuildings.TryGetValue(buildingData.Id, out var list))
+        {
+            list.Add(building);
+        }
+        else
+            SpawnedBuildings[buildingData.Id] = [building];
+        
+        GD.Print($"已建造 {building.Name}，总数: {SpawnedBuildings[buildingData.Id].Count}, limit: {buildingData.Limit}");
+        if(buildingData.Limit > 0 && SpawnedBuildings[buildingData.Id].Count >= buildingData.Limit)
+        {
+            AvailableBuildingIds.Remove(buildingData.Id);
+            EmitSignalAvailableBuildingIdsChanged(false, buildingData.Id);
+            return;
+        }
         GridMgr.Instance.UpdateOccupation(building);
+        
+        //计算邻居相邻加成
         var neighbors = GridMgr.Instance.GetNeighbors(building);
         foreach (var name in neighbors)
             GetNode<BuildingBase>(name).RecomputeAdjBonus();
+        
         EmitSignalSpawnedBuilding(building);
     }
 
