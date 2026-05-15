@@ -43,21 +43,6 @@ public partial class BuildingBase : Node2D
 		get
 		{
 			var gridPos = _getGridNode().GlobalPosition;
-			// switch (_rotationStep)
-			// {
-			// 	case 0:
-			// 		break;
-			// 	case 1:
-			// 		gridPos.X -= GridSize.Y * GameConfig.Instance.CellSize;
-			// 		break;
-			// 	case 2:
-			// 		gridPos.X -= GridSize.X * GameConfig.Instance.CellSize;
-			// 		gridPos.Y += GridSize.Y * GameConfig.Instance.CellSize;
-			// 		break;
-			// 	case 3:
-			// 		gridPos.Y += GridSize.X * GameConfig.Instance.CellSize;
-			// 		break;
-			// }
 			return gridPos;
 		}
 	}
@@ -84,6 +69,14 @@ public partial class BuildingBase : Node2D
 		}
 	}
 
+	private List<ActiveBuff> _relatedBuffs = [];
+	public List<ActiveBuff> RelatedBuffs {
+		get
+		{
+			return _relatedBuffs;
+		}
+		private set => _relatedBuffs = value;
+	}
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -168,18 +161,21 @@ public partial class BuildingBase : Node2D
 		_benefit = data.Benefit;
 	}
 	
-	public void ApplyAdjBonus(BuffData buffData)
+	public void ApplyAdjBonus(ActiveBuff buff)
 	{
+		var buffData = buff.Data;
 		if(buffData.BuffType != "AdjBonus")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
 		if(!neighbors.Contains(buffData.SrcBuildingId))
 			return;
+		_relatedBuffs.Add(buff);
 		ApplyMutiplier(buffData.Targets, buffData.Multiplier);
 	}
 
 	public void RecomputeAdjBonus()
 	{
+		_relatedBuffs.Clear();
 		ResetMultiplier();
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
 		var adjBuffs = BuffMgr.Instance.GetAdjBuffsById(Id);
@@ -187,6 +183,7 @@ public partial class BuildingBase : Node2D
 		{
 			if (neighbors.Contains(adjBuff.Data.SrcBuildingId))
 			{
+				_relatedBuffs.Add(adjBuff);
 				ApplyMutiplier(adjBuff.Data.Targets, adjBuff.Data.Multiplier);
 			}
 		}

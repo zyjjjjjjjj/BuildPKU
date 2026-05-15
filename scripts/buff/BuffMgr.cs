@@ -85,28 +85,28 @@ public partial class BuffMgr : Node
             Data = data,
             StartYear = TimeMgr.Instance.CurrentYear
         };
-        switch (data.BuffType)
+        switch (newBuff.Data.BuffType)
         {
             case "ScoreWeightMultiplier":
                 _activeWeightBuffs.Add(newBuff);
                 break;
             case "AdjBonus":
-                if(_activeAdjBuffs.TryGetValue(data.DestBuildingId, out var buffList))
+                if(_activeAdjBuffs.TryGetValue(newBuff.Data.DestBuildingId, out var buffList))
                     buffList.Add(newBuff);
                 else
-                    _activeAdjBuffs[data.DestBuildingId] = [newBuff];
+                    _activeAdjBuffs[newBuff.Data.DestBuildingId] = [newBuff];
                 break;
         }
         //only apply adj buff immediately
-        if (data.BuffType == "AdjBonus")
+        if (newBuff.Data.BuffType == "AdjBonus")
         {
-            var id = data.DestBuildingId;
+            var id = newBuff.Data.DestBuildingId;
             BuildingMgr.Instance.SpawnedBuildings.TryGetValue(id, out var buildings);
             if (buildings == null)
                 return;
             foreach (var building in buildings)
             {
-                building.ApplyAdjBonus(data);
+                building.ApplyAdjBonus(newBuff);
             }
         }
         EmitSignalBuffsChanged();

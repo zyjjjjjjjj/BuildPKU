@@ -12,7 +12,7 @@ public class MileStoneData
 
 public static class MileStoneDatabase
 {
-	private const string JsonPath = "res://json_data/MileStones.json";
+	private const string JsonPath = "res://json_data/Milestones.json";
 	private static List<MileStoneData> _mileStonesList;
 
 	public static MileStoneData GetNext(int year)// may return null

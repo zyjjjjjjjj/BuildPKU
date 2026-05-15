@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class BuildingInfoPanel : PanelContainer
 {
@@ -9,6 +10,7 @@ public partial class BuildingInfoPanel : PanelContainer
 	[Export] private Label _envLabel;
 	[Export] private Label _popLabel;
 	[Export] private Label _benLabel;
+	[Export] private Label _buffLabel;
 	[Export] private Button _destroyButton;
 
 	private string _instanceName;
@@ -37,12 +39,48 @@ public partial class BuildingInfoPanel : PanelContainer
 		_envLabel.Text = $"{building.Environment:F2}";
 		_popLabel.Text = $"{building.Population:F2}";
 		_benLabel.Text = $"{building.Benefit:F2}";
+		ShowRelatedBuffs(building);
 		//var pos = GetViewport().GetMousePosition() - Size;
 		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
 		if (pos.X < 0) pos.X += (Size.X + 20);
 		if (pos.Y < 0) pos.Y += (Size.Y + 20);
 		GlobalPosition = pos;
 		Visible = true;
+		return;
+	}
+	
+	public void ShowRelatedBuffs(BuildingBase building)
+	{
+		var relatedBuffs = building.RelatedBuffs;
+		if(relatedBuffs.Count == 0)
+		{
+			_buffLabel.Visible = false;
+			ResetSize();
+			return;
+		}
+		List<string> lines= new List<string>();
+		foreach (var buff in relatedBuffs)
+		{
+			int remainingYears = buff.GetRemainingYears(TimeMgr.Instance.CurrentYear);
+			string duration;
+			switch (remainingYears)
+			{
+				case < 0:
+					duration = "永久";
+					break;
+				case 0:
+					duration = "已结束";
+					break;
+				default:
+					duration = $"剩余 {remainingYears} 年";
+					break;
+			}
+			lines.Add($"{buff.Data.Description} ({duration})");
+		}
+		var text = string.Join("\n", lines);
+		_buffLabel.Text = text;
+		_buffLabel.Visible = true;
+		ResetSize();
 		return;
 	}
 }

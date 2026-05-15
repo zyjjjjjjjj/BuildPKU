@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://dlelqsa4dfhac" path="res://scripts/money/MoneyMgr.cs" id="7_gee14"]
 [ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/time/TimeMgr.cs" id="8_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b7sao50bcs3ng" path="res://buildings/library.tscn" id="8_rysoc"]
-[ext_resource type="PackedScene" path="res://buildings/villa.tscn" id="9_ssvqc"]
+[ext_resource type="PackedScene" uid="uid://cdkiwedf5pfc5" path="res://buildings/villa.tscn" id="9_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://bnbxru6vnmj4" path="res://buildings/dorm.tscn" id="10_264po"]
 [ext_resource type="Script" uid="uid://xg2m81631lfr" path="res://scripts/buff/BuffMgr.cs" id="10_kvpfn"]
 [ext_resource type="Script" uid="uid://wj2b2cbsepp0" path="res://scripts/card/CardMgr.cs" id="10_vtaks"]

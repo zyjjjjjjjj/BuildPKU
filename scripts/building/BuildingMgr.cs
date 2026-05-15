@@ -77,7 +77,7 @@ public partial class BuildingMgr : Node2D
     {
         if (_tmpBuilding == null)
             return;
-        _tmpBuilding.Position = GetLocalMousePosition();
+        _tmpBuilding.GlobalPosition = GetLocalMousePosition();
     }
     
     public override void _Input(InputEvent @event)
@@ -123,6 +123,7 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding?.QueueFree();
         var buildingScene = GD.Load<PackedScene>(AllBuildingDict[buildingId].ScenePath);
         _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
+        _tmpBuilding.GlobalPosition = GetLocalMousePosition();
         _tmpBuilding.Name = "tmpBuilding";
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
