@@ -38,5 +38,15 @@
 	"MinYear": 1905,
 	"Repeatable": false,
 	"BuffIds": ["biology_century_buff"]
+  },
+  {
+	"Id": "startup_grant",
+	"Name": "创业补助",
+	"Description": "立刻获得5000资金",
+	"CardType": "Buff",
+	"Rarity": "Common",
+	"MinYear": 1905,
+	"Repeatable": true,
+	"BuffIds": ["5000 money_buff"]
   }
 ]

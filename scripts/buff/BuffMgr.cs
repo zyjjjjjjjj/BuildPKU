@@ -96,6 +96,9 @@ public partial class BuffMgr : Node
                 else
                     _activeAdjBuffs[newBuff.Data.DestBuildingId] = [newBuff];
                 break;
+            case "InstantMoney":
+                MoneyMgr.Instance?.AddMoney(newBuff.Data.AddValue);
+                break;
         }
         //only apply adj buff immediately
         if (newBuff.Data.BuffType == "AdjBonus")

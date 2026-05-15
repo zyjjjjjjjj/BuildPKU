@@ -189,6 +189,9 @@ public partial class BuffSideBar : PanelContainer
         if (durationYears < 0)
             return "\u6c38\u4e45";
 
+        if (durationYears == 0)
+            return "\u7acb\u5373\u751f\u6548";
+
         int remainingYears = Math.Max(0, startYear + durationYears - TimeMgr.Instance.CurrentYear);
         return remainingYears == 0 ? "\u5df2\u8fc7\u671f" : $"\u5269\u4f59 {remainingYears} \u5e74";
     }

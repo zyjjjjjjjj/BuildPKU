@@ -89,6 +89,9 @@ public partial class CardChoicePanel : PanelContainer
         if (buffs.Count == 0)
             return "无持续效果";
 
+        if (buffs.All(buff => buff.DurationYears == 0))
+            return "\u7acb\u5373\u751f\u6548";
+
         if (buffs.Any(buff => buff.DurationYears < 0))
             return "永久";
 

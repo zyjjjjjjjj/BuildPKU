@@ -33,5 +33,12 @@
 	"Multiplier": 1.2,
 	"DestBuildingId": "lab",
 	"SrcBuildingId": "green"
+	},
+  {
+	"Id": "5000 money_buff",
+	"Description": "立刻获得5000资金",
+	"DurationYears": 0,
+	"BuffType": "InstantMoney",
+	"AddValue": 5000
 	}
 ]
