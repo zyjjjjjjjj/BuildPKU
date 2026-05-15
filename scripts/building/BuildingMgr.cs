@@ -32,6 +32,7 @@ public partial class BuildingMgr : Node2D
     }
     public bool _upgrading = false;
 
+    //!!!IMPORTANT: 需通过ModifyAvailableBuildingList方法修改，来保证信号正确发出
     public List<string> AvailableBuildingIds { get; private set; } = [];
 
     [Signal]
