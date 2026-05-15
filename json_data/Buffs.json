@@ -35,7 +35,7 @@
 	"SrcBuildingId": "green"
 	},
   {
-	"Id": "5000 money_buff",
+	"Id": "5000_money_buff",
 	"Description": "立刻获得5000资金",
 	"DurationYears": 0,
 	"BuffType": "InstantMoney",

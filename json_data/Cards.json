@@ -47,6 +47,6 @@
 	"Rarity": "Common",
 	"MinYear": 1905,
 	"Repeatable": true,
-	"BuffIds": ["5000 money_buff"]
+	"BuffIds": ["5000_money_buff"]
   }
 ]
