@@ -35,7 +35,7 @@ public partial class BuildingInfoPanel : PanelContainer
 		if (!Visible) return;
 	}
 
-	public async void Show(BuildingBase building)
+	public void Show(BuildingBase building)
 	{
 		_instanceName = building.Name;
 		_idLabel.Text = building.BuildingName;
@@ -70,7 +70,6 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		
 		ResetSize();
-		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
 		if (pos.X < 0) pos.X += (Size.X + 20);
 		if (pos.Y < 0) pos.Y += (Size.Y + 20);
