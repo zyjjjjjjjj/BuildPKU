@@ -11,7 +11,7 @@ public partial class BuffSideBar : PanelContainer
     private readonly List<ActiveBuff> _mockAdjBuffs = [];
     private bool _isExpanded = true;
 
-    [Export] private bool _useMockData = true;
+    [Export] private bool _useMockData = false;
     [Export] private int _mockCardCount = 24;
     [Export] private int _mockAdjBonusCount = 16;
     [Export] private Button _toggleButton;
