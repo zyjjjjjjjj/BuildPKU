@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 public partial class BuildingMgr : Node2D
 {
     public static BuildingMgr Instance { get; private set; }
-    private string _selectedBuildingId = string.Empty;
     private BuildingBase _tmpBuilding;
     public readonly Dictionary<string, List<BuildingBase>> SpawnedBuildings = new();
     private int _spawningCnt = 0;
@@ -26,11 +25,24 @@ public partial class BuildingMgr : Node2D
             }
             _tmpBuilding?.QueueFree();
             _tmpBuilding = null;
-            GD.Print("取消选择");
+            if(_upgradedBuilding != null)
+            {
+                //if cancel upgrade, put back the original building
+                GD.Print("Respawning original building after canceling upgrade");
+                SpawnBuilding(_upgradedBuilding);
+                _upgradedBuilding = null;
+            }
             EmitSignalExitEditorMode();
         }
     }
-    public bool _upgrading = false;
+    public class BuildingBuildData
+    {
+        public string Id;
+        public Vector2 LocalPos;
+        public int ZIdx;
+        public int RotationStep;
+    }
+    private BuildingBuildData _upgradedBuilding  = null;
 
     //!!!IMPORTANT: 需通过ModifyAvailableBuildingList方法修改，来保证信号正确发出
     public List<string> AvailableBuildingIds { get; private set; } = [];
@@ -108,12 +120,12 @@ public partial class BuildingMgr : Node2D
             return;
         }
         IsEditing = true;
-        _selectedBuildingId = buildingId;
         if (_tmpBuilding != null) _tmpBuilding.Name = "tmpBuilding_toBeFreed";
         _tmpBuilding?.QueueFree();
         var buildingScene = GD.Load<PackedScene>(BuildingDatabase.GetById(buildingId).ScenePath);
         _tmpBuilding = buildingScene.Instantiate<BuildingBase>();
         _tmpBuilding.Name = "tmpBuilding";
+        _tmpBuilding.Id = buildingId;
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
         _tmpBuilding.GlobalPosition = GetLocalMousePosition();
@@ -128,22 +140,44 @@ public partial class BuildingMgr : Node2D
         if (!offset.HasValue)
             return;
 
-        var buildingData = BuildingDatabase.GetById(_selectedBuildingId);
+        var buildingData = BuildingDatabase.GetById(_tmpBuilding.Id);
         if (buildingData == null)
             return;
 
-        if (cost && !MoneyMgr.Instance.TrySpend(buildingData.Cost))
+        float actualCost;
+        if(_upgradedBuilding != null)
+        {
+            var originalData = BuildingDatabase.GetById(_upgradedBuilding.Id);
+            if (!originalData.UpgradeCost.TryGetValue(buildingData.Id, out var upgradeCost))
+            {
+                GD.PrintErr($"未找到建筑升级配置: {originalData.Id} -> {buildingData.Id}");
+                return;
+            }
+            actualCost = upgradeCost;
+        }
+        else
+        {
+            actualCost = buildingData.Cost;
+        }
+        if (cost && !MoneyMgr.Instance.TrySpend(actualCost))
         {
             WarningPanel.Instance.ShowWarning($"钱不够，需要 ￥{buildingData.Cost}");
             return;
         }
+        var buildData = new BuildingBuildData
+        {
+            Id = _tmpBuilding.Id,
+            LocalPos = offset.Value + _tmpBuilding.Position,
+            ZIdx = zIdx,
+            RotationStep = _tmpBuilding.RotationStep
+        };
 
-        SpawnBuilding(offset.Value + _tmpBuilding.Position, zIdx);
+        SpawnBuilding(buildData);
     }
 
-    public void SpawnBuilding(Vector2 localPos, int zIdx)
+    public void SpawnBuilding(BuildingBuildData buildData)
     {
-        var buildingData = BuildingDatabase.GetById(_selectedBuildingId);
+        var buildingData = BuildingDatabase.GetById(buildData.Id);
         if (buildingData == null) 
             return;
         //实例化
@@ -151,10 +185,10 @@ public partial class BuildingMgr : Node2D
         var building = buildingScene.Instantiate<BuildingBase>();
         AddChild(building);
         building.Name = buildingData.Id + '_' + _spawningCnt++.ToString();
-        building.ZIndex = zIdx;
-        building.Position = localPos;
+        building.ZIndex = buildData.ZIdx;
+        building.Position = buildData.LocalPos;
         building.Id = buildingData.Id;
-        building.RotationStep = _tmpBuilding.RotationStep;
+        building.RotationStep = buildData.RotationStep;
         building.InitializeFromData(buildingData);
         building.RecomputeAdjBonus();
         
@@ -177,10 +211,10 @@ public partial class BuildingMgr : Node2D
             GetNode<BuildingBase>(name).RecomputeAdjBonus();
         
         EmitSignalSpawnedBuilding(building);
-        if (_upgrading)
+        if (_upgradedBuilding != null)
         {
+            _upgradedBuilding = null;
             IsEditing = false;
-            _upgrading = false;
         }
     }
 
@@ -192,7 +226,7 @@ public partial class BuildingMgr : Node2D
             if(node is BuildingBase building)
             {
                 _tmpBuilding = building;
-                _selectedBuildingId = Regex.Replace(building.Name, @"\d+$", "");
+                _tmpBuilding.Id = Regex.Replace(building.Name, @"\d+$", "");
                 _tmpBuilding.Name = "tmpBuilding";
                 TrySpawnBuilding(false);
                 _tmpBuilding.Name = "tobedeleted";
@@ -215,15 +249,20 @@ public partial class BuildingMgr : Node2D
         EmitSignalDestroyedBuilding();
     }
     
-    public void UpgradeBuilding(string buildingName)
+    public void TryUpgradeBuilding(string buildingName, string newId)
     {
+        var building = GetNode<BuildingBase>(buildingName);
         var id = buildingName.Split("_")[0];
-        var newId = BuildingDatabase.GetById(id).UpgradeTo;
         if (string.IsNullOrEmpty(newId))
             return;
+        _upgradedBuilding = new BuildingBuildData
+        {
+            Id = id,
+            LocalPos = building.Position,
+            ZIdx = building.ZIndex
+        };
         ModifyAvailableBuildingList(true, newId);
         DestroyBuilding(buildingName);
-        _upgrading = true;
         SelectBuilding(newId);
     }
     

@@ -62,3 +62,5 @@ zyj: 鼠标悬停显示正在影响当前建筑的buff, 实现升级, 不可拆�
 修改卡片和buff栏，现在的逻辑是所有获得的卡片都会在卡片栏显示，卡片栏可以收起。同时单独给一个相邻加成栏展示目前可用的相邻加成效果。![image-20260516001704811](D:\code\BuildPKU\log\DEVELOP_LOG.assets\image-20260516001704811.png)
 
 做了立刻加金钱的buff。type是InstantMoney
+
+zyj: 实现多升级分支

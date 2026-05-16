@@ -8,8 +8,10 @@
 		"Population":50,
 		"Cost":1000,
 		"Benefit":0,
-		"UpgradeTo":"lab",
-		"UpgradeCost":1000
+		"UpgradeCost":{
+			"canteen":500,
+			"lab":1000
+		}
 	},
 	{
 		"Id":"lab",

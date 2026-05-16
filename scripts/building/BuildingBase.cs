@@ -79,9 +79,6 @@ public partial class BuildingBase : Node2D
 	}
 
 	public bool Destroyable;
-
-	public string UpgradeTo;
-	public float UpgradeCost;
 	
 	
 	// Called when the node enters the scene tree for the first time.
@@ -168,8 +165,6 @@ public partial class BuildingBase : Node2D
 		_cost = data.Cost;
 		_benefit = data.Benefit;
 		 Destroyable = data.Destroyable;
-		 UpgradeTo = data.UpgradeTo;
-		 UpgradeCost = data.UpgradeCost;
 		 return;
 	}
 	
