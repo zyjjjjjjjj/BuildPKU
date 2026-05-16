@@ -60,7 +60,7 @@ public partial class BuildingMgr : Node2D
     public override void _Ready()
     {
         BuildingSideBar.Instance.SideBarBuildingSelected += SelectBuilding;
-        AvailableBuildingIds = BuildingDatabase.GetAllIds();
+        AvailableBuildingIds = BuildingDatabase.GetInitiallyAvailableIds();
     }
 
     public override void _Process(double delta)
@@ -229,6 +229,9 @@ public partial class BuildingMgr : Node2D
     
     public void ModifyAvailableBuildingList(bool add, string buildingId)
     {
+        if (string.IsNullOrEmpty(buildingId))
+            return;
+
         if(add)
         {
             if(AvailableBuildingIds.Contains(buildingId))

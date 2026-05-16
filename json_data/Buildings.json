@@ -1,6 +1,7 @@
 [
 	{
 		"Id":"dorm",
+		"InitiallyAvailable": true,
 		"Name":"宿舍",
 		"Research":0,
 		"Education":0,
@@ -13,6 +14,7 @@
 	},
 	{
 		"Id":"lab",
+		"InitiallyAvailable": true,
 		"Name":"实验室",
 		"Research":5,
 		"Education":3,
@@ -23,6 +25,7 @@
 	},
 	{
 		"Id":"green",
+		"InitiallyAvailable": true,
 		"Name":"草地",
 		"Research":0,
 		"Education":0,
@@ -33,6 +36,7 @@
 	},
 	{
 		"Id":"lake",
+		"InitiallyAvailable": false,
 		"Name":"未名湖",
 		"Destroyable":false,
 		"Limit":1,
@@ -45,6 +49,7 @@
 	},
 	{
 		"Id":"administration",
+		"InitiallyAvailable": false,
 		"Name":"行政楼",
 		"Research":1,
 		"Education":1,
@@ -55,6 +60,7 @@
 	},
 	{
 		"Id":"library",
+		"InitiallyAvailable": false,
 		"Name":"老图书馆",
 		"Research":3,
 		"Education":10,
@@ -65,6 +71,7 @@
 	},
 	{
 		"Id":"teaching",
+		"InitiallyAvailable": true,
 		"Name":"文教楼",
 		"Research":5,
 		"Education":5,
@@ -75,6 +82,7 @@
 	},
 	{
 		"Id":"ground",
+		"InitiallyAvailable": false,
 		"Name":"体育场",
 		"Research":0,
 		"Education":0,
@@ -85,6 +93,7 @@
 	},
 	{
 		"Id":"villa",
+		"InitiallyAvailable": false,
 		"Name":"静园",
 		"Research":0,
 		"Education":0,
@@ -95,6 +104,7 @@
 	},
 	{
 		"Id":"canteen",
+		"InitiallyAvailable": false,
 		"Name":"食堂",
 		"Research":0,
 		"Education":0,
@@ -105,6 +115,7 @@
 	},
 	{
 		"Id":"dpt_office",
+		"InitiallyAvailable": false,
 		"Name":"学系主楼",
 		"Research":2,
 		"Education":2,
@@ -115,6 +126,7 @@
 	},
 	{
 		"Id":"bidorm",
+		"InitiallyAvailable": false,
 		"Name":"联幢宿舍",
 		"Research":0,
 		"Education":0,
@@ -125,6 +137,7 @@
 	},
 	{
 		"Id":"hall",
+		"InitiallyAvailable": false,
 		"Name":"大饭厅",
 		"Research":0,
 		"Education":2,
@@ -135,6 +148,7 @@
 	},
 	{
 		"Id":"rus_building",
+		"InitiallyAvailable": false,
 		"Name":"俄文楼",
 		"Research":3,
 		"Education":3,
@@ -145,6 +159,7 @@
 	},
 	{
 		"Id":"cod_lab",
+		"InitiallyAvailable": false,
 		"Name":"实验室56",
 		"Research":8,
 		"Education":8,
@@ -155,6 +170,7 @@
 	},
 	{
 		"Id":"pc_lab",
+		"InitiallyAvailable": false,
 		"Name":"实验室107",
 		"Research":10,
 		"Education":4,
@@ -165,6 +181,7 @@
 	},
 	{
 		"Id":"tech_lab",
+		"InitiallyAvailable": false,
 		"Name":"实验室546",
 		"Research":10,
 		"Education":10,

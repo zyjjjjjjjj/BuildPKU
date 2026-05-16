@@ -48,5 +48,25 @@
 	"MinYear": 1905,
 	"Repeatable": true,
 	"BuffIds": ["5000_money_buff"]
+  },
+  {
+	"Id": "unlock_canteen",
+	"Name": "后勤扩建",
+	"Description": "解锁食堂建造",
+	"CardType": "Buff",
+	"Rarity": "Common",
+	"MinYear": 1905,
+	"Repeatable": false,
+	"BuffIds": ["unlock_canteen_buff"]
+  },
+  {
+	"Id": "unlock_dpt_office",
+	"Name": "院系建设",
+	"Description": "解锁学系主楼建造",
+	"CardType": "Buff",
+	"Rarity": "Common",
+	"MinYear": 1905,
+	"Repeatable": false,
+	"BuffIds": ["unlock_dpt_office_buff"]
   }
 ]

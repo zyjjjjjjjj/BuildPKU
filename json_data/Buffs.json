@@ -40,5 +40,19 @@
 	"DurationYears": 0,
 	"BuffType": "InstantMoney",
 	"AddValue": 5000
+	},
+  {
+	"Id": "unlock_canteen_buff",
+	"Description": "解锁食堂建造",
+	"DurationYears": 0,
+	"BuffType": "UnlockBuilding",
+	"Targets": ["canteen"]
+	},
+  {
+	"Id": "unlock_dpt_office_buff",
+	"Description": "解锁学系主楼建造",
+	"DurationYears": 0,
+	"BuffType": "UnlockBuilding",
+	"Targets": ["dpt_office"]
 	}
 ]

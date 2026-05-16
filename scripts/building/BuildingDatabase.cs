@@ -1,5 +1,6 @@
 ﻿using Godot;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 
@@ -19,6 +20,7 @@ public class BuildingData
     public int Limit { get; set; } = -1;
     public string UpgradeTo { get; set; } = string.Empty;
     public float UpgradeCost { get; set; } = 0f;
+    public bool InitiallyAvailable { get; set; } = false;
 }
 
 public static class BuildingDatabase
@@ -36,6 +38,15 @@ public static class BuildingDatabase
     {
         EnsureLoaded();
         return new List<string>(_allBuildingDict.Keys);
+    }
+
+    public static List<string> GetInitiallyAvailableIds()
+    {
+        EnsureLoaded();
+        return _allBuildingDict.Values
+            .Where(data => data.InitiallyAvailable)
+            .Select(data => data.Id)
+            .ToList();
     }
 
     public static BuildingData GetById(string id)

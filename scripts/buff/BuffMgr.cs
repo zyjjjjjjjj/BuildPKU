@@ -99,6 +99,9 @@ public partial class BuffMgr : Node
             case "InstantMoney":
                 MoneyMgr.Instance?.AddMoney(newBuff.Data.AddValue);
                 break;
+            case "UnlockBuilding":
+                UnlockBuildings(newBuff.Data.Targets);
+                break;
         }
         //only apply adj buff immediately
         if (newBuff.Data.BuffType == "AdjBonus")
@@ -176,6 +179,20 @@ public partial class BuffMgr : Node
     {
         _activeAdjBuffs.TryGetValue(id, out var adjBuffs);
         return adjBuffs ?? [];
+    }
+
+    private void UnlockBuildings(List<string> buildingIds)
+    {
+        if (buildingIds == null)
+            return;
+
+        foreach (var buildingId in buildingIds)
+        {
+            if (BuildingDatabase.GetById(buildingId) == null)
+                continue;
+
+            BuildingMgr.Instance?.ModifyAvailableBuildingList(true, buildingId);
+        }
     }
     
 }
