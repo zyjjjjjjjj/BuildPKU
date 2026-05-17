@@ -8,9 +8,8 @@
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"research_priority_buff":{
-				"StartYear": 0,
-				"DurationYears": -1,
+			"weight_multiplier_buff":{
+				"Target": "Research",
 				"Value": 20
 			}
 		}
@@ -24,9 +23,8 @@
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"green_campus_buff":{
-				"StartYear": 0,
-				"DurationYears": -1,
+			"weight_multiplier_buff":{
+				"Target": "Environment",
 				"Value": 20
 			}
 		}
@@ -40,9 +38,12 @@
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"academic_reputation_buff":{
-				"StartYear": 0,
-				"DurationYears": -1,
+			"weight_multiplier_buff_1":{
+				"Target": "Education",
+				"Value": 20
+			},
+			"weight_multiplier_buff_2":{
+				"Target": "Research",
 				"Value": 20
 			}
 		}
@@ -56,10 +57,11 @@
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"biology_century_buff":{
-				"StartYear": 0,
-				"DurationYears": -1,
-				"Value": 20
+			"adj_bonus_buff":{
+				"Target":"Research",
+				"Value": 20,
+				"DestBuildingIdOrTag": "lab",
+				"SrcBuildingIdOrTag": "green"
 			}
 		}
 	},
@@ -73,8 +75,7 @@
 		"Repeatable": true,
 		"Buffs": {
 			"instant_money_buff":{
-				"StartYear": 0,
-				"DurationYears": -1,
+				"DurationYears": 0,
 				"Value": 5000
 			}
 		}
@@ -88,10 +89,8 @@
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"unlock_canteen_buff":{
-				"StartYear": 0,
-				"DurationYears": 0,
-				"Value": 0
+			"unlock_building":{
+				"DestBuildingIdOrTag":"canteen"
 			}
 		}
 	},
@@ -104,10 +103,8 @@
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"unlock_dpt_office_buff":{
-				"StartYear": 0,
-				"DurationYears": 0,
-				"Value": 0
+			"unlock_building":{
+				"DestBuildingIdOrTag":"dpt_office"
 			}
 		}
 	}

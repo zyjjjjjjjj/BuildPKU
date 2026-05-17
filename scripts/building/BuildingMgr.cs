@@ -311,4 +311,14 @@ public partial class BuildingMgr : Node2D
     {
         return BuildingDatabase.IsId(idOrTag) ? GetBuildingsById(idOrTag) : GetBuildingsByTag(idOrTag);
     }
+    
+    
+    public void UnlockBuildings(string buildingId)
+    {
+        if (buildingId == null)
+            return;
+        if (BuildingDatabase.GetById(buildingId) == null)
+            return;
+        ModifyAvailableBuildingList(true, buildingId);
+    }
 }

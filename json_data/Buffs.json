@@ -1,30 +1,13 @@
 [
 	{
-		"Id": "research_priority_buff",
-		"Description": "科研评分权重提高{Value}%。",
-		"BuffType": "ScoreWeightMultiplier",
-		"Targets": ["Research"]
+		"Id": "weight_multiplier_buff",
+		"Description": "{Target}评分权重提高{Value}%。",
+		"BuffType": "ScoreWeightMultiplier"
 	},
 	{
-		"Id": "green_campus_buff",
-		"Description": "环境评分权重提高{Value}%。",
-		"BuffType": "ScoreWeightMultiplier",
-		"Targets": ["Environment"]
-	},
-	{
-		"Id": "academic_reputation_buff",
-		"Description": "科研与教学评分权重提高{Value}%。",
-		"BuffType": "ScoreWeightMultiplier",
-		"Targets": ["Research", "Education"]
-	},
-	{
-		"Id": "biology_century_buff",
-		"Name": "生物学的世纪",
-		"Description": "与绿地相邻的实验室科研产出提高{Value}%。",
-		"BuffType": "AdjBonus",
-		"Targets": ["Research"],
-		"DestBuildingIdOrTag": "lab",
-		"SrcBuildingIdOrTag": "green"
+		"Id": "adj_bonus_buff",
+		"Description": "与{Src}相邻的{Dest}{Target}产出提高{Value}%。",
+		"BuffType": "AdjBonus"
 	},
 	{
 		"Id": "instant_money_buff",
@@ -32,15 +15,8 @@
 		"BuffType": "InstantMoney"
 	},
 	{
-		"Id": "unlock_canteen_buff",
-		"Description": "解锁食堂建造",
-		"BuffType": "UnlockBuilding",
-		"Targets": ["canteen"]
-	},
-	{
-		"Id": "unlock_dpt_office_buff",
-		"Description": "解锁学系主楼建造",
-		"BuffType": "UnlockBuilding",
-		"Targets": ["dpt_office"]
+		"Id": "unlock_building",
+		"Description": "解锁{Dest}建筑",
+		"BuffType": "UnlockBuilding"
 	}
 ]

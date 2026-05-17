@@ -6,16 +6,44 @@ using System.Linq;
 
 public class ActiveBuff
 {
-    public BuffData Data { get; set; }
-    public int StartYear { get; set; }
-    public int DurationYears { get; set; }
-    public int Value { get; set; }
+    public BuffData Data;
+    public int StartYear = 0;
+    public int DurationYears = -1;
+    public string Target = String.Empty;
+    public int Value = 0;
+    public string SrcBuildingIdOrTag = String.Empty;
+    public string DestBuildingIdOrTag = String.Empty;
 
     public string Description
     {
         get
         {
-            var desc = Data.Description.Replace("{Value}", Value.ToString());
+            var desc = Data.Description;
+            if(Value!=0)
+                desc = desc.Replace("{Value}", Value.ToString());
+            if (Target != String.Empty)
+            {
+                string displayTarget = Target switch
+                {
+                    "Research" => "科研",
+                    "Education" => "教育",
+                    "Environment" => "环境",
+                    "Benefit" => "收益",
+                    "Population" => "人口",
+                    _ => Target
+                };
+                desc = desc.Replace("{Target}", displayTarget);
+            }
+            if(SrcBuildingIdOrTag != String.Empty)
+            {
+                string displaySrc = BuildingDatabase.GetById(SrcBuildingIdOrTag)?.Name ?? SrcBuildingIdOrTag;
+                desc = desc.Replace("{Src}", displaySrc);
+            }
+            if(DestBuildingIdOrTag != String.Empty)            
+            {
+                string displayDest = BuildingDatabase.GetById(DestBuildingIdOrTag)?.Name ?? DestBuildingIdOrTag;
+                desc = desc.Replace("{Dest}", displayDest);
+            }
             return desc + FormattedStatus;
         }
     } 
@@ -110,11 +138,11 @@ public partial class BuffMgr : Node
                 _activeWeightBuffs.Add(newBuff);
                 break;
             case "AdjBonus":
-                if(_activeAdjBuffs.TryGetValue(newBuff.Data.DestBuildingIdOrTag, out var buffList))
+                if(_activeAdjBuffs.TryGetValue(newBuff.DestBuildingIdOrTag, out var buffList))
                     buffList.Add(newBuff);
                 else
-                    _activeAdjBuffs[newBuff.Data.DestBuildingIdOrTag] = [newBuff];
-                var idOrTag = newBuff.Data.DestBuildingIdOrTag;
+                    _activeAdjBuffs[newBuff.DestBuildingIdOrTag] = [newBuff];
+                var idOrTag = newBuff.DestBuildingIdOrTag;
                 var buildings = BuildingMgr.Instance.GetBuildingsByIdOrTag(idOrTag);
                 if (buildings != null)
                 {
@@ -128,7 +156,7 @@ public partial class BuffMgr : Node
                 MoneyMgr.Instance?.AddMoney(newBuff.Value);
                 break;
             case "UnlockBuilding":
-                UnlockBuildings(newBuff.Data.Targets);
+                BuildingMgr.Instance.UnlockBuildings(newBuff.DestBuildingIdOrTag);
                 break;
         }
         EmitSignalBuffsChanged();
@@ -175,20 +203,17 @@ public partial class BuffMgr : Node
         if (buff.Data.BuffType != "ScoreWeightMultiplier")
             return;
         float multiplier = (100f + buff.Value) / 100f;
-        foreach (var target in buff.Data.Targets)
+        switch (buff.Target)
         {
-            switch (target)
-            {
-                case "Research":
-                    context.ResWeight *= multiplier;
-                    break;
-                case "Education":
-                    context.EduWeight *= multiplier;
-                    break;
-                case "Environment":
-                    context.EnvWeight *= multiplier;
-                    break;
-            }
+            case "Research":
+                context.ResWeight *= multiplier;
+                break;
+            case "Education":
+                context.EduWeight *= multiplier;
+                break;
+            case "Environment":
+                context.EnvWeight *= multiplier;
+                break;
         }
     }
 
@@ -205,20 +230,6 @@ public partial class BuffMgr : Node
                 result.AddRange(tagBuffs);
         }
         return result;
-    }
-
-    private void UnlockBuildings(List<string> buildingIds)
-    {
-        if (buildingIds == null)
-            return;
-
-        foreach (var buildingId in buildingIds)
-        {
-            if (BuildingDatabase.GetById(buildingId) == null)
-                continue;
-
-            BuildingMgr.Instance?.ModifyAvailableBuildingList(true, buildingId);
-        }
     }
     
 }

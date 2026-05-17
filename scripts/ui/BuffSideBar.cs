@@ -163,8 +163,8 @@ public partial class BuffSideBar : PanelContainer
         return buff.Description;
         var data = buff.Data;
         string duration = FormatDuration(buff.DurationYears, buff.StartYear);
-        string destBuildingName = GetBuildingDisplayName(data.DestBuildingIdOrTag);
-        string srcBuildingName = GetBuildingDisplayName(data.SrcBuildingIdOrTag);
+        string destBuildingName = GetBuildingDisplayName(buff.DestBuildingIdOrTag);
+        string srcBuildingName = GetBuildingDisplayName(buff.SrcBuildingIdOrTag);
         return $"{destBuildingName} <- {srcBuildingName} ({duration})";
     }
 
@@ -285,9 +285,6 @@ public partial class BuffSideBar : PanelContainer
                     Id = $"mock_adj_bonus_{i}",
                     Description = $"\u4e0e{GetBuildingDisplayName(srcBuildingIds[i % srcBuildingIds.Length])}\u76f8\u90bb\u65f6\uff0c{FormatTargetName(targets[i % targets.Length])}\u4ea7\u51fa\u63d0\u9ad8 {10 + i % 5 * 5}%",
                     BuffType = "AdjBonus",
-                    Targets = [targets[i % targets.Length]],
-                    DestBuildingIdOrTag = destBuildingIds[i % destBuildingIds.Length],
-                    SrcBuildingIdOrTag = srcBuildingIds[i % srcBuildingIds.Length]
                 },
                 DurationYears = i % 4 == 0 ? -1 : 6 + i % 8,
                 StartYear = TimeMgr.Instance.CurrentYear - i % 5,
@@ -303,7 +300,6 @@ public partial class BuffSideBar : PanelContainer
             Id = $"mock_weight_buff_{index}_{target}",
             Description = $"{FormatTargetName(target)}\u6743\u91cd\u63d0\u9ad8 {Mathf.RoundToInt((multiplier - 1f) * 100f)}%",
             BuffType = "ScoreWeightMultiplier",
-            Targets = [target],
         };
     }
 

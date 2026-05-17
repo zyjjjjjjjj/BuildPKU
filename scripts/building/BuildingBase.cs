@@ -172,17 +172,16 @@ public partial class BuildingBase : Node2D
 	
 	public void ApplyAdjBonus(ActiveBuff buff)
 	{
-		var buffData = buff.Data;
-		if(buffData.BuffType != "AdjBonus")
+		if(buff.Data.BuffType != "AdjBonus")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		var idOrTag = buffData.SrcBuildingIdOrTag;
+		var idOrTag = buff.SrcBuildingIdOrTag;
 		if (BuildingDatabase.IsId(idOrTag) && !neighbors.Contains(idOrTag))
 			return;
 		if (!BuildingDatabase.IsId(idOrTag) && !ContainNeighborWithTag(idOrTag, neighbors))
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMutiplier(buffData.Targets, buff.Value);
+		ApplyMultiplier(buff.Target, buff.Value);
 	}
 
 	public void RecomputeAdjBonus()
@@ -205,29 +204,26 @@ public partial class BuildingBase : Node2D
 		return;
 	}
 	
-	private void ApplyMutiplier(List<string> targets, int value)
+	private void ApplyMultiplier(string target, int value)
 	{
 		float multiplier = (100f + value) / 100f;
-		foreach (var target in targets)
+		switch (target)
 		{
-			switch (target)
-			{
-				case "Research":
-					_resMultiplier *= multiplier;
-					break;
-				case "Education":
-					_eduMultiplier *= multiplier;
-					break;
-				case "Environment":
-					_envMultiplier *= multiplier;
-					break;
-				case "Population":
-					_popMultiplier *= multiplier;
-					break;
-				case "Benefit":
-					_benMultiplier *= multiplier;
-					break;
-			}
+			case "Research":
+				_resMultiplier *= multiplier;
+				break;
+			case "Education":
+				_eduMultiplier *= multiplier;
+				break;
+			case "Environment":
+				_envMultiplier *= multiplier;
+				break;
+			case "Population":
+				_popMultiplier *= multiplier;
+				break;
+			case "Benefit":
+				_benMultiplier *= multiplier;
+				break;
 		}
 	}
 	

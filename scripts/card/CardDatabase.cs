@@ -4,11 +4,14 @@ using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 using System;
 
-public struct BuffProps
+public class BuffProps
 {
-    public int StartYear { get; set; }
-    public int DurationYears{ get; set; }
-    public int Value{ get; set; }
+    public int StartYear { get; set; } = 0;
+    public int DurationYears { get; set; } = -1;
+    public string Target { get; set; } = String.Empty;
+    public int Value { get; set; } = 0;
+    public string SrcBuildingIdOrTag { get; set; } = String.Empty;
+    public string DestBuildingIdOrTag { get; set; } = String.Empty;
 }
 
 public class CardData

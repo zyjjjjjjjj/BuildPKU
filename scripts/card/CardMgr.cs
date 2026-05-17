@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class ActiveCard
 {
@@ -113,7 +114,7 @@ public partial class CardMgr : Node
         {
             foreach (var pair in card.Buffs)
             {
-                var id = pair.Key;
+                var id = Regex.Replace(pair.Key, @"_\d+$", "");
                 var props = pair.Value;
                 var buffData = BuffDatabase.GetById(id);
                 if(buffData == null)
@@ -126,7 +127,10 @@ public partial class CardMgr : Node
                     Data = buffData,
                     StartYear = TimeMgr.Instance.CurrentYear + props.StartYear,
                     DurationYears = props.DurationYears,
-                    Value = props.Value
+                    Target = props.Target,
+                    Value = props.Value,
+                    SrcBuildingIdOrTag = props.SrcBuildingIdOrTag,
+                    DestBuildingIdOrTag = props.DestBuildingIdOrTag
                 };
 
                 buffs.Add(newBuff);

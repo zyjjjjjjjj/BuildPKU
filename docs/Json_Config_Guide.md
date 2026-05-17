@@ -29,8 +29,10 @@
   "Benefit": 500,
   "Destroyable": true,
   "Limit": -1,
-  "UpgradeTo": "",
-  "UpgradeCost": 0
+  "UpgradeCost": {
+    "canteen 1": 1000,
+    "canteen 2": 1000,
+  }
 }
 ```
 
@@ -49,8 +51,7 @@
 | `Benefit` | float | 建筑每年提供的收益。 |
 | `Destroyable` | bool | 是否允许拆除。未填写时默认为 `true`。 |
 | `Limit` | int | 最大建造数量。`-1` 表示不限制，正数表示最多建造几个。 |
-| `UpgradeTo` | string | 升级目标建筑 id。没有升级目标时写空字符串或不写。 |
-| `UpgradeCost` | float | 升级花费。未填写时默认为 `0`。 |
+| `UpgradeCost` | float | 升级目标建筑id及花费。可以不填。 |
 
 建议：
 
@@ -65,14 +66,32 @@
 
 ```json
 {
-  "Id": "startup_grant",
-  "Name": "启动资金",
-  "Description": "立刻获得一笔建设资金",
+  "Id": "academic_reputation",
+  "Name": "学术声望",
+  "Description": "科研与教学评分权重提高 20%。",
   "CardType": "Buff",
-  "Rarity": "Common",
+  "Rarity": "Epic",
   "MinYear": 1905,
-  "Repeatable": true,
-  "BuffIds": ["startup_grant_buff"]
+  "Repeatable": false,
+  "Buffs": {
+    "weight_multiplier_buff_1":{
+      "Target": "Education",
+      "Value": 20
+    },
+    "weight_multiplier_buff_2":{
+      "Target": "Research",
+      "Value": 20
+    },
+    "unlock_building":{
+      "DestBuildingIdOrTag":"canteen"
+    },
+    "adj_bonus_buff":{
+      "Target":"Research",
+      "Value": 20,
+      "DestBuildingIdOrTag": "lab",
+      "SrcBuildingIdOrTag": "green"
+    }
+  }
 }
 ```
 
@@ -87,7 +106,12 @@
 | `Rarity` | string | 稀有度字段，目前主要用于配置表达，可写 `Common`、`Epic` 等。 |
 | `MinYear` | int | 最早出现年份。当前年份大于等于它时才可能被抽到。 |
 | `Repeatable` | bool | `false` 表示被选择后不再进入候选池；`true` 表示可以重复抽到。 |
-| `BuffIds` | string array | 这张卡会触发的 buff id 列表。可以绑定一个或多个 buff。 |
+| `Buffs` | string array | 这张卡会触发的 buff 列表。可以绑定一个或多个buff, 如需绑定多个同id buff, buff名称后面需加下划线和数字后缀, 如上面示例中的weight_multiplier_buff_1  每个buff需要填写相关参数, 目前包括StartYear, DurationYears, Value, Target, SrcBuildingIdOrTag, DestBuildingIdOrTag。可以不填使用默认值, 具体说明如下.|
+| `StartYear` | int | 获得卡片后多少年buff开始生效, 默认为0即立即开始, 不可为负数 |
+| `DurationYears` | int | 生效时长, 默认为-1即永久 |
+| `Value` | int | 数值类参数, 必须为整数默认为0, buff的description字段{Value}的实际值, 例如权重提升buff中"Description": "{Target}评分权重提高{Value}%。", 则若想权重提高20%, Value需设置为20而非1.2!!! |
+| `SrcBuildingIdOrTag` | string | 建筑id类参数, 默认为空, 目前仅相邻加成类buff需要填写 |
+| `DestBuildingIdOrTag` | string | 建筑id类参数, 默认为空, 目前相邻加成类buff和解锁建筑类需要填写 |
 
 建议：
 
