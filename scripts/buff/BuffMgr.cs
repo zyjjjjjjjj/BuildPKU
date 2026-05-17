@@ -7,41 +7,36 @@ using System.Linq;
 public class ActiveBuff
 {
     public BuffData Data;
-    public int StartYear = 0;
-    public int DurationYears = -1;
-    public string Target = String.Empty;
-    public int Value = 0;
-    public string SrcBuildingIdOrTag = String.Empty;
-    public string DestBuildingIdOrTag = String.Empty;
+    public BuffArgs Args;
 
     public string Description
     {
         get
         {
             var desc = Data.Description;
-            if(Value!=0)
-                desc = desc.Replace("{Value}", Value.ToString());
-            if (Target != String.Empty)
+            if(Args.Value!=0)
+                desc = desc.Replace("{Value}", Args.Value.ToString());
+            if (Args.Target != String.Empty)
             {
-                string displayTarget = Target switch
+                string displayTarget = Args.Target switch
                 {
                     "Research" => "科研",
                     "Education" => "教育",
                     "Environment" => "环境",
                     "Benefit" => "收益",
                     "Population" => "人口",
-                    _ => Target
+                    _ => Args.Target
                 };
                 desc = desc.Replace("{Target}", displayTarget);
             }
-            if(SrcBuildingIdOrTag != String.Empty)
+            if(Args.SrcBuildingIdOrTag != String.Empty)
             {
-                string displaySrc = BuildingDatabase.GetById(SrcBuildingIdOrTag)?.Name ?? SrcBuildingIdOrTag;
+                string displaySrc = BuildingDatabase.GetById(Args.SrcBuildingIdOrTag)?.Name ?? Args.SrcBuildingIdOrTag;
                 desc = desc.Replace("{Src}", displaySrc);
             }
-            if(DestBuildingIdOrTag != String.Empty)            
+            if(Args.DestBuildingIdOrTag != String.Empty)            
             {
-                string displayDest = BuildingDatabase.GetById(DestBuildingIdOrTag)?.Name ?? DestBuildingIdOrTag;
+                string displayDest = BuildingDatabase.GetById(Args.DestBuildingIdOrTag)?.Name ?? Args.DestBuildingIdOrTag;
                 desc = desc.Replace("{Dest}", displayDest);
             }
             return desc + FormattedStatus;
@@ -64,18 +59,18 @@ public class ActiveBuff
         }
     }
 
-    public bool IsPermanent => DurationYears < 0;
+    public bool IsPermanent => Args.DurationYears < 0;
 
     public bool IsExpired()
     {
         var currentYear = TimeMgr.Instance.CurrentYear;
-        return !IsPermanent && currentYear >= StartYear + DurationYears;
+        return !IsPermanent && currentYear >= Args.StartYear + Args.DurationYears;
     }
     
     public bool IsActive()
     {
         var currentYear = TimeMgr.Instance.CurrentYear;
-        return IsPermanent || (currentYear < StartYear + DurationYears && currentYear >= StartYear);
+        return IsPermanent || (currentYear < Args.StartYear + Args.DurationYears && currentYear >= Args.StartYear);
     }
 
     public int GetRemainingYears()
@@ -86,8 +81,8 @@ public class ActiveBuff
         if (IsExpired())
             return 0;
         if (!IsActive())
-            return currentYear - StartYear;
-        return Math.Max(0, StartYear + DurationYears - currentYear);
+            return currentYear - Args.StartYear;
+        return Math.Max(0, Args.StartYear + Args.DurationYears - currentYear);
     }
 }
 
@@ -138,11 +133,11 @@ public partial class BuffMgr : Node
                 _activeWeightBuffs.Add(newBuff);
                 break;
             case "adj_bonus_buff":
-                if(_activeAdjBuffs.TryGetValue(newBuff.DestBuildingIdOrTag, out var buffList))
+                if(_activeAdjBuffs.TryGetValue(newBuff.Args.DestBuildingIdOrTag, out var buffList))
                     buffList.Add(newBuff);
                 else
-                    _activeAdjBuffs[newBuff.DestBuildingIdOrTag] = [newBuff];
-                var idOrTag = newBuff.DestBuildingIdOrTag;
+                    _activeAdjBuffs[newBuff.Args.DestBuildingIdOrTag] = [newBuff];
+                var idOrTag = newBuff.Args.DestBuildingIdOrTag;
                 var buildings = BuildingMgr.Instance.GetBuildingsByIdOrTag(idOrTag);
                 if (buildings != null)
                 {
@@ -153,10 +148,10 @@ public partial class BuffMgr : Node
                 }
                 break;
             case "instant_money_buff":
-                MoneyMgr.Instance?.AddMoney(newBuff.Value);
+                MoneyMgr.Instance?.AddMoney(newBuff.Args.Value);
                 break;
             case "unlock_building_buff":
-                BuildingMgr.Instance.UnlockBuildings(newBuff.DestBuildingIdOrTag);
+                BuildingMgr.Instance.UnlockBuildings(newBuff.Args.DestBuildingIdOrTag);
                 break;
         }
         EmitSignalBuffsChanged();
@@ -202,8 +197,8 @@ public partial class BuffMgr : Node
     {
         if (buff.Data.Id != "weight_multiplier_buff")
             return;
-        float multiplier = (100f + buff.Value) / 100f;
-        switch (buff.Target)
+        float multiplier = (100f + buff.Args.Value) / 100f;
+        switch (buff.Args.Target)
         {
             case "Research":
                 context.ResWeight *= multiplier;

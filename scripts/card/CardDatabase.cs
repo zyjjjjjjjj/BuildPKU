@@ -4,7 +4,7 @@ using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 using System;
 
-public class BuffProps
+public class BuffArgs
 {
     public int StartYear { get; set; } = 0;
     public int DurationYears { get; set; } = -1;
@@ -23,7 +23,7 @@ public class CardData
     public string Rarity { get; set; }
     public int MinYear { get; set; }
     public bool Repeatable { get; set; }
-    public Dictionary<string, BuffProps> Buffs { get; set; }
+    public Dictionary<string, BuffArgs> Buffs { get; set; }
 }
 
 public static class CardDatabase

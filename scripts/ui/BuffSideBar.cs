@@ -38,7 +38,7 @@ public partial class BuffSideBar : PanelContainer
 
         BuffMgr.Instance.BuffsDecay += Refresh;
         BuffMgr.Instance.BuffsChanged += Refresh;
-        AddMockDataIfNeeded();
+        //AddMockDataIfNeeded();
         Refresh();
     }
 
@@ -162,9 +162,9 @@ public partial class BuffSideBar : PanelContainer
     {
         return buff.Description;
         var data = buff.Data;
-        string duration = FormatDuration(buff.DurationYears, buff.StartYear);
-        string destBuildingName = GetBuildingDisplayName(buff.DestBuildingIdOrTag);
-        string srcBuildingName = GetBuildingDisplayName(buff.SrcBuildingIdOrTag);
+        string duration = FormatDuration(buff.Args.DurationYears, buff.Args.StartYear);
+        string destBuildingName = GetBuildingDisplayName(buff.Args.DestBuildingIdOrTag);
+        string srcBuildingName = GetBuildingDisplayName(buff.Args.SrcBuildingIdOrTag);
         return $"{destBuildingName} <- {srcBuildingName} ({duration})";
     }
 
@@ -223,7 +223,7 @@ public partial class BuffSideBar : PanelContainer
         if (list.GetParent() is ScrollContainer scrollContainer)
             scrollContainer.Visible = visible;
     }
-
+/*
     private void AddMockDataIfNeeded()
     {
         if (!_useMockData)
@@ -235,6 +235,7 @@ public partial class BuffSideBar : PanelContainer
         if (_mockAdjBuffs.Count == 0)
             AddMockAdjBuffs();
     }
+
 
     private void AddMockCards()
     {
@@ -248,7 +249,7 @@ public partial class BuffSideBar : PanelContainer
             var activeBuffs = buffs.Select(buff => new ActiveBuff
             {
                 Data = buff,
-                StartYear = TimeMgr.Instance.CurrentYear - i % 5,
+                Args.StartYear = TimeMgr.Instance.CurrentYear - i % 5,
                 DurationYears = i % 5,
                 Value = 20,
             }).ToList();
@@ -300,7 +301,7 @@ public partial class BuffSideBar : PanelContainer
             Description = $"{FormatTargetName(target)}\u6743\u91cd\u63d0\u9ad8 {Mathf.RoundToInt((multiplier - 1f) * 100f)}%",
         };
     }
-
+*/
     private string FormatTargetName(string target)
     {
         return target switch

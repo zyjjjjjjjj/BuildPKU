@@ -175,13 +175,13 @@ public partial class BuildingBase : Node2D
 		if(buff.Data.Id != "adj_bonus_buff")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		var idOrTag = buff.SrcBuildingIdOrTag;
+		var idOrTag = buff.Args.SrcBuildingIdOrTag;
 		if (BuildingDatabase.IsId(idOrTag) && !neighbors.Contains(idOrTag))
 			return;
 		if (!BuildingDatabase.IsId(idOrTag) && !ContainNeighborWithTag(idOrTag, neighbors))
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMultiplier(buff.Target, buff.Value);
+		ApplyMultiplier(buff.Args.Target, buff.Args.Value);
 	}
 
 	public void RecomputeAdjBonus()

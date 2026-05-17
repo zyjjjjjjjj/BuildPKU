@@ -125,13 +125,9 @@ public partial class CardMgr : Node
                 var newBuff = new ActiveBuff
                 {
                     Data = buffData,
-                    StartYear = TimeMgr.Instance.CurrentYear + props.StartYear,
-                    DurationYears = props.DurationYears,
-                    Target = props.Target,
-                    Value = props.Value,
-                    SrcBuildingIdOrTag = props.SrcBuildingIdOrTag,
-                    DestBuildingIdOrTag = props.DestBuildingIdOrTag
+                    Args = props,
                 };
+                newBuff.Args.StartYear += TimeMgr.Instance.CurrentYear;
 
                 buffs.Add(newBuff);
                 BuffMgr.Instance.AddBuff(newBuff);
