@@ -121,7 +121,6 @@ public partial class CardMgr : Node
                     GD.PrintErr($"Buff data not found for id: {id}");
                     continue;
                 }
-                GD.Print($"startyear:{props.StartYear}, duration:{props.DurationYears}, value:{props.Value}");
                 var newBuff = new ActiveBuff
                 {
                     Data = buffData,

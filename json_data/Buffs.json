@@ -23,8 +23,8 @@
 		"Description": "与绿地相邻的实验室科研产出提高{Value}%。",
 		"BuffType": "AdjBonus",
 		"Targets": ["Research"],
-		"DestBuildingId": "lab",
-		"SrcBuildingId": "green"
+		"DestBuildingIdOrTag": "lab",
+		"SrcBuildingIdOrTag": "green"
 	},
 	{
 		"Id": "instant_money_buff",

@@ -7,7 +7,7 @@ public class BuildingData
 {
     public string Id{get;set;}
     public string Name{get;set;}
-    public List<string> Tags { get; set; }
+    public List<string> Tags { get; set; } = new List<string>();
     public string IconPath => "res://icon.svg";
     public string ScenePath => $"res://buildings/{Id}.tscn";
     public float Research { get; set; }
@@ -73,5 +73,44 @@ public static class BuildingDatabase
         {
             _allBuildingDict[data.Id] = data;
         }
+
+        CheckIllegal();
+    }
+    
+    private static void CheckIllegal()
+    {
+        foreach (var kv in _allBuildingDict)
+        {
+            var id = kv.Key;
+            var data = kv.Value;
+            if (string.IsNullOrEmpty(data.Id))
+                GD.PrintErr($"建筑配置 {id} 的 Id 不能为空");
+            if (string.IsNullOrEmpty(data.Name))
+                GD.PrintErr($"建筑配置 {id} 的 Name 不能为空");
+            if (!ResourceLoader.Exists(data.ScenePath))
+            {
+                GD.PushWarning($"建筑配置 {id} 的 ScenePath 不存在: {data.ScenePath}, 从列表中移除");
+            }
+            if (data.Tags != null)
+            {
+                foreach(var tag in data.Tags)
+                {
+                    if (string.IsNullOrEmpty(tag))
+                    {
+                        GD.PrintErr($"建筑配置 {id} 的 Tags 中存在空字符串");
+                        continue;
+                    }
+                    if(_allBuildingDict.ContainsKey(tag))
+                        GD.PrintErr($"建筑{id}的Tag{tag}与某个其他建筑Id同名");
+                    
+                }
+            }
+        }
+    }
+    
+    public static bool IsId(string id)
+    {
+        EnsureLoaded();
+        return _allBuildingDict.ContainsKey(id);
     }
 }

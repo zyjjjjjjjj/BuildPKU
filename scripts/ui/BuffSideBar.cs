@@ -163,8 +163,8 @@ public partial class BuffSideBar : PanelContainer
         return buff.Description;
         var data = buff.Data;
         string duration = FormatDuration(buff.DurationYears, buff.StartYear);
-        string destBuildingName = GetBuildingDisplayName(data.DestBuildingId);
-        string srcBuildingName = GetBuildingDisplayName(data.SrcBuildingId);
+        string destBuildingName = GetBuildingDisplayName(data.DestBuildingIdOrTag);
+        string srcBuildingName = GetBuildingDisplayName(data.SrcBuildingIdOrTag);
         return $"{destBuildingName} <- {srcBuildingName} ({duration})";
     }
 
@@ -286,8 +286,8 @@ public partial class BuffSideBar : PanelContainer
                     Description = $"\u4e0e{GetBuildingDisplayName(srcBuildingIds[i % srcBuildingIds.Length])}\u76f8\u90bb\u65f6\uff0c{FormatTargetName(targets[i % targets.Length])}\u4ea7\u51fa\u63d0\u9ad8 {10 + i % 5 * 5}%",
                     BuffType = "AdjBonus",
                     Targets = [targets[i % targets.Length]],
-                    DestBuildingId = destBuildingIds[i % destBuildingIds.Length],
-                    SrcBuildingId = srcBuildingIds[i % srcBuildingIds.Length]
+                    DestBuildingIdOrTag = destBuildingIds[i % destBuildingIds.Length],
+                    SrcBuildingIdOrTag = srcBuildingIds[i % srcBuildingIds.Length]
                 },
                 DurationYears = i % 4 == 0 ? -1 : 6 + i % 8,
                 StartYear = TimeMgr.Instance.CurrentYear - i % 5,

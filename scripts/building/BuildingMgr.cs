@@ -285,4 +285,27 @@ public partial class BuildingMgr : Node2D
         }
         EmitSignalAvailableBuildingIdsChanged(add, buildingId);
     }
+
+    public List<BuildingBase> GetBuildingsById(string id)
+    {
+        SpawnedBuildings.TryGetValue(id, out var result);
+        return result ?? [];
+    }
+    
+    public List<BuildingBase> GetBuildingsByTag(string tag)
+    {
+        List<BuildingBase> result = [];
+        foreach (var pair in SpawnedBuildings)
+        {
+            var buildingData = BuildingDatabase.GetById(pair.Key);
+            if (buildingData.Tags.Contains(tag))
+                result.AddRange(pair.Value);
+        }
+        return result;
+    }
+    
+    public List<BuildingBase> GetBuildingsByIdOrTag(string idOrTag)
+    {
+        return BuildingDatabase.IsId(idOrTag) ? GetBuildingsById(idOrTag) : GetBuildingsByTag(idOrTag);
+    }
 }

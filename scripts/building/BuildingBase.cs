@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public partial class BuildingBase : Node2D
 {
 	public string Id;
-	public string BuildingName;
+	public List<string> Tags = new List<string>();
+	public string DisplayName; //display name, not unique
 	public float _research = 0f;
 	public float _education = 0f;
 	public float _environment = 0f;
@@ -157,7 +158,7 @@ public partial class BuildingBase : Node2D
 	
 	public void InitializeFromData(BuildingData data)
 	{
-		BuildingName = data.Name;
+		DisplayName = data.Name;
 		_research = data.Research;
 		_education = data.Education;
 		_environment = data.Environment;
@@ -165,6 +166,7 @@ public partial class BuildingBase : Node2D
 		_cost = data.Cost;
 		_benefit = data.Benefit;
 		 Destroyable = data.Destroyable;
+		 Tags = data.Tags;
 		 return;
 	}
 	
@@ -174,7 +176,10 @@ public partial class BuildingBase : Node2D
 		if(buffData.BuffType != "AdjBonus")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		if(!neighbors.Contains(buffData.SrcBuildingId))
+		var idOrTag = buffData.SrcBuildingIdOrTag;
+		if (BuildingDatabase.IsId(idOrTag) && !neighbors.Contains(idOrTag))
+			return;
+		if (!BuildingDatabase.IsId(idOrTag) && !ContainNeighborWithTag(idOrTag, neighbors))
 			return;
 		_relatedBuffs.Add(buff);
 		ApplyMutiplier(buffData.Targets, buff.Value);
@@ -185,15 +190,9 @@ public partial class BuildingBase : Node2D
 		_relatedBuffs.Clear();
 		ResetMultiplier();
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		var adjBuffs = BuffMgr.Instance.GetAdjBuffsById(Id);
+		var adjBuffs = BuffMgr.Instance.GetAdjBuffs(Id, Tags);
 		foreach (var adjBuff in adjBuffs)
-		{
-			if (neighbors.Contains(adjBuff.Data.SrcBuildingId))
-			{
-				_relatedBuffs.Add(adjBuff);
-				ApplyMutiplier(adjBuff.Data.Targets, adjBuff.Value);
-			}
-		}
+			ApplyAdjBonus(adjBuff);
 	}
 
 	private void ResetMultiplier()
@@ -230,6 +229,17 @@ public partial class BuildingBase : Node2D
 					break;
 			}
 		}
+	}
+	
+	private bool ContainNeighborWithTag(string tag, HashSet<string> neighborIds)
+	{
+		foreach (var id in neighborIds)
+		{
+			var buildingData = BuildingDatabase.GetById(id);
+			if (buildingData.Tags.Contains(tag))
+				return true;
+		}
+		return false;
 	}
 }
 

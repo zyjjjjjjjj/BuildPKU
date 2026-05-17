@@ -4,16 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-public class BuffData
-{
-    public string Id { get; set; }
-    public string Description { get; set; }
-    public string BuffType { get; set; }
-    public List<string> Targets { get; set; }
-    public string DestBuildingId { get; set; }
-    public string SrcBuildingId { get; set; }
-}
-
 public class ActiveBuff
 {
     public BuffData Data { get; set; }
@@ -120,26 +110,23 @@ public partial class BuffMgr : Node
                 _activeWeightBuffs.Add(newBuff);
                 break;
             case "AdjBonus":
-                if(_activeAdjBuffs.TryGetValue(newBuff.Data.DestBuildingId, out var buffList))
+                if(_activeAdjBuffs.TryGetValue(newBuff.Data.DestBuildingIdOrTag, out var buffList))
                     buffList.Add(newBuff);
                 else
-                    _activeAdjBuffs[newBuff.Data.DestBuildingId] = [newBuff];
+                    _activeAdjBuffs[newBuff.Data.DestBuildingIdOrTag] = [newBuff];
+                var idOrTag = newBuff.Data.DestBuildingIdOrTag;
+                var buildings = BuildingMgr.Instance.GetBuildingsByIdOrTag(idOrTag);
+                if (buildings != null)
+                {
+                    foreach (var building in buildings)
+                    {
+                        building.ApplyAdjBonus(newBuff);
+                    }
+                }
                 break;
             case "InstantMoney":
                 MoneyMgr.Instance?.AddMoney(newBuff.Value);
                 break;
-        }
-        //only apply adj buff immediately
-        if (newBuff.Data.BuffType == "AdjBonus")
-        {
-            var id = newBuff.Data.DestBuildingId;
-            BuildingMgr.Instance.SpawnedBuildings.TryGetValue(id, out var buildings);
-            if (buildings == null)
-                return;
-            foreach (var building in buildings)
-            {
-                building.ApplyAdjBonus(newBuff);
-            }
         }
         EmitSignalBuffsChanged();
     }
@@ -202,10 +189,19 @@ public partial class BuffMgr : Node
         }
     }
 
-    public List<ActiveBuff> GetAdjBuffsById(string id)
+    public List<ActiveBuff> GetAdjBuffs(string id, List<string> Tags)
     {
-        _activeAdjBuffs.TryGetValue(id, out var adjBuffs);
-        return adjBuffs ?? [];
+        var result = new List<ActiveBuff>();
+        if(_activeAdjBuffs.TryGetValue(id, out var idBuffs))
+            result.AddRange(idBuffs);
+        if(Tags == null)
+            return result;
+        foreach (var tag in Tags)
+        {
+            if(_activeAdjBuffs.TryGetValue(tag, out var tagBuffs))
+                result.AddRange(tagBuffs);
+        }
+        return result;
     }
     
 }

@@ -36,7 +36,7 @@ public partial class BuildingInfoPanel : PanelContainer
 	public void ShowPanel(BuildingBase building)
 	{
 		_instanceName = building.Name;
-		_idLabel.Text = building.BuildingName;
+		_idLabel.Text = building.DisplayName;
 		_resLabel.Text = $"{building.Research:F2}";
 		_eduLabel.Text = $"{building.Education:F2}";
 		_envLabel.Text = $"{building.Environment:F2}";
@@ -59,7 +59,7 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		
 		ResetSize();
-		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
+		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size - new Vector2(10,10);
 		if (pos.X < 0) pos.X += (Size.X + 20);
 		if (pos.Y < 0) pos.Y += (Size.Y + 20);
 		GlobalPosition = pos;
@@ -69,6 +69,8 @@ public partial class BuildingInfoPanel : PanelContainer
 	
 	public void ShowRelatedBuffs(BuildingBase building)
 	{
+		_buffLabel.Text = string.Empty;
+		
 		var relatedBuffs = building.RelatedBuffs;
 		if(relatedBuffs.Count == 0)
 		{
@@ -86,6 +88,14 @@ public partial class BuildingInfoPanel : PanelContainer
 	
 	public void ShowUpgradeOptions(BuildingBase building)
 	{
+		var children = _upgradeContainer.GetChildren();
+		foreach (var child in children)
+		{
+			if (child is not Button button) continue;
+			_upgradeContainer.RemoveChild(button);
+			button.QueueFree();
+		}
+		
 		var upgradeCost = BuildingDatabase.GetById(building.Id).UpgradeCost;
 		if(upgradeCost.Count == 0)
 		{
@@ -96,6 +106,11 @@ public partial class BuildingInfoPanel : PanelContainer
 		{
 			var button = new Button();
 			var buildingData = BuildingDatabase.GetById(kv.Key);
+			if(buildingData == null)
+			{
+				GD.PushWarning($"找不到升级选项的建筑配置: {kv.Key}");
+				continue;
+			}
 			button.Text = $"{buildingData.Name}  费用: {kv.Value}";
 			button.Theme = GD.Load<Theme>("res://themes/upgrade_button.tres");
 			_upgradeContainer.AddChild(button);
