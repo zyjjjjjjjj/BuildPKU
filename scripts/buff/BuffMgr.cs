@@ -175,7 +175,7 @@ public partial class BuffMgr : Node
                 continue;
             foreach (var building in buildings)
             {
-                building.RecomputeAdjBonus();
+                building.RecomputeProps();
             }
         }
         

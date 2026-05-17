@@ -190,7 +190,7 @@ public partial class BuildingMgr : Node2D
         building.Id = buildingData.Id;
         building.RotationStep = buildData.RotationStep;
         building.InitializeFromData(buildingData);
-        building.RecomputeAdjBonus();
+        building.RecomputeProps();
         
         //更新信息
         if (SpawnedBuildings.TryGetValue(buildingData.Id, out var list))
@@ -208,7 +208,7 @@ public partial class BuildingMgr : Node2D
         //计算邻居相邻加成
         var neighbors = GridMgr.Instance.GetNeighbors(building);
         foreach (var name in neighbors)
-            GetNode<BuildingBase>(name).RecomputeAdjBonus();
+            GetNode<BuildingBase>(name).RecomputeProps();
         
         EmitSignalSpawnedBuilding(building);
         if (_upgradedBuilding != null)
@@ -249,7 +249,7 @@ public partial class BuildingMgr : Node2D
         SpawnedBuildings[building.Id].Remove(building);
         var neighbors = GridMgr.Instance.GetNeighbors(building);
         foreach (var name in neighbors)        
-            GetNode<BuildingBase>(name).RecomputeAdjBonus();
+            GetNode<BuildingBase>(name).RecomputeProps();
         building.QueueFree();
         EmitSignalDestroyedBuilding();
     }

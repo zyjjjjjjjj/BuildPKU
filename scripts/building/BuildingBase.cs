@@ -170,6 +170,13 @@ public partial class BuildingBase : Node2D
 		 return;
 	}
 	
+	public void ApplyAllAdjBonus()
+	{
+		var adjBuffs = BuffMgr.Instance.GetAdjBuffs(Id, Tags);
+		foreach (var adjBuff in adjBuffs)
+			ApplyAdjBonus(adjBuff);
+	}
+	
 	public void ApplyAdjBonus(ActiveBuff buff)
 	{
 		if(buff.Data.Id != "adj_bonus_buff")
@@ -184,14 +191,11 @@ public partial class BuildingBase : Node2D
 		ApplyMultiplier(buff.Args.Target, buff.Args.Value);
 	}
 
-	public void RecomputeAdjBonus()
+	public void RecomputeProps()
 	{
 		_relatedBuffs.Clear();
 		ResetMultiplier();
-		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		var adjBuffs = BuffMgr.Instance.GetAdjBuffs(Id, Tags);
-		foreach (var adjBuff in adjBuffs)
-			ApplyAdjBonus(adjBuff);
+		ApplyAllAdjBonus();
 	}
 
 	private void ResetMultiplier()
