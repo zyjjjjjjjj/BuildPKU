@@ -53,7 +53,7 @@
 | `UpgradeCost` | float | 升级目标建筑id及花费。可以不填。 |
 
 建议：
-- `Id` 修改后，需要同步检查 `buildings/{Id}.tscn`、解锁建筑buff和相邻加成buff中的 `DestBuildingId` / `SrcBuildingId`。
+- `Id` 修改后，需要同步检查 `buildings/{Id}.tscn`、Initial_Buildings.json, 解锁建筑buff和相邻加成buff中的 `DestBuildingId` / `SrcBuildingId`。
 
 ## Card 编写原则
 

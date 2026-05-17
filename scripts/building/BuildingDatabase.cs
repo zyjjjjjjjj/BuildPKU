@@ -26,7 +26,9 @@ public class BuildingData
 public static class BuildingDatabase
 {
     private const string JsonPath = "res://json_data/Buildings.json";
+    private const string InitialBuildingJsonPath = "res://json_data/Initial_Buildings.json";
     private static Dictionary<string, BuildingData> _allBuildingDict;
+    private static List<string> _initialBuildingIds = [];
 
     public static Dictionary<string, BuildingData> GetAll()
     {
@@ -43,10 +45,7 @@ public static class BuildingDatabase
     public static List<string> GetInitiallyAvailableIds()
     {
         EnsureLoaded();
-        return _allBuildingDict.Values
-            .Where(data => data.InitiallyAvailable)
-            .Select(data => data.Id)
-            .ToList();
+        return _initialBuildingIds;
     }
 
     public static BuildingData GetById(string id)
@@ -84,6 +83,17 @@ public static class BuildingDatabase
         {
             _allBuildingDict[data.Id] = data;
         }
+        
+        if(!FileAccess.FileExists(InitialBuildingJsonPath))
+        {
+            GD.PrintErr($"找不到初始建筑配置文件: {InitialBuildingJsonPath}");
+            _initialBuildingIds = [];
+            return;
+        }
+        
+        using var initialFile = FileAccess.Open(InitialBuildingJsonPath, FileAccess.ModeFlags.Read);
+        string initialJsonString = initialFile.GetAsText();
+        _initialBuildingIds = JsonSerializer.Deserialize<List<string>>(initialJsonString) ?? [];
 
         CheckIllegal();
     }

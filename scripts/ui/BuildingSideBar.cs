@@ -36,7 +36,7 @@ public partial class BuildingSideBar : PanelContainer
 		_itemList.MouseFilter = MouseFilterEnum.Stop;
 		// 清空并填充
 		_itemList.Clear();
-		foreach (var id in BuildingMgr.Instance.AvailableBuildingIds)
+		foreach (var id in BuildingDatabase.GetInitiallyAvailableIds())
 		{
 			var data = BuildingDatabase.GetById(id);
 			var displayText = $"{data.Name}\n￥{data.Cost}";
