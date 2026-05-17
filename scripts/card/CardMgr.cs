@@ -2,17 +2,11 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public class CardData
+public class ActiveCard
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string CardType { get; set; }
-    public string Rarity { get; set; }
-    public int MinYear { get; set; }
-    public bool Repeatable { get; set; }
-
-    public List<string> BuffIds { get; set; }
+    public CardData Data { get; set; }
+    public int AcquiredYear { get; set; }
+    public List<ActiveBuff> Buffs { get; set; }
 }
 
 public partial class CardMgr : Node
@@ -107,22 +101,42 @@ public partial class CardMgr : Node
         _currentChoices.Clear();
         CardChoicePanel.Instance.HideChoices();
         
-        var buffs = new List<BuffData>();
-
-        if (card.CardType == "Buff" && card.BuffIds != null)
+        var activeCard = new ActiveCard
         {
-            foreach (var buffId in card.BuffIds)
+            Data = card,
+            AcquiredYear = TimeMgr.Instance.CurrentYear
+        };
+        
+        var buffs = new List<ActiveBuff>();
+
+        if (card.CardType == "Buff" && card.Buffs != null)
+        {
+            foreach (var pair in card.Buffs)
             {
-                var buff = BuffDatabase.GetById(buffId);
-
-                if (buff == null)
+                var id = pair.Key;
+                var props = pair.Value;
+                var buffData = BuffDatabase.GetById(id);
+                if(buffData == null)
+                {
+                    GD.PrintErr($"Buff data not found for id: {id}");
                     continue;
+                }
+                GD.Print($"startyear:{props.StartYear}, duration:{props.DurationYears}, value:{props.Value}");
+                var newBuff = new ActiveBuff
+                {
+                    Data = buffData,
+                    StartYear = TimeMgr.Instance.CurrentYear + props.StartYear,
+                    DurationYears = props.DurationYears,
+                    Value = props.Value
+                };
 
-                buffs.Add(buff);
-                BuffMgr.Instance.AddBuff(buff);
+                buffs.Add(newBuff);
+                BuffMgr.Instance.AddBuff(newBuff);
             }
         }
+        
+        activeCard.Buffs = buffs;
 
-        BuffSideBar.Instance.AddCard(card, buffs);
+        BuffSideBar.Instance.AddCard(activeCard);
     }
 }

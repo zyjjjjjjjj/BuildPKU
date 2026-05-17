@@ -1,18 +1,15 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 public class BuffData
 {
     public string Id { get; set; }
     public string Description { get; set; }
-    public int DurationYears { get; set; }
-
     public string BuffType { get; set; }
     public List<string> Targets { get; set; }
-    public float Multiplier { get; set; }
-    public float AddValue { get; set; }
     public string DestBuildingId { get; set; }
     public string SrcBuildingId { get; set; }
 }
@@ -21,20 +18,58 @@ public class ActiveBuff
 {
     public BuffData Data { get; set; }
     public int StartYear { get; set; }
+    public int DurationYears { get; set; }
+    public int Value { get; set; }
 
-    public bool IsPermanent => Data.DurationYears < 0;
-
-    public bool IsExpired(int currentYear)
+    public string Description
     {
-        return !IsPermanent && currentYear >= StartYear + Data.DurationYears;
+        get
+        {
+            var desc = Data.Description.Replace("{Value}", Value.ToString());
+            return desc + FormattedStatus;
+        }
+    } 
+    
+    public string FormattedStatus
+    {
+        get
+        {
+            if(IsPermanent)
+                return " (永久)";
+            var remaining = GetRemainingYears();
+            return remaining switch
+            {
+                > 0 => $" (剩余{remaining}年)",
+                < 0 => $" ({Mathf.Abs(remaining)}后生效)",
+                _ => " (已失效)"
+            };
+        }
     }
 
-    public int GetRemainingYears(int currentYear)
+    public bool IsPermanent => DurationYears < 0;
+
+    public bool IsExpired()
     {
+        var currentYear = TimeMgr.Instance.CurrentYear;
+        return !IsPermanent && currentYear >= StartYear + DurationYears;
+    }
+    
+    public bool IsActive()
+    {
+        var currentYear = TimeMgr.Instance.CurrentYear;
+        return IsPermanent || (currentYear < StartYear + DurationYears && currentYear >= StartYear);
+    }
+
+    public int GetRemainingYears()
+    {
+        var currentYear = TimeMgr.Instance.CurrentYear;
         if (IsPermanent)
             return -1;
-
-        return Math.Max(0, StartYear + Data.DurationYears - currentYear);
+        if (IsExpired())
+            return 0;
+        if (!IsActive())
+            return currentYear - StartYear;
+        return Math.Max(0, StartYear + DurationYears - currentYear);
     }
 }
 
@@ -75,16 +110,10 @@ public partial class BuffMgr : Node
         TimeMgr.Instance.YearAdvanced += OnYearAdvanced;
     }
 
-    public void AddBuff(BuffData data)
+    public void AddBuff(ActiveBuff newBuff)
     {
-        if (data == null)
+        if (newBuff == null)
             return;
-
-        var newBuff = new ActiveBuff
-        {
-            Data = data,
-            StartYear = TimeMgr.Instance.CurrentYear
-        };
         switch (newBuff.Data.BuffType)
         {
             case "ScoreWeightMultiplier":
@@ -97,7 +126,7 @@ public partial class BuffMgr : Node
                     _activeAdjBuffs[newBuff.Data.DestBuildingId] = [newBuff];
                 break;
             case "InstantMoney":
-                MoneyMgr.Instance?.AddMoney(newBuff.Data.AddValue);
+                MoneyMgr.Instance?.AddMoney(newBuff.Value);
                 break;
         }
         //only apply adj buff immediately
@@ -117,13 +146,13 @@ public partial class BuffMgr : Node
 
     private void OnYearAdvanced(int year)
     {
-        var removed = _activeWeightBuffs.RemoveAll(buff => buff.IsExpired(year));
+        var removed = _activeWeightBuffs.RemoveAll(buff => buff.IsExpired());
         List<string> influencedBuildingIds = [];
         foreach (var pair in _activeAdjBuffs)
         {
-            if(pair.Value.Any(buff => buff.IsExpired(year)))
+            if(pair.Value.Any(buff => buff.IsExpired()))
                 influencedBuildingIds.Add(pair.Key);
-            removed += pair.Value.RemoveAll(buff => buff.IsExpired(year));
+            removed += pair.Value.RemoveAll(buff => buff.IsExpired());
         }
 
         foreach (var id in influencedBuildingIds)
@@ -143,7 +172,7 @@ public partial class BuffMgr : Node
         }
         EmitSignalBuffsDecay();
     }
-    public void ApplyWeightBuffs(ScoreContext context)
+    public void ApplyAllWeightBuffs(ScoreContext context)
     {
         foreach (var buff in _activeWeightBuffs.Where(buff => buff.Data.BuffType == "ScoreWeightMultiplier"))
         {
@@ -155,18 +184,19 @@ public partial class BuffMgr : Node
     {
         if (buff.Data.BuffType != "ScoreWeightMultiplier")
             return;
+        float multiplier = (100f + buff.Value) / 100f;
         foreach (var target in buff.Data.Targets)
         {
             switch (target)
             {
                 case "Research":
-                    context.ResWeight *= buff.Data.Multiplier;
+                    context.ResWeight *= multiplier;
                     break;
                 case "Education":
-                    context.EduWeight *= buff.Data.Multiplier;
+                    context.EduWeight *= multiplier;
                     break;
                 case "Environment":
-                    context.EnvWeight *= buff.Data.Multiplier;
+                    context.EnvWeight *= multiplier;
                     break;
             }
         }

@@ -177,7 +177,7 @@ public partial class BuildingBase : Node2D
 		if(!neighbors.Contains(buffData.SrcBuildingId))
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMutiplier(buffData.Targets, buffData.Multiplier);
+		ApplyMutiplier(buffData.Targets, buff.Value);
 	}
 
 	public void RecomputeAdjBonus()
@@ -191,7 +191,7 @@ public partial class BuildingBase : Node2D
 			if (neighbors.Contains(adjBuff.Data.SrcBuildingId))
 			{
 				_relatedBuffs.Add(adjBuff);
-				ApplyMutiplier(adjBuff.Data.Targets, adjBuff.Data.Multiplier);
+				ApplyMutiplier(adjBuff.Data.Targets, adjBuff.Value);
 			}
 		}
 	}
@@ -206,8 +206,9 @@ public partial class BuildingBase : Node2D
 		return;
 	}
 	
-	private void ApplyMutiplier(List<string> targets, float multiplier)
+	private void ApplyMutiplier(List<string> targets, int value)
 	{
+		float multiplier = (100f + value) / 100f;
 		foreach (var target in targets)
 		{
 			switch (target)

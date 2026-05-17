@@ -77,23 +77,7 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		List<string> lines= new List<string>();
 		foreach (var buff in relatedBuffs)
-		{
-			int remainingYears = buff.GetRemainingYears(TimeMgr.Instance.CurrentYear);
-			string duration;
-			switch (remainingYears)
-			{
-				case < 0:
-					duration = "永久";
-					break;
-				case 0:
-					duration = "已结束";
-					break;
-				default:
-					duration = $"剩余 {remainingYears} 年";
-					break;
-			}
-			lines.Add($"{buff.Data.Description} ({duration})");
-		}
+			lines.Add($"{buff.Description}");
 		var text = string.Join("\n", lines);
 		_buffLabel.Text = text;
 		_buffPanel.Visible = true;

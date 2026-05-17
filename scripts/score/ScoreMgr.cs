@@ -143,7 +143,7 @@ public partial class ScoreMgr : Node
 		var context = new ScoreContext();
 
 		if (BuffMgr.Instance != null)
-			BuffMgr.Instance.ApplyWeightBuffs(context);
+			BuffMgr.Instance.ApplyAllWeightBuffs(context);
 
 		_resWeight = context.ResWeight;
 		_eduWeight = context.EduWeight;

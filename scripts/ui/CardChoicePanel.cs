@@ -78,24 +78,21 @@ public partial class CardChoicePanel : PanelContainer
 
     private string FormatCardDuration(CardData card)
     {
-        if (card.BuffIds == null || card.BuffIds.Count == 0)
+        if (card.Buffs == null || card.Buffs.Count == 0)
             return "无持续效果";
 
-        var buffs = card.BuffIds
-            .Select(id => BuffDatabase.GetById(id))
-            .Where(buff => buff != null)
-            .ToList();
+        var buffsProps = card.Buffs.Values.ToList();
 
-        if (buffs.Count == 0)
+        if (buffsProps.Count == 0)
             return "无持续效果";
 
-        if (buffs.All(buff => buff.DurationYears == 0))
-            return "\u7acb\u5373\u751f\u6548";
+        if (buffsProps.All(buff => buff.DurationYears == 0))
+            return "立即生效";
 
-        if (buffs.Any(buff => buff.DurationYears < 0))
+        if (buffsProps.Any(buff => buff.DurationYears < 0))
             return "永久";
 
-        int maxDuration = buffs.Max(buff => buff.DurationYears);
+        int maxDuration = buffsProps.Max(buff => buff.DurationYears);
         return $"持续 {maxDuration} 年";
     }
 

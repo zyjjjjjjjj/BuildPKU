@@ -1,52 +1,82 @@
 [
-  {
-  "Id": "research_priority",
-  "Name": "科研优先",
-  "Description": "科研评分权重提高 20%。",
-  "CardType": "Buff",
-  "Rarity": "Common",
-  "MinYear": 1905,
-  "Repeatable": false,
-  "BuffIds": ["research_priority_buff"]
-  },
-  {
-	"Id": "campus_greening",
-	"Name": "校园绿化",
-	"Description": "环境评分权重提高 20%。",
-	"CardType": "Buff",
-	"Rarity": "Common",
-	"MinYear": 1905,
-	"Repeatable": false,
-	"BuffIds": ["green_campus_buff", "research_priority_buff"]
-  },
-  {
-	"Id": "academic_reputation",
-	"Name": "学术声望",
-	"Description": "科研与教学评分权重提高。",
-	"CardType": "Buff",
-	"Rarity": "Epic",
-	"MinYear": 1905,
-	"Repeatable": false,
-	"BuffIds": ["academic_reputation_buff"]
-  },
-  {
-	"Id": "biology_century",
-	"Name": "生物学的世纪",
-	"Description": "与绿地相邻的实验室科研产出提高20%。",
-	"CardType": "Buff",
-	"Rarity": "Epic",
-	"MinYear": 1905,
-	"Repeatable": false,
-	"BuffIds": ["biology_century_buff"]
-  },
-  {
-	"Id": "startup_grant",
-	"Name": "创业补助",
-	"Description": "立刻获得5000资金",
-	"CardType": "Buff",
-	"Rarity": "Common",
-	"MinYear": 1905,
-	"Repeatable": true,
-	"BuffIds": ["5000_money_buff"]
-  }
+	{
+		"Id": "research_priority",
+		"Name": "科研优先",
+		"Description": "科研评分权重提高 20%。",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"research_priority_buff":{
+				"StartYear": 0,
+				"DurationYears": -1,
+				"Value": 20
+			}
+		}
+	},
+	{
+		"Id": "campus_greening",
+		"Name": "校园绿化",
+		"Description": "环境评分权重提高 20%。",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"green_campus_buff":{
+				"StartYear": 0,
+				"DurationYears": -1,
+				"Value": 20
+			}
+		}
+	},
+	{
+		"Id": "academic_reputation",
+		"Name": "学术声望",
+		"Description": "科研与教学评分权重提高 20%。",
+		"CardType": "Buff",
+		"Rarity": "Epic",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"academic_reputation_buff":{
+				"StartYear": 0,
+				"DurationYears": -1,
+				"Value": 20
+			}
+		}
+	},
+	{
+		"Id": "biology_century",
+		"Name": "生物学的世纪",
+		"Description": "与绿地相邻的实验室科研产出提高20%。",
+		"CardType": "Buff",
+		"Rarity": "Epic",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"biology_century_buff":{
+				"StartYear": 0,
+				"DurationYears": -1,
+				"Value": 20
+			}
+		}
+	},
+	{
+		"Id": "startup_grant",
+		"Name": "创业补助",
+		"Description": "立刻获得5000资金",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": true,
+		"Buffs": {
+			"instant_money_buff":{
+				"StartYear": 0,
+				"DurationYears": -1,
+				"Value": 5000
+			}
+		}
+	}
 ]

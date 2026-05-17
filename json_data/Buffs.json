@@ -1,44 +1,34 @@
 [
-  {
-	"Id": "research_priority_buff",
-	"Description": "科研评分权重提高 20%。",
-	"DurationYears": -1,
-	"BuffType": "ScoreWeightMultiplier",
-	"Targets": ["Research"],
-	"Multiplier": 1.2
-  },
-  {
-	"Id": "green_campus_buff",
-	"Description": "环境评分权重提高 50%。",
-	"DurationYears": 10,
-	"BuffType": "ScoreWeightMultiplier",
-	"Targets": ["Environment"],
-	"Multiplier": 1.5
-  },
-  {
-	"Id": "academic_reputation_buff",
-	"Description": "科研与教学评分权重提高 25%。",
-	"DurationYears": -1,
-	"BuffType": "ScoreWeightMultiplier",
-	"Targets": ["Research", "Education"],
-	"Multiplier": 1.25
-  },
-  {
-	"Id": "biology_century_buff",
-	"Name": "生物学的世纪",
-	"Description": "与绿地相邻的实验室科研产出提高20%。",
-	"DurationYears": -1,
-	"BuffType": "AdjBonus",
-	"Targets": ["Research"],
-	"Multiplier": 1.2,
-	"DestBuildingId": "lab",
-	"SrcBuildingId": "green"
+	{
+		"Id": "research_priority_buff",
+		"Description": "科研评分权重提高{Value}%。",
+		"BuffType": "ScoreWeightMultiplier",
+		"Targets": ["Research"]
 	},
-  {
-	"Id": "5000_money_buff",
-	"Description": "立刻获得5000资金",
-	"DurationYears": 0,
-	"BuffType": "InstantMoney",
-	"AddValue": 5000
+	{
+		"Id": "green_campus_buff",
+		"Description": "环境评分权重提高{Value}%。",
+		"BuffType": "ScoreWeightMultiplier",
+		"Targets": ["Environment"]
+	},
+	{
+		"Id": "academic_reputation_buff",
+		"Description": "科研与教学评分权重提高{Value}%。",
+		"BuffType": "ScoreWeightMultiplier",
+		"Targets": ["Research", "Education"]
+	},
+	{
+		"Id": "biology_century_buff",
+		"Name": "生物学的世纪",
+		"Description": "与绿地相邻的实验室科研产出提高{Value}%。",
+		"BuffType": "AdjBonus",
+		"Targets": ["Research"],
+		"DestBuildingId": "lab",
+		"SrcBuildingId": "green"
+	},
+	{
+		"Id": "instant_money_buff",
+		"Description": "立刻获得{Value}资金",
+		"BuffType": "InstantMoney"
 	}
 ]
