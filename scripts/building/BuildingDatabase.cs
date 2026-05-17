@@ -61,7 +61,7 @@ public static class BuildingDatabase
 
     private static void EnsureLoaded()
     {
-        if (_allBuildingDict != null)
+        if (_allBuildingDict != null && _initialBuildingIds != null)
             return;
 
         if (!FileAccess.FileExists(JsonPath))
@@ -100,6 +100,12 @@ public static class BuildingDatabase
     
     private static void CheckIllegal()
     {
+        foreach (var building in _initialBuildingIds)
+        {
+            if(!_allBuildingDict.ContainsKey(building))
+                GD.PrintErr($"初始建筑配置 {building} 在建筑列表中不存在");
+        }
+        
         foreach (var kv in _allBuildingDict)
         {
             var id = kv.Key;
