@@ -13,9 +13,6 @@
 			"bidorm":0,
 			"intl_dorm":0,
 			"dorm70":0,
-			"high_apt":0,
-			"renovated_dorm":0,
-			"college_dorm":0,
 			"teacher_apt":0
 			}
 	},
@@ -201,10 +198,8 @@
 		"Cost":1800,
 		"Benefit":0,
 		"UpgradeCost":{
-			"high_apt":0,
 			"renovated_dorm":0,
 			"college_dorm":0,
-			"teacher_apt":0
 			}
 	},
 	{
@@ -298,7 +293,11 @@
 		"Environment":10,
 		"Population":20,
 		"Cost":10000,
-		"Benefit":0
+		"Benefit":0,
+		"UpgradeCost":{
+			"renovated_dorm":0,
+			"college_dorm":0,
+			}
 	},
 	{
 		"Id":"farm",
@@ -333,7 +332,10 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0
+		"Benefit":0,
+		"UpgradeCost":{
+			"dorm":0,
+			}
 	},
 	{
 		"Id":"teacher_apt",
@@ -344,7 +346,10 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0
+		"Benefit":0,
+		"UpgradeCost":{
+			"high_apt":0,
+			}
 	},
 	{
 		"Id":"boiler",
