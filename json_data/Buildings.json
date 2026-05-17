@@ -15,7 +15,7 @@
 			"high_apt":0,
 			"renovated_dorm":0,
 			"college_dorm":0,
-			"teacher_apt":0,
+			"teacher_apt":0
 			}
 	},
 	{
@@ -36,7 +36,7 @@
 			"chem_lab":0,
 			"microelec_lab":0,
 			"rs_lab":0,
-			"integ_lab":0,
+			"integ_lab":0
 		}
 	},
 	{
@@ -71,7 +71,7 @@
 		"Cost":0,
 		"Benefit":500,
 		"UpgradeCost":{
-			"history_museum":0,
+			"history_museum":0
 		}
 	},
 	{
@@ -94,7 +94,7 @@
 		"Cost":4000,
 		"Benefit":200,
 		"UpgradeCost":{
-			"elec_building":0,
+			"elec_building":0
 		}
 	},
 	{
@@ -130,7 +130,7 @@
 		"Benefit":500,
 		"UpgradeCost":{
 			"multi_canteen":0,
-			"com_canteen":0,
+			"com_canteen":0
 		}
 	},
 	{
@@ -144,7 +144,7 @@
 		"Cost":0,
 		"Benefit":0,
 		"UpgradeCost":{
-			"com_canteen":0,
+			"com_canteen":0
 		}
 	},
 	{
@@ -156,7 +156,7 @@
 		"Environment":30,
 		"Population":50,
 		"Cost":0,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"dpt_office",
@@ -169,7 +169,7 @@
 		"Cost":1200,
 		"Benefit":500,
 		"UpgradeCost":{
-			"dpt_center":0,
+			"dpt_center":0
 		}
 	},
 	{
@@ -186,7 +186,7 @@
 			"pacific_center":0,
 			"intl_center":0,
 			"stadford_center":0,
-			"cluster":0,
+			"cluster":0
 		}
 	},
 	{
@@ -203,7 +203,7 @@
 			"high_apt":0,
 			"renovated_dorm":0,
 			"college_dorm":0,
-			"teacher_apt":0,
+			"teacher_apt":0
 			}
 	},
 	{
@@ -228,7 +228,7 @@
 		"Environment":0,
 		"Population":10,
 		"Cost":2000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"cod_lab",
@@ -272,7 +272,7 @@
 		"Cost":10000,
 		"Benefit":0,
 		"UpgradeCost":{
-			"new_lib":2000,
+			"new_lib":2000
 		}
 	},
 	{
@@ -285,7 +285,7 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"intl_dorm",
@@ -297,7 +297,7 @@
 		"Environment":10,
 		"Population":20,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"farm",
@@ -309,7 +309,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"mech_lab",
@@ -321,7 +321,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"dorm70",
@@ -332,7 +332,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"teacher_apt",
@@ -343,7 +343,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"boiler",
@@ -357,7 +357,7 @@
 		"Cost":10000,
 		"Benefit":0,
 		"UpgradeCost":{
-			"thermal_station":0,
+			"thermal_station":0
 		}
 	},
 	{
@@ -370,7 +370,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"basic_office",
@@ -382,7 +382,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"chem_lab",
@@ -394,7 +394,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"high_apt",
@@ -406,7 +406,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"teaching_complex",
@@ -418,7 +418,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"campus_shop",
@@ -430,7 +430,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"microelec_lab",
@@ -442,7 +442,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"elec_building",
@@ -454,7 +454,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 		{
 		"Id":"sackler_museum",
@@ -466,7 +466,7 @@
 		"Environment":50,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 		{
 		"Id":"new_library",
@@ -478,7 +478,7 @@
 		"Environment":50,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 		{
 		"Id":"centennial_hall",
@@ -490,7 +490,7 @@
 		"Environment":50,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 		{
 		"Id":"qdb_gym",
@@ -502,7 +502,7 @@
 		"Environment":50,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"bath",
@@ -514,7 +514,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"thermal_station",
@@ -526,7 +526,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"res_building",
@@ -538,7 +538,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"pacific_center",
@@ -550,7 +550,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"renovated_dorm",
@@ -562,7 +562,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"college_dorm",
@@ -574,7 +574,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"intl_center",
@@ -586,7 +586,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"history_museum",
@@ -598,7 +598,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"bbs_sever",
@@ -612,7 +612,7 @@
 		"Cost":10000,
 		"Benefit":0,
 		"UpgradeCost":{
-			"its.pku":2000,
+			"its.pku":2000
 		}
 	},
 	{
@@ -625,7 +625,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"stanford_center",
@@ -637,7 +637,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"inter_complex",
@@ -649,7 +649,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"integ_lab",
@@ -661,7 +661,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"incuba",
@@ -673,7 +673,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"express",
@@ -685,7 +685,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"key_lib",
@@ -697,7 +697,7 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
+		"Benefit":0
 	},
 	{
 		"Id":"cluster",
@@ -709,6 +709,6 @@
 		"Environment":-10,
 		"Population":0,
 		"Cost":10000,
-		"Benefit":0,
-	},
+		"Benefit":0
+	}
 ]
