@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public partial class BuildingBase : Node2D
 {
 	public string Id;
-	public string BuildingName;
+	public List<string> Tags = new List<string>();
+	public string DisplayName; //display name, not unique
 	public float _research = 0f;
 	public float _education = 0f;
 	public float _environment = 0f;
@@ -79,9 +80,6 @@ public partial class BuildingBase : Node2D
 	}
 
 	public bool Destroyable;
-
-	public string UpgradeTo;
-	public float UpgradeCost;
 	
 	
 	// Called when the node enters the scene tree for the first time.
@@ -160,7 +158,7 @@ public partial class BuildingBase : Node2D
 	
 	public void InitializeFromData(BuildingData data)
 	{
-		BuildingName = data.Name;
+		DisplayName = data.Name;
 		_research = data.Research;
 		_education = data.Education;
 		_environment = data.Environment;
@@ -168,8 +166,7 @@ public partial class BuildingBase : Node2D
 		_cost = data.Cost;
 		_benefit = data.Benefit;
 		 Destroyable = data.Destroyable;
-		 UpgradeTo = data.UpgradeTo;
-		 UpgradeCost = data.UpgradeCost;
+		 Tags = data.Tags;
 		 return;
 	}
 	
@@ -179,10 +176,13 @@ public partial class BuildingBase : Node2D
 		if(buffData.BuffType != "AdjBonus")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		if(!neighbors.Contains(buffData.SrcBuildingId))
+		var idOrTag = buffData.SrcBuildingIdOrTag;
+		if (BuildingDatabase.IsId(idOrTag) && !neighbors.Contains(idOrTag))
+			return;
+		if (!BuildingDatabase.IsId(idOrTag) && !ContainNeighborWithTag(idOrTag, neighbors))
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMutiplier(buffData.Targets, buffData.Multiplier);
+		ApplyMutiplier(buffData.Targets, buff.Value);
 	}
 
 	public void RecomputeAdjBonus()
@@ -190,15 +190,9 @@ public partial class BuildingBase : Node2D
 		_relatedBuffs.Clear();
 		ResetMultiplier();
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		var adjBuffs = BuffMgr.Instance.GetAdjBuffsById(Id);
+		var adjBuffs = BuffMgr.Instance.GetAdjBuffs(Id, Tags);
 		foreach (var adjBuff in adjBuffs)
-		{
-			if (neighbors.Contains(adjBuff.Data.SrcBuildingId))
-			{
-				_relatedBuffs.Add(adjBuff);
-				ApplyMutiplier(adjBuff.Data.Targets, adjBuff.Data.Multiplier);
-			}
-		}
+			ApplyAdjBonus(adjBuff);
 	}
 
 	private void ResetMultiplier()
@@ -211,8 +205,9 @@ public partial class BuildingBase : Node2D
 		return;
 	}
 	
-	private void ApplyMutiplier(List<string> targets, float multiplier)
+	private void ApplyMutiplier(List<string> targets, int value)
 	{
+		float multiplier = (100f + value) / 100f;
 		foreach (var target in targets)
 		{
 			switch (target)
@@ -234,6 +229,17 @@ public partial class BuildingBase : Node2D
 					break;
 			}
 		}
+	}
+	
+	private bool ContainNeighborWithTag(string tag, HashSet<string> neighborIds)
+	{
+		foreach (var id in neighborIds)
+		{
+			var buildingData = BuildingDatabase.GetById(id);
+			if (buildingData.Tags.Contains(tag))
+				return true;
+		}
+		return false;
 	}
 }
 

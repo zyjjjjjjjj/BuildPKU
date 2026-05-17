@@ -28,7 +28,7 @@ public partial class CellArea : Area2D
     {
         Occupied,
         Conflict,
-        Empty,
+        Available,
         Null,
     }
 
@@ -56,7 +56,7 @@ public partial class CellArea : Area2D
                 HighlightColor = new Color(1f, 0, 0, 0.35f);
                 HighlightVisible = true;
                 break;
-            case CellState.Empty:
+            case CellState.Available:
                 HighlightColor = new Color(0, 1, 0, 0.35f);
                 HighlightVisible = true;
                 break;

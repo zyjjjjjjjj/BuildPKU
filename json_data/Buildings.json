@@ -3,14 +3,22 @@
 		"Id":"dorm",
 		"InitiallyAvailable": true,
 		"Name":"宿舍",
+		"Tags":["tag1","tag2"],
 		"Research":0,
 		"Education":0,
 		"Environment":10,
 		"Population":50,
 		"Cost":1000,
 		"Benefit":0,
-		"UpgradeTo":"lab",
-		"UpgradeCost":1000
+		"UpgradeCost":{
+			"bidorm":0,
+			"intl_dorm":0,
+			"dorm70":0,
+			"high_apt":0,
+			"renovated_dorm":0,
+			"college_dorm":0,
+			"teacher_apt":0
+			}
 	},
 	{
 		"Id":"lab",
@@ -21,7 +29,18 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":2000,
-		"Benefit":1000
+		"Benefit":1000,
+		"UpgradeCost":{
+			"pc_lab":0,
+			"wind_lab":0,
+			"tech_lab":0,
+			"cod_lab":0,
+			"mech_lab":0,
+			"chem_lab":0,
+			"microelec_lab":0,
+			"rs_lab":0,
+			"integ_lab":0
+		}
 	},
 	{
 		"Id":"green",
@@ -56,7 +75,10 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":0,
-		"Benefit":500
+		"Benefit":500,
+		"UpgradeCost":{
+			"history_museum":0
+		}
 	},
 	{
 		"Id":"library",
@@ -78,7 +100,10 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":4000,
-		"Benefit":200
+		"Benefit":200,
+		"UpgradeCost":{
+			"elec_building":0
+		}
 	},
 	{
 		"Id":"ground",
@@ -95,6 +120,8 @@
 		"Id":"villa",
 		"InitiallyAvailable": false,
 		"Name":"静园",
+		"Destroyable":false,
+		"Limit":1,
 		"Research":0,
 		"Education":0,
 		"Environment":30,
@@ -111,34 +138,93 @@
 		"Environment":25,
 		"Population":0,
 		"Cost":3000,
-		"Benefit":500
+		"Benefit":500,
+		"UpgradeCost":{
+			"multi_canteen":0,
+			"com_canteen":0
+		}
+	},
+	{
+		"Id":"multi_canteen",
+		"Name":"多层食堂",
+		"Destroyable":true,
+		"Research":0,
+		"Education":0,
+		"Environment":30,
+		"Population":50,
+		"Cost":0,
+		"Benefit":0,
+		"UpgradeCost":{
+			"com_canteen":0
+		}
+	},
+	{
+		"Id":"com_canteen",
+		"Name":"综合食堂",
+		"Destroyable":true,
+		"Research":0,
+		"Education":0,
+		"Environment":30,
+		"Population":50,
+		"Cost":0,
+		"Benefit":0
 	},
 	{
 		"Id":"dpt_office",
 		"InitiallyAvailable": false,
 		"Name":"学系主楼",
+		"Destroyable":true,
 		"Research":2,
 		"Education":2,
 		"Environment":0,
 		"Population":0,
 		"Cost":1200,
-		"Benefit":500
+		"Benefit":500,
+		"UpgradeCost":{
+			"dpt_center":0
+		}
+	},
+	{
+		"Id":"dpt_center",
+		"Name":"产学研中心",
+		"Destroyable":true,
+		"Research":2,
+		"Education":2,
+		"Environment":0,
+		"Population":0,
+		"Cost":1200,
+		"Benefit":500,
+		"UpgradeCost":{
+			"pacific_center":0,
+			"intl_center":0,
+			"stadford_center":0,
+			"cluster":0
+		}
 	},
 	{
 		"Id":"bidorm",
 		"InitiallyAvailable": false,
 		"Name":"联幢宿舍",
+		"Destroyable":true,
 		"Research":0,
 		"Education":0,
 		"Environment":15,
 		"Population":125,
 		"Cost":1800,
-		"Benefit":0
+		"Benefit":0,
+		"UpgradeCost":{
+			"high_apt":0,
+			"renovated_dorm":0,
+			"college_dorm":0,
+			"teacher_apt":0
+			}
 	},
 	{
 		"Id":"hall",
 		"InitiallyAvailable": false,
 		"Name":"大饭厅",
+		"Destroyable":false,
+		"Limit":1,
 		"Research":0,
 		"Education":2,
 		"Environment":30,
@@ -150,6 +236,8 @@
 		"Id":"rus_building",
 		"InitiallyAvailable": false,
 		"Name":"俄文楼",
+		"Destroyable":false,
+		"Limit":1,
 		"Research":3,
 		"Education":3,
 		"Environment":0,
@@ -159,8 +247,7 @@
 	},
 	{
 		"Id":"cod_lab",
-		"InitiallyAvailable": false,
-		"Name":"实验室56",
+		"Name":"计算机房",
 		"Research":8,
 		"Education":8,
 		"Environment":0,
@@ -181,13 +268,463 @@
 	},
 	{
 		"Id":"tech_lab",
-		"InitiallyAvailable": false,
-		"Name":"实验室546",
+		"Name":"546技物所",
 		"Research":10,
 		"Education":10,
 		"Environment":-20,
 		"Population":0,
 		"Cost":10000,
 		"Benefit":3000
+	},
+	{
+		"Id":"lib_base",
+		"Name":"新图书馆地库",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0,
+		"UpgradeCost":{
+			"new_lib":2000
+		}
+	},
+	{
+		"Id":"wind_lab",
+		"Name":"大风洞实验室",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":0,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"intl_dorm",
+		"Name":"留学生宿舍",
+		"Destroyable":true,
+		"Limit":3,
+		"Research":0,
+		"Education":0,
+		"Environment":10,
+		"Population":20,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"farm",
+		"Name":"教学试验田",
+		"Destroyable":true,
+		"Limit":4,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"mech_lab",
+		"Name":"力学机械厂",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"dorm70",
+		"Name":"工农兵宿舍",
+		"Destroyable":true,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"teacher_apt",
+		"Name":"教工宿舍",
+		"Destroyable":true,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"boiler",
+		"Name":"锅炉房",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0,
+		"UpgradeCost":{
+			"thermal_station":0
+		}
+	},
+	{
+		"Id":"rs_lab",
+		"Name":"遥感实验室",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"basic_office",
+		"Name":"基础学科教研室",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"chem_lab",
+		"Name":"新化学楼",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"high_apt",
+		"Name":"中关高层公寓",
+		"Destroyable":true,
+		"Limit":3,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"teaching_complex",
+		"Name":"教学楼群",
+		"Destroyable":true,
+		"Limit":4,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"campus_shop",
+		"Name":"燕园副食店",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"microelec_lab",
+		"Name":"微电子所",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"elec_building",
+		"Name":"电教",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+		{
+		"Id":"sackler_museum",
+		"Name":"赛克勒博物馆",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":15,
+		"Education":15,
+		"Environment":50,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+		{
+		"Id":"new_library",
+		"Name":"东区图书馆",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":15,
+		"Education":15,
+		"Environment":50,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+		{
+		"Id":"centennial_hall",
+		"Name":"百周年纪念讲堂",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":15,
+		"Education":15,
+		"Environment":50,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+		{
+		"Id":"qdb_gym",
+		"Name":"邱德拔体育馆",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":15,
+		"Education":15,
+		"Environment":50,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"bath",
+		"Name":"大浴室",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"thermal_station",
+		"Name":"燕园热电站",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"res_building",
+		"Name":"商用大厦",
+		"Destroyable":true,
+		"Limit":4,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"pacific_center",
+		"Name":"亚太研究中心",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"renovated_dorm",
+		"Name":"改造公寓",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"college_dorm",
+		"Name":"书院宿舍楼",
+		"Destroyable":false,
+		"Limit":4,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"intl_center",
+		"Name":"国际交流中心",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"history_museum",
+		"Name":"校史馆",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"bbs_sever",
+		"Name":"BBS机房",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0,
+		"UpgradeCost":{
+			"its.pku":2000
+		}
+	},
+	{
+		"Id":"its.pku",
+		"Name":"信息服务中心",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"stanford_center",
+		"Name":"斯坦福中心",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"inter_complex",
+		"Name":"交叉学科楼群",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"integ_lab",
+		"Name":"集成实验室",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"incuba",
+		"Name":"创业孵化器",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"express",
+		"Name":"近邻宝",
+		"Destroyable":true,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"key_lib",
+		"Name":"国重实验室",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
+	},
+	{
+		"Id":"cluster",
+		"Name":"智算中心",
+		"Destroyable":false,
+		"Limit":1,
+		"Research":4,
+		"Education":4,
+		"Environment":-10,
+		"Population":0,
+		"Cost":10000,
+		"Benefit":0
 	}
 ]

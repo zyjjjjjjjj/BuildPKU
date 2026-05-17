@@ -10,9 +10,11 @@ public partial class BuildingInfoPanel : PanelContainer
 	[Export] private Label _envLabel;
 	[Export] private Label _popLabel;
 	[Export] private Label _benLabel;
+	[Export] private MarginContainer _buffPanel;
 	[Export] private Label _buffLabel;
 	[Export] private Button _destroyButton;
-	[Export] private Button _upgradeButton;
+	[Export] private MarginContainer _upgradePanel;
+	[Export] private VBoxContainer _upgradeContainer;
 
 	private string _instanceName;
 	// Called when the node enters the scene tree for the first time.
@@ -20,13 +22,9 @@ public partial class BuildingInfoPanel : PanelContainer
 	{
 		_destroyButton.Pressed += () => {
 			BuildingMgr.Instance.DestroyBuilding(_instanceName);
-			Visible = false;
+			HidePanel();
 		};
-		_upgradeButton.Pressed += () => {
-			BuildingMgr.Instance.UpgradeBuilding(_instanceName);
-			Visible = false;
-		};
-		Visible = false;
+		HidePanel();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,10 +33,10 @@ public partial class BuildingInfoPanel : PanelContainer
 		if (!Visible) return;
 	}
 
-	public void Show(BuildingBase building)
+	public void ShowPanel(BuildingBase building)
 	{
 		_instanceName = building.Name;
-		_idLabel.Text = building.BuildingName;
+		_idLabel.Text = building.DisplayName;
 		_resLabel.Text = $"{building.Research:F2}";
 		_eduLabel.Text = $"{building.Education:F2}";
 		_envLabel.Text = $"{building.Environment:F2}";
@@ -46,17 +44,8 @@ public partial class BuildingInfoPanel : PanelContainer
 		_benLabel.Text = $"{building.Benefit:F2}";
 		
 		ShowRelatedBuffs(building);
-
-		if (string.IsNullOrEmpty(building.UpgradeTo))
-		{
-			_upgradeButton.Text = "无法升级";
-			_upgradeButton.Disabled = true;
-		}
-		else
-		{
-			_upgradeButton.Text = $"花费 {building.UpgradeCost} 升级到 {BuildingDatabase.GetById(building.UpgradeTo).Name} ";
-			_upgradeButton.Disabled = false;
-		}
+		
+		ShowUpgradeOptions(building);
 		
 		if (building.Destroyable)
 		{
@@ -70,7 +59,7 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		
 		ResetSize();
-		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
+		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size - new Vector2(10,10);
 		if (pos.X < 0) pos.X += (Size.X + 20);
 		if (pos.Y < 0) pos.Y += (Size.Y + 20);
 		GlobalPosition = pos;
@@ -80,34 +69,70 @@ public partial class BuildingInfoPanel : PanelContainer
 	
 	public void ShowRelatedBuffs(BuildingBase building)
 	{
+		_buffLabel.Text = string.Empty;
+		
 		var relatedBuffs = building.RelatedBuffs;
 		if(relatedBuffs.Count == 0)
 		{
-			_buffLabel.Visible = false;
+			_buffPanel.Visible = false;
 			return;
 		}
 		List<string> lines= new List<string>();
 		foreach (var buff in relatedBuffs)
-		{
-			int remainingYears = buff.GetRemainingYears(TimeMgr.Instance.CurrentYear);
-			string duration;
-			switch (remainingYears)
-			{
-				case < 0:
-					duration = "永久";
-					break;
-				case 0:
-					duration = "已结束";
-					break;
-				default:
-					duration = $"剩余 {remainingYears} 年";
-					break;
-			}
-			lines.Add($"{buff.Data.Description} ({duration})");
-		}
+			lines.Add($"{buff.Description}");
 		var text = string.Join("\n", lines);
 		_buffLabel.Text = text;
-		_buffLabel.Visible = true;
+		_buffPanel.Visible = true;
+		return;
+	}
+	
+	public void ShowUpgradeOptions(BuildingBase building)
+	{
+		var children = _upgradeContainer.GetChildren();
+		foreach (var child in children)
+		{
+			if (child is not Button button) continue;
+			_upgradeContainer.RemoveChild(button);
+			button.QueueFree();
+		}
+		
+		var upgradeCost = BuildingDatabase.GetById(building.Id).UpgradeCost;
+		if(upgradeCost.Count == 0)
+		{
+			_upgradePanel.Visible = false;
+			return;
+		}
+		foreach (var kv in upgradeCost)
+		{
+			var button = new Button();
+			var buildingData = BuildingDatabase.GetById(kv.Key);
+			if(buildingData == null)
+			{
+				GD.PushWarning($"找不到升级选项的建筑配置: {kv.Key}");
+				continue;
+			}
+			button.Text = $"{buildingData.Name}  费用: {kv.Value}";
+			button.Theme = GD.Load<Theme>("res://themes/upgrade_button.tres");
+			_upgradeContainer.AddChild(button);
+			button.Pressed += () =>
+			{
+				BuildingMgr.Instance.TryUpgradeBuilding(building.Name, kv.Key);
+				HidePanel();
+			};
+		}
+		_upgradePanel.Visible = true;
+		return;
+	}
+	
+	public void HidePanel()
+	{
+		Visible = false;
+		var children = _upgradeContainer.GetChildren();
+		foreach (var child in children)
+		{
+			if (child is not Button button) continue;
+			button.QueueFree();
+		}
 		return;
 	}
 }

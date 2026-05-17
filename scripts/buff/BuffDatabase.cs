@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 
+
+public class BuffData
+{
+    public string Id { get; set; }
+    public string Description { get; set; }
+    public string BuffType { get; set; }
+    public List<string> Targets { get; set; }
+    public string DestBuildingIdOrTag { get; set; }
+    public string SrcBuildingIdOrTag { get; set; }
+}
+
 public static class BuffDatabase
 {
     private const string JsonPath = "res://json_data/Buffs.json";

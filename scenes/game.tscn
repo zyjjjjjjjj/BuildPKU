@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bq0be548k7ovq" path="res://buildings/administration.tscn" id="11_264po"]
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
+[ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/yan_nan_yuan.tscn" id="14_1kice"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -52,30 +53,33 @@ GridHeight = 50
 y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
-[node name="lake00" parent="buildingMgr" unique_id=229562284 instance=ExtResource("6_dinhu")]
+[node name="lake_00" parent="buildingMgr" unique_id=229562284 instance=ExtResource("6_dinhu")]
 position = Vector2(1152, 1019)
 
-[node name="ground01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
+[node name="ground_01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
 position = Vector2(1410, 1050)
 
-[node name="library00" parent="buildingMgr" unique_id=542408753 instance=ExtResource("8_rysoc")]
+[node name="library_00" parent="buildingMgr" unique_id=542408753 instance=ExtResource("8_rysoc")]
 position = Vector2(1152, 1407)
 
-[node name="villa01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
+[node name="villa_01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
 position = Vector2(1023, 1344)
 
-[node name="dorm01" parent="buildingMgr" unique_id=1412420651 instance=ExtResource("10_264po")]
+[node name="dorm_01" parent="buildingMgr" unique_id=1412420651 instance=ExtResource("10_264po")]
 position = Vector2(987, 1478)
 
-[node name="administration00" parent="buildingMgr" unique_id=1249148625 instance=ExtResource("11_264po")]
+[node name="administration_00" parent="buildingMgr" unique_id=1249148625 instance=ExtResource("11_264po")]
 position = Vector2(1026, 1085)
 
-[node name="teaching01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
+[node name="teaching_01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
 position = Vector2(1660, 1344)
 rotation = 1.5707964
 
-[node name="lab01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
+[node name="lab_01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
 position = Vector2(1536, 1413)
+
+[node name="region_yan_nan_yuan" parent="buildingMgr" unique_id=444217144 instance=ExtResource("14_1kice")]
+position = Vector2(1210, 2730)
 
 [node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
 script = ExtResource("6_p57ef")

@@ -7,7 +7,7 @@ public partial class BuffSideBar : PanelContainer
 {
     public static BuffSideBar Instance { get; private set; }
 
-    private readonly List<CollectedCardView> _collectedCards = [];
+    private readonly List<ActiveCard> _collectedCards = [];
     private readonly List<ActiveBuff> _mockAdjBuffs = [];
     private bool _isExpanded = true;
 
@@ -72,7 +72,7 @@ public partial class BuffSideBar : PanelContainer
 
         if (_collectedCards.Count == 0)
         {
-            _cardList.AddChild(CreateMutedLabel("\u6682\u65e0\u5361\u724c"));
+            _cardList.AddChild(CreateMutedLabel("暂无卡牌"));
             return;
         }
 
@@ -80,7 +80,7 @@ public partial class BuffSideBar : PanelContainer
         {
             var label = new Label
             {
-                Text = activeCard.Card.Name,
+                Text = activeCard.Data.Name,
                 TooltipText = BuildCardTooltip(activeCard),
                 MouseFilter = Control.MouseFilterEnum.Pass,
                 AutowrapMode = TextServer.AutowrapMode.WordSmart,
@@ -94,7 +94,7 @@ public partial class BuffSideBar : PanelContainer
     private void RefreshAdjBonusList()
     {
         if (_adjBonusTitleLabel != null)
-            SetControlText(_adjBonusTitleLabel, "\u76f8\u90bb\u52a0\u6210\u6548\u679c");
+            SetControlText(_adjBonusTitleLabel, "相邻加成效果");
 
         if (_adjBonusList == null)
             return;
@@ -105,7 +105,7 @@ public partial class BuffSideBar : PanelContainer
         var adjBuffs = GetActiveAdjBuffs();
         if (adjBuffs.Count == 0)
         {
-            _adjBonusList.AddChild(CreateMutedLabel("\u6682\u65e0\u76f8\u90bb\u52a0\u6210"));
+            _adjBonusList.AddChild(CreateMutedLabel("暂无相邻加成"));
             return;
         }
 
@@ -132,11 +132,11 @@ public partial class BuffSideBar : PanelContainer
             .Concat(_mockAdjBuffs)
             .Where(buff => buff != null && buff.Data != null)
             .Where(buff => buff.Data.BuffType == "AdjBonus")
-            .Where(buff => !buff.IsExpired(currentYear))
+            .Where(buff => !buff.IsExpired())
             .ToList();
     }
 
-    private string BuildCardTooltip(CollectedCardView activeCard)
+    private string BuildCardTooltip(ActiveCard activeCard)
     {
         var lines = new List<string>();
 
@@ -144,35 +144,27 @@ public partial class BuffSideBar : PanelContainer
         //     lines.Add(activeCard.Card.Description);
 
         foreach (var buff in activeCard.Buffs)
-            lines.Add(BuildBuffTooltip(buff, activeCard.StartYear));
+            lines.Add(BuildBuffTooltip(buff));
 
         return string.Join("\n", lines.Where(line => !string.IsNullOrEmpty(line)));
     }
 
-    private string BuildBuffTooltip(BuffData buff, int startYear)
-    {
-        if (buff == null)
-            return string.Empty;
-
-        string duration = FormatDuration(buff.DurationYears, startYear);
-        return $"{buff.Description} ({duration})";
-    }
-
     private string BuildBuffTooltip(ActiveBuff buff)
     {
-        if (buff == null || buff.Data == null)
+        if (buff?.Data == null)
             return string.Empty;
-
-        string duration = FormatDuration(buff.Data.DurationYears, buff.StartYear);
-        return $"{buff.Data.Description} ({duration})";
+        
+        //string duration = FormatDuration(buff.DurationYears, buff.StartYear);
+        return buff.Description;
     }
 
     private string BuildAdjBonusText(ActiveBuff buff)
     {
+        return buff.Description;
         var data = buff.Data;
-        string duration = FormatDuration(data.DurationYears, buff.StartYear);
-        string destBuildingName = GetBuildingDisplayName(data.DestBuildingId);
-        string srcBuildingName = GetBuildingDisplayName(data.SrcBuildingId);
+        string duration = FormatDuration(buff.DurationYears, buff.StartYear);
+        string destBuildingName = GetBuildingDisplayName(data.DestBuildingIdOrTag);
+        string srcBuildingName = GetBuildingDisplayName(data.SrcBuildingIdOrTag);
         return $"{destBuildingName} <- {srcBuildingName} ({duration})";
     }
 
@@ -187,13 +179,16 @@ public partial class BuffSideBar : PanelContainer
     private string FormatDuration(int durationYears, int startYear)
     {
         if (durationYears < 0)
-            return "\u6c38\u4e45";
+            return "永久";
 
         if (durationYears == 0)
-            return "\u7acb\u5373\u751f\u6548";
+            return "立即生效";
+        
+        if(startYear > TimeMgr.Instance.CurrentYear)
+            return $"将在 {startYear - TimeMgr.Instance.CurrentYear} 年后生效";
 
         int remainingYears = Math.Max(0, startYear + durationYears - TimeMgr.Instance.CurrentYear);
-        return remainingYears == 0 ? "\u5df2\u8fc7\u671f" : $"\u5269\u4f59 {remainingYears} \u5e74";
+        return remainingYears == 0 ? "已过期" : $"剩余 {remainingYears} 年";
     }
 
     private Label CreateMutedLabel(string text)
@@ -250,10 +245,17 @@ public partial class BuffSideBar : PanelContainer
                 CreateMockWeightBuff(i, "Research", 1.1f + i % 5 * 0.05f),
                 CreateMockWeightBuff(i, i % 2 == 0 ? "Education" : "Environment", 1.05f + i % 4 * 0.05f)
             };
-
-            _collectedCards.Add(new CollectedCardView
+            var activeBuffs = buffs.Select(buff => new ActiveBuff
             {
-                Card = new CardData
+                Data = buff,
+                StartYear = TimeMgr.Instance.CurrentYear - i % 5,
+                DurationYears = i % 5,
+                Value = 20,
+            }).ToList();
+
+            _collectedCards.Add(new ActiveCard
+            {
+                Data = new CardData
                 {
                     Id = $"mock_card_{i}",
                     Name = $"\u6d4b\u8bd5\u5361 {i + 1:00}",
@@ -261,10 +263,9 @@ public partial class BuffSideBar : PanelContainer
                     CardType = "Buff",
                     Rarity = i % 3 == 0 ? "Epic" : "Common",
                     Repeatable = true,
-                    BuffIds = []
+                    Buffs = []
                 },
-                Buffs = buffs,
-                StartYear = TimeMgr.Instance.CurrentYear - i % 6
+                Buffs = activeBuffs,
             });
         }
     }
@@ -283,14 +284,14 @@ public partial class BuffSideBar : PanelContainer
                 {
                     Id = $"mock_adj_bonus_{i}",
                     Description = $"\u4e0e{GetBuildingDisplayName(srcBuildingIds[i % srcBuildingIds.Length])}\u76f8\u90bb\u65f6\uff0c{FormatTargetName(targets[i % targets.Length])}\u4ea7\u51fa\u63d0\u9ad8 {10 + i % 5 * 5}%",
-                    DurationYears = i % 4 == 0 ? -1 : 6 + i % 8,
                     BuffType = "AdjBonus",
                     Targets = [targets[i % targets.Length]],
-                    Multiplier = 1.1f + i % 5 * 0.05f,
-                    DestBuildingId = destBuildingIds[i % destBuildingIds.Length],
-                    SrcBuildingId = srcBuildingIds[i % srcBuildingIds.Length]
+                    DestBuildingIdOrTag = destBuildingIds[i % destBuildingIds.Length],
+                    SrcBuildingIdOrTag = srcBuildingIds[i % srcBuildingIds.Length]
                 },
-                StartYear = TimeMgr.Instance.CurrentYear - i % 5
+                DurationYears = i % 4 == 0 ? -1 : 6 + i % 8,
+                StartYear = TimeMgr.Instance.CurrentYear - i % 5,
+                Value = 10 + i % 5 * 5,
             });
         }
     }
@@ -301,10 +302,8 @@ public partial class BuffSideBar : PanelContainer
         {
             Id = $"mock_weight_buff_{index}_{target}",
             Description = $"{FormatTargetName(target)}\u6743\u91cd\u63d0\u9ad8 {Mathf.RoundToInt((multiplier - 1f) * 100f)}%",
-            DurationYears = index % 5 == 0 ? -1 : 5 + index % 10,
             BuffType = "ScoreWeightMultiplier",
             Targets = [target],
-            Multiplier = multiplier
         };
     }
 
@@ -321,25 +320,11 @@ public partial class BuffSideBar : PanelContainer
         };
     }
 
-    public void AddCard(CardData card, List<BuffData> buffs)
+    public void AddCard(ActiveCard activeCard)
     {
-        if (card == null)
+        if (activeCard == null)
             return;
-
-        _collectedCards.Add(new CollectedCardView
-        {
-            Card = card,
-            Buffs = buffs ?? [],
-            StartYear = TimeMgr.Instance.CurrentYear
-        });
-
+        _collectedCards.Add(activeCard);
         Refresh();
     }
-}
-
-public class CollectedCardView
-{
-    public CardData Card { get; set; }
-    public List<BuffData> Buffs { get; set; }
-    public int StartYear { get; set; }
 }

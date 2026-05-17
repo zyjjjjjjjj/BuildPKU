@@ -4,6 +4,25 @@ using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 using System;
 
+public struct BuffProps
+{
+    public int StartYear { get; set; }
+    public int DurationYears{ get; set; }
+    public int Value{ get; set; }
+}
+
+public class CardData
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public string CardType { get; set; }
+    public string Rarity { get; set; }
+    public int MinYear { get; set; }
+    public bool Repeatable { get; set; }
+    public Dictionary<string, BuffProps> Buffs { get; set; }
+}
+
 public static class CardDatabase
 {
     private const string JsonPath = "res://json_data/Cards.json";
