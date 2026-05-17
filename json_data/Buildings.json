@@ -9,8 +9,10 @@
 		"Cost":1000,
 		"Benefit":0,
 		"UpgradeCost":{
-			"canteen":500,
-			"lab":1000
+			"bidorm":0,
+			"dorm60":0,
+			"high_apt":0,
+			"college_dorm":0
 		}
 	},
 	{
@@ -21,7 +23,14 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":2000,
-		"Benefit":1000
+		"Benefit":1000,
+		"UpgradeCost":{
+			"pc_lab":0,
+			"tech_lab":0,
+			"cod_lab":0,
+			"mech_lab":0,
+			"microelec_lab":0
+		}
 	},
 	{
 		"Id":"green",
