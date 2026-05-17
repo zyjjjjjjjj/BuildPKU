@@ -223,16 +223,21 @@ public partial class BuildingMgr : Node2D
         var initialBuild = GetChildren();
         foreach (var node in initialBuild)
         {
-            if(node is BuildingBase building)
+            if (node is not BuildingBase building) continue;
+            
+            if(building.Name.ToString().StartsWith("region_"))
             {
-                _tmpBuilding = building;
-                _tmpBuilding.Id = Regex.Replace(building.Name, @"\d+$", "");
-                _tmpBuilding.Name = "tmpBuilding";
-                TrySpawnBuilding(false);
-                _tmpBuilding.Name = "tobedeleted";
-                _tmpBuilding.QueueFree();
-                _tmpBuilding = null;
+                GridMgr.Instance.RegisterRegion(building);
+                continue;
             }
+            
+            _tmpBuilding = building;
+            _tmpBuilding.Id = Regex.Replace(building.Name, @"_\d+$", "");
+            _tmpBuilding.Name = "tmpBuilding";
+            TrySpawnBuilding(false);
+            _tmpBuilding.Name = "tobedeleted";
+            _tmpBuilding.QueueFree();
+            _tmpBuilding = null;
         }
     }
 

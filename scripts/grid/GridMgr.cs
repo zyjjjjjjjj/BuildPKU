@@ -17,6 +17,9 @@ public partial class GridMgr : Node2D
     private Dictionary<CellArea, Vector2I> _area2idx = new Dictionary<CellArea, Vector2I>();
     private bool _refreshPreviewScheduled = false;
     private readonly Dictionary<Vector2I, string> _occupied = new();
+    private List<string> _allRegions = new List<string>();
+    private List<string> _unlockedRegions = new List<string>();
+    private Dictionary<Vector2I, string> _idx2regions = new();
     private Camera2D _camera;
     private Camera2D Camera
     {
@@ -47,7 +50,6 @@ public partial class GridMgr : Node2D
             QueueRedraw();
         }
     }
-
     [Export]
     public int CellSize
     {
@@ -58,7 +60,6 @@ public partial class GridMgr : Node2D
             QueueRedraw();
         }
     }
-
     [Export]
     public int Boundary
     {
@@ -193,7 +194,7 @@ public partial class GridMgr : Node2D
             var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
             if (!_inBounds(idx))
                 continue;
-            _idx2area[idx].SetHighlight(_isOccupied(idx) ? CellArea.CellState.Conflict : CellArea.CellState.Empty);
+            _idx2area[idx].SetHighlight(_Buildable(idx) ? CellArea.CellState.Available : CellArea.CellState.Conflict);
         }
         _refreshPreviewScheduled = false;
     }
@@ -201,7 +202,7 @@ public partial class GridMgr : Node2D
     {
         foreach (var area in _area2idx)
         {
-            if (!ShowGrid || !_isOccupied(area.Value))
+            if (!ShowGrid || _Buildable(area.Value))
             {
                 area.Key.SetHighlight(CellArea.CellState.Null);
                 continue;
@@ -241,6 +242,17 @@ public partial class GridMgr : Node2D
     {
         return _occupied.ContainsKey(idx);
     }
+    
+    private bool _inUnlockedRegion(Vector2I idx)
+    {
+        return !_idx2regions.TryGetValue(idx, out var regionName) || _unlockedRegions.Contains(regionName);
+    }
+    
+    private bool _Buildable(Vector2I idx)
+    {
+        return _inBounds(idx) && !_isOccupied(idx) && _inUnlockedRegion(idx);
+    }
+    
     public Vector2I WorldToGridIdx(Vector2 worldPos)
     {
         var localPos = worldPos - Position;
@@ -265,7 +277,7 @@ public partial class GridMgr : Node2D
         foreach (var collisionPoint in collisionPoints)
         {
             var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
-            if (!_inBounds(idx) || _isOccupied(idx))
+            if (!_Buildable(idx))
                 return null;
             offset = GridIdxToWorld(idx) - collisionPoint.GlobalPosition;
             if(idx.Y < zIdx)
@@ -341,5 +353,28 @@ public partial class GridMgr : Node2D
     public string GetNameByIdx(Vector2I idx)
     {
         return _occupied.GetValueOrDefault(idx);
+    }
+
+    public void RegisterRegion(BuildingBase region)
+    {
+        var collisionPoints = region.GetCollisionAreas();
+        foreach (var collisionPoint in collisionPoints)
+        {
+            var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
+            if (!_inBounds(idx))
+                continue;
+            _idx2regions[idx] = region.Name;
+        }
+        QueueRedraw();
+    }
+    
+    public void UnlockRegion(string regionName)
+    {
+        if (_unlockedRegions.Contains(regionName))
+            return;
+        if (!_allRegions.Contains(regionName))
+            return;
+        _unlockedRegions.Add(regionName);
+        QueueRedraw();
     }
 }
