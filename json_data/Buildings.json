@@ -2,6 +2,7 @@
 	{
 		"Id":"dorm",
 		"Name":"宿舍",
+		"Tags":["tag1","tag2"],
 		"Research":0,
 		"Education":0,
 		"Environment":10,

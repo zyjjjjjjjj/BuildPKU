@@ -7,6 +7,7 @@ public class BuildingData
 {
     public string Id{get;set;}
     public string Name{get;set;}
+    public List<string> Tags { get; set; }
     public string IconPath => "res://icon.svg";
     public string ScenePath => $"res://buildings/{Id}.tscn";
     public float Research { get; set; }
