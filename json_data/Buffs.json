@@ -1,22 +1,18 @@
 [
 	{
 		"Id": "weight_multiplier_buff",
-		"Description": "{Target}评分权重提高{Value}%。",
-		"BuffType": "ScoreWeightMultiplier"
+		"Description": "{Target}评分权重提高{Value}%。"
 	},
 	{
 		"Id": "adj_bonus_buff",
-		"Description": "与{Src}相邻的{Dest}{Target}产出提高{Value}%。",
-		"BuffType": "AdjBonus"
+		"Description": "与{Src}相邻的{Dest}{Target}产出提高{Value}%。"
 	},
 	{
 		"Id": "instant_money_buff",
-		"Description": "立刻获得{Value}资金",
-		"BuffType": "InstantMoney"
+		"Description": "立刻获得{Value}资金"
 	},
 	{
-		"Id": "unlock_building",
-		"Description": "解锁{Dest}建筑",
-		"BuffType": "UnlockBuilding"
+		"Id": "unlock_building_buff",
+		"Description": "解锁{Dest}建筑"
 	}
 ]

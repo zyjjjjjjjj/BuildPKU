@@ -9,7 +9,6 @@ public class BuffData
 {
     public string Id { get; set; }
     public string Description { get; set; }
-    public string BuffType { get; set; }
 }
 
 public static class BuffDatabase

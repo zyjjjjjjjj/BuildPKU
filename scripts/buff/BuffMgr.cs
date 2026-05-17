@@ -132,12 +132,12 @@ public partial class BuffMgr : Node
     {
         if (newBuff == null)
             return;
-        switch (newBuff.Data.BuffType)
+        switch (newBuff.Data.Id)
         {
-            case "ScoreWeightMultiplier":
+            case "weight_multiplier_buff":
                 _activeWeightBuffs.Add(newBuff);
                 break;
-            case "AdjBonus":
+            case "adj_bonus_buff":
                 if(_activeAdjBuffs.TryGetValue(newBuff.DestBuildingIdOrTag, out var buffList))
                     buffList.Add(newBuff);
                 else
@@ -152,10 +152,10 @@ public partial class BuffMgr : Node
                     }
                 }
                 break;
-            case "InstantMoney":
+            case "instant_money_buff":
                 MoneyMgr.Instance?.AddMoney(newBuff.Value);
                 break;
-            case "UnlockBuilding":
+            case "unlock_building_buff":
                 BuildingMgr.Instance.UnlockBuildings(newBuff.DestBuildingIdOrTag);
                 break;
         }
@@ -192,7 +192,7 @@ public partial class BuffMgr : Node
     }
     public void ApplyAllWeightBuffs(ScoreContext context)
     {
-        foreach (var buff in _activeWeightBuffs.Where(buff => buff.Data.BuffType == "ScoreWeightMultiplier"))
+        foreach (var buff in _activeWeightBuffs.Where(buff => buff.Data.Id == "weight_multiplier_buff"))
         {
             ApplyWeightBuff(context, buff);
         }
@@ -200,7 +200,7 @@ public partial class BuffMgr : Node
 
     public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
     {
-        if (buff.Data.BuffType != "ScoreWeightMultiplier")
+        if (buff.Data.Id != "weight_multiplier_buff")
             return;
         float multiplier = (100f + buff.Value) / 100f;
         switch (buff.Target)

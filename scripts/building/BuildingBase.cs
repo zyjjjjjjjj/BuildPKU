@@ -172,7 +172,7 @@ public partial class BuildingBase : Node2D
 	
 	public void ApplyAdjBonus(ActiveBuff buff)
 	{
-		if(buff.Data.BuffType != "AdjBonus")
+		if(buff.Data.Id != "adj_bonus_buff")
 			return;
 		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
 		var idOrTag = buff.SrcBuildingIdOrTag;

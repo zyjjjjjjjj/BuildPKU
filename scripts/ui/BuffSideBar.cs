@@ -131,7 +131,7 @@ public partial class BuffSideBar : PanelContainer
             .SelectMany(buffs => buffs)
             .Concat(_mockAdjBuffs)
             .Where(buff => buff != null && buff.Data != null)
-            .Where(buff => buff.Data.BuffType == "AdjBonus")
+            .Where(buff => buff.Data.Id == "adj_bonus_buff")
             .Where(buff => !buff.IsExpired())
             .ToList();
     }
@@ -284,7 +284,6 @@ public partial class BuffSideBar : PanelContainer
                 {
                     Id = $"mock_adj_bonus_{i}",
                     Description = $"\u4e0e{GetBuildingDisplayName(srcBuildingIds[i % srcBuildingIds.Length])}\u76f8\u90bb\u65f6\uff0c{FormatTargetName(targets[i % targets.Length])}\u4ea7\u51fa\u63d0\u9ad8 {10 + i % 5 * 5}%",
-                    BuffType = "AdjBonus",
                 },
                 DurationYears = i % 4 == 0 ? -1 : 6 + i % 8,
                 StartYear = TimeMgr.Instance.CurrentYear - i % 5,
@@ -299,7 +298,6 @@ public partial class BuffSideBar : PanelContainer
         {
             Id = $"mock_weight_buff_{index}_{target}",
             Description = $"{FormatTargetName(target)}\u6743\u91cd\u63d0\u9ad8 {Mathf.RoundToInt((multiplier - 1f) * 100f)}%",
-            BuffType = "ScoreWeightMultiplier",
         };
     }
 
