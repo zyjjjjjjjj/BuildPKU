@@ -33,7 +33,10 @@
 			"tech_lab":0,
 			"cod_lab":0,
 			"mech_lab":0,
-			"microelec_lab":0
+			"chem_lab":0,
+			"microelec_lab":0,
+			"rs_lab":0,
+			"integ_lab":0,
 		}
 	},
 	{
@@ -66,7 +69,10 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":0,
-		"Benefit":500
+		"Benefit":500,
+		"UpgradeCost":{
+			"history_museum":0,
+		}
 	},
 	{
 		"Id":"library",
@@ -86,7 +92,10 @@
 		"Environment":0,
 		"Population":0,
 		"Cost":4000,
-		"Benefit":200
+		"Benefit":200,
+		"UpgradeCost":{
+			"elec_building":0,
+		}
 	},
 	{
 		"Id":"ground",
@@ -101,6 +110,8 @@
 	{
 		"Id":"villa",
 		"Name":"静园",
+		"Destroyable":false,
+		"Limit":1,
 		"Research":0,
 		"Education":0,
 		"Environment":30,
@@ -116,31 +127,90 @@
 		"Environment":25,
 		"Population":0,
 		"Cost":3000,
-		"Benefit":500
+		"Benefit":500,
+		"UpgradeCost":{
+			"multi_canteen":0,
+			"com_canteen":0,
+		}
+	},
+	{
+		"Id":"multi_canteen",
+		"Name":"多层食堂",
+		"Destroyable":true,
+		"Research":0,
+		"Education":0,
+		"Environment":30,
+		"Population":50,
+		"Cost":0,
+		"Benefit":0,
+		"UpgradeCost":{
+			"com_canteen":0,
+		}
+	},
+	{
+		"Id":"com_canteen",
+		"Name":"综合食堂",
+		"Destroyable":true,
+		"Research":0,
+		"Education":0,
+		"Environment":30,
+		"Population":50,
+		"Cost":0,
+		"Benefit":0,
 	},
 	{
 		"Id":"dpt_office",
 		"Name":"学系主楼",
+		"Destroyable":true,
 		"Research":2,
 		"Education":2,
 		"Environment":0,
 		"Population":0,
 		"Cost":1200,
-		"Benefit":500
+		"Benefit":500,
+		"UpgradeCost":{
+			"dpt_center":0,
+		}
+	},
+	{
+		"Id":"dpt_center",
+		"Name":"产学研中心",
+		"Destroyable":true,
+		"Research":2,
+		"Education":2,
+		"Environment":0,
+		"Population":0,
+		"Cost":1200,
+		"Benefit":500,
+		"UpgradeCost":{
+			"pacific_center":0,
+			"intl_center":0,
+			"stadford_center":0,
+			"cluster":0,
+		}
 	},
 	{
 		"Id":"bidorm",
 		"Name":"联幢宿舍",
+		"Destroyable":true,
 		"Research":0,
 		"Education":0,
 		"Environment":15,
 		"Population":125,
 		"Cost":1800,
-		"Benefit":0
+		"Benefit":0,
+		"UpgradeCost":{
+			"high_apt":0,
+			"renovated_dorm":0,
+			"college_dorm":0,
+			"teacher_apt":0,
+			}
 	},
 	{
 		"Id":"hall",
 		"Name":"大饭厅",
+		"Destroyable":false,
+		"Limit":1,
 		"Research":0,
 		"Education":2,
 		"Environment":30,
@@ -151,16 +221,18 @@
 	{
 		"Id":"rus_building",
 		"Name":"俄文楼",
+		"Destroyable":false,
+		"Limit":1,
 		"Research":3,
 		"Education":3,
 		"Environment":0,
 		"Population":10,
 		"Cost":2000,
-		"Benefit":0
+		"Benefit":0,
 	},
 	{
 		"Id":"cod_lab",
-		"Name":"实验室56",
+		"Name":"计算机房",
 		"Research":8,
 		"Education":8,
 		"Environment":0,
@@ -373,7 +445,7 @@
 		"Benefit":0,
 	},
 	{
-		"Id":"eiec_building",
+		"Id":"elec_building",
 		"Name":"电教",
 		"Destroyable":false,
 		"Limit":1,
