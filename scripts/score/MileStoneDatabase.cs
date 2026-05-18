@@ -6,8 +6,8 @@ using System.Text.Json;
 
 public class MileStoneData
 {
-	public int Year { get; set; }
-	public int TargetScore { get; set; }
+	public int Year { get; init; }
+	public int TargetScore { get; init; }
 	
 	public MileStoneData Clone()
 	{

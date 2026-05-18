@@ -35,8 +35,6 @@ public partial class BuffSideBar : PanelContainer
     {
         if (_toggleButton != null)
             _toggleButton.Pressed += ToggleExpanded;
-
-        BuffMgr.Instance.BuffsDecay += Refresh;
         BuffMgr.Instance.BuffsChanged += Refresh;
         //AddMockDataIfNeeded();
         Refresh();
@@ -127,7 +125,7 @@ public partial class BuffSideBar : PanelContainer
     private List<ActiveBuff> GetActiveAdjBuffs()
     {
         int currentYear = TimeMgr.Instance.CurrentYear;
-        return BuffMgr.Instance.ActiveAdjBuffs.Values
+        return BuffMgr.Instance.AdjBuffs.Values
             .SelectMany(buffs => buffs)
             .Concat(_mockAdjBuffs)
             .Where(buff => buff != null && buff.Data != null)
@@ -162,7 +160,7 @@ public partial class BuffSideBar : PanelContainer
     {
         return buff.Description;
         var data = buff.Data;
-        string duration = FormatDuration(buff.Args.DurationYears, buff.Args.StartYear);
+        string duration = FormatDuration(buff.Args.DurationYears, buff.StartYear);
         string destBuildingName = GetBuildingDisplayName(buff.Args.DestBuildingIdOrTag);
         string srcBuildingName = GetBuildingDisplayName(buff.Args.SrcBuildingIdOrTag);
         return $"{destBuildingName} <- {srcBuildingName} ({duration})";

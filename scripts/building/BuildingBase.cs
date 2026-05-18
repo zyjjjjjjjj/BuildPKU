@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class BuildingBase : Node2D
 {
@@ -164,16 +165,16 @@ public partial class BuildingBase : Node2D
 		_environment = data.Environment;
 		_population = data.Population;
 		_cost = data.Cost;
-		_benefit = data.Benefit;
-		 Destroyable = data.Destroyable;
-		 Tags = data.Tags;
-		 return;
+		_benefit = data.Benefit; 
+		Destroyable = data.Destroyable;
+		Tags = data.Tags;
+		return;
 	}
 	
 	public void ApplyAllAdjBonus()
 	{
 		var adjBuffs = BuffMgr.Instance.GetAdjBuffs(Id, Tags);
-		foreach (var adjBuff in adjBuffs)
+		foreach (var adjBuff in adjBuffs.Where(buff=>buff.IsActive()))
 			ApplyAdjBonus(adjBuff);
 	}
 	
@@ -189,6 +190,20 @@ public partial class BuildingBase : Node2D
 			return;
 		_relatedBuffs.Add(buff);
 		ApplyMultiplier(buff.Args.Target, buff.Args.Value);
+	}
+	
+	public void ApplyBuff(ActiveBuff buff)
+	{
+		GD.Print("apply buff: " + buff.Data.Id);
+		switch (buff.Data.Id)
+		{
+			case "basic_prop_buff":
+				ApplyMultiplier(buff.Args.Target, buff.Args.Value);
+				break;
+			case "adj_bonus_buff":
+				ApplyAdjBonus(buff);
+				break;
+		}
 	}
 
 	public void RecomputeProps()
@@ -210,7 +225,7 @@ public partial class BuildingBase : Node2D
 	
 	private void ApplyMultiplier(string target, int value)
 	{
-		float multiplier = (100f + value) / 100f;
+		float multiplier = ((float)value) / 100f;
 		switch (target)
 		{
 			case "Research":
@@ -233,6 +248,8 @@ public partial class BuildingBase : Node2D
 	
 	private bool ContainNeighborWithTag(string tag, HashSet<string> neighborIds)
 	{
+		if (tag == String.Empty)
+			return true;
 		foreach (var id in neighborIds)
 		{
 			var buildingData = BuildingDatabase.GetById(id);

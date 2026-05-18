@@ -73,7 +73,6 @@ public partial class BuildingMgr : Node2D
     {
         BuildingSideBar.Instance.SideBarBuildingSelected += SelectBuilding;
         AvailableBuildingIds = [..BuildingDatabase.GetInitiallyAvailableIds()];
-        GD.Print("reset initially available building ids: " + string.Join(", ", AvailableBuildingIds));
     }
 
     public override void _Process(double delta)

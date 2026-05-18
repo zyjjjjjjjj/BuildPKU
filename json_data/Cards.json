@@ -10,7 +10,7 @@
 		"Buffs": {
 			"weight_multiplier_buff":{
 				"Target": "Research",
-				"Value": 20
+				"Value": 120
 			}
 		}
 	},
@@ -25,7 +25,7 @@
 		"Buffs": {
 			"weight_multiplier_buff":{
 				"Target": "Environment",
-				"Value": 20
+				"Value": 120
 			}
 		}
 	},
@@ -40,11 +40,11 @@
 		"Buffs": {
 			"weight_multiplier_buff_1":{
 				"Target": "Education",
-				"Value": 20
+				"Value": 120
 			},
 			"weight_multiplier_buff_2":{
 				"Target": "Research",
-				"Value": 20
+				"Value": 120
 			}
 		}
 	},
@@ -58,8 +58,10 @@
 		"Repeatable": false,
 		"Buffs": {
 			"adj_bonus_buff":{
+				"StartYearOffset":1,
+				"DurationYears":2,
 				"Target":"Research",
-				"Value": 20,
+				"Value": 120,
 				"DestBuildingIdOrTag": "lab",
 				"SrcBuildingIdOrTag": "green"
 			}
@@ -134,6 +136,22 @@
 		"Buffs": {
 			"unlock_region_buff":{
 				"DestBuildingIdOrTag":"region_yan_nan_yuan"
+			}
+		}
+	},
+	{
+		"Id": "xiaoneizichanhuiliu",
+		"Name": "校内资产回流",
+		"Description": "所有收益为负的建筑收益乘0.5",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"basic_prop_buff":{
+				"DestBuildingIdOrTag":"auto_neg_ben",
+				"Value":50,
+				"Target":"Benefit"
 			}
 		}
 	}

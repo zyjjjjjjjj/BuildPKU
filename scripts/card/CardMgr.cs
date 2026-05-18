@@ -115,7 +115,7 @@ public partial class CardMgr : Node
             foreach (var pair in card.Buffs)
             {
                 var id = Regex.Replace(pair.Key, @"_\d+$", "");
-                var props = pair.Value;
+                var args = pair.Value;
                 var buffData = BuffDatabase.GetById(id);
                 if(buffData == null)
                 {
@@ -125,9 +125,9 @@ public partial class CardMgr : Node
                 var newBuff = new ActiveBuff
                 {
                     Data = buffData,
-                    Args = props,
+                    Args = args,
+                    AcquiredYear = TimeMgr.Instance.CurrentYear
                 };
-                newBuff.Args.StartYear += TimeMgr.Instance.CurrentYear;
 
                 buffs.Add(newBuff);
                 BuffMgr.Instance.AddBuff(newBuff);

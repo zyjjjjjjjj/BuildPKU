@@ -1,6 +1,10 @@
 [
 	{
 		"Year": 1960,
+		"TargetScore": 100
+	},
+	{
+		"Year": 2026,
 		"TargetScore": 200
 	}
 ]

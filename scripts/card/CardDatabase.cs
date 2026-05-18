@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 using System;
+using System.Linq;
 
 public class BuffArgs
 {
-    public int StartYear { get; set; } = 0;
-    public int DurationYears { get; set; } = -1;
-    public string Target { get; set; } = String.Empty;
-    public int Value { get; set; } = 0;
-    public string SrcBuildingIdOrTag { get; set; } = String.Empty;
-    public string DestBuildingIdOrTag { get; set; } = String.Empty;
+    public int StartYearOffset { get; init; } = 0;
+    public int DurationYears { get; init; } = -1;
+    public string Target { get; init; } = String.Empty;
+    public int Value { get; init; } = 0;
+    public string SrcBuildingIdOrTag { get; init; } = String.Empty;
+    public string DestBuildingIdOrTag { get; init; } = String.Empty;
 }
 
 public class CardData
 {
-    public string Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string CardType { get; set; }
-    public string Rarity { get; set; }
-    public int MinYear { get; set; }
-    public bool Repeatable { get; set; }
-    public Dictionary<string, BuffArgs> Buffs { get; set; }
+    public string Id { get; init; }
+    public string Name { get; init; }
+    public string Description { get; init; }
+    public string CardType { get; init; }
+    public string Rarity { get; init; }
+    public int MinYear { get; init; }
+    public bool Repeatable { get; init; }
+    public Dictionary<string, BuffArgs> Buffs { get; init; }
 }
 
 public static class CardDatabase
@@ -60,6 +61,19 @@ public static class CardDatabase
         {
             GD.PrintErr($"卡牌配置解析失败: {e.Message}");
             _allCards = [];
+        }
+
+        CheckIllegal();
+    }
+    
+    private static void CheckIllegal()
+    {
+        foreach (var card in _allCards)
+        {
+            foreach (var buffId in card.Buffs.Keys.Where(buffId => !BuffDatabase.Exists(buffId)))
+            {
+                GD.PrintErr($"卡牌 {card.Id} 包含未知 Buff: {buffId}");
+            }
         }
     }
 }

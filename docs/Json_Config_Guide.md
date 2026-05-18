@@ -106,7 +106,7 @@ id必须以region_开头
 | `MinYear` | int | 最早出现年份。当前年份大于等于它时才可能被抽到。 |
 | `Repeatable` | bool | `false` 表示被选择后不再进入候选池；`true` 表示可以重复抽到。 |
 | `Buffs` | string array | 这张卡会触发的 buff 列表。可以绑定一个或多个buff, 如需绑定多个同id buff, buff名称后面需加下划线和数字后缀, 如上面示例中的weight_multiplier_buff_1  每个buff需要填写相关参数, 目前包括StartYear, DurationYears, Value, Target, SrcBuildingIdOrTag, DestBuildingIdOrTag。可以不填使用默认值, 具体说明如下.|
-| `StartYear` | int | 获得卡片后多少年buff开始生效, 默认为0即立即开始, 不可为负数 |
+| `StartYearOffset` | int | 获得卡片后多少年buff开始生效, 默认为0即立即开始, 不可为负数 |
 | `DurationYears` | int | 生效时长, 默认为-1即永久 |
 | `Target` | string | 影响的属性, 只能为Research, Education, Environment, Population, Benefit中的一个, 注意拼写和首字母大写 |
 | `Value` | int | 数值类参数, 必须为整数默认为0, buff的description字段{Value}的实际值, 例如权重提升buff中"Description": "{Target}评分权重提高{Value}%。", 则若想权重提高20%, Value需设置为20而非1.2!!! |

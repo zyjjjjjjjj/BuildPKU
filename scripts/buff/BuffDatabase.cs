@@ -7,8 +7,8 @@ using FileAccess = Godot.FileAccess;
 
 public class BuffData
 {
-    public string Id { get; set; }
-    public string Description { get; set; }
+    public string Id { get; init; }
+    public string Description { get; init; }
 
     public BuffData Clone()
     {
@@ -37,6 +37,12 @@ public static class BuffDatabase
 
         GD.PrintErr($"找不到 Buff 配置: {id}");
         return null;
+    }
+    
+    public static bool Exists(string id)
+    {
+        EnsureLoaded();
+        return _buffs.ContainsKey(id);
     }
 
     private static void EnsureLoaded()
