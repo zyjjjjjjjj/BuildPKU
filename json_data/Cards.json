@@ -81,6 +81,21 @@
 		}
 	},
 	{
+		"Id": "jiaoyubuzijinbokuan",
+		"Name": "教育部资金拨款",
+		"Description": "立刻获得回合数×200的资金",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": true,
+		"Buffs": {
+			"instant_turn_based_money_buff":{
+				"DurationYears": 0,
+				"Value": 200
+			}
+		}
+	},
+	{
 		"Id": "unlock_canteen",
 		"Name": "后勤扩建",
 		"Description": "解锁食堂建造",

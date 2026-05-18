@@ -12,6 +12,10 @@
 		"Description": "立刻获得{Value}资金"
 	},
 	{
+		"Id": "instant_turn_based_money_buff",
+		"Description": "立刻获得回合数×{Value}的资金"
+	},
+	{
 		"Id": "unlock_building_buff",
 		"Description": "解锁{Dest}建筑"
 	},

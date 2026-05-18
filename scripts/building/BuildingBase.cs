@@ -19,7 +19,7 @@ public partial class BuildingBase : Node2D
 	private float _envMultiplier = 1f;
 	private float _popMultiplier = 1f;
 	public float Cost => _cost;
-	public float Benefit => _benefit;
+	public float Benefit => _benefit * _benMultiplier;
 	public float Population => _population * _popMultiplier;
 	public float Research => _research * _resMultiplier;
 	public float Education => _education * _eduMultiplier;

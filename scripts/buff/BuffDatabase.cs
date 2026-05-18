@@ -9,6 +9,15 @@ public class BuffData
 {
     public string Id { get; set; }
     public string Description { get; set; }
+
+    public BuffData Clone()
+    {
+        return new BuffData
+        {
+            Id = Id,
+            Description = Description
+        };
+    }
 }
 
 public static class BuffDatabase
@@ -24,7 +33,7 @@ public static class BuffDatabase
             return null;
 
         if (_buffs.TryGetValue(id, out var data))
-            return data;
+            return data.Clone();
 
         GD.PrintErr($"找不到 Buff 配置: {id}");
         return null;

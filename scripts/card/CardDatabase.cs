@@ -31,7 +31,7 @@ public static class CardDatabase
     private const string JsonPath = "res://json_data/Cards.json";
     private static List<CardData> _allCards;
 
-    public static List<CardData> GetAll()
+    public static IReadOnlyList<CardData> GetAll()
     {
         EnsureLoaded();
         return _allCards;

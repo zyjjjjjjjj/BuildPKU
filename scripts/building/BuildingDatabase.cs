@@ -20,6 +20,25 @@ public class BuildingData
     public bool Destroyable { get; set; } = true;
     public int Limit { get; set; } = -1;
     public Dictionary<string,float> UpgradeCost { get; set; } = new Dictionary<string, float>();
+    
+    public BuildingData Clone()
+    {
+        return new BuildingData
+        {
+            Id = Id,
+            Name = Name,
+            Tags = [..Tags],
+            Research = Research,
+            Education = Education,
+            Environment = Environment,
+            Cost = Cost,
+            Benefit = Benefit,
+            Population = Population,
+            Destroyable = Destroyable,
+            Limit = Limit,
+            UpgradeCost = new Dictionary<string, float>(UpgradeCost)
+        };
+    }
 }
 
 public static class BuildingDatabase
@@ -31,13 +50,13 @@ public static class BuildingDatabase
     private static Dictionary<string, BuildingData> _allRegionDict;
     private static List<string> _initialBuildingIds = [];
 
-    public static Dictionary<string, BuildingData> GetAll()
+    public static IReadOnlyDictionary<string, BuildingData> GetAll()
     {
         EnsureLoaded();
         return _allBuildingDict;
     }
     
-    public static List<string> GetAllIds()
+    public static IReadOnlyList<string> GetAllIds()
     {
         EnsureLoaded();
         return new List<string>(_allBuildingDict.Keys);
@@ -54,10 +73,10 @@ public static class BuildingDatabase
         EnsureLoaded();
 
         if (_allBuildingDict.TryGetValue(id, out var data))
-            return data;
+            return data.Clone();
         
         if(_allRegionDict.TryGetValue(id, out var regionData))
-            return regionData;
+            return regionData.Clone();
 
         GD.PrintErr($"找不到建筑配置: {id}");
         return null;

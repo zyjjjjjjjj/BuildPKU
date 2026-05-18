@@ -8,6 +8,15 @@ public class MileStoneData
 {
 	public int Year { get; set; }
 	public int TargetScore { get; set; }
+	
+	public MileStoneData Clone()
+	{
+		return new MileStoneData
+		{
+			Year = Year,
+			TargetScore = TargetScore
+		};
+	}
 }
 
 public static class MileStoneDatabase
@@ -22,7 +31,7 @@ public static class MileStoneDatabase
 		{
 			if(mileStone.Year >= year)
 			{
-				return mileStone;
+				return mileStone.Clone();
 			}
 		}
 		return null;

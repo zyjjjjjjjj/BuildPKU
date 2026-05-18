@@ -148,7 +148,10 @@ public partial class BuffMgr : Node
                 }
                 break;
             case "instant_money_buff":
-                MoneyMgr.Instance?.AddMoney(newBuff.Args.Value);
+                MoneyMgr.Instance.AddMoney(newBuff.Args.Value);
+                break;
+            case "instant_turn_based_money_buff":
+                MoneyMgr.Instance.AddMoney((TimeMgr.Instance.CurrentYear - TimeMgr.Instance.InitialYear) * newBuff.Args.Value);
                 break;
             case "unlock_building_buff":
                 BuildingMgr.Instance.UnlockBuildings(newBuff.Args.DestBuildingIdOrTag);
