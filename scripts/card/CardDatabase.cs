@@ -4,6 +4,7 @@ using System.Text.Json;
 using FileAccess = Godot.FileAccess;
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public class BuffArgs
 {
@@ -70,7 +71,7 @@ public static class CardDatabase
     {
         foreach (var card in _allCards)
         {
-            foreach (var buffId in card.Buffs.Keys.Where(buffId => !BuffDatabase.Exists(buffId)))
+            foreach (var buffId in card.Buffs.Keys.Where(buffId => !BuffDatabase.Exists(Regex.Replace(buffId, @"_\d+$", ""))))
             {
                 GD.PrintErr($"卡牌 {card.Id} 包含未知 Buff: {buffId}");
             }
