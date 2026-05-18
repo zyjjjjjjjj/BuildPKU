@@ -3,6 +3,7 @@
 	"Id": "dorm",
 	"Name": "宿舍",
 	"Tags": [
+	  "initial",
 	  "dormitory",
       "stage1"
 	],
@@ -25,6 +26,7 @@
 	"Id": "lab",
 	"Name": "实验室",
 	"Tags": [
+	  "initial",
 	  "research",
       "stage1"
 	],
@@ -52,6 +54,7 @@
 	"Id": "green",
 	"Name": "草地",
 	"Tags": [
+	  "initial",
 	  "environment",
       "stage1"
 	],
@@ -149,6 +152,7 @@
 	"Id": "teaching",
 	"Name": "文教楼",
 	"Tags": [
+	  "initial",
 	  "education",
 	  "stage1",
       "year50"
@@ -171,6 +175,7 @@
 	"Id": "ground",
 	"Name": "体育场",
 	"Tags": [
+	  "initial",
 	  "environment",
 	  "radiation01",
 	  "stage2",

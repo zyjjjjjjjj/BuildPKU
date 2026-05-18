@@ -90,13 +90,13 @@ id必须以region_开头
 	  "DestBuildingIdOrTag": "lab",
 	  "SrcBuildingIdOrTag": "green"
 	},
-    "conditional_weight_add_buff":{
-      "Targets": ["Research", "Education"],
-      "Value": 0.4,
-      "ConditionStat": "Population",
-      "ConditionOp": "<",
-      "ConditionValue": 500
-    }
+	"conditional_weight_add_buff":{
+	  "Targets": ["Research", "Education"],
+	  "Value": 0.4,
+	  "ConditionStat": "Population",
+	  "ConditionOp": "<",
+	  "ConditionValue": 500
+	}
   }
 }
 ```
@@ -148,4 +148,3 @@ buff 配置示例：
 | --- | --- | --- |
 | `Id` | string | buff 唯一 id，需要被卡牌的 `BuffIds` 引用。 |
 | `Description` | string | buff 描述，会在卡牌栏 tooltip 中显示。 |
-
