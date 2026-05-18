@@ -11,9 +11,13 @@ public class BuffArgs
     public int StartYearOffset { get; init; } = 0;
     public int DurationYears { get; init; } = -1;
     public string Target { get; init; } = String.Empty;
-    public int Value { get; init; } = 0;
+    public List<string> Targets { get; init; } = [];
+    public float Value { get; init; } = 0f;
     public string SrcBuildingIdOrTag { get; init; } = String.Empty;
     public string DestBuildingIdOrTag { get; init; } = String.Empty;
+    public string ConditionStat { get; init; } = String.Empty;
+    public string ConditionOp { get; init; } = String.Empty;
+    public float ConditionValue { get; init; } = 0f;
 }
 
 public class CardData

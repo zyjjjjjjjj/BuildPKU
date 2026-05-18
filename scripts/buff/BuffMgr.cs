@@ -17,7 +17,15 @@ public class ActiveBuff
         {
             var desc = Data.Description;
             if(Args.Value!=0)
-                desc = desc.Replace("{Value}", Args.Value.ToString());
+                desc = desc.Replace("{Value}", FormatFloat(Args.Value));
+            if (Args.ConditionStat != String.Empty)
+                desc = desc.Replace("{ConditionStat}", FormatConditionStat(Args.ConditionStat));
+            if (Args.ConditionOp != String.Empty)
+                desc = desc.Replace("{ConditionOp}", Args.ConditionOp);
+            desc = desc.Replace("{ConditionValue}", FormatFloat(Args.ConditionValue));
+            var targets = GetTargets();
+            if (targets.Count > 0)
+                desc = desc.Replace("{Target}", FormatTargets(targets));
             if (Args.Target != String.Empty)
             {
                 string displayTarget = Args.Target switch
@@ -101,6 +109,51 @@ public class ActiveBuff
             return currentYear - StartYear;
         return Math.Max(0, StartYear + Args.DurationYears - currentYear);
     }
+
+    public List<string> GetTargets()
+    {
+        if (Args.Targets != null && Args.Targets.Count > 0)
+            return Args.Targets;
+        if (Args.Target != String.Empty)
+            return [Args.Target];
+        return [];
+    }
+
+    private static string FormatFloat(float value)
+    {
+        return value.ToString("0.###", CultureInfo.InvariantCulture);
+    }
+
+    private static string FormatConditionStat(string stat)
+    {
+        return stat switch
+        {
+            "Population" => "人口",
+            "Research" => "科研",
+            "Education" => "教育",
+            "Environment" => "环境",
+            "Reputation" => "声誉",
+            _ => stat
+        };
+    }
+
+    private static string FormatTargets(List<string> targets)
+    {
+        return string.Join("与", targets.Select(FormatTarget));
+    }
+
+    private static string FormatTarget(string target)
+    {
+        return target switch
+        {
+            "Research" => "科研",
+            "Education" => "教育",
+            "Environment" => "环境",
+            "Benefit" => "收益",
+            "Population" => "人口",
+            _ => target
+        };
+    }
 }
 
 public class ScoreContext
@@ -165,6 +218,7 @@ public partial class BuffMgr : Node
         switch (newBuff.Data.Id)
         {
             case "weight_multiplier_buff":
+            case "conditional_weight_add_buff":
                 _weightBuffs.Add(newBuff);
                 break;
             case "adj_bonus_buff":
@@ -256,9 +310,19 @@ public partial class BuffMgr : Node
 
     public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
     {
+        if (buff.Data.Id == "conditional_weight_add_buff")
+        {
+            if (!CheckCondition(buff))
+                return;
+
+            foreach (var target in buff.GetTargets())
+                AddWeight(context, target, buff.Args.Value);
+            return;
+        }
+
         if (buff.Data.Id != "weight_multiplier_buff")
             return;
-        float multiplier = ((float)buff.Args.Value) / 100f;
+        float multiplier = buff.Args.Value / 100f;
         switch (buff.Args.Target)
         {
             case "Research":
@@ -271,6 +335,49 @@ public partial class BuffMgr : Node
                 context.EnvWeight *= multiplier;
                 break;
         }
+    }
+
+    private static void AddWeight(ScoreContext context, string target, float value)
+    {
+        switch (target)
+        {
+            case "Research":
+                context.ResWeight += value;
+                break;
+            case "Education":
+                context.EduWeight += value;
+                break;
+            case "Environment":
+                context.EnvWeight += value;
+                break;
+        }
+    }
+
+    private static bool CheckCondition(ActiveBuff buff)
+    {
+        if (string.IsNullOrEmpty(buff.Args.ConditionStat) || string.IsNullOrEmpty(buff.Args.ConditionOp))
+            return true;
+
+        float actual = buff.Args.ConditionStat switch
+        {
+            "Population" => ScoreMgr.Instance.Population,
+            "Research" => ScoreMgr.Instance.Research,
+            "Education" => ScoreMgr.Instance.Education,
+            "Environment" => ScoreMgr.Instance.Environment,
+            "Reputation" => ScoreMgr.Instance.Reputation,
+            _ => 0f
+        };
+
+        return buff.Args.ConditionOp switch
+        {
+            "<" => actual < buff.Args.ConditionValue,
+            "<=" => actual <= buff.Args.ConditionValue,
+            ">" => actual > buff.Args.ConditionValue,
+            ">=" => actual >= buff.Args.ConditionValue,
+            "==" => Mathf.IsEqualApprox(actual, buff.Args.ConditionValue),
+            "!=" => !Mathf.IsEqualApprox(actual, buff.Args.ConditionValue),
+            _ => false
+        };
     }
 
     public List<ActiveBuff> GetAdjBuffs(string id, List<string> Tags)

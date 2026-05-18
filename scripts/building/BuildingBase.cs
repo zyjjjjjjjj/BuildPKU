@@ -223,9 +223,9 @@ public partial class BuildingBase : Node2D
 		return;
 	}
 	
-	private void ApplyMultiplier(string target, int value)
+	private void ApplyMultiplier(string target, float value)
 	{
-		float multiplier = ((float)value) / 100f;
+		float multiplier = value / 100f;
 		switch (target)
 		{
 			case "Research":
@@ -259,4 +259,3 @@ public partial class BuildingBase : Node2D
 		return false;
 	}
 }
-

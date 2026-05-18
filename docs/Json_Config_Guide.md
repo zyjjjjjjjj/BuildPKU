@@ -89,7 +89,14 @@ id必须以region_开头
 	  "Value": 20,
 	  "DestBuildingIdOrTag": "lab",
 	  "SrcBuildingIdOrTag": "green"
-	}
+	},
+    "conditional_weight_add_buff":{
+      "Targets": ["Research", "Education"],
+      "Value": 0.4,
+      "ConditionStat": "Population",
+      "ConditionOp": "<",
+      "ConditionValue": 500
+    }
   }
 }
 ```
@@ -112,6 +119,10 @@ id必须以region_开头
 | `Value` | int | 数值类参数, 必须为整数默认为0, buff的description字段{Value}的实际值, 例如权重提升buff中"Description": "{Target}评分权重提高{Value}%。", 则若想权重提高20%, Value需设置为20而非1.2!!! |
 | `SrcBuildingIdOrTag` | string | 建筑id类参数, 默认为空, 目前仅相邻加成类buff需要填写 |
 | `DestBuildingIdOrTag` | string | 建筑id类参数, 默认为空, 目前相邻加成类buff和解锁建筑类需要填写 |
+| `Targets` | string array | 影响的多个属性。适合同一个buff同时作用多个属性，例如小而美同时影响Research和Education。 |
+| `ConditionStat` | string | 条件判断使用的属性, 目前支持Population, Research, Education, Environment, Reputation。为空时表示无条件。 |
+| `ConditionOp` | string | 条件判断符, 目前支持<, <=, >, >=, ==, !=。为空时表示无条件。 |
+| `ConditionValue` | float | 条件判断阈值。 |
 
 建议：
 
@@ -138,7 +149,3 @@ buff 配置示例：
 | `Id` | string | buff 唯一 id，需要被卡牌的 `BuffIds` 引用。 |
 | `Description` | string | buff 描述，会在卡牌栏 tooltip 中显示。 |
 
-## 新增卡牌效果的推荐步骤
-
-1. 判断新效果是否已有buff能表达。
-2. 如果能表达，只需要在修改Cards.json即可, 如不能表达, 需联系程序新增buff类型

@@ -140,6 +140,24 @@
 		}
 	},
 	{
+		"Id": "small_but_beautiful",
+		"Name": "小而美",
+		"Description": "若总人口<500，科研与教育权重+0.4",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"conditional_weight_add_buff":{
+				"Targets": ["Research", "Education"],
+				"Value": 0.4,
+				"ConditionStat": "Population",
+				"ConditionOp": "<",
+				"ConditionValue": 500
+			}
+		}
+	},
+	{
 		"Id": "xiaoneizichanhuiliu",
 		"Name": "校内资产回流",
 		"Description": "所有收益为负的建筑收益乘0.5",
