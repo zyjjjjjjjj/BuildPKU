@@ -30,8 +30,8 @@
   "Destroyable": true,
   "Limit": -1,
   "UpgradeCost": {
-    "canteen 1": 1000,
-    "canteen 2": 1000,
+	"canteen 1": 1000,
+	"canteen 2": 1000,
   }
 }
 ```
@@ -69,23 +69,23 @@
   "MinYear": 1905,
   "Repeatable": false,
   "Buffs": {
-    "weight_multiplier_buff_1":{
-      "Target": "Education",
-      "Value": 20
-    },
-    "weight_multiplier_buff_2":{
-      "Target": "Research",
-      "Value": 20
-    },
-    "unlock_building":{
-      "DestBuildingIdOrTag":"canteen"
-    },
-    "adj_bonus_buff":{
-      "Target":"Research",
-      "Value": 20,
-      "DestBuildingIdOrTag": "lab",
-      "SrcBuildingIdOrTag": "green"
-    }
+	"weight_multiplier_buff_1":{
+	  "Target": "Education",
+	  "Value": 20
+	},
+	"weight_multiplier_buff_2":{
+	  "Target": "Research",
+	  "Value": 20
+	},
+	"unlock_building":{
+	  "DestBuildingIdOrTag":"canteen"
+	},
+	"adj_bonus_buff":{
+	  "Target":"Research",
+	  "Value": 20,
+	  "DestBuildingIdOrTag": "lab",
+	  "SrcBuildingIdOrTag": "green"
+	}
   }
 }
 ```
