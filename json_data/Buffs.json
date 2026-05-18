@@ -14,5 +14,9 @@
 	{
 		"Id": "unlock_building_buff",
 		"Description": "解锁{Dest}建筑"
+	},
+	{
+		"Id": "unlock_region_buff",
+		"Description": "解锁{Dest}区域"
 	}
 ]

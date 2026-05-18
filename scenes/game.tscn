@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://bq0be548k7ovq" path="res://buildings/administration.tscn" id="11_264po"]
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
-[ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/yan_nan_yuan.tscn" id="14_1kice"]
+[ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")

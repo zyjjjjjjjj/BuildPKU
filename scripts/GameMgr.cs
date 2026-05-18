@@ -20,7 +20,7 @@ public partial class GameMgr : Node2D
 	public override void _Ready()
 	{
 		//set up initial building
-		BuildingMgr.Instance.SetUpInitialBuildings();
+		BuildingMgr.Instance.SetUpInitialBuildingsAndRegions();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

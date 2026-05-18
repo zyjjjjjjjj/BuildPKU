@@ -1,7 +1,6 @@
 [
   {
 	"Id": "dorm",
-	"InitiallyAvailable": true,
 	"Name": "宿舍",
 	"Tags": [
 	  "dormitory",
@@ -24,7 +23,6 @@
   },
   {
 	"Id": "lab",
-	"InitiallyAvailable": true,
 	"Name": "实验室",
 	"Tags": [
 	  "research",
@@ -52,7 +50,6 @@
   },
   {
 	"Id": "green",
-	"InitiallyAvailable": true,
 	"Name": "草地",
 	"Tags": [
 	  "environment",
@@ -73,7 +70,6 @@
   },
   {
 	"Id": "lake",
-	"InitiallyAvailable": false,
 	"Name": "未名湖",
 	"Tags": [
 	  "initial",
@@ -91,7 +87,6 @@
   },
   {
 	"Id": "administration",
-	"InitiallyAvailable": false,
 	"Name": "行政楼",
 	"Tags": [
 	  "office",
@@ -112,7 +107,6 @@
   },
   {
 	"Id": "library0",
-	"InitiallyAvailable": false,
 	"Name": "老图书馆",
 	"Tags": [
 	  "education",
@@ -135,7 +129,6 @@
   },
   {
 	"Id": "library",
-	"InitiallyAvailable": true,
 	"Name": "图书馆",
 	"Tags": [
 	  "education",
@@ -154,7 +147,6 @@
   },
   {
 	"Id": "teaching",
-	"InitiallyAvailable": true,
 	"Name": "文教楼",
 	"Tags": [
 	  "education",
@@ -177,7 +169,6 @@
   },
   {
 	"Id": "ground",
-	"InitiallyAvailable": false,
 	"Name": "体育场",
 	"Tags": [
 	  "environment",
@@ -196,7 +187,6 @@
   },
   {
 	"Id": "villa",
-	"InitiallyAvailable": false,
 	"Name": "静园",
 	"Tags": [
 	  "education",
@@ -216,7 +206,6 @@
   },
   {
 	"Id": "canteen",
-	"InitiallyAvailable": false,
 	"Name": "食堂",
 	"Tags": [
 	  "year50",
@@ -237,7 +226,6 @@
   },
   {
 	"Id": "multi_canteen",
-	"InitiallyAvailable": false,
 	"Name": "多层食堂",
 	"Tags": [
 	  "year70",
@@ -257,7 +245,6 @@
   },
   {
 	"Id": "com_canteen",
-	"InitiallyAvailable": false,
 	"Name": "综合食堂",
 	"Tags": [
 	  "year00",
@@ -274,7 +261,6 @@
   },
   {
 	"Id": "dpt_office",
-	"InitiallyAvailable": false,
 	"Name": "学系主楼",
 	"Tags": [
 	  "year50",
@@ -295,7 +281,6 @@
   },
   {
 	"Id": "dpt_center",
-	"InitiallyAvailable": false,
 	"Name": "产学研中心",
 	"Tags": [
 	  "year60",
@@ -319,7 +304,6 @@
   },
   {
 	"Id": "bidorm",
-	"InitiallyAvailable": false,
 	"Name": "联幢宿舍",
 	"Tags": [
 	  "year50",
@@ -341,7 +325,6 @@
   },
   {
 	"Id": "hall",
-	"InitiallyAvailable": false,
 	"Name": "大饭厅",
 	"Tags": [
 	  "year50",
@@ -360,7 +343,6 @@
   },
   {
 	"Id": "cod_lab",
-	"InitiallyAvailable": false,
 	"Name": "计算机房",
 	"Tags": [
 	  "year50",
@@ -378,7 +360,6 @@
   },
   {
 	"Id": "pc_lab",
-	"InitiallyAvailable": false,
 	"Name": "实验室107",
 	"Tags": [
 	  "year50",
@@ -396,7 +377,6 @@
   },
   {
 	"Id": "tech_lab",
-	"InitiallyAvailable": false,
 	"Name": "546技物所",
 	"Tags": [
 	  "year50",
@@ -414,7 +394,6 @@
   },
   {
 	"Id": "lib_base",
-	"InitiallyAvailable": false,
 	"Name": "新图书馆地库",
 	"Tags": [
 	  "year75",
@@ -436,7 +415,6 @@
   },
   {
 	"Id": "wind_lab",
-	"InitiallyAvailable": false,
 	"Name": "大风洞实验室",
 	"Tags": [
 	  "year75",
@@ -454,7 +432,6 @@
   },
   {
 	"Id": "intl_dorm",
-	"InitiallyAvailable": false,
 	"Name": "留学生宿舍",
 	"Tags": [
 	  "year65",
@@ -476,7 +453,6 @@
   },
   {
 	"Id": "farm",
-	"InitiallyAvailable": false,
 	"Name": "教学试验田",
 	"Tags": [
 	  "year70",
@@ -494,7 +470,6 @@
   },
   {
 	"Id": "mech_lab",
-	"InitiallyAvailable": false,
 	"Name": "力学机械厂",
 	"Tags": [
 	  "year70",
@@ -512,7 +487,6 @@
   },
   {
 	"Id": "dorm70",
-	"InitiallyAvailable": false,
 	"Name": "工农兵宿舍",
 	"Tags": [
 	  "year75",
@@ -533,7 +507,6 @@
   },
   {
 	"Id": "teacher_apt",
-	"InitiallyAvailable": false,
 	"Name": "教工宿舍",
 	"Tags": [
 	  "year65",
@@ -554,7 +527,6 @@
   },
   {
 	"Id": "boiler",
-	"InitiallyAvailable": false,
 	"Name": "锅炉房",
 	"Tags": [
 	  "year55",
@@ -575,7 +547,6 @@
   },
   {
 	"Id": "rs_lab",
-	"InitiallyAvailable": false,
 	"Name": "遥感实验室",
 	"Tags": [
 	  "year75",
@@ -593,7 +564,6 @@
   },
   {
 	"Id": "basic_office",
-	"InitiallyAvailable": false,
 	"Name": "基础学科教研室",
 	"Tags": [
 	  "year75",
@@ -612,7 +582,6 @@
   },
   {
 	"Id": "chem_lab",
-	"InitiallyAvailable": false,
 	"Name": "新化学楼",
 	"Tags": [
 	  "year80",
@@ -630,7 +599,6 @@
   },
   {
 	"Id": "high_apt",
-	"InitiallyAvailable": false,
 	"Name": "中关高层公寓",
 	"Tags": [
 	  "year80",
@@ -648,7 +616,6 @@
   },
   {
 	"Id": "teaching_complex",
-	"InitiallyAvailable": false,
 	"Name": "教学楼群",
 	"Tags": [
 	  "year80",
@@ -666,7 +633,6 @@
   },
   {
 	"Id": "campus_shop",
-	"InitiallyAvailable": false,
 	"Name": "燕园副食店",
 	"Tags": [
 	  "year75",
@@ -684,7 +650,6 @@
   },
   {
 	"Id": "microelec_lab",
-	"InitiallyAvailable": false,
 	"Name": "微电子所",
 	"Tags": [
 	  "year80",
@@ -702,7 +667,6 @@
   },
   {
 	"Id": "elec_building",
-	"InitiallyAvailable": false,
 	"Name": "电教",
 	"Tags": [
 	  "year80",
@@ -720,7 +684,6 @@
   },
   {
 	"Id": "sackler_museum",
-	"InitiallyAvailable": false,
 	"Name": "赛克勒博物馆",
 	"Tags": [
 	  "year85",
@@ -740,7 +703,6 @@
   },
   {
 	"Id": "new_library",
-	"InitiallyAvailable": false,
 	"Name": "东区图书馆",
 	"Tags": [
 	  "year90",
@@ -760,7 +722,6 @@
   },
   {
 	"Id": "centennial_hall",
-	"InitiallyAvailable": false,
 	"Name": "百周年纪念讲堂",
 	"Tags": [
 	  "year95",
@@ -780,7 +741,6 @@
   },
   {
 	"Id": "qdb_gym",
-	"InitiallyAvailable": false,
 	"Name": "邱德拔体育馆",
 	"Tags": [
 	  "year05",
@@ -800,7 +760,6 @@
   },
   {
 	"Id": "bath",
-	"InitiallyAvailable": false,
 	"Name": "大浴室",
 	"Tags": [
 	  "year80",
@@ -818,7 +777,6 @@
   },
   {
 	"Id": "thermal_station",
-	"InitiallyAvailable": false,
 	"Name": "燕园热电站",
 	"Tags": [
 	  "year80",
@@ -836,7 +794,6 @@
   },
   {
 	"Id": "res_building",
-	"InitiallyAvailable": false,
 	"Name": "商用大厦",
 	"Tags": [
 	  "year90",
@@ -854,7 +811,6 @@
   },
   {
 	"Id": "pacific_center",
-	"InitiallyAvailable": false,
 	"Name": "亚太研究中心",
 	"Tags": [
 	  "year90",
@@ -874,7 +830,6 @@
   },
   {
 	"Id": "renovated_dorm",
-	"InitiallyAvailable": false,
 	"Name": "改造公寓",
 	"Tags": [
 	  "year90",
@@ -892,7 +847,6 @@
   },
   {
 	"Id": "college_dorm",
-	"InitiallyAvailable": false,
 	"Name": "书院宿舍楼",
 	"Tags": [
 	  "year90",
@@ -910,7 +864,6 @@
   },
   {
 	"Id": "intl_center",
-	"InitiallyAvailable": false,
 	"Name": "国际交流中心",
 	"Tags": [
 	  "year90",
@@ -929,7 +882,6 @@
   },
   {
 	"Id": "history_museum",
-	"InitiallyAvailable": false,
 	"Name": "校史馆",
 	"Tags": [
 	  "year90",
@@ -950,7 +902,6 @@
   },
   {
 	"Id": "bbs_server",
-	"InitiallyAvailable": false,
 	"Name": "BBS机房",
 	"Tags": [
 	  "year95",
@@ -971,7 +922,6 @@
   },
   {
 	"Id": "its.pku",
-	"InitiallyAvailable": false,
 	"Name": "信息服务中心",
 	"Tags": [
 	  "year90",
@@ -990,7 +940,6 @@
   },
   {
 	"Id": "stanford_center",
-	"InitiallyAvailable": false,
 	"Name": "斯坦福中心",
 	"Tags": [
 	  "year00",
@@ -1009,7 +958,6 @@
   },
   {
 	"Id": "inter_complex",
-	"InitiallyAvailable": false,
 	"Name": "交叉学科楼群",
 	"Tags": [
 	  "year00",
@@ -1027,7 +975,6 @@
   },
   {
 	"Id": "integ_lab",
-	"InitiallyAvailable": false,
 	"Name": "集成实验室",
 	"Tags": [
 	  "year00",
@@ -1046,7 +993,6 @@
   },
   {
 	"Id": "incuba",
-	"InitiallyAvailable": false,
 	"Name": "创业孵化器",
 	"Tags": [
 	  "year00",
@@ -1064,7 +1010,6 @@
   },
   {
 	"Id": "express",
-	"InitiallyAvailable": false,
 	"Name": "近邻宝",
 	"Tags": [
 	  "year10",
@@ -1082,7 +1027,6 @@
   },
   {
 	"Id": "key_lib",
-	"InitiallyAvailable": false,
 	"Name": "国重实验室",
 	"Tags": [
 	  "year00",
@@ -1101,7 +1045,6 @@
   },
   {
 	"Id": "cluster",
-	"InitiallyAvailable": false,
 	"Name": "智算中心",
 	"Tags": [
 	  "year10",

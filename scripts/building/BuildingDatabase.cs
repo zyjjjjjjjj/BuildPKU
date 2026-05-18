@@ -19,15 +19,16 @@ public class BuildingData
     public float Population { get; set; }
     public bool Destroyable { get; set; } = true;
     public int Limit { get; set; } = -1;
-    public bool InitiallyAvailable { get; set; } = false;
     public Dictionary<string,float> UpgradeCost { get; set; } = new Dictionary<string, float>();
 }
 
 public static class BuildingDatabase
 {
     private const string JsonPath = "res://json_data/Buildings.json";
+    private const string RegionJsonPath = "res://json_data/Regions.json";
     private const string InitialBuildingJsonPath = "res://json_data/Initial_Buildings.json";
     private static Dictionary<string, BuildingData> _allBuildingDict;
+    private static Dictionary<string, BuildingData> _allRegionDict;
     private static List<string> _initialBuildingIds = [];
 
     public static Dictionary<string, BuildingData> GetAll()
@@ -42,7 +43,7 @@ public static class BuildingDatabase
         return new List<string>(_allBuildingDict.Keys);
     }
 
-    public static List<string> GetInitiallyAvailableIds()
+    public static IReadOnlyList<string> GetInitiallyAvailableIds()
     {
         EnsureLoaded();
         return _initialBuildingIds;
@@ -54,6 +55,9 @@ public static class BuildingDatabase
 
         if (_allBuildingDict.TryGetValue(id, out var data))
             return data;
+        
+        if(_allRegionDict.TryGetValue(id, out var regionData))
+            return regionData;
 
         GD.PrintErr($"找不到建筑配置: {id}");
         return null;
@@ -61,7 +65,7 @@ public static class BuildingDatabase
 
     private static void EnsureLoaded()
     {
-        if (_allBuildingDict != null && _initialBuildingIds != null)
+        if (_allBuildingDict != null && _initialBuildingIds != null && _allRegionDict != null)
             return;
 
         if (!FileAccess.FileExists(JsonPath))
@@ -70,19 +74,13 @@ public static class BuildingDatabase
             _allBuildingDict = new Dictionary<string, BuildingData>();
             return;
         }
-
         using var file = FileAccess.Open(JsonPath, FileAccess.ModeFlags.Read);
         string jsonString = file.GetAsText();
-
         var list = JsonSerializer.Deserialize<List<BuildingData>>(jsonString)
                      ?? new List<BuildingData>();
-
         _allBuildingDict = new Dictionary<string, BuildingData>();
-
         foreach (var data in list)
-        {
             _allBuildingDict[data.Id] = data;
-        }
         
         if(!FileAccess.FileExists(InitialBuildingJsonPath))
         {
@@ -90,10 +88,23 @@ public static class BuildingDatabase
             _initialBuildingIds = [];
             return;
         }
-        
         using var initialFile = FileAccess.Open(InitialBuildingJsonPath, FileAccess.ModeFlags.Read);
         string initialJsonString = initialFile.GetAsText();
         _initialBuildingIds = JsonSerializer.Deserialize<List<string>>(initialJsonString) ?? [];
+        
+        if(!FileAccess.FileExists(RegionJsonPath))
+        {
+            GD.PrintErr($"找不到区域配置文件: {RegionJsonPath}");
+            _allRegionDict = new Dictionary<string, BuildingData>();
+            return;
+        }
+        using var regionFile = FileAccess.Open(RegionJsonPath, FileAccess.ModeFlags.Read);
+        string regionJsonString = regionFile.GetAsText();
+        var regionList = JsonSerializer.Deserialize<List<BuildingData>>(regionJsonString)
+                         ?? new List<BuildingData>();
+        _allRegionDict = new Dictionary<string, BuildingData>();
+        foreach (var data in regionList)
+            _allRegionDict[data.Id] = data;
 
         CheckIllegal();
     }

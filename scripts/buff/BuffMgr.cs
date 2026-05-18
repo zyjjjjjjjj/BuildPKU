@@ -153,6 +153,9 @@ public partial class BuffMgr : Node
             case "unlock_building_buff":
                 BuildingMgr.Instance.UnlockBuildings(newBuff.Args.DestBuildingIdOrTag);
                 break;
+            case "unlock_region_buff":
+                GridMgr.Instance.UnlockRegion(newBuff.Args.DestBuildingIdOrTag);
+                break;
         }
         EmitSignalBuffsChanged();
     }

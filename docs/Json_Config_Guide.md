@@ -55,6 +55,10 @@
 建议：
 - `Id` 修改后，需要同步检查 `buildings/{Id}.tscn`、Initial_Buildings.json, 解锁建筑buff和相邻加成buff中的 `DestBuildingId` / `SrcBuildingId`。
 
+## Region 编写原则
+
+id必须以region_开头
+
 ## Card 编写原则
 
 卡牌配置示例：

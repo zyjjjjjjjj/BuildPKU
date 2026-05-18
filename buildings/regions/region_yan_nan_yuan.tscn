@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_7uka2"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_320gd"]
 
-[node name="yan_nan_yuan" type="Node2D" unique_id=229562284]
+[node name="region_yan_nan_yuan" type="Node2D" unique_id=229562284]
 script = ExtResource("1_7uka2")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]

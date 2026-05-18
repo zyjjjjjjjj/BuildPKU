@@ -357,6 +357,7 @@ public partial class GridMgr : Node2D
 
     public void RegisterRegion(BuildingBase region)
     {
+        _allRegions.Add(region.Name);
         var collisionPoints = region.GetCollisionAreas();
         foreach (var collisionPoint in collisionPoints)
         {

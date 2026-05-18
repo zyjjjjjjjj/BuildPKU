@@ -107,5 +107,19 @@
 				"DestBuildingIdOrTag":"dpt_office"
 			}
 		}
+	},
+	{
+		"Id": "unlock_yan_nan_yuan",
+		"Name": "开放燕南园",
+		"Description": "解锁燕南园建造权限",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_region_buff":{
+				"DestBuildingIdOrTag":"region_yan_nan_yuan"
+			}
+		}
 	}
 ]

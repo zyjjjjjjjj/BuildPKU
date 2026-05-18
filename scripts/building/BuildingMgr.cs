@@ -72,7 +72,8 @@ public partial class BuildingMgr : Node2D
     public override void _Ready()
     {
         BuildingSideBar.Instance.SideBarBuildingSelected += SelectBuilding;
-        AvailableBuildingIds = BuildingDatabase.GetInitiallyAvailableIds();
+        AvailableBuildingIds = [..BuildingDatabase.GetInitiallyAvailableIds()];
+        GD.Print("reset initially available building ids: " + string.Join(", ", AvailableBuildingIds));
     }
 
     public override void _Process(double delta)
@@ -218,7 +219,7 @@ public partial class BuildingMgr : Node2D
         }
     }
 
-    public void SetUpInitialBuildings()
+    public void SetUpInitialBuildingsAndRegions()
     {
         var initialBuild = GetChildren();
         foreach (var node in initialBuild)
@@ -228,6 +229,7 @@ public partial class BuildingMgr : Node2D
             if(building.Name.ToString().StartsWith("region_"))
             {
                 GridMgr.Instance.RegisterRegion(building);
+                building.QueueFree();
                 continue;
             }
             
