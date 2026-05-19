@@ -92,13 +92,14 @@ public class ActiveBuff
         if (string.IsNullOrEmpty(Args.ConditionStat) || string.IsNullOrEmpty(Args.ConditionOp))
             return true;
 
+        var scoreCtx = ScoreMgr.Instance.ScoreContext;
         float actual = Args.ConditionStat switch
         {
-            "Population" => ScoreMgr.Instance.Population,
-            "Research" => ScoreMgr.Instance.Research,
-            "Education" => ScoreMgr.Instance.Education,
-            "Environment" => ScoreMgr.Instance.Environment,
-            "Reputation" => ScoreMgr.Instance.Reputation,
+            "Population" => scoreCtx.Population,
+            "Research" => scoreCtx.Research,
+            "Education" => scoreCtx.Education,
+            "Environment" => scoreCtx.Environment,
+            "Reputation" => scoreCtx.Reputation,
             _ => 0f
         };
 
@@ -173,13 +174,6 @@ public class ActiveBuff
     }
 }
 
-public class ScoreContext
-{
-    public float ResWeight = 1f;
-    public float EduWeight = 1f;
-    public float EnvWeight = 1f;
-}
-
 public partial class BuffMgr : Node
 {
     public static BuffMgr Instance { get; private set; }
@@ -191,8 +185,9 @@ public partial class BuffMgr : Node
     public IReadOnlyList<ActiveBuff> TuitionBuffs => _tuitionBuffs;
     private readonly List<ActiveBuff> _tuitionBuffs = [];
     private readonly Dictionary<string, List<ActiveBuff>> _costBuffs = new Dictionary<string, List<ActiveBuff>>();
-    
-
+    private Vector3 _accDeltaWeight;//add_min_weight_per_turn_buff专用
+    private readonly List<ActiveBuff> _perTurnBuffs = new List<ActiveBuff>();//每回合都要触发的buff
+    private readonly List<ActiveBuff> _scoreBuffs = new List<ActiveBuff>();
     [Signal] public delegate void BuffsChangedEventHandler();
     
     public override void _EnterTree()
@@ -242,6 +237,12 @@ public partial class BuffMgr : Node
             case "cost_reduction_buff_limited":
                 AddBuffToDict(_costBuffs, newBuff);
                 break;
+            case "add_min_weight_per_turn_buff":
+                _perTurnBuffs.Add(newBuff);
+                break;
+            case "score_transform_buff":
+                _scoreBuffs.Add(newBuff);
+                break;
             default:
                 GD.PrintErr("Unknown buff id: " + newBuff.Data.Id);
                 return;
@@ -280,6 +281,15 @@ public partial class BuffMgr : Node
             case "cost_reduction_buff_limited":
                 BuildingSideBar.Instance.RefreshItemList();
                 break;
+            case "add_min_weight_per_turn_buff":
+                var weights = ScoreMgr.Instance.Weights;
+                if (weights.EnvWeight <= weights.ResWeight && weights.EnvWeight <= weights.EduWeight)
+                    _accDeltaWeight.Z += buff.Args.Value;
+                else if(weights.EduWeight <= weights.ResWeight && weights.EduWeight <= weights.EnvWeight)
+                    _accDeltaWeight.Y += buff.Args.Value;
+                else
+                    _accDeltaWeight.X += buff.Args.Value;
+                break;
         }
     }
 
@@ -287,6 +297,7 @@ public partial class BuffMgr : Node
     {
         _weightBuffs.RemoveAll(buff => buff.IsExpired());
         _tuitionBuffs.RemoveAll(buff => buff.IsExpired());
+        _scoreBuffs.RemoveAll(buff => buff.IsExpired());
         _costBuffs.Values.ToList().ForEach(buffList => buffList.RemoveAll(buff => buff.IsExpired()));
         
         HashSet<string> influencedBuildingIdsOrTags = [];
@@ -316,37 +327,44 @@ public partial class BuffMgr : Node
         foreach (var instantBuff in _instantBuffs.Where(instantBuff => instantBuff.StartThisYear()))
             ApplyBuff(instantBuff);
         _instantBuffs.RemoveAll(buff => buff.IsExpired());
+        foreach (var perTurnBuff in _perTurnBuffs.Where(perTurnBuff => perTurnBuff.IsActive()))
+            ApplyBuff(perTurnBuff);
+        _perTurnBuffs.RemoveAll(buff => buff.IsExpired());
         
         EmitSignalBuffsChanged();
     }
-    public void ApplyAllWeightBuffs(ScoreContext context)
+    public void ApplyAllWeightBuffs(Weights weight)
     {
         foreach (var buff in _weightBuffs.Where(buff => buff.IsActive()))
         {
-            ApplyWeightBuff(context, buff);
+            ApplyWeightBuff(weight, buff);
         }
+        weight.ResWeight += _accDeltaWeight.X;
+        weight.EduWeight += _accDeltaWeight.Y;
+        weight.EnvWeight += _accDeltaWeight.Z;
+        return;
     }
 
-    public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
+    public void ApplyWeightBuff(Weights weight, ActiveBuff buff)
     {
         if (buff.Data.Id == "conditional_weight_add_buff" && !buff.CheckCondition())
             return;
         foreach (var target in buff.Args.Targets)
-            AddWeight(context, target, buff.Args.Value);
+            AddWeight(weight, target, buff.Args.Value);
     }
 
-    private static void AddWeight(ScoreContext context, string target, float value)
+    private void AddWeight(Weights weight, string target, float value)
     {
         switch (target)
         {
             case "Research":
-                context.ResWeight += value;
+                weight.ResWeight += value;
                 break;
             case "Education":
-                context.EduWeight += value;
+                weight.EduWeight += value;
                 break;
             case "Environment":
-                context.EnvWeight += value;
+                weight.EnvWeight += value;
                 break;
         }
     }
@@ -402,6 +420,11 @@ public partial class BuffMgr : Node
                 result.AddRange(tagBuffs);
         }
         return result;
+    }
+
+    public List<ActiveBuff> GetScoreBuffs()
+    {
+        return _scoreBuffs;
     }
     
     private void AddBuffToDict(Dictionary<string,List<ActiveBuff>> dict, ActiveBuff buff)

@@ -5,7 +5,7 @@
 	},
 	{
 		"Id": "conditional_weight_add_buff",
-		"Description": "当总{ConditionStat}{ConditionOp}{ConditionValue}时，{Target}评分权重增加{Value}"
+		"Description": "当{ConditionStat}{ConditionOp}{ConditionValue}时，{Target}评分权重增加{Value}"
 	},
 	{
 		"Id": "basic_prop_buff",
@@ -46,5 +46,13 @@
 	{
 		"Id": "cost_upper_bound_buff",
 		"Description": "建造花费大于{Value}的{Dest}建造花费变为{Value}"
+	},
+	{
+		"Id": "add_min_weight_per_turn_buff",
+		"Description": "每回合, 使最低的评分权重增加{Value}"
+	},
+	{
+		"Id": "score_transform_buff",
+		"Description": "根据{ConditionStat}的{Value}%, 提升{Target}评分"
 	}
 ]

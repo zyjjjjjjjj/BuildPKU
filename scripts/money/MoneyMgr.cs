@@ -19,13 +19,10 @@ public partial class MoneyMgr : Node
 		}
 	}
 	private float _currentMoney;
-
-	public float BuildingBenefits => _buildingBenefits;
-	private float _buildingBenefits = 0;
 	
 	public float Tuition => CalcCurrentTuition();
 
-	public float MoneyPerYear => Tuition * ScoreMgr.Instance.Population + _buildingBenefits;
+	public float MoneyPerYear => ScoreMgr.Instance.ScoreContext.Benefit;
 
 	[Signal]
 	public delegate void MoneyChangedEventHandler();
@@ -46,9 +43,6 @@ public partial class MoneyMgr : Node
 	{
 		_currentMoney = InitialMoney;
 		TimeMgr.Instance.YearAdvanced += _OnYearAdvanced;
-		BuffMgr.Instance.BuffsChanged += RecomputeBenefits;
-		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeBenefits();
-		BuildingMgr.Instance.DestroyedBuilding += RecomputeBenefits;
 	}
 
 	private void _OnYearAdvanced(int year)
@@ -75,17 +69,6 @@ public partial class MoneyMgr : Node
 
 		CurrentMoney -= cost;
 		return true;
-	}
-	
-	public void RecomputeBenefits()
-	{
-		_buildingBenefits = 0;
-		var spawnedBuildings = BuildingMgr.Instance.SpawnedBuildings;
-		foreach (var building in spawnedBuildings.SelectMany(pair => pair.Value))
-		{
-			_buildingBenefits += building.Benefit;
-		}
-		EmitSignalMoneyChanged();
 	}
 	
 	private float CalcCurrentTuition()

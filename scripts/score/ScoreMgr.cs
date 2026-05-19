@@ -2,84 +2,60 @@ using Godot;
 using System;
 using System.Linq;
 
+public class Weights
+{
+	public float ResWeight = 1f;
+	public float EduWeight = 1f;
+	public float EnvWeight = 1f;
+}
+public class Scores
+{
+	public float Research = 0f;
+	public float Education = 0f;
+	public float Environment = 0f;
+	public float Population = 0f;
+	public float Benefit = 0f;
+}
+
+public class ScoreContext
+{
+	private Scores _baseScores;
+	private Scores _extraScores;
+	private Weights _weights;
+
+	public ScoreContext(Scores baseScores=null, Scores extraScores=null, Weights weights=null)
+	{
+		_baseScores = baseScores ?? new Scores();
+		_extraScores = extraScores ?? new Scores();
+		_weights = weights ?? new Weights();
+	}
+	public float BuildingBen => _baseScores.Benefit;
+	public float Benefit => _baseScores.Benefit + _extraScores.Benefit + Population * MoneyMgr.Instance.Tuition;
+	public float Research => _baseScores.Research + _extraScores.Research;
+	public float ResWeight => _weights.ResWeight;
+	public float Education => _baseScores.Education + _extraScores.Education;
+	public float EduWeight => _weights.EduWeight;
+	public float Environment => _baseScores.Environment + _extraScores.Environment;
+	public float EnvWeight => _weights.EnvWeight;
+	public float Population => _baseScores.Population + _extraScores.Population;
+	public float Reputation => Research * ResWeight + Education * EduWeight + Environment * EnvWeight;
+}
 public partial class ScoreMgr : Node
 {
 	public static ScoreMgr Instance { get; private set; }
-	public float Reputation => Research * ResWeight + Education * EduWeight + Environment * EnvWeight;
-	public float Research => ResBase;
-	public float ResBase
-	{
-		get => _resBase;
-		set
-		{
-			_resBase = value;
-			EmitSignalScoreChanged();
-		}
-	}
-	private float _resBase = 0;
-	public float Education => EduBase;
-	public float EduBase
-	{
-		get => _eduBase;
-		set
-		{
-			_eduBase = value;
-			EmitSignalScoreChanged();
-		}
-	}
-	private float _eduBase = 0;
-	public float Environment => EnvBase;
-	public float EnvBase
-	{
-		get => _envBase;
-		set
-		{
-			_envBase = value;
-			EmitSignalScoreChanged();
-		}
-	}
-	private float _envBase=0;
 
-	public float Population
+	public ScoreContext ScoreContext
 	{
-		get => _population;
+		get => _scoreContext;
 		set
 		{
-			_population = value;
+			_scoreContext = value;
 			EmitSignalScoreChanged();
 		}
 	}
-	private float _population=0;
-	public float ResWeight
-	{
-		get { return _resWeight; }
-		set
-		{
-			_resWeight = value;
-			EmitSignal(SignalName.ScoreChanged);
-		}
-	}
-	private float _resWeight=1;
-	public float EduWeight
-	{
-		get { return _eduWeight; }
-		set
-		{
-			_eduWeight = value;
-			EmitSignal(SignalName.ScoreChanged);
-		}
-	}
-	private float _eduWeight=1;
-	public float EnvWeight
-	{
-		get { return _envWeight; }
-		set
-		{
-			_envWeight = value;
-			EmitSignal(SignalName.ScoreChanged);
-		}
-	}
-	private float _envWeight=1;
+	private ScoreContext _scoreContext;
+
+	public Weights Weights => RecomputeScoreWeights();
 	
 	[Signal] public delegate void ScoreChangedEventHandler();
 	[Signal] public delegate void GameCompletedEventHandler();
@@ -114,10 +90,7 @@ public partial class ScoreMgr : Node
 	
 	private void InitializeScores()
 	{
-		Population = _population;
-		ResWeight = _resWeight;
-		EduWeight = _eduWeight;
-		EnvWeight = _envWeight;
+		ScoreContext = new ScoreContext();
 		return;
 	}
 
@@ -125,40 +98,71 @@ public partial class ScoreMgr : Node
 	private void RecomputeScores()
 	{
 		var spawnedBuildings = BuildingMgr.Instance.SpawnedBuildings;
-		_resBase = 0f;
-		_eduBase = 0f;
-		_envBase = 0f;
-		_population = 0f;
+		var baseScores = new Scores();
 		foreach (var building in spawnedBuildings.SelectMany(pair => pair.Value))
 		{
-			_resBase += building.Research;
-			_eduBase += building.Education;
-			_envBase += building.Environment;
-			_population += building.Population;
+			baseScores.Research += building.Research;
+			baseScores.Education += building.Education;
+			baseScores.Environment += building.Environment;
+			baseScores.Population += building.Population;
+			baseScores.Benefit += building.Benefit;
 		}
-		RecomputeScoreWeights();
+		var weights = RecomputeScoreWeights();
+		var extraScores = RecomputeExtraScores(baseScores);
+		ScoreContext = new ScoreContext(baseScores, extraScores, weights);
+		return;
 	}
-	public void RecomputeScoreWeights()
+	public Weights RecomputeScoreWeights()
 	{
-		var context = new ScoreContext();
+		var weight = new Weights();
 
 		if (BuffMgr.Instance != null)
-			BuffMgr.Instance.ApplyAllWeightBuffs(context);
-
-		_resWeight = context.ResWeight;
-		_eduWeight = context.EduWeight;
-		_envWeight = context.EnvWeight;
+			BuffMgr.Instance.ApplyAllWeightBuffs(weight);
 
 		EmitSignalScoreChanged();
+		return weight;
 	}
-
-	private void UpdateScores(BuildingBase building)
+	
+	private Scores RecomputeExtraScores(Scores baseScores)
 	{
-		_resBase += building.Research;
-		_eduBase += building.Education;
-		_envBase += building.Environment;
-		_population += building.Population;
-		EmitSignal(SignalName.ScoreChanged);
+		var extraScores = new Scores();
+		var buffs = BuffMgr.Instance.GetScoreBuffs();
+		foreach (var activeBuff in buffs.Where(buff=>buff.IsActive()))
+		{
+			float srcScore = activeBuff.Args.ConditionStat switch
+			{
+				"Research" => baseScores.Research,
+				"Education" => baseScores.Education,
+				"Environment" => baseScores.Environment,
+				"Population" => baseScores.Population,
+				_ => throw new Exception($"未知的评分来源: {activeBuff.Args.ConditionStat}")
+			};
+			var multiplier = activeBuff.Args.Value / 100f;
+			foreach (var target in activeBuff.Args.Targets)
+			{
+				switch (target)
+				{
+					case "Research":
+						extraScores.Research += srcScore * multiplier;
+						break;
+					case "Education":
+						extraScores.Education += srcScore * multiplier;
+						break;
+					case "Environment":
+						extraScores.Environment += srcScore * multiplier;
+						break;
+					case "Population":
+						extraScores.Population += srcScore * multiplier;
+						break;
+					case "Benefit":
+						extraScores.Benefit += srcScore * multiplier;
+						break;
+					default:
+						throw new Exception($"未知的评分目标: {target}");
+				}
+			}
+		}
+		return extraScores;
 	}
 
 	private void CheckMileStones(int newYear)
@@ -171,7 +175,7 @@ public partial class ScoreMgr : Node
 		
 		if (mileStone.Year != newYear) return;
 		
-		if(Reputation >= mileStone.TargetScore)
+		if(ScoreContext.Reputation >= mileStone.TargetScore)
 		{
 			GD.Print($"达成里程碑: {mileStone.Year}年, 目标声誉: {mileStone.TargetScore}");
 			if(MileStoneDatabase.IsLast(mileStone.Year))
@@ -182,7 +186,7 @@ public partial class ScoreMgr : Node
 		}
 		else
 		{
-			GD.Print($"未达成里程碑: {mileStone.Year}年, 目标声誉: {mileStone.TargetScore}, 当前声誉: {Reputation}");
+			GD.Print($"未达成里程碑: {mileStone.Year}年, 目标声誉: {mileStone.TargetScore}, 当前声誉: {ScoreContext.Reputation}");
 			GD.Print("游戏失败");
 			EmitSignalGameFailed();
 		}

@@ -232,5 +232,51 @@
 				"Value":3000
 			}
 		}
+	},
+	{
+		"Id": "xiaoyuanbbs",
+		"Name": "校园BBS",
+		"Description": "每回合,使最低的评分权重增加0.05",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"add_min_weight_per_turn_buff":{
+				"Value":0.05
+			}
+		}
+	},
+	{
+		"Id": "gaozhiliangrencaiyinjin",
+		"Name": "高质量人才引进",
+		"Description": "根据教育评分的20%, 提升科研评分和人口数量",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"score_transform_buff":{
+				"Targets": ["Research", "Population"],
+				"Value": 20,
+				"ConditionStat": "Education"
+			}
+		}
+	},
+	{
+		"Id": "gaozhiliangrencaiyinjin",
+		"Name": "北大孵化器",
+		"Description": "根据科研评分的50%, 提升收益",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"score_transform_buff":{
+				"Targets": ["Benefit"],
+				"Value": 50,
+				"ConditionStat": "Research"
+			}
+		}
 	}
 ]
