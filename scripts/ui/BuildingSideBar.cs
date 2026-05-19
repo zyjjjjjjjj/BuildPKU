@@ -28,7 +28,6 @@ public partial class BuildingSideBar : PanelContainer
 		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
 		BuildingMgr.Instance.AvailableBuildingChanged += UpdateItemList;
-		BuffMgr.Instance.BuffsChanged += RefreshItemList;
 	}
 
 	private void InitializeItemList()
@@ -49,7 +48,7 @@ public partial class BuildingSideBar : PanelContainer
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
 	
-	private void RefreshItemList()
+	public void RefreshItemList()
 	{
 		_itemList.Clear();
 		foreach (var id in BuildingMgr.Instance.AvailableBuildingIds)

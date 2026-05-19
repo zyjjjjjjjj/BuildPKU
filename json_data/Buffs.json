@@ -38,5 +38,9 @@
 	{
 		"Id": "cost_reduction_buff",
 		"Description": "{Dest}建造花费乘{Value}%"
+	},
+	{
+		"Id": "cost_reduction_buff_limited",
+		"Description": "下{Limit}个建造的{Dest}建造花费乘{Value}%"
 	}
 ]

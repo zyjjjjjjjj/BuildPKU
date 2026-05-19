@@ -47,6 +47,8 @@ public class BuildingData
         var costBuffs = BuffMgr.Instance.GetCostBuffs(Id, Tags);
         foreach (var buff in costBuffs.Where(costBuff => costBuff.IsActive()))
         {
+            if (buff.Data.Id == "cost_reduction_buff_limited" && !buff.CheckRemainCnt())
+                continue;
             var multiplier = buff.Args.Value / 100f;
             cost *= multiplier;
         }

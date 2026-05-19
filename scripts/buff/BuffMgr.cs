@@ -10,7 +10,7 @@ public class ActiveBuff
     public BuffArgs Args;
     public int AcquiredYear;
     public int StartYear => Args.StartYearOffset + AcquiredYear;
-
+    public int UsedCnt = 0;
     public string Description
     {
         get
@@ -30,6 +30,8 @@ public class ActiveBuff
                 desc = desc.Replace("{Src}", FormatBuildingName(Args.SrcBuildingIdOrTag));
             if(desc.Contains("{Dest}"))            
                 desc = desc.Replace("{Dest}", FormatBuildingName(Args.DestBuildingIdOrTag));
+            if(desc.Contains("{Limit}"))
+                desc = desc.Replace("{Limit}", Args.Limit.ToString());
             return desc + FormattedStatus;
         }
     } 
@@ -38,17 +40,26 @@ public class ActiveBuff
     {
         get
         {
+            string result = "";
             if(IsPermanent)
-                return " (永久)";
-            if(Args.DurationYears == 0)
-                return $" (立即生效)";
-            var remaining = GetRemainingYears();
-            return remaining switch
+                result = " (永久)";
+            else if(Args.DurationYears == 0)
+                result = " (立即生效)";
+            else
             {
-                > 0 => $" (剩余{remaining}年)",
-                < 0 => $" ({Mathf.Abs(remaining)}年后生效)",
-                _ => " (已失效)"
-            };
+                var remaining = GetRemainingYears();
+                result = remaining switch
+                {
+                    > 0 => $" (剩余{remaining}年)",
+                    < 0 => $" ({Mathf.Abs(remaining)}年后生效)",
+                    _ => " (已失效)"
+                };
+            }
+            if(Args.Limit < 0)
+                return result;
+            var remainCnt = Math.Max(0, Args.Limit - UsedCnt);
+            result += $" (剩余{remainCnt}次)";
+            return result;
         }
     }
 
@@ -64,7 +75,7 @@ public class ActiveBuff
         return currentYear >= StartYear + Args.DurationYears;
     }
     
-    public bool IsInDuration()
+    public bool IsActive()
     {
         if (IsPermanent)
             return true;
@@ -73,14 +84,11 @@ public class ActiveBuff
             return currentYear == StartYear;
         return currentYear >= StartYear && currentYear < StartYear + Args.DurationYears;
     }
-    
-    public bool IsActive()
-    {
-        return IsInDuration() && CheckCondition();
-    }
 
-    private bool CheckCondition()
+    public bool CheckCondition()
     {
+        if(Data.Id != "conditional_weight_add_buff")
+            GD.PrintErr("CheckCondition called on non-conditional buff: " + Data.Id);
         if (string.IsNullOrEmpty(Args.ConditionStat) || string.IsNullOrEmpty(Args.ConditionOp))
             return true;
 
@@ -105,7 +113,14 @@ public class ActiveBuff
             _ => false
         };
     }
-    
+    public bool CheckRemainCnt()
+    {
+        if(Data.Id != "cost_reduction_buff_limited")
+            GD.PrintErr("CheckRemainCnt called on non-limited buff: " + Data.Id);
+        if (Args.Limit < 0)
+            return true;
+        return Args.Limit > UsedCnt;
+    }
     public bool StartThisYear()
     {
         return TimeMgr.Instance.CurrentYear == StartYear;
@@ -115,7 +130,7 @@ public class ActiveBuff
     {
         var currentYear = TimeMgr.Instance.CurrentYear;
         if (IsPermanent)
-            return -1;
+            return 9999;
         if (IsExpired())
             return 0;
         if (!IsActive())
@@ -194,6 +209,7 @@ public partial class BuffMgr : Node
     public override void _Ready()
     {
         TimeMgr.Instance.YearAdvanced += OnYearAdvanced;
+        BuildingMgr.Instance.SpawnedBuilding += IncreaseUsedCnt;
     }
 
     public void AddBuff(ActiveBuff newBuff)
@@ -222,6 +238,7 @@ public partial class BuffMgr : Node
                 _instantBuffs.Add(newBuff);
                 break;
             case "cost_reduction_buff":
+            case "cost_reduction_buff_limited":
                 AddBuffToDict(_costBuffs, newBuff);
                 break;
             default:
@@ -256,6 +273,10 @@ public partial class BuffMgr : Node
                 break;
             case "unlock_region_buff":
                 GridMgr.Instance.UnlockRegion(buff.Args.DestBuildingIdOrTag);
+                break;
+            case "cost_reduction_buff":            
+            case "cost_reduction_buff_limited":
+                BuildingSideBar.Instance.RefreshItemList();
                 break;
         }
     }
@@ -298,11 +319,15 @@ public partial class BuffMgr : Node
     public void ApplyAllWeightBuffs(ScoreContext context)
     {
         foreach (var buff in _weightBuffs.Where(buff => buff.IsActive()))
+        {
             ApplyWeightBuff(context, buff);
+        }
     }
 
     public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
     {
+        if (buff.Data.Id == "conditional_weight_add_buff" && !buff.CheckCondition())
+            return;
         foreach (var target in buff.Args.Targets)
             AddWeight(context, target, buff.Args.Value);
     }
@@ -382,5 +407,22 @@ public partial class BuffMgr : Node
             buffList.Add(buff);
         else
             dict[buff.Args.DestBuildingIdOrTag] = [buff];
+    }
+    
+    private void IncreaseUsedCnt(BuildingBase building)
+    {
+        if(_costBuffs.TryGetValue(building.Id, out var idBuffs))
+            foreach (var buff in idBuffs)
+                buff.UsedCnt++;
+        if(building.Tags == null)
+            return;
+        foreach (var tag in building.Tags)
+        {
+            if (!_costBuffs.TryGetValue(tag, out var tagBuffs)) continue;
+            foreach (var buff in tagBuffs)
+                buff.UsedCnt++;
+        }
+        BuffSideBar.Instance.RefreshCardList();
+        BuildingSideBar.Instance.RefreshItemList();
     }
 }

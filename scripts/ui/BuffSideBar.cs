@@ -52,7 +52,7 @@ public partial class BuffSideBar : PanelContainer
         RefreshAdjBonusList();
     }
 
-    private void RefreshCardList()
+    public void RefreshCardList()
     {
         if (_toggleButton != null)
             _toggleButton.Text = _isExpanded ? $"{_cardSectionTitle} <" : $"{_cardSectionTitle} >";

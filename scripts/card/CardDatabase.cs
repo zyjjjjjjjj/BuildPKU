@@ -17,6 +17,8 @@ public class BuffArgs
     public string ConditionStat { get; init; } = String.Empty;
     public string ConditionOp { get; init; } = String.Empty;
     public float ConditionValue { get; init; } = 0f;
+    public int Limit { get; init; } = -1;
+    
 }
 
 public class CardData

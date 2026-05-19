@@ -201,5 +201,21 @@
 				"Value":50
 			}
 		}
+	},
+	{
+		"Id": "yifujuanzengzijin",
+		"Name": "逸夫捐赠资金",
+		"Description": "下两个建造的实验室建造花费变为0",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"cost_reduction_buff_limited":{
+				"Limit":2,
+				"DestBuildingIdOrTag":"lab",
+				"Value":0
+			}
+		}
 	}
 ]
