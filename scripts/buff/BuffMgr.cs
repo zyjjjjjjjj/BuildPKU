@@ -237,6 +237,7 @@ public partial class BuffMgr : Node
             case "unlock_region_buff":
                 _instantBuffs.Add(newBuff);
                 break;
+            case "cost_upper_bound_buff":
             case "cost_reduction_buff":
             case "cost_reduction_buff_limited":
                 AddBuffToDict(_costBuffs, newBuff);
@@ -274,6 +275,7 @@ public partial class BuffMgr : Node
             case "unlock_region_buff":
                 GridMgr.Instance.UnlockRegion(buff.Args.DestBuildingIdOrTag);
                 break;
+            case "cost_upper_bound_buff":
             case "cost_reduction_buff":            
             case "cost_reduction_buff_limited":
                 BuildingSideBar.Instance.RefreshItemList();
@@ -285,6 +287,7 @@ public partial class BuffMgr : Node
     {
         _weightBuffs.RemoveAll(buff => buff.IsExpired());
         _tuitionBuffs.RemoveAll(buff => buff.IsExpired());
+        _costBuffs.Values.ToList().ForEach(buffList => buffList.RemoveAll(buff => buff.IsExpired()));
         
         HashSet<string> influencedBuildingIdsOrTags = [];
         foreach (var pair in _adjBuffs)

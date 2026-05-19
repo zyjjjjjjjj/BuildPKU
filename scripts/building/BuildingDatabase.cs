@@ -45,14 +45,21 @@ public class BuildingData
     {
         float cost = Cost;
         var costBuffs = BuffMgr.Instance.GetCostBuffs(Id, Tags);
+        float upperBound = float.MaxValue;
         foreach (var buff in costBuffs.Where(costBuff => costBuff.IsActive()))
         {
             if (buff.Data.Id == "cost_reduction_buff_limited" && !buff.CheckRemainCnt())
                 continue;
+            if (buff.Data.Id == "cost_upper_bound_buff")
+            {
+                if(Cost > buff.Args.Value)
+                    upperBound = buff.Args.Value;
+                continue;
+            }
             var multiplier = buff.Args.Value / 100f;
             cost *= multiplier;
         }
-        return cost;
+        return Mathf.Min(upperBound, cost);
     }
 }
 
@@ -172,14 +179,22 @@ public static class BuildingDatabase
     
     private static void AddAutoTag()
     {
+        _tagsDict.Add("auto_all", "所有建筑");
+        _tagsDict.Add("auto_pos_ben", "有收益的建筑");
+        _tagsDict.Add("auto_neg_ben", "收益为负的建筑");
         foreach (var kv in _allBuildingDict)
         {
             var id = kv.Key;
             var data = kv.Value;
-            if(data.Benefit > 0)
+            data.Tags.Add("auto_all");
+            if (data.Benefit > 0)
+            {
                 data.Tags.Add("auto_pos_ben");
-            else if(data.Benefit < 0)                
+            }
+            else if (data.Benefit < 0)
+            {
                 data.Tags.Add("auto_neg_ben");
+            }
         }
     }
     

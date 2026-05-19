@@ -217,5 +217,20 @@
 				"Value":0
 			}
 		}
+	},
+	{
+		"Id": "shenyanyuanchengli",
+		"Name": "深研院成立",
+		"Description": "所有建造花费大于3000的建筑建造花费变为3000",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"cost_upper_bound_buff":{
+				"DestBuildingIdOrTag":"auto_all",
+				"Value":3000
+			}
+		}
 	}
 ]
