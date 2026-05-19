@@ -16,35 +16,35 @@ public class ActiveBuff
         get
         {
             var desc = Data.Description;
-            if(Args.Value!=0)
+            if(desc.Contains("{Value}"))
                 desc = desc.Replace("{Value}", FormatFloat(Args.Value));
-            if (Args.ConditionStat != String.Empty)
+            if (desc.Contains("ConditionStat"))
                 desc = desc.Replace("{ConditionStat}", FormatConditionStat(Args.ConditionStat));
-            if (Args.ConditionOp != String.Empty)
+            if (desc.Contains("ConditionOp"))
                 desc = desc.Replace("{ConditionOp}", Args.ConditionOp);
-            desc = desc.Replace("{ConditionValue}", FormatFloat(Args.ConditionValue));
-            var targets = GetTargets();
-            if (targets.Count > 0)
-                desc = desc.Replace("{Target}", FormatTargets(targets));
-            if (Args.Target != String.Empty)
+            if(desc.Contains("ConditionValue"))
+                desc = desc.Replace("{ConditionValue}", FormatFloat(Args.ConditionValue));
+            if (desc.Contains("{Target}"))
             {
-                string displayTarget = Args.Target switch
-                {
-                    "Research" => "科研",
-                    "Education" => "教育",
-                    "Environment" => "环境",
-                    "Benefit" => "收益",
-                    "Population" => "人口",
-                    _ => Args.Target
-                };
+                var displayTargets = Args.Targets.Select(target => target switch
+                    {
+                        "Research" => "科研",
+                        "Education" => "教育",
+                        "Environment" => "环境",
+                        "Benefit" => "收益",
+                        "Population" => "人口",
+                        _ => target
+                    })
+                    .ToList();
+                var displayTarget = string.Join("、", displayTargets);
                 desc = desc.Replace("{Target}", displayTarget);
             }
-            if(Args.SrcBuildingIdOrTag != String.Empty)
+            if(desc.Contains("{Src}"))
             {
                 string displaySrc = BuildingDatabase.GetNameById(Args.SrcBuildingIdOrTag) ?? Args.SrcBuildingIdOrTag;
                 desc = desc.Replace("{Src}", displaySrc);
             }
-            if(Args.DestBuildingIdOrTag != String.Empty)            
+            if(desc.Contains("{Dest}"))            
             {
                 string displayDest = BuildingDatabase.GetNameById(Args.DestBuildingIdOrTag) ?? Args.DestBuildingIdOrTag;
                 desc = desc.Replace("{Dest}", displayDest);
@@ -108,15 +108,6 @@ public class ActiveBuff
         if (!IsActive())
             return currentYear - StartYear;
         return Math.Max(0, StartYear + Args.DurationYears - currentYear);
-    }
-
-    public List<string> GetTargets()
-    {
-        if (Args.Targets != null && Args.Targets.Count > 0)
-            return Args.Targets;
-        if (Args.Target != String.Empty)
-            return [Args.Target];
-        return [];
     }
 
     private static string FormatFloat(float value)
@@ -310,45 +301,34 @@ public partial class BuffMgr : Node
 
     public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
     {
-        if (buff.Data.Id == "conditional_weight_add_buff")
+        switch (buff.Data.Id)
         {
-            if (!CheckCondition(buff))
+            case "conditional_weight_add_buff":
+                if (!CheckCondition(buff))
+                    return;
+                foreach (var target in buff.Args.Targets)
+                    ApplyWeightMultiplier(context, target, ((float)buff.Args.Value) / 100f);
                 return;
-
-            foreach (var target in buff.GetTargets())
-                AddWeight(context, target, buff.Args.Value);
-            return;
-        }
-
-        if (buff.Data.Id != "weight_multiplier_buff")
-            return;
-        float multiplier = buff.Args.Value / 100f;
-        switch (buff.Args.Target)
-        {
-            case "Research":
-                context.ResWeight *= multiplier;
-                break;
-            case "Education":
-                context.EduWeight *= multiplier;
-                break;
-            case "Environment":
-                context.EnvWeight *= multiplier;
-                break;
+            case "weight_multiplier_buff":
+                float multiplier = buff.Args.Value / 100f;
+                foreach (var target in buff.Args.Targets)
+                    ApplyWeightMultiplier(context, target, multiplier);
+                return;
         }
     }
 
-    private static void AddWeight(ScoreContext context, string target, float value)
+    private static void ApplyWeightMultiplier(ScoreContext context, string target, float value)
     {
         switch (target)
         {
             case "Research":
-                context.ResWeight += value;
+                context.ResWeight *= value;
                 break;
             case "Education":
-                context.EduWeight += value;
+                context.EduWeight *= value;
                 break;
             case "Environment":
-                context.EnvWeight += value;
+                context.EnvWeight *= value;
                 break;
         }
     }
@@ -380,14 +360,14 @@ public partial class BuffMgr : Node
         };
     }
 
-    public List<ActiveBuff> GetAdjBuffs(string id, List<string> Tags)
+    public List<ActiveBuff> GetAdjBuffs(string id, List<string> tags)
     {
         var result = new List<ActiveBuff>();
         if(_adjBuffs.TryGetValue(id, out var idBuffs))
             result.AddRange(idBuffs);
-        if(Tags == null)
+        if(tags == null)
             return result;
-        foreach (var tag in Tags)
+        foreach (var tag in tags)
         {
             if(_adjBuffs.TryGetValue(tag, out var tagBuffs))
                 result.AddRange(tagBuffs);

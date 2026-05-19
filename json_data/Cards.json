@@ -9,7 +9,7 @@
 		"Repeatable": false,
 		"Buffs": {
 			"weight_multiplier_buff":{
-				"Target": "Research",
+				"Targets": ["Research"],
 				"Value": 120
 			}
 		}
@@ -24,7 +24,7 @@
 		"Repeatable": false,
 		"Buffs": {
 			"weight_multiplier_buff":{
-				"Target": "Environment",
+				"Targets": ["Environment"],
 				"Value": 120
 			}
 		}
@@ -39,11 +39,11 @@
 		"Repeatable": false,
 		"Buffs": {
 			"weight_multiplier_buff_1":{
-				"Target": "Education",
+				"Targets": ["Education"],
 				"Value": 120
 			},
 			"weight_multiplier_buff_2":{
-				"Target": "Research",
+				"Targets": ["Research"],
 				"Value": 120
 			}
 		}
@@ -60,7 +60,7 @@
 			"adj_bonus_buff":{
 				"StartYearOffset":1,
 				"DurationYears":2,
-				"Target":"Research",
+				"Targets":["Research"],
 				"Value": 120,
 				"DestBuildingIdOrTag": "lab",
 				"SrcBuildingIdOrTag": "green"
@@ -142,7 +142,7 @@
 	{
 		"Id": "small_but_beautiful",
 		"Name": "小而美",
-		"Description": "若总人口<500，科研与教育权重+0.4",
+		"Description": "若总人口<500，科研与教育权重乘120%",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1905,
@@ -150,7 +150,7 @@
 		"Buffs": {
 			"conditional_weight_add_buff":{
 				"Targets": ["Research", "Education"],
-				"Value": 0.4,
+				"Value": 120,
 				"ConditionStat": "Population",
 				"ConditionOp": "<",
 				"ConditionValue": 500
@@ -169,7 +169,7 @@
 			"basic_prop_buff":{
 				"DestBuildingIdOrTag":"auto_neg_ben",
 				"Value":50,
-				"Target":"Benefit"
+				"Targets":["Benefit"]
 			}
 		}
 	}

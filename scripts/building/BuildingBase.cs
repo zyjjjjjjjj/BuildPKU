@@ -189,7 +189,7 @@ public partial class BuildingBase : Node2D
 		if (!BuildingDatabase.IsId(idOrTag) && !ContainNeighborWithTag(idOrTag, neighbors))
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMultiplier(buff.Args.Target, buff.Args.Value);
+		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
 	}
 	
 	public void ApplyBuff(ActiveBuff buff)
@@ -199,7 +199,7 @@ public partial class BuildingBase : Node2D
 		{
 			case "basic_prop_buff":
 				_relatedBuffs.Add(buff);
-				ApplyMultiplier(buff.Args.Target, buff.Args.Value);
+				ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
 				break;
 			case "adj_bonus_buff":
 				ApplyAdjBonus(buff);
@@ -224,26 +224,29 @@ public partial class BuildingBase : Node2D
 		return;
 	}
 	
-	private void ApplyMultiplier(string target, float value)
+	private void ApplyMultiplier(List<string> targets, float value)
 	{
 		float multiplier = value / 100f;
-		switch (target)
+		foreach (var target in targets)
 		{
-			case "Research":
-				_resMultiplier *= multiplier;
-				break;
-			case "Education":
-				_eduMultiplier *= multiplier;
-				break;
-			case "Environment":
-				_envMultiplier *= multiplier;
-				break;
-			case "Population":
-				_popMultiplier *= multiplier;
-				break;
-			case "Benefit":
-				_benMultiplier *= multiplier;
-				break;
+			switch (target)
+			{
+				case "Research":
+					_resMultiplier *= multiplier;
+					break;
+				case "Education":
+					_eduMultiplier *= multiplier;
+					break;
+				case "Environment":
+					_envMultiplier *= multiplier;
+					break;
+				case "Population":
+					_popMultiplier *= multiplier;
+					break;
+				case "Benefit":
+					_benMultiplier *= multiplier;
+					break;
+			}
 		}
 	}
 	

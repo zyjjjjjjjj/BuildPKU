@@ -5,7 +5,7 @@
 	},
 	{
 		"Id": "conditional_weight_add_buff",
-		"Description": "当{ConditionStat}{ConditionOp}{ConditionValue}时，{Target}评分权重+{Value}"
+		"Description": "当{ConditionStat}{ConditionOp}{ConditionValue}时，{Target}评分权重乘{Value}%"
 	},
 	{
 		"Id": "basic_prop_buff",
