@@ -28,6 +28,7 @@ public partial class BuildingSideBar : PanelContainer
 		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
 		BuildingMgr.Instance.AvailableBuildingChanged += UpdateItemList;
+		BuildingMgr.Instance.ActiveBuildingChanged += UpdateActiveBuilding;
 	}
 
 	private void InitializeItemList()
@@ -157,6 +158,23 @@ public partial class BuildingSideBar : PanelContainer
 		_onSelectedIndex = -1;
 		_itemList.DeselectAll();
 		EmitSignal(SignalName.SideBarBuildingSelected, string.Empty);
+	}
+
+	private void UpdateActiveBuilding(string buildingId)
+	{
+		_itemList.DeselectAll();
+		_onSelectedIndex = -1;
+
+		if (string.IsNullOrEmpty(buildingId))
+			return;
+
+		for (var i = 0; i < _itemList.GetItemCount(); i++)
+		{
+			if (_itemList.GetItemMetadata(i).ToString() != buildingId) continue;
+			_onSelectedIndex = i;
+			_itemList.Select(i);
+			return;
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

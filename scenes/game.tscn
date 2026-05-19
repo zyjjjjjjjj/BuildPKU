@@ -59,7 +59,7 @@ position = Vector2(1148, 1021)
 [node name="ground_01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
 position = Vector2(1410, 1050)
 
-[node name="library0" parent="buildingMgr" unique_id=1474992056 instance=ExtResource("14_5newe")]
+[node name="library_00" parent="buildingMgr" unique_id=1474992056 instance=ExtResource("14_5newe")]
 
 [node name="villa_01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
 position = Vector2(1023, 1344)
@@ -80,7 +80,7 @@ position = Vector2(1536, 1413)
 [node name="region_yan_nan_yuan" parent="buildingMgr" unique_id=444217144 instance=ExtResource("14_1kice")]
 position = Vector2(1210, 2730)
 
-[node name="library1" parent="buildingMgr" unique_id=1416874444 instance=ExtResource("14_5newe")]
+[node name="library_01" parent="buildingMgr" unique_id=1416874444 instance=ExtResource("14_5newe")]
 position = Vector2(1085, 1214)
 
 [node name="dorm_02" parent="buildingMgr" unique_id=2097924923 instance=ExtResource("10_264po")]

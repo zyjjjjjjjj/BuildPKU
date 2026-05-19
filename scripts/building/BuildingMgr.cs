@@ -11,6 +11,7 @@ public partial class BuildingMgr : Node2D
     private BuildingBase _tmpBuilding;
     public readonly Dictionary<string, List<BuildingBase>> SpawnedBuildings = new();
     private int _spawningCnt = 0;
+    private string _activeBuildingId = string.Empty;
     private bool _isEditing = false;
     public bool IsEditing
     {
@@ -57,6 +58,8 @@ public partial class BuildingMgr : Node2D
     public delegate void ExitEditorModeEventHandler();
     [Signal]
     public delegate void AvailableBuildingChangedEventHandler(bool added, string buildingId);
+    [Signal]
+    public delegate void ActiveBuildingChangedEventHandler(string buildingId);
     
     public override void _EnterTree()
     {
@@ -116,7 +119,7 @@ public partial class BuildingMgr : Node2D
     {
         if(buildingId == string.Empty)
         {
-            IsEditing = false;
+            ExitBuildMode();
             return;
         }
         IsEditing = true;
@@ -129,9 +132,10 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
         _tmpBuilding.GlobalPosition = GetLocalMousePosition();
+        SetActiveBuilding(buildingId);
     }
 
-    public void TrySpawnBuilding(bool cost=true)
+    public void TrySpawnBuilding(bool cost=true, bool exitEditingWhenLimitReached=true)
     {
         if (_tmpBuilding == null)
             return;
@@ -172,7 +176,22 @@ public partial class BuildingMgr : Node2D
             RotationStep = _tmpBuilding.RotationStep
         };
 
+        var isUpgradeSpawn = _upgradedBuilding != null;
         SpawnBuilding(buildData);
+
+        if (isUpgradeSpawn)
+        {
+            SetActiveBuilding(string.Empty);
+            return;
+        }
+
+        var reachedLimit = buildingData.Limit > 0 &&
+                           SpawnedBuildings.TryGetValue(buildingData.Id, out var spawnedBuildings) &&
+                           spawnedBuildings.Count >= buildingData.Limit;
+        if (exitEditingWhenLimitReached && reachedLimit)
+            ExitBuildMode();
+        else
+            EmitSignalActiveBuildingChanged(_activeBuildingId);
     }
 
     public void SpawnBuilding(BuildingBuildData buildData)
@@ -235,7 +254,7 @@ public partial class BuildingMgr : Node2D
             _tmpBuilding = building;
             _tmpBuilding.Id = Regex.Replace(building.Name, @"_\d+$", "");
             _tmpBuilding.Name = "tmpBuilding";
-            TrySpawnBuilding(false);
+            TrySpawnBuilding(false, false);
             _tmpBuilding.Name = "tobedeleted";
             _tmpBuilding.QueueFree();
             _tmpBuilding = null;
@@ -258,18 +277,29 @@ public partial class BuildingMgr : Node2D
     public void TryUpgradeBuilding(string buildingName, string newId)
     {
         var building = GetNode<BuildingBase>(buildingName);
-        var id = buildingName.Split("_")[0];
         if (string.IsNullOrEmpty(newId))
             return;
         _upgradedBuilding = new BuildingBuildData
         {
-            Id = id,
+            Id = building.Id,
             LocalPos = building.Position,
             ZIdx = building.ZIndex
         };
         ModifyAvailableBuildingList(true, newId);
         DestroyBuilding(buildingName);
         SelectBuilding(newId);
+    }
+
+    private void ExitBuildMode()
+    {
+        IsEditing = false;
+        SetActiveBuilding(string.Empty);
+    }
+
+    private void SetActiveBuilding(string buildingId)
+    {
+        _activeBuildingId = buildingId ?? string.Empty;
+        EmitSignalActiveBuildingChanged(_activeBuildingId);
     }
     
     public void ModifyAvailableBuildingList(bool add, string buildingId)
