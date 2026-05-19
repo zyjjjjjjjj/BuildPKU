@@ -15,6 +15,7 @@ public class BuildingData
     public float Education { get; init; }
     public float Environment { get; init; }
     public float Cost { get; init; }
+    public float ActualCost => CalcActualCost();
     public float Benefit { get; init; }
     public float Population { get; init; }
     public bool Destroyable { get; init; } = true;
@@ -38,6 +39,18 @@ public class BuildingData
             Limit = Limit,
             UpgradeCost = new Dictionary<string, float>(UpgradeCost)
         };
+    }
+    
+    private float CalcActualCost()
+    {
+        float cost = Cost;
+        var costBuffs = BuffMgr.Instance.GetCostBuffs(Id, Tags);
+        foreach (var buff in costBuffs.Where(costBuff => costBuff.IsActive()))
+        {
+            var multiplier = buff.Args.Value / 100f;
+            cost *= multiplier;
+        }
+        return cost;
     }
 }
 
@@ -93,7 +106,6 @@ public static class BuildingDatabase
             return regionData.Name;
         if(_tagsDict.TryGetValue(id, out var tagName))
             return tagName;
-        GD.PrintErr($"找不到建筑或标签配置: {id}");
         return null;
     }
 

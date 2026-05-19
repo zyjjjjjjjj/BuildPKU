@@ -35,7 +35,7 @@
 	"Environment": 0,
 	"Population": 0,
 	"Cost": 2000,
-	"Benefit": 1000,
+	"Benefit": -1000,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {

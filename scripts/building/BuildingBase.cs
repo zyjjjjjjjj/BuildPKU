@@ -12,14 +12,12 @@ public partial class BuildingBase : Node2D
 	public float _education = 0f;
 	public float _environment = 0f;
 	public float _population = 0f;
-	public float _cost = 0f;
 	public float _benefit = 0f;
 	private float _benMultiplier = 1f;
 	private float _resMultiplier = 1f;
 	private float _eduMultiplier = 1f;
 	private float _envMultiplier = 1f;
 	private float _popMultiplier = 1f;
-	public float Cost => _cost;
 	public float Benefit => _benefit * _benMultiplier;
 	public float Population => _population * _popMultiplier;
 	public float Research => _research * _resMultiplier;
@@ -164,18 +162,17 @@ public partial class BuildingBase : Node2D
 		_education = data.Education;
 		_environment = data.Environment;
 		_population = data.Population;
-		_cost = data.Cost;
 		_benefit = data.Benefit; 
 		Destroyable = data.Destroyable;
 		Tags = data.Tags;
 		return;
 	}
 	
-	public void ApplyAllAdjBonus()
+	public void ApplyAllBuildingBuffs()
 	{
-		var adjBuffs = BuffMgr.Instance.GetAdjBuffs(Id, Tags);
-		foreach (var adjBuff in adjBuffs.Where(buff=>buff.IsActive()))
-			ApplyAdjBonus(adjBuff);
+		var buffs = BuffMgr.Instance.GetRelatedBuffs(Id,Tags);
+		foreach (var buff in buffs.Where(buff=>buff.IsActive()))
+			ApplyBuff(buff);
 	}
 	
 	public void ApplyAdjBonus(ActiveBuff buff)
@@ -192,14 +189,20 @@ public partial class BuildingBase : Node2D
 		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
 	}
 	
+	private void ApplyPropBuff(ActiveBuff buff)
+	{
+		if(buff.Data.Id != "basic_prop_buff")
+			return;
+		_relatedBuffs.Add(buff);
+		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
+	}
+	
 	public void ApplyBuff(ActiveBuff buff)
 	{
-		GD.Print("apply buff: " + buff.Data.Id);
 		switch (buff.Data.Id)
 		{
 			case "basic_prop_buff":
-				_relatedBuffs.Add(buff);
-				ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
+				ApplyPropBuff(buff);
 				break;
 			case "adj_bonus_buff":
 				ApplyAdjBonus(buff);
@@ -211,7 +214,7 @@ public partial class BuildingBase : Node2D
 	{
 		_relatedBuffs.Clear();
 		ResetMultiplier();
-		ApplyAllAdjBonus();
+		ApplyAllBuildingBuffs();
 	}
 
 	private void ResetMultiplier()

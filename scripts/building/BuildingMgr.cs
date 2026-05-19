@@ -56,7 +56,7 @@ public partial class BuildingMgr : Node2D
     [Signal]
     public delegate void ExitEditorModeEventHandler();
     [Signal]
-    public delegate void AvailableBuildingIdsChangedEventHandler(bool added, string buildingId);
+    public delegate void AvailableBuildingChangedEventHandler(bool added, string buildingId);
     
     public override void _EnterTree()
     {
@@ -157,11 +157,11 @@ public partial class BuildingMgr : Node2D
         }
         else
         {
-            actualCost = buildingData.Cost;
+            actualCost = buildingData.ActualCost;
         }
         if (cost && !MoneyMgr.Instance.TrySpend(actualCost))
         {
-            WarningPanel.Instance.ShowWarning($"钱不够，需要 ￥{buildingData.Cost}");
+            WarningPanel.Instance.ShowWarning($"钱不够，需要 ￥{buildingData.ActualCost}");
             return;
         }
         var buildData = new BuildingBuildData
@@ -287,7 +287,7 @@ public partial class BuildingMgr : Node2D
         {
             AvailableBuildingIds.Remove(buildingId);
         }
-        EmitSignalAvailableBuildingIdsChanged(add, buildingId);
+        EmitSignalAvailableBuildingChanged(add, buildingId);
     }
 
     public List<BuildingBase> GetBuildingsById(string id)

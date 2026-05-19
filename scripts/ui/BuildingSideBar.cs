@@ -27,7 +27,8 @@ public partial class BuildingSideBar : PanelContainer
 	{
 		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
-		BuildingMgr.Instance.AvailableBuildingIdsChanged += UpdateItemList;
+		BuildingMgr.Instance.AvailableBuildingChanged += UpdateItemList;
+		BuffMgr.Instance.BuffsChanged += RefreshItemList;
 	}
 
 	private void InitializeItemList()
@@ -39,7 +40,7 @@ public partial class BuildingSideBar : PanelContainer
 		foreach (var id in BuildingDatabase.GetInitiallyAvailableIds())
 		{
 			var data = BuildingDatabase.GetById(id);
-			var displayText = $"{data.Name}\n￥{data.Cost}";
+			var displayText = $"{data.Name}\n￥{data.ActualCost}";
 
 			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
 			_itemList.AddItem(displayText, icon);
@@ -47,13 +48,27 @@ public partial class BuildingSideBar : PanelContainer
 		}
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
+	
+	private void RefreshItemList()
+	{
+		_itemList.Clear();
+		foreach (var id in BuildingMgr.Instance.AvailableBuildingIds)
+		{
+			var data = BuildingDatabase.GetById(id);
+			var displayText = $"{data.Name}\n￥{data.ActualCost}";
+
+			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
+			_itemList.AddItem(displayText, icon);
+			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
+		}
+	}
 
 	private void UpdateItemList(bool add, string buildingId)
 	{
 		if(add)
 		{
 			var data = BuildingDatabase.GetById(buildingId);
-			var displayText = $"{data.Name}\n￥{data.Cost}";
+			var displayText = $"{data.Name}\n￥{data.ActualCost}";
 
 			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
 			_itemList.AddItem(displayText, icon);

@@ -1,11 +1,11 @@
 [
 	{
-		"Id": "weight_multiplier_buff",
-		"Description": "{Target}评分权重乘{Value}%。"
+		"Id": "weight_add_buff",
+		"Description": "{Target}评分权重增加{Value}。"
 	},
 	{
 		"Id": "conditional_weight_add_buff",
-		"Description": "当{ConditionStat}{ConditionOp}{ConditionValue}时，{Target}评分权重乘{Value}%"
+		"Description": "当总{ConditionStat}{ConditionOp}{ConditionValue}时，{Target}评分权重增加{Value}"
 	},
 	{
 		"Id": "basic_prop_buff",
@@ -24,11 +24,19 @@
 		"Description": "立刻获得回合数乘{Value}的资金"
 	},
 	{
+		"Id": "tuition_buff",
+		"Description": "学费乘{Value}%"
+	},
+	{
 		"Id": "unlock_building_buff",
 		"Description": "解锁{Dest}建筑"
 	},
 	{
 		"Id": "unlock_region_buff",
 		"Description": "解锁{Dest}区域"
+	},
+	{
+		"Id": "cost_reduction_buff",
+		"Description": "{Dest}建造花费乘{Value}%"
 	}
 ]

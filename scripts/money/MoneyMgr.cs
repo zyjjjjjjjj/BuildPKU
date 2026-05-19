@@ -7,9 +7,7 @@ public partial class MoneyMgr : Node
 	public static MoneyMgr Instance { get; private set; }
 
 	[Export] public float InitialMoney = 10000;
-	[Export] public float Tuition = 1000;
-
-	private float _currentMoney;
+	[Export] public float Initial_Tuition = 1000;
 
 	public float CurrentMoney
 	{
@@ -20,9 +18,12 @@ public partial class MoneyMgr : Node
 			EmitSignalMoneyChanged();
 		}
 	}
+	private float _currentMoney;
 
 	public float BuildingBenefits => _buildingBenefits;
 	private float _buildingBenefits = 0;
+	
+	public float Tuition => CalcCurrentTuition();
 
 	public float MoneyPerYear => Tuition * ScoreMgr.Instance.Population + _buildingBenefits;
 
@@ -85,6 +86,17 @@ public partial class MoneyMgr : Node
 			_buildingBenefits += building.Benefit;
 		}
 		EmitSignalMoneyChanged();
+	}
+	
+	private float CalcCurrentTuition()
+	{
+		float tuition = Initial_Tuition;
+		foreach (var buff in BuffMgr.Instance.TuitionBuffs.Where(buff=>buff.IsActive()))
+		{
+			var multiplier = buff.Args.Value / 100f;
+			tuition *= multiplier;
+		}
+		return tuition;
 	}
 }
 

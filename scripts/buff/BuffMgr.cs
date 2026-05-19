@@ -25,30 +25,11 @@ public class ActiveBuff
             if(desc.Contains("ConditionValue"))
                 desc = desc.Replace("{ConditionValue}", FormatFloat(Args.ConditionValue));
             if (desc.Contains("{Target}"))
-            {
-                var displayTargets = Args.Targets.Select(target => target switch
-                    {
-                        "Research" => "科研",
-                        "Education" => "教育",
-                        "Environment" => "环境",
-                        "Benefit" => "收益",
-                        "Population" => "人口",
-                        _ => target
-                    })
-                    .ToList();
-                var displayTarget = string.Join("、", displayTargets);
-                desc = desc.Replace("{Target}", displayTarget);
-            }
+                desc = desc.Replace("{Target}", FormatTargets(Args.Targets));
             if(desc.Contains("{Src}"))
-            {
-                string displaySrc = BuildingDatabase.GetNameById(Args.SrcBuildingIdOrTag) ?? Args.SrcBuildingIdOrTag;
-                desc = desc.Replace("{Src}", displaySrc);
-            }
+                desc = desc.Replace("{Src}", FormatBuildingName(Args.SrcBuildingIdOrTag));
             if(desc.Contains("{Dest}"))            
-            {
-                string displayDest = BuildingDatabase.GetNameById(Args.DestBuildingIdOrTag) ?? Args.DestBuildingIdOrTag;
-                desc = desc.Replace("{Dest}", displayDest);
-            }
+                desc = desc.Replace("{Dest}", FormatBuildingName(Args.DestBuildingIdOrTag));
             return desc + FormattedStatus;
         }
     } 
@@ -83,7 +64,7 @@ public class ActiveBuff
         return currentYear >= StartYear + Args.DurationYears;
     }
     
-    public bool IsActive()
+    public bool IsInDuration()
     {
         if (IsPermanent)
             return true;
@@ -91,6 +72,38 @@ public class ActiveBuff
         if(Args.DurationYears == 0)
             return currentYear == StartYear;
         return currentYear >= StartYear && currentYear < StartYear + Args.DurationYears;
+    }
+    
+    public bool IsActive()
+    {
+        return IsInDuration() && CheckCondition();
+    }
+
+    private bool CheckCondition()
+    {
+        if (string.IsNullOrEmpty(Args.ConditionStat) || string.IsNullOrEmpty(Args.ConditionOp))
+            return true;
+
+        float actual = Args.ConditionStat switch
+        {
+            "Population" => ScoreMgr.Instance.Population,
+            "Research" => ScoreMgr.Instance.Research,
+            "Education" => ScoreMgr.Instance.Education,
+            "Environment" => ScoreMgr.Instance.Environment,
+            "Reputation" => ScoreMgr.Instance.Reputation,
+            _ => 0f
+        };
+
+        return Args.ConditionOp switch
+        {
+            "<" => actual < Args.ConditionValue,
+            "<=" => actual <= Args.ConditionValue,
+            ">" => actual > Args.ConditionValue,
+            ">=" => actual >= Args.ConditionValue,
+            "==" => Mathf.IsEqualApprox(actual, Args.ConditionValue),
+            "!=" => !Mathf.IsEqualApprox(actual, Args.ConditionValue),
+            _ => false
+        };
     }
     
     public bool StartThisYear()
@@ -109,41 +122,39 @@ public class ActiveBuff
             return currentYear - StartYear;
         return Math.Max(0, StartYear + Args.DurationYears - currentYear);
     }
-
+    
     private static string FormatFloat(float value)
     {
-        return value.ToString("0.###", CultureInfo.InvariantCulture);
+        return value.ToString("0.#", CultureInfo.InvariantCulture);
     }
-
     private static string FormatConditionStat(string stat)
     {
         return stat switch
         {
-            "Population" => "人口",
-            "Research" => "科研",
-            "Education" => "教育",
-            "Environment" => "环境",
-            "Reputation" => "声誉",
+            "Population" => "总人口",
+            "Research" => "总科研评分",
+            "Education" => "总教学评分",
+            "Environment" => "总环境评分",
+            "Reputation" => "全球声誉",
             _ => stat
         };
     }
-
     private static string FormatTargets(List<string> targets)
     {
-        return string.Join("与", targets.Select(FormatTarget));
-    }
-
-    private static string FormatTarget(string target)
-    {
-        return target switch
+        var displayTargets = targets.Select(target => target switch
         {
             "Research" => "科研",
-            "Education" => "教育",
+            "Education" => "教学",
             "Environment" => "环境",
             "Benefit" => "收益",
             "Population" => "人口",
             _ => target
-        };
+        }).ToList();
+        return string.Join("、", displayTargets);
+    }
+    private static string FormatBuildingName(string idOrTag)
+    {
+        return BuildingDatabase.GetNameById(idOrTag) ?? idOrTag;
     }
 }
 
@@ -157,32 +168,15 @@ public class ScoreContext
 public partial class BuffMgr : Node
 {
     public static BuffMgr Instance { get; private set; }
-    
-    public List<ActiveBuff> AllBuffs
-    {
-        get
-        {
-            var allBuffs = new List<ActiveBuff>();
-            allBuffs.AddRange(_weightBuffs);
-            foreach (var pair in _adjBuffs)
-            {
-                allBuffs.AddRange(pair.Value);
-            }
-            foreach (var pair in _propBuffs)
-            {
-                allBuffs.AddRange(pair.Value);
-            }
-            return allBuffs;
-        }
-    }
-    public IReadOnlyList<ActiveBuff> WeightBuffs => _weightBuffs;
     private readonly List<ActiveBuff> _weightBuffs = [];
     public IReadOnlyDictionary<string, List<ActiveBuff>> AdjBuffs => _adjBuffs;
     private readonly Dictionary<string, List<ActiveBuff>> _adjBuffs = new Dictionary<string, List<ActiveBuff>>();
-    public IReadOnlyDictionary<string, List<ActiveBuff>> PropBuffs => _propBuffs;
     private readonly Dictionary<string, List<ActiveBuff>> _propBuffs = new Dictionary<string, List<ActiveBuff>>();
-    public IReadOnlyList<ActiveBuff> InstantBuffs => _instantBuffs;
     private readonly List<ActiveBuff> _instantBuffs = [];
+    public IReadOnlyList<ActiveBuff> TuitionBuffs => _tuitionBuffs;
+    private readonly List<ActiveBuff> _tuitionBuffs = [];
+    private readonly Dictionary<string, List<ActiveBuff>> _costBuffs = new Dictionary<string, List<ActiveBuff>>();
+    
 
     [Signal] public delegate void BuffsChangedEventHandler();
     
@@ -208,15 +202,18 @@ public partial class BuffMgr : Node
             return;
         switch (newBuff.Data.Id)
         {
-            case "weight_multiplier_buff":
+            case "weight_add_buff":
             case "conditional_weight_add_buff":
                 _weightBuffs.Add(newBuff);
                 break;
+            case "basic_prop_buff":
+                AddBuffToDict(_propBuffs, newBuff);
+                break;
             case "adj_bonus_buff":
-                if(_adjBuffs.TryGetValue(newBuff.Args.DestBuildingIdOrTag, out var buffList))
-                    buffList.Add(newBuff);
-                else
-                    _adjBuffs[newBuff.Args.DestBuildingIdOrTag] = [newBuff];
+                AddBuffToDict(_adjBuffs, newBuff);
+                break;
+            case "tuition_buff":
+                _tuitionBuffs.Add(newBuff);
                 break;
             case "instant_money_buff":
             case "instant_turn_based_money_buff":
@@ -224,6 +221,12 @@ public partial class BuffMgr : Node
             case "unlock_region_buff":
                 _instantBuffs.Add(newBuff);
                 break;
+            case "cost_reduction_buff":
+                AddBuffToDict(_costBuffs, newBuff);
+                break;
+            default:
+                GD.PrintErr("Unknown buff id: " + newBuff.Data.Id);
+                return;
         }
         if(newBuff.IsActive())
             ApplyBuff(newBuff);
@@ -241,8 +244,6 @@ public partial class BuffMgr : Node
                 if (buildings != null)
                     foreach (var building in buildings)
                         building.ApplyBuff(buff);
-                break;
-            case "weight_multiplier_buff":
                 break;
             case "instant_money_buff":
                 MoneyMgr.Instance.AddMoney(buff.Args.Value);
@@ -262,6 +263,7 @@ public partial class BuffMgr : Node
     private void OnYearAdvanced(int year)
     {
         _weightBuffs.RemoveAll(buff => buff.IsExpired());
+        _tuitionBuffs.RemoveAll(buff => buff.IsExpired());
         
         HashSet<string> influencedBuildingIdsOrTags = [];
         foreach (var pair in _adjBuffs)
@@ -301,63 +303,24 @@ public partial class BuffMgr : Node
 
     public void ApplyWeightBuff(ScoreContext context, ActiveBuff buff)
     {
-        switch (buff.Data.Id)
-        {
-            case "conditional_weight_add_buff":
-                if (!CheckCondition(buff))
-                    return;
-                foreach (var target in buff.Args.Targets)
-                    ApplyWeightMultiplier(context, target, ((float)buff.Args.Value) / 100f);
-                return;
-            case "weight_multiplier_buff":
-                float multiplier = buff.Args.Value / 100f;
-                foreach (var target in buff.Args.Targets)
-                    ApplyWeightMultiplier(context, target, multiplier);
-                return;
-        }
+        foreach (var target in buff.Args.Targets)
+            AddWeight(context, target, buff.Args.Value);
     }
 
-    private static void ApplyWeightMultiplier(ScoreContext context, string target, float value)
+    private static void AddWeight(ScoreContext context, string target, float value)
     {
         switch (target)
         {
             case "Research":
-                context.ResWeight *= value;
+                context.ResWeight += value;
                 break;
             case "Education":
-                context.EduWeight *= value;
+                context.EduWeight += value;
                 break;
             case "Environment":
-                context.EnvWeight *= value;
+                context.EnvWeight += value;
                 break;
         }
-    }
-
-    private static bool CheckCondition(ActiveBuff buff)
-    {
-        if (string.IsNullOrEmpty(buff.Args.ConditionStat) || string.IsNullOrEmpty(buff.Args.ConditionOp))
-            return true;
-
-        float actual = buff.Args.ConditionStat switch
-        {
-            "Population" => ScoreMgr.Instance.Population,
-            "Research" => ScoreMgr.Instance.Research,
-            "Education" => ScoreMgr.Instance.Education,
-            "Environment" => ScoreMgr.Instance.Environment,
-            "Reputation" => ScoreMgr.Instance.Reputation,
-            _ => 0f
-        };
-
-        return buff.Args.ConditionOp switch
-        {
-            "<" => actual < buff.Args.ConditionValue,
-            "<=" => actual <= buff.Args.ConditionValue,
-            ">" => actual > buff.Args.ConditionValue,
-            ">=" => actual >= buff.Args.ConditionValue,
-            "==" => Mathf.IsEqualApprox(actual, buff.Args.ConditionValue),
-            "!=" => !Mathf.IsEqualApprox(actual, buff.Args.ConditionValue),
-            _ => false
-        };
     }
 
     public List<ActiveBuff> GetAdjBuffs(string id, List<string> tags)
@@ -375,4 +338,49 @@ public partial class BuffMgr : Node
         return result;
     }
     
+    public List<ActiveBuff> GetPropBuffs(string id, List<string> tags)
+    {
+        var result = new List<ActiveBuff>();
+        if(_propBuffs.TryGetValue(id, out var idBuffs))
+            result.AddRange(idBuffs);
+        if(tags == null)
+            return result;
+        foreach (var tag in tags)
+        {
+            if(_propBuffs.TryGetValue(tag, out var tagBuffs))
+                result.AddRange(tagBuffs);
+        }
+        return result;
+    }
+    
+    public List<ActiveBuff> GetRelatedBuffs(string id, List<string> tags)
+    {
+        var result = new List<ActiveBuff>();
+        result.AddRange(GetAdjBuffs(id, tags));
+        result.AddRange(GetPropBuffs(id, tags));
+        return result;
+    }
+    
+    public List<ActiveBuff> GetCostBuffs(string id, List<string> tags)
+    {
+        var result = new List<ActiveBuff>();
+        if(_costBuffs.TryGetValue(id, out var idBuffs))
+            result.AddRange(idBuffs);
+        if(tags == null)
+            return result;
+        foreach (var tag in tags)
+        {
+            if(_costBuffs.TryGetValue(tag, out var tagBuffs))
+                result.AddRange(tagBuffs);
+        }
+        return result;
+    }
+    
+    private void AddBuffToDict(Dictionary<string,List<ActiveBuff>> dict, ActiveBuff buff)
+    {
+        if(dict.TryGetValue(buff.Args.DestBuildingIdOrTag, out var buffList))
+            buffList.Add(buff);
+        else
+            dict[buff.Args.DestBuildingIdOrTag] = [buff];
+    }
 }

@@ -2,49 +2,45 @@
 	{
 		"Id": "research_priority",
 		"Name": "科研优先",
-		"Description": "科研评分权重提高 20%。",
+		"Description": "科研评分权重增加0.2。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"weight_multiplier_buff":{
+			"weight_add_buff":{
 				"Targets": ["Research"],
-				"Value": 120
+				"Value": 0.2
 			}
 		}
 	},
 	{
 		"Id": "campus_greening",
 		"Name": "校园绿化",
-		"Description": "环境评分权重提高 20%。",
+		"Description": "环境评分权重增加0.2。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"weight_multiplier_buff":{
+			"weight_add_buff":{
 				"Targets": ["Environment"],
-				"Value": 120
+				"Value": 0.2
 			}
 		}
 	},
 	{
 		"Id": "academic_reputation",
 		"Name": "学术声望",
-		"Description": "科研与教学评分权重提高 20%。",
+		"Description": "科研与教学评分权重增加0.2。",
 		"CardType": "Buff",
 		"Rarity": "Epic",
 		"MinYear": 1905,
 		"Repeatable": false,
 		"Buffs": {
-			"weight_multiplier_buff_1":{
-				"Targets": ["Education"],
-				"Value": 120
-			},
-			"weight_multiplier_buff_2":{
-				"Targets": ["Research"],
-				"Value": 120
+			"weight_add_buff":{
+				"Targets": ["Education","Research"],
+				"Value": 0.2
 			}
 		}
 	},
@@ -142,7 +138,7 @@
 	{
 		"Id": "small_but_beautiful",
 		"Name": "小而美",
-		"Description": "若总人口<500，科研与教育权重乘120%",
+		"Description": "若总人口<500，科研与教育权重增加0.4",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1905,
@@ -150,7 +146,7 @@
 		"Buffs": {
 			"conditional_weight_add_buff":{
 				"Targets": ["Research", "Education"],
-				"Value": 120,
+				"Value": 0.4,
 				"ConditionStat": "Population",
 				"ConditionOp": "<",
 				"ConditionValue": 500
@@ -170,6 +166,39 @@
 				"DestBuildingIdOrTag":"auto_neg_ben",
 				"Value":50,
 				"Targets":["Benefit"]
+			}
+		}
+	},
+	{
+		"Id": "gongnongbingxueyuan",
+		"Name": "工农兵学员",
+		"Description": "学费提高一倍, 教育权重增加0.2",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"tuition_buff":{
+				"Value":200
+			},
+			"weight_add_buff":{
+				"Targets":["Education"],
+				"Value":0.2
+			}
+		}
+	},
+	{
+		"Id": "jiejuezhufangqianzhang",
+		"Name": "解决住房欠账",
+		"Description": "宿舍类建筑造价降低50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"cost_reduction_buff":{
+				"DestBuildingIdOrTag":"dormitory",
+				"Value":50
 			}
 		}
 	}
