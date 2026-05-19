@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://c512m4r8t6wyn" path="res://buildings/ground.tscn" id="7_ca42v"]
 [ext_resource type="Script" uid="uid://dlelqsa4dfhac" path="res://scripts/money/MoneyMgr.cs" id="7_gee14"]
 [ext_resource type="Script" uid="uid://c8ph1gtv4p4o6" path="res://scripts/time/TimeMgr.cs" id="8_0tnpc"]
-[ext_resource type="PackedScene" uid="uid://b7sao50bcs3ng" path="res://buildings/library.tscn" id="8_rysoc"]
 [ext_resource type="PackedScene" uid="uid://ds28o751feo6p" path="res://buildings/villa.tscn" id="9_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://bnbxru6vnmj4" path="res://buildings/dorm.tscn" id="10_264po"]
 [ext_resource type="Script" uid="uid://xg2m81631lfr" path="res://scripts/buff/BuffMgr.cs" id="10_kvpfn"]
@@ -20,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 [ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
+[ext_resource type="PackedScene" uid="uid://2tfbgemsi5ul" path="res://buildings/library0.tscn" id="14_5newe"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -54,13 +54,12 @@ y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
 [node name="lake_00" parent="buildingMgr" unique_id=229562284 instance=ExtResource("6_dinhu")]
-position = Vector2(1152, 1019)
+position = Vector2(1148, 1021)
 
 [node name="ground_01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
 position = Vector2(1410, 1050)
 
-[node name="library_00" parent="buildingMgr" unique_id=542408753 instance=ExtResource("8_rysoc")]
-position = Vector2(1152, 1407)
+[node name="library0" parent="buildingMgr" unique_id=1474992056 instance=ExtResource("14_5newe")]
 
 [node name="villa_01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
 position = Vector2(1023, 1344)
@@ -80,6 +79,12 @@ position = Vector2(1536, 1413)
 
 [node name="region_yan_nan_yuan" parent="buildingMgr" unique_id=444217144 instance=ExtResource("14_1kice")]
 position = Vector2(1210, 2730)
+
+[node name="library1" parent="buildingMgr" unique_id=1416874444 instance=ExtResource("14_5newe")]
+position = Vector2(1085, 1214)
+
+[node name="dorm_02" parent="buildingMgr" unique_id=2097924923 instance=ExtResource("10_264po")]
+position = Vector2(987, 1545)
 
 [node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
 script = ExtResource("6_p57ef")
