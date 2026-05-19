@@ -198,6 +198,7 @@ public partial class BuildingBase : Node2D
 		switch (buff.Data.Id)
 		{
 			case "basic_prop_buff":
+				_relatedBuffs.Add(buff);
 				ApplyMultiplier(buff.Args.Target, buff.Args.Value);
 				break;
 			case "adj_bonus_buff":
