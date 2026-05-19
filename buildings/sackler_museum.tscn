@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://u88yohjujdt7"]
+
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_aqk0h"]
+[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_r0ntk"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_slfrs"]
+
+[node name="sackler_museum" type="Node2D" unique_id=229562284]
+script = ExtResource("1_aqk0h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(93, 103.00001)
+scale = Vector2(0.43749994, 1.5312501)
+texture = ExtResource("2_r0ntk")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=435665595]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(33, 106.25)
+scale = Vector2(0.43749994, 1.0820314)
+texture = ExtResource("2_r0ntk")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=994157838]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(-34, 96.00001)
+scale = Vector2(0.43749994, 1.5312501)
+texture = ExtResource("2_r0ntk")
+
+[node name="grid" type="Node2D" parent="." unique_id=633337854]
+position = Vector2(-66, 0)
+script = ExtResource("3_slfrs")
+GridSize = Vector2i(3, 3)
+ShapeMask = Array[bool]([true, true, true, true, true, true, true, true, true])

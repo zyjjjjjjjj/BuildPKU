@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://jhi6e5ybe6le"]
+
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_nbo4q"]
+[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_lvqvt"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_py7kp"]
+
+[node name="stanford_center" type="Node2D" unique_id=229562284]
+script = ExtResource("1_nbo4q")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(-30.499992, 66.5)
+scale = Vector2(0.50781244, 0.94531244)
+texture = ExtResource("2_lvqvt")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2054536918]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(31.750002, 94.5)
+scale = Vector2(0.41015625, 1.3203125)
+texture = ExtResource("2_lvqvt")
+
+[node name="grid" type="Node2D" parent="." unique_id=633337854]
+position = Vector2(-66, 0)
+script = ExtResource("3_py7kp")
+GridSize = Vector2i(2, 3)
+ShapeMask = Array[bool]([true, true, true, true, false, true])

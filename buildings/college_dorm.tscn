@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d3qp0cydpy3ym"]
+
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_h7v0i"]
+[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_u7nu5"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_681rk"]
+
+[node name="college_dorm" type="Node2D" unique_id=229562284]
+script = ExtResource("1_h7v0i")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(-2.4999962, 31.999998)
+scale = Vector2(0.99218744, 0.546875)
+texture = ExtResource("2_u7nu5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1223771742]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(58, 94)
+scale = Vector2(0.99218744, 0.546875)
+texture = ExtResource("2_u7nu5")
+
+[node name="grid" type="Node2D" parent="." unique_id=633337854]
+position = Vector2(-66, 0)
+script = ExtResource("3_681rk")
+GridSize = Vector2i(3, 2)
+ShapeMask = Array[bool]([true, true, false, false, true, true])

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://d1m68s8uiu07f"]
 
-[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/BuildingBase.cs" id="1_axn1a"]
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_axn1a"]
 [ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_6ps8b"]
-[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/BuildingGrid.cs" id="3_cft82"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_cft82"]
 
-[node name="building" type="Node2D" unique_id=229562284]
+[node name="canteen" type="Node2D" unique_id=229562284]
 script = ExtResource("1_axn1a")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
