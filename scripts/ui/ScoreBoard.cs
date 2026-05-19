@@ -29,11 +29,11 @@ public partial class ScoreBoard : PanelContainer
 	{
 		set => _moneyLabel.Text = $"{value:F2}";
 	}
-	public float TotalBenefits
+	public float TotalBenefit
 	{
 		set => _totalBenLabel.Text = $"{value:F2}";
 	}
-	public float BuildingBenefits
+	public float BuildingBenefit
 	{
 		set => _buildBenLabel.Text = $"{value:F2}";
 	}
@@ -96,37 +96,38 @@ public partial class ScoreBoard : PanelContainer
 	
 	private void InitializeScores()
 	{
-		Reputation = ScoreMgr.Instance.Reputation;
-		Research = ScoreMgr.Instance.Research;
-		Education = ScoreMgr.Instance.Education;
-		Environment = ScoreMgr.Instance.Environment;
-		Population = ScoreMgr.Instance.Population;
+		Reputation = 0;
+		Research = 0;
+		Education = 0;
+		Environment = 0;
+		Population = 0;
 
-		ResWeight = ScoreMgr.Instance.ResWeight;
-		EduWeight = ScoreMgr.Instance.EduWeight;
-		EnvWeight = ScoreMgr.Instance.EnvWeight;
+		ResWeight = 1;
+		EduWeight = 1;
+		EnvWeight = 1;
 
 		Money = MoneyMgr.Instance.InitialMoney;
 		Tuition = MoneyMgr.Instance.Tuition;
-		TotalBenefits = MoneyMgr.Instance.MoneyPerYear;
-		BuildingBenefits = MoneyMgr.Instance.BuildingBenefits;
+		TotalBenefit = 0;
+		BuildingBenefit = 0;
 		return;
 	}
 
 	private void _updateScore()
 	{
-		_repLabel.Text = $"{ScoreMgr.Instance.Reputation:F2}";
-		_resLabel.Text = $"{ScoreMgr.Instance.Research:F2}";
-		_eduLabel.Text = $"{ScoreMgr.Instance.Education:F2}";
-		_envLabel.Text = $"{ScoreMgr.Instance.Environment:F2}";
-		_popLabel.Text = $"{ScoreMgr.Instance.Population:F2}";
-		_moneyLabel.Text = $"{MoneyMgr.Instance.CurrentMoney:F2}";
-		_tuiLabel.Text = $"{MoneyMgr.Instance.Tuition:F2}";
-		_totalBenLabel.Text = $"{MoneyMgr.Instance.MoneyPerYear:F2}";
-		_buildBenLabel.Text = $"{MoneyMgr.Instance.BuildingBenefits:F2}";
-		_resWeightLabel.Text = $"{ScoreMgr.Instance.ResWeight:F2}";
-		_eduWeightLabel.Text = $"{ScoreMgr.Instance.EduWeight:F2}";
-		_envWeightLabel.Text = $"{ScoreMgr.Instance.EnvWeight:F2}";
+		var scoreCtx = ScoreMgr.Instance.ScoreContext;
+		Reputation = scoreCtx.Reputation;
+		Research = scoreCtx.Research;
+		Education = scoreCtx.Education;
+		Environment = scoreCtx.Environment;
+		Population = scoreCtx.Population;
+		Money = MoneyMgr.Instance.CurrentMoney;
+		Tuition = MoneyMgr.Instance.Tuition;
+		TotalBenefit = scoreCtx.Benefit;
+		BuildingBenefit = scoreCtx.BuildingBen;
+		ResWeight = scoreCtx.ResWeight;
+		EduWeight = scoreCtx.EduWeight;
+		EnvWeight = scoreCtx.EnvWeight;
 	}
 
 
