@@ -175,18 +175,29 @@ public partial class BuildingBase : Node2D
 			ApplyBuff(buff);
 	}
 	
-	public void ApplyAdjBonus(ActiveBuff buff)
+	public void ApplyAdjBuff(ActiveBuff buff)
 	{
-		if(buff.Data.Id != "adj_bonus_buff")
+		if(!buff.Data.Id.StartsWith("adj_bonus"))
 			return;
-		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		var idOrTag = buff.Args.SrcBuildingIdOrTag;
-		if (BuildingDatabase.IsId(idOrTag) && !neighbors.Contains(idOrTag))
-			return;
-		if (!BuildingDatabase.IsId(idOrTag) && !ContainNeighborWithTag(idOrTag, neighbors))
+		List<string> neighbors;
+		if(buff.Data.Id == "adj_bonus_with_tolerance_buff")
+			neighbors = GridMgr.Instance.GetNeighbors(this, (int)buff.Args.ConditionValue);
+		else
+			neighbors = GridMgr.Instance.GetNeighbors(this);
+		neighbors = BuildingMgr.Instance.BuildingNameToId(neighbors);
+		string idOrTag;
+		if (buff.Data.Id == "adj_bonus_same_id_buff")
+			idOrTag = Id;
+		else
+			idOrTag = buff.Args.SrcBuildingIdOrTag;
+		int cnt = CountNeighbotWithIdOrTag(idOrTag, neighbors);
+		if (cnt == 0)			
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
+		if(buff.Data.Id == "adj_bonus_with_cnt_buff")
+			ApplyMultiplier(buff.Args.Targets, Mathf.Pow(buff.Args.Value / 100f, cnt));
+		else
+			ApplyMultiplier(buff.Args.Targets, buff.Args.Value / 100f);
 	}
 	
 	private void ApplyPropBuff(ActiveBuff buff)
@@ -194,18 +205,7 @@ public partial class BuildingBase : Node2D
 		if(buff.Data.Id != "basic_prop_buff")
 			return;
 		_relatedBuffs.Add(buff);
-		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
-	}
-	
-	private void ApplySameAdjBuff(ActiveBuff buff)
-	{
-		if(buff.Data.Id != "adj_bonus_same_id_buff")
-			return;
-		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
-		if (!neighbors.Contains(Id))
-			return;
-		_relatedBuffs.Add(buff);
-		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
+		ApplyMultiplier(buff.Args.Targets, buff.Args.Value / 100f);
 	}
 	
 	public void ApplyBuff(ActiveBuff buff)
@@ -216,10 +216,10 @@ public partial class BuildingBase : Node2D
 				ApplyPropBuff(buff);
 				break;
 			case "adj_bonus_buff":
-				ApplyAdjBonus(buff);
-				break;
 			case "adj_bonus_same_id_buff":
-				ApplySameAdjBuff(buff);
+			case "adj_bonus_with_tolerance_buff":
+			case "adj_bonus_with_cnt_buff":
+				ApplyAdjBuff(buff);
 				break;
 			default:
 				GD.PrintErr($"未知的建筑增益类型: {buff.Data.Id}");
@@ -244,9 +244,8 @@ public partial class BuildingBase : Node2D
 		return;
 	}
 	
-	private void ApplyMultiplier(List<string> targets, float value)
+	private void ApplyMultiplier(List<string> targets, float multiplier)
 	{
-		float multiplier = value / 100f;
 		foreach (var target in targets)
 		{
 			switch (target)
@@ -270,16 +269,22 @@ public partial class BuildingBase : Node2D
 		}
 	}
 	
-	private bool ContainNeighborWithTag(string tag, HashSet<string> neighborIds)
+	private int CountNeighbotWithIdOrTag(string idOrTag, List<string> neighborIds)
 	{
-		if (tag == String.Empty)
-			return true;
-		foreach (var id in neighborIds)
+		if(BuildingDatabase.IsId(idOrTag))
 		{
-			var buildingData = BuildingDatabase.GetById(id);
-			if (buildingData.Tags.Contains(tag))
-				return true;
+			return neighborIds.Count(id => id == idOrTag);
 		}
-		return false;
+		else
+		{
+			int count = 0;
+			foreach (var id in neighborIds)
+			{
+				var buildingData = BuildingDatabase.GetById(id);
+				if (buildingData.Tags.Contains(idOrTag))
+					count++;
+			}
+			return count;
+		}
 	}
 }

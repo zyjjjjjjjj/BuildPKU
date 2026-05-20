@@ -307,11 +307,11 @@ public partial class GridMgr : Node2D
         QueueRedraw();
     }
 
-    public HashSet<string> GetNeighbors(BuildingBase building)
+    public List<string> GetNeighbors(BuildingBase building)
     {
         var collisionPoints = building.GetCollisionAreas();
         HashSet<Vector2I> self =  new HashSet<Vector2I>();
-        HashSet<string> neighbors = new HashSet<string>();
+        List<string> neighbors = new List<string>();
         foreach (var collisionPoint in collisionPoints)
         {
             var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
@@ -338,16 +338,31 @@ public partial class GridMgr : Node2D
         }
         return neighbors;
     }
-    
-    public HashSet<string> GetNeighborBuildingIds(BuildingBase building)
+
+    public List<string> GetNeighbors(BuildingBase building, int radius)
     {
-        var neighborNames = GetNeighbors(building);
-        HashSet<string> neighborIds = new HashSet<string>();
-        foreach(var name in neighborNames)
+        var collisionPoints = building.GetCollisionAreas();
+        HashSet<Vector2I> self =  new HashSet<Vector2I>();
+        List<string> neighbors = new List<string>();
+        foreach (var collisionPoint in collisionPoints)
         {
-            neighborIds.Add(name.Split('_')[0]);
+            var idx = WorldToGridIdx(collisionPoint.GlobalPosition);
+            if(_inBounds(idx))
+                self.Add(idx);
         }
-        return neighborIds;
+        foreach(var point in self)
+        {
+            for(int i=-radius;i<=radius;i++)
+                for(int j=-radius;j<=radius;j++)
+                {
+                    var neighborIdx = point + new Vector2I(i,j);
+                    if(!self.Contains(neighborIdx) && _inBounds(neighborIdx) && _isOccupied(neighborIdx))
+                    {
+                        neighbors.Add(_occupied[neighborIdx]);
+                    }
+                }
+        }
+        return neighbors;
     }
 
     public string GetNameByIdx(Vector2I idx)

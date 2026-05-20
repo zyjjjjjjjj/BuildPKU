@@ -352,4 +352,16 @@ public partial class BuildingMgr : Node2D
             return;
         ModifyAvailableBuildingList(true, buildingId);
     }
+
+    public List<string> BuildingNameToId(List<string> names)
+    {
+        var result = new List<string>();
+        foreach (var name in names)
+        {
+            var building = GetNode<BuildingBase>(name);
+            if (building != null)
+                result.Add(building.Id);
+        }
+        return result;
+    }
 }

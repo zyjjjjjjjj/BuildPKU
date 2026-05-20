@@ -217,6 +217,8 @@ public partial class BuffMgr : Node
             case "conditional_weight_add_buff":
                 _weightBuffs.Add(newBuff);
                 break;
+            case "adj_bonus_with_cnt_buff":
+            case "adj_bonus_with_tolerance_buff":
             case "adj_bonus_same_id_buff":
             case "basic_prop_buff":
             case "adj_bonus_buff":
@@ -255,6 +257,8 @@ public partial class BuffMgr : Node
     {
         switch (buff.Data.Id)
         {
+            case "adj_bonus_with_cnt_buff":
+            case "adj_bonus_with_tolerance_buff":
             case "adj_bonus_same_id_buff":
             case "basic_prop_buff":
             case "adj_bonus_buff":

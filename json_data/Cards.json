@@ -294,5 +294,47 @@
 				"Value": 150
 			}
 		}
+	},
+	{
+		"Id": "tushuguanupdate",
+		"Name": "图书馆更新",
+		"Description": "老图书馆周边3格内所有建筑, 科研与教学产出提高20%, 环境产出提高50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_tolerance_buff":{
+				"SrcBuildingIdOrTag":"old_library",
+				"ConditionValue": 3,
+				"DestBuildingIdOrTag":"auto_all",
+				"Targets": ["Research", "Education"],
+				"Value": 120
+			},
+			"adj_bonus_with_tolerance_buff_1":{
+				"SrcBuildingIdOrTag":"old_library",
+				"ConditionValue": 3,
+				"DestBuildingIdOrTag":"auto_all",
+				"Targets": ["Environment"],
+				"Value": 150
+			}
+		}
+	},
+	{
+		"Id": "renhaizhanshu",
+		"Name": "人海战术",
+		"Description": "实验室每与一个宿舍相邻, 科研产出提高10%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_cnt_buff":{
+				"SrcBuildingIdOrTag":"dormitory",
+				"DestBuildingIdOrTag":"lab",
+				"Targets": ["Research"],
+				"Value": 110
+			}
+		}
 	}
 ]
