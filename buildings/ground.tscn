@@ -9,18 +9,18 @@ script = ExtResource("1_vdsfo")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(-34, 33)
+position = Vector2(-29, -24)
 scale = Vector2(0.44140628, 0.89062494)
 texture = ExtResource("2_ukytp")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1870447676]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(30.000008, 97)
+position = Vector2(35.000008, 40)
 scale = Vector2(0.44140628, 0.89062494)
 texture = ExtResource("2_ukytp")
 
 [node name="grid" type="Node2D" parent="." unique_id=855007586]
-position = Vector2(-65, -33)
+position = Vector2(-60, -90)
 script = ExtResource("3_48b88")
 GridSize = Vector2i(2, 3)
 ShapeMask = Array[bool]([true, false, true, true, false, true])

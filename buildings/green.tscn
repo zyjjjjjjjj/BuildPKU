@@ -9,11 +9,11 @@ script = ExtResource("1_jhlaq")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
 modulate = Color(0, 1, 0, 1)
-position = Vector2(-33, -0.7499969)
+position = Vector2(1.9999962, -2.7499967)
 scale = Vector2(0.48632815, 0.48046875)
 texture = ExtResource("1_h5r06")
 
 [node name="grid" type="Node2D" parent="." unique_id=855007586]
-position = Vector2(-65, -33)
+position = Vector2(-30, -35)
 script = ExtResource("3_jhlaq")
 ShapeMask = Array[bool]([true])

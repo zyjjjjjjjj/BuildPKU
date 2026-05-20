@@ -8,11 +8,11 @@
 script = ExtResource("1_87ual")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=433952825]
-position = Vector2(-128, -37.500004)
+position = Vector2(0, 4.5)
 scale = Vector2(0.4375, 0.5078125)
 texture = ExtResource("2_52pqs")
 
 [node name="grid" type="Node2D" parent="." unique_id=2046688671]
-position = Vector2(-161, -72)
+position = Vector2(-33, -30)
 script = ExtResource("3_qj0um")
 ShapeMask = Array[bool]([true])
