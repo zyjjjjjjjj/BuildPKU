@@ -65,6 +65,9 @@ public partial class CameraCtrl : Camera2D
 		if (!mouseEvent.Pressed)
 			return;
 
+		if (BuffSideBar.Instance?.IsMouseOver() == true)
+			return;
+
 		if (mouseEvent.ButtonIndex == MouseButton.WheelUp)
 		{
 			ZoomByFactor(_zoomFactor);

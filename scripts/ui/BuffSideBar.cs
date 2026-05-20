@@ -9,6 +9,7 @@ public partial class BuffSideBar : PanelContainer
 
     private readonly List<ActiveCard> _collectedCards = [];
     private readonly List<ActiveBuff> _mockAdjBuffs = [];
+    private const int ListFontSize = 18;
     private bool _isExpanded = true;
 
     [Export] private bool _useMockData = false;
@@ -33,6 +34,8 @@ public partial class BuffSideBar : PanelContainer
 
     public override void _Ready()
     {
+        MouseFilter = MouseFilterEnum.Stop;
+
         if (_toggleButton != null)
             _toggleButton.Pressed += ToggleExpanded;
         GameMgr.Instance.StartedNewTurn += Refresh;
@@ -50,6 +53,11 @@ public partial class BuffSideBar : PanelContainer
     {
         RefreshCardList();
         RefreshAdjBonusList();
+    }
+
+    public bool IsMouseOver()
+    {
+        return Visible && IsInsideTree() && GetGlobalRect().HasPoint(GetGlobalMousePosition());
     }
 
     public void RefreshCardList()
@@ -74,8 +82,12 @@ public partial class BuffSideBar : PanelContainer
             return;
         }
 
-        foreach (var activeCard in _collectedCards)
+        for (int i = 0; i < _collectedCards.Count; i++)
         {
+            if (i > 0)
+                _cardList.AddChild(CreateListSeparator());
+
+            var activeCard = _collectedCards[i];
             var label = new Label
             {
                 Text = activeCard.Data.Name,
@@ -84,6 +96,7 @@ public partial class BuffSideBar : PanelContainer
                 AutowrapMode = TextServer.AutowrapMode.WordSmart,
                 CustomMinimumSize = new Vector2(160, 0)
             };
+            ApplyListLabelStyle(label);
 
             _cardList.AddChild(label);
         }
@@ -107,8 +120,12 @@ public partial class BuffSideBar : PanelContainer
             return;
         }
 
-        foreach (var buff in adjBuffs)
+        for (int i = 0; i < adjBuffs.Count; i++)
         {
+            if (i > 0)
+                _adjBonusList.AddChild(CreateListSeparator());
+
+            var buff = adjBuffs[i];
             var label = new Label
             {
                 Text = BuildAdjBonusText(buff),
@@ -117,6 +134,7 @@ public partial class BuffSideBar : PanelContainer
                 AutowrapMode = TextServer.AutowrapMode.WordSmart,
                 CustomMinimumSize = new Vector2(160, 0)
             };
+            ApplyListLabelStyle(label);
 
             _adjBonusList.AddChild(label);
         }
@@ -189,7 +207,7 @@ public partial class BuffSideBar : PanelContainer
 
     private Label CreateMutedLabel(string text)
     {
-        return new Label
+        var label = new Label
         {
             Text = text,
             MouseFilter = Control.MouseFilterEnum.Ignore,
@@ -197,6 +215,21 @@ public partial class BuffSideBar : PanelContainer
             CustomMinimumSize = new Vector2(160, 0),
             Modulate = new Color(1f, 1f, 1f, 0.65f)
         };
+        ApplyListLabelStyle(label);
+        return label;
+    }
+
+    private HSeparator CreateListSeparator()
+    {
+        return new HSeparator
+        {
+            MouseFilter = Control.MouseFilterEnum.Ignore
+        };
+    }
+
+    private void ApplyListLabelStyle(Label label)
+    {
+        label.AddThemeFontSizeOverride("font_size", ListFontSize);
     }
 
     private void SetControlText(Control control, string text)
@@ -214,10 +247,13 @@ public partial class BuffSideBar : PanelContainer
 
     private void SetListVisible(Control list, bool visible)
     {
-        list.Visible = visible;
-
         if (list.GetParent() is ScrollContainer scrollContainer)
+        {
             scrollContainer.Visible = visible;
+            return;
+        }
+
+        list.Visible = visible;
     }
 /*
     private void AddMockDataIfNeeded()

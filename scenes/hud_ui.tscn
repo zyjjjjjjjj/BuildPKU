@@ -354,8 +354,11 @@ theme_override_colors/font_color = Color(0.9137255, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 2
 
-[node name="CardChoicePanel" parent="HUDRoot" unique_id=919018097 instance=ExtResource("5_dh3a3")]
+[node name="CardChoicePanel" parent="HUDRoot" unique_id=919018097 node_paths=PackedStringArray("_cardNameLabels", "_cardDescriptionLabels", "_cardDurationLabels") instance=ExtResource("5_dh3a3")]
 layout_mode = 1
+_cardNameLabels = []
+_cardDescriptionLabels = []
+_cardDurationLabels = []
 
 [node name="BuffSideBar" type="PanelContainer" parent="HUDRoot" unique_id=2072901608 node_paths=PackedStringArray("_toggleButton", "_cardList", "_adjBonusTitleLabel", "_adjBonusList")]
 layout_mode = 1
@@ -363,7 +366,7 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -253.0
-offset_right = 155.0
+offset_right = 187.0
 offset_bottom = 310.0
 grow_vertical = 2
 script = ExtResource("6_47rti")
@@ -391,6 +394,7 @@ text = "卡片栏"
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 0
 horizontal_scroll_mode = 0
 
 [node name="CardList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer/CardScroll" unique_id=852263384]
@@ -406,6 +410,7 @@ text = "相邻加成效果"
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 0
 horizontal_scroll_mode = 0
 
 [node name="AdjBonusList" type="VBoxContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer/AdjBonusScroll" unique_id=1878405303]

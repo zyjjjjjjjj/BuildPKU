@@ -4,7 +4,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8m3p"]
 
-[node name="CardChoicePanel" type="PanelContainer" unique_id=919018097 node_paths=PackedStringArray("_titleLabel", "_cardButtons")]
+[node name="CardChoicePanel" type="PanelContainer" unique_id=919018097 node_paths=PackedStringArray("_titleLabel", "_cardButtons", "_cardNameLabels", "_cardDescriptionLabels", "_cardDurationLabels")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -16,6 +16,9 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_m8m3p")
 script = ExtResource("1_m8m3p")
 _titleLabel = NodePath("MarginContainer/VBoxContainer/TitleLabel")
 _cardButtons = [NodePath("MarginContainer/VBoxContainer/CardsRow/Button"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button2"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button3")]
+_cardNameLabels = [NodePath("MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer/NameLabel"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer/NameLabel"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer/NameLabel")]
+_cardDescriptionLabels = [NodePath("MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer/DescriptionLabel"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer/DescriptionLabel"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer/DescriptionLabel")]
+_cardDurationLabels = [NodePath("MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer/DurationLabel"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer/DurationLabel"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer/DurationLabel")]
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=757939981]
 layout_mode = 2
@@ -26,10 +29,17 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 24
+alignment = 1
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1781846186]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 34
+horizontal_alignment = 1
 
 [node name="CardsRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1390731719]
 layout_mode = 2
@@ -39,11 +49,95 @@ alignment = 1
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/CardsRow" unique_id=1357675146]
 custom_minimum_size = Vector2(220, 300)
 layout_mode = 2
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button" unique_id=1153157718]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer" unique_id=1327282345]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer" unique_id=324195011]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer" unique_id=1737492983]
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="DurationLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer" unique_id=508025117]
+layout_mode = 2
+vertical_alignment = 1
 
 [node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/CardsRow" unique_id=515187290]
 custom_minimum_size = Vector2(220, 300)
 layout_mode = 2
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button2" unique_id=959401837]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer" unique_id=1380496963]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer" unique_id=160307323]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer" unique_id=655668781]
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="DurationLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer" unique_id=1598623553]
+layout_mode = 2
+vertical_alignment = 1
 
 [node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/CardsRow" unique_id=1493576252]
 custom_minimum_size = Vector2(220, 300)
 layout_mode = 2
+autowrap_mode = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button3" unique_id=1193502317]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer" unique_id=1580117922]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer" unique_id=206206116]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+horizontal_alignment = 1
+
+[node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer" unique_id=930150996]
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="DurationLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer" unique_id=1700613259]
+layout_mode = 2
+vertical_alignment = 1

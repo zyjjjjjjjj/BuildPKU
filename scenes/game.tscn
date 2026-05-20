@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 [ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
-[ext_resource type="PackedScene" uid="uid://2tfbgemsi5ul" path="res://buildings/old_library.tscn" id="14_5newe"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -75,9 +74,6 @@ position = Vector2(791, 999)
 
 [node name="teaching_01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
 position = Vector2(1120, 1185)
-
-[node name="old_library" parent="buildingMgr" unique_id=1900579608 instance=ExtResource("14_5newe")]
-position = Vector2(901, 1090)
 
 [node name="lab_01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
 position = Vector2(1153, 1341)
