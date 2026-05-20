@@ -59,9 +59,9 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		
 		ResetSize();
-		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size - new Vector2(10,10);
-		if (pos.X < 0) pos.X += (Size.X + 20);
-		if (pos.Y < 0) pos.Y += (Size.Y + 20);
+		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
+		if (pos.X < 0) pos.X += (Size.X);
+		if (pos.Y < 0) pos.Y += (Size.Y);
 		GlobalPosition = pos;
 		Visible = true;
 		return;

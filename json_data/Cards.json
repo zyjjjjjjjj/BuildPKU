@@ -278,19 +278,5 @@
 				"ConditionStat": "Research"
 			}
 		}
-	},
-	{
-		"Id": "unlock_dpt_office",
-		"Name": "院系建设",
-		"Description": "解锁学系主楼建造",
-		"CardType": "Buff",
-		"Rarity": "Common",
-		"MinYear": 1905,
-		"Repeatable": false,
-		"Buffs": {
-			"unlock_building_buff":{
-				"DestBuildingIdOrTag":"dpt_office"
-			}
-		}
-	},
+	}
 ]
