@@ -28,7 +28,7 @@ public partial class BuildingSideBar : PanelContainer
 		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
 		BuildingMgr.Instance.AvailableBuildingChanged += UpdateItemList;
-		BuildingMgr.Instance.ActiveBuildingChanged += UpdateActiveBuilding;
+		BuildingMgr.Instance.ExitEditorMode += () => UpdateActiveBuilding(string.Empty);
 	}
 
 	private void InitializeItemList()
@@ -186,7 +186,7 @@ public partial class BuildingSideBar : PanelContainer
 		EmitSignal(SignalName.SideBarBuildingSelected, string.Empty);
 	}
 
-	private void UpdateActiveBuilding(string buildingId)
+	public void UpdateActiveBuilding(string buildingId)
 	{
 		_itemList.DeselectAll();
 		_onSelectedIndex = -1;

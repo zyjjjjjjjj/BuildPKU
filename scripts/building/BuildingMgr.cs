@@ -11,7 +11,6 @@ public partial class BuildingMgr : Node2D
     private BuildingBase _tmpBuilding;
     public readonly Dictionary<string, List<BuildingBase>> SpawnedBuildings = new();
     private int _spawningCnt = 0;
-    private string _activeBuildingId = string.Empty;
     private bool _isEditing = false;
     public bool IsEditing
     {
@@ -119,7 +118,7 @@ public partial class BuildingMgr : Node2D
     {
         if(buildingId == string.Empty)
         {
-            ExitBuildMode();
+            IsEditing = false;
             return;
         }
         IsEditing = true;
@@ -132,7 +131,7 @@ public partial class BuildingMgr : Node2D
         _tmpBuilding.Modulate = _tmpBuilding.Modulate with { A = 0.5f };
         AddChild(_tmpBuilding);
         _tmpBuilding.GlobalPosition = GetLocalMousePosition();
-        SetActiveBuilding(buildingId);
+        BuildingSideBar.Instance.UpdateActiveBuilding(buildingId);
     }
 
     public void TrySpawnBuilding(bool cost=true, bool exitEditingWhenLimitReached=true)
@@ -175,23 +174,9 @@ public partial class BuildingMgr : Node2D
             ZIdx = zIdx,
             RotationStep = _tmpBuilding.RotationStep
         };
-
-        var isUpgradeSpawn = _upgradedBuilding != null;
         SpawnBuilding(buildData);
-
-        if (isUpgradeSpawn)
-        {
-            SetActiveBuilding(string.Empty);
-            return;
-        }
-
-        var reachedLimit = buildingData.Limit > 0 &&
-                           SpawnedBuildings.TryGetValue(buildingData.Id, out var spawnedBuildings) &&
-                           spawnedBuildings.Count >= buildingData.Limit;
-        if (exitEditingWhenLimitReached && reachedLimit)
-            ExitBuildMode();
-        else
-            EmitSignalActiveBuildingChanged(_activeBuildingId);
+        if(!AvailableBuildingIds.Contains(_tmpBuilding.Id))
+            IsEditing = false;
     }
 
     public void SpawnBuilding(BuildingBuildData buildData)
@@ -255,8 +240,9 @@ public partial class BuildingMgr : Node2D
             _tmpBuilding.Id = Regex.Replace(building.Name, @"_\d+$", "");
             _tmpBuilding.Name = "tmpBuilding";
             TrySpawnBuilding(false, false);
-            _tmpBuilding.Name = "tobedeleted";
-            _tmpBuilding.QueueFree();
+            if (_tmpBuilding != null) 
+                _tmpBuilding.Name = "tobedeleted";
+            _tmpBuilding?.QueueFree();
             _tmpBuilding = null;
         }
     }
@@ -288,18 +274,6 @@ public partial class BuildingMgr : Node2D
         ModifyAvailableBuildingList(true, newId);
         DestroyBuilding(buildingName);
         SelectBuilding(newId);
-    }
-
-    private void ExitBuildMode()
-    {
-        IsEditing = false;
-        SetActiveBuilding(string.Empty);
-    }
-
-    private void SetActiveBuilding(string buildingId)
-    {
-        _activeBuildingId = buildingId ?? string.Empty;
-        EmitSignalActiveBuildingChanged(_activeBuildingId);
     }
     
     public void ModifyAvailableBuildingList(bool add, string buildingId)
