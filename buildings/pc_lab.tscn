@@ -15,7 +15,7 @@ texture = ExtResource("2_p4sjj")
 
 [node name="Sprite2D2" type="Sprite2D" parent="." unique_id=949584238]
 modulate = Color(0, 0, 1, 1)
-position = Vector2(74.49999, 0)
+position = Vector2(83.00001, -3)
 scale = Vector2(0.41406247, 1.0078125)
 texture = ExtResource("2_p4sjj")
 
