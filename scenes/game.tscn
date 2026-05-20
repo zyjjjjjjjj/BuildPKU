@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 [ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
-[ext_resource type="PackedScene" uid="uid://2tfbgemsi5ul" path="res://buildings/library0.tscn" id="14_5newe"]
+[ext_resource type="PackedScene" uid="uid://2tfbgemsi5ul" path="res://buildings/old_library.tscn" id="14_5newe"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -59,8 +59,6 @@ position = Vector2(1148, 1021)
 [node name="ground_01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
 position = Vector2(1410, 1050)
 
-[node name="library_00" parent="buildingMgr" unique_id=1474992056 instance=ExtResource("14_5newe")]
-
 [node name="villa_01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
 position = Vector2(1023, 1344)
 
@@ -72,16 +70,15 @@ position = Vector2(1026, 1085)
 
 [node name="teaching_01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
 position = Vector2(1660, 1344)
-rotation = 1.5707964
+
+[node name="library_0" parent="buildingMgr" unique_id=1900579608 instance=ExtResource("14_5newe")]
+position = Vector2(1083, 1214)
 
 [node name="lab_01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
-position = Vector2(1536, 1413)
+position = Vector2(1596, 1538)
 
 [node name="region_yan_nan_yuan" parent="buildingMgr" unique_id=444217144 instance=ExtResource("14_1kice")]
 position = Vector2(1210, 2730)
-
-[node name="library_01" parent="buildingMgr" unique_id=1416874444 instance=ExtResource("14_5newe")]
-position = Vector2(1085, 1214)
 
 [node name="dorm_02" parent="buildingMgr" unique_id=2097924923 instance=ExtResource("10_264po")]
 position = Vector2(987, 1545)
