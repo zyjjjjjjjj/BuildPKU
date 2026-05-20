@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using System.Collections.Generic;
 
 public partial class BuildingSideBar : PanelContainer
 {
@@ -35,16 +35,11 @@ public partial class BuildingSideBar : PanelContainer
 	{
 		_itemList = GetNode<ItemList>("VBoxContainer/ItemList");
 		_itemList.MouseFilter = MouseFilterEnum.Stop;
-		// 清空并填充
 		_itemList.Clear();
 		foreach (var id in BuildingDatabase.GetInitiallyAvailableIds())
 		{
 			var data = BuildingDatabase.GetById(id);
-			var displayText = $"{data.Name}\n￥{data.ActualCost}";
-
-			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
-			_itemList.AddItem(displayText, icon);
-			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
+			AddBuildingItem(data);
 		}
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 	}
@@ -55,11 +50,7 @@ public partial class BuildingSideBar : PanelContainer
 		foreach (var id in BuildingMgr.Instance.AvailableBuildingIds)
 		{
 			var data = BuildingDatabase.GetById(id);
-			var displayText = $"{data.Name}\n￥{data.ActualCost}";
-
-			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
-			_itemList.AddItem(displayText, icon);
-			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
+			AddBuildingItem(data);
 		}
 	}
 
@@ -68,11 +59,7 @@ public partial class BuildingSideBar : PanelContainer
 		if(add)
 		{
 			var data = BuildingDatabase.GetById(buildingId);
-			var displayText = $"{data.Name}\n￥{data.ActualCost}";
-
-			Texture2D icon = GD.Load<Texture2D>(data.IconPath);
-			_itemList.AddItem(displayText, icon);
-			_itemList.SetItemMetadata(_itemList.GetItemCount() - 1, data.Id);
+			AddBuildingItem(data);
 		}
 		else
 		{
@@ -84,6 +71,45 @@ public partial class BuildingSideBar : PanelContainer
 			}
 		}
 		return;
+	}
+
+	private void AddBuildingItem(BuildingData data)
+	{
+		if (data == null)
+			return;
+
+		var displayText = $"{data.Name}\n￥{data.ActualCost}";
+		Texture2D icon = GD.Load<Texture2D>(data.IconPath);
+		_itemList.AddItem(displayText, icon);
+
+		var index = _itemList.GetItemCount() - 1;
+		_itemList.SetItemMetadata(index, data.Id);
+		_itemList.SetItemTooltip(index, BuildBuildingTooltip(data));
+	}
+
+	private string BuildBuildingTooltip(BuildingData data)
+	{
+		var limitText = data.Limit > 0 ? data.Limit.ToString() : "无限";
+		var upgradeText = data.UpgradeCost.Count > 0 ? string.Join(" / ", data.UpgradeCost.Keys) : "无";
+
+		if (data.UpgradeCost.Count > 0)
+		{
+			var upgradeNames = new List<string>();
+			foreach (var id in data.UpgradeCost.Keys)
+			{
+				var upgradeData = BuildingDatabase.GetById(id);
+				upgradeNames.Add(upgradeData?.Name ?? id);
+			}
+			upgradeText = string.Join(" / ", upgradeNames);
+		}
+		
+		return $"{data.Name}\n" +
+		       $"费用: {data.ActualCost}\n" +
+		       $"科研: {data.Research}  教学: {data.Education}\n" +
+		       $"环境: {data.Environment}  人口: {data.Population}\n" +
+		       $"收益: {data.Benefit}\n" +
+		       $"建造上限: {limitText}\n" +
+		       $"可升级为: {upgradeText}";
 	}
 
 	public override void _GuiInput(InputEvent @event)

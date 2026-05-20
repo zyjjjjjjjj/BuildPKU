@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://jdkmy2i8qg6v" path="res://scripts/ui/TopBar.cs" id="1_27bld"]
 [ext_resource type="Script" uid="uid://dxuiloo48i4ji" path="res://scripts/ui/UIMgr.cs" id="1_n3kp7"]
 [ext_resource type="Script" uid="uid://c7yfp5347830e" path="res://scripts/ui/BuildingSideBar.cs" id="2_lecxb"]
+[ext_resource type="Theme" uid="uid://c42r8558dvmyi" path="res://themes/clashy/clashy.tres" id="2_ml6tl"]
 [ext_resource type="Script" uid="uid://xebu77u17w22" path="res://scripts/ui/WarningPanel.cs" id="4_dh3a3"]
 [ext_resource type="Script" uid="uid://bfbjfqcb276r4" path="res://scripts/ui/ScoreBoard.cs" id="4_vha3o"]
 [ext_resource type="PackedScene" uid="uid://c6s8apq5omgh7" path="res://scenes/card_choice_panel.tscn" id="5_dh3a3"]
@@ -26,6 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("2_ml6tl")
 
 [node name="BuildingSideBar" type="PanelContainer" parent="HUDRoot" unique_id=1250344828]
 layout_mode = 1
@@ -34,7 +36,7 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -161.0
+offset_left = -218.0
 offset_top = -270.0
 offset_bottom = 317.0
 grow_horizontal = 0
@@ -50,9 +52,9 @@ size_flags_vertical = 3
 allow_reselect = true
 max_text_lines = 2
 max_columns = 2
-fixed_column_width = 64
+fixed_column_width = 96
 icon_mode = 0
-fixed_icon_size = Vector2i(64, 64)
+fixed_icon_size = Vector2i(78, 78)
 
 [node name="ScoreBoard" type="PanelContainer" parent="HUDRoot" unique_id=414033882 node_paths=PackedStringArray("_repLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_moneyLabel", "_tuiLabel", "_totalBenLabel", "_buildBenLabel", "_resWeightLabel", "_eduWeightLabel", "_envWeightLabel")]
 layout_mode = 1
