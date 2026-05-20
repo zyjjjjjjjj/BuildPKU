@@ -56,34 +56,34 @@ y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
 [node name="lake_00" parent="buildingMgr" unique_id=229562284 instance=ExtResource("6_dinhu")]
-position = Vector2(887, 816)
+position = Vector2(954, 820)
 
 [node name="ground_01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
-position = Vector2(1148, 788)
+position = Vector2(1215, 792)
 
 [node name="villa_01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
-position = Vector2(629, 1154)
+position = Vector2(696, 1158)
 
 [node name="dorm_01" parent="buildingMgr" unique_id=1412420651 instance=ExtResource("10_264po")]
-position = Vector2(634, 1317)
+position = Vector2(701, 1321)
 
 [node name="dorm_02" parent="buildingMgr" unique_id=2097924923 instance=ExtResource("10_264po")]
-position = Vector2(632, 1381)
+position = Vector2(699, 1385)
 
 [node name="administration_00" parent="buildingMgr" unique_id=1249148625 instance=ExtResource("11_264po")]
-position = Vector2(724, 995)
+position = Vector2(791, 999)
 
 [node name="teaching_01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
-position = Vector2(1053, 1181)
+position = Vector2(1120, 1185)
 
 [node name="old_library" parent="buildingMgr" unique_id=1900579608 instance=ExtResource("14_5newe")]
-position = Vector2(834, 1086)
+position = Vector2(901, 1090)
 
 [node name="lab_01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
-position = Vector2(1086, 1337)
+position = Vector2(1153, 1341)
 
 [node name="region_yan_nan_yuan" parent="buildingMgr" unique_id=444217144 instance=ExtResource("14_1kice")]
-position = Vector2(1784, 1897)
+position = Vector2(1851, 1901)
 
 [node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
 script = ExtResource("6_p57ef")
