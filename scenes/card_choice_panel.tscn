@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://choqadqocouqt" path="res://scripts/ui/CardChoicePanel.cs" id="1_m8m3p"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m8m3p"]
+
 [node name="CardChoicePanel" type="PanelContainer" unique_id=919018097 node_paths=PackedStringArray("_titleLabel", "_cardButtons")]
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,6 +12,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxEmpty_m8m3p")
 script = ExtResource("1_m8m3p")
 _titleLabel = NodePath("MarginContainer/VBoxContainer/TitleLabel")
 _cardButtons = [NodePath("MarginContainer/VBoxContainer/CardsRow/Button"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button2"), NodePath("MarginContainer/VBoxContainer/CardsRow/Button3")]
