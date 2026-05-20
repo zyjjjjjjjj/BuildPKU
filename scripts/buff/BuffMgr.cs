@@ -263,7 +263,6 @@ public partial class BuffMgr : Node
             case "adj_bonus_buff":
                 var idOrTag = buff.Args.DestBuildingIdOrTag;
                 var buildings = BuildingMgr.Instance.GetBuildingsByIdOrTag(idOrTag);
-                GD.Print($"apply{buff.Data.Id} to buildings with id/tag {idOrTag}, found {buildings?.Count ?? 0} buildings");
                 if (buildings != null)
                     foreach (var building in buildings)
                         building.ApplyBuff(buff);

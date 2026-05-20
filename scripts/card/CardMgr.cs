@@ -41,6 +41,7 @@ public partial class CardMgr : Node
 
     private void OnYearAdvanced(int year)
     {
+        ActivateEvent(year);
         if ((year - TimeMgr.Instance.InitialYear) % _cardIntervalYears != 0)
         {
             GameMgr.Instance.StartNewTurn();
@@ -104,18 +105,23 @@ public partial class CardMgr : Node
         IsChoosingCard = false;
         _currentChoices.Clear();
         CardChoicePanel.Instance.HideChoices();
-        
+        ActivateCard(card);
+        GameMgr.Instance.StartNewTurn();
+    }
+
+    private void ActivateCard(CardData cardData)
+    {
         var activeCard = new ActiveCard
         {
-            Data = card,
+            Data = cardData,
             AcquiredYear = TimeMgr.Instance.CurrentYear
         };
         
         var buffs = new List<ActiveBuff>();
 
-        if (card.CardType == "Buff" && card.Buffs != null)
+        if (cardData.CardType == "Buff" && cardData.Buffs != null)
         {
-            foreach (var pair in card.Buffs)
+            foreach (var pair in cardData.Buffs)
             {
                 var id = Regex.Replace(pair.Key, @"_\d+$", "");
                 var args = pair.Value;
@@ -140,6 +146,20 @@ public partial class CardMgr : Node
         activeCard.Buffs = buffs;
 
         BuffSideBar.Instance.AddCard(activeCard);
-        GameMgr.Instance.StartNewTurn();
+    }
+
+    private void ActivateEvent(int year)
+    {
+        var evt = CardDatabase.GetEvent(year);
+        if(evt == null)
+            return;
+        foreach (var cardId in evt.CardIds)
+        {
+            GD.Print(cardId);
+            var cardData = CardDatabase.GetCardDataById(cardId);
+            if (cardData == null)
+                return;
+            ActivateCard(cardData);
+        }
     }
 }
