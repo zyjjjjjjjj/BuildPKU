@@ -14,7 +14,7 @@
 	"Cost": 1000,
 	"Benefit": 0,
 	"Destroyable": true,
-	"Limit": -1,
+	"Limit": 5,
 	"UpgradeCost": {
 	  "bidorm": 0,
 	  "intl_dorm": 0,

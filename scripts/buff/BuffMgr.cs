@@ -230,6 +230,7 @@ public partial class BuffMgr : Node
             case "instant_turn_based_money_buff":
             case "unlock_building_buff":
             case "unlock_region_buff":
+            case "unlock_upgrading_buff":
                 _instantBuffs.Add(newBuff);
                 break;
             case "cost_upper_bound_buff":
@@ -275,6 +276,9 @@ public partial class BuffMgr : Node
                 break;
             case "unlock_building_buff":
                 BuildingMgr.Instance.UnlockBuildings(buff.Args.DestBuildingIdOrTag);
+                break;
+            case "unlock_upgrading_buff":
+                BuildingMgr.Instance.UnlockUpgradedBuildings(buff.Args.DestBuildingIdOrTag);
                 break;
             case "unlock_region_buff":
                 GridMgr.Instance.UnlockRegion(buff.Args.DestBuildingIdOrTag);

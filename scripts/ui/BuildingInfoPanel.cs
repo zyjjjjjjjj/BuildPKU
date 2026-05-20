@@ -104,6 +104,8 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		foreach (var kv in upgradeCost)
 		{
+			if(!BuildingMgr.Instance.AvailableUpgradingIds.Contains(kv.Key))
+				continue;
 			var button = new Button();
 			var buildingData = BuildingDatabase.GetById(kv.Key);
 			if(buildingData == null)

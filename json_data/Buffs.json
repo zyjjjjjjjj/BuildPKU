@@ -44,6 +44,10 @@
 		"Description": "解锁{Dest}建筑"
 	},
 	{
+		"Id": "unlock_upgrading_buff",
+		"Description": "解锁升级:{Dest}"
+	},
+	{
 		"Id": "unlock_region_buff",
 		"Description": "解锁{Dest}区域"
 	},

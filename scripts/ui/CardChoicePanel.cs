@@ -72,8 +72,8 @@ public partial class CardChoicePanel : PanelContainer
 
     private string FormatCardText(CardData card)
     {
-        string duration = FormatCardDuration(card);
-        return $"{card.Name}\n\n{card.Description}\n\n{duration}";
+        //string duration = FormatCardDuration(card);//持续时间通过description表述
+        return $"{card.Name}\n\n{card.Description}";
     }
 
     private string FormatCardDuration(CardData card)

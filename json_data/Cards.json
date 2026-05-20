@@ -336,5 +336,19 @@
 				"Value": 110
 			}
 		}
+	},
+	{
+		"Id": "shiyanshishengji",
+		"Name": "实验室升级",
+		"Description": "实验室现可升级为pclab",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_upgrading_buff":{
+				"DestBuildingIdOrTag": "pc_lab"
+			}
+		}
 	}
 ]

@@ -46,6 +46,7 @@ public partial class BuildingMgr : Node2D
 
     //!!!IMPORTANT: 需通过ModifyAvailableBuildingList方法修改，来保证信号正确发出
     public List<string> AvailableBuildingIds { get; private set; } = [];
+    public List<string> AvailableUpgradingIds { get; private set; } = [];
 
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
@@ -175,8 +176,17 @@ public partial class BuildingMgr : Node2D
             RotationStep = _tmpBuilding.RotationStep
         };
         SpawnBuilding(buildData);
-        if(!AvailableBuildingIds.Contains(_tmpBuilding.Id))
+        if (!AvailableBuildingIds.Contains(_tmpBuilding.Id))
+        {
             IsEditing = false;
+            return;
+        }
+        if (_upgradedBuilding != null)
+        {
+            _upgradedBuilding = null;
+            IsEditing = false;
+        }
+        return;
     }
 
     public void SpawnBuilding(BuildingBuildData buildData)
@@ -204,8 +214,7 @@ public partial class BuildingMgr : Node2D
         else
             SpawnedBuildings[buildingData.Id] = [building];
         
-        if(buildingData.Limit > 0 && SpawnedBuildings[buildingData.Id].Count >= buildingData.Limit)
-            ModifyAvailableBuildingList(false, buildingData.Id);
+        UpdateAvailableBuildingList(buildingData.Id);
         
         GridMgr.Instance.UpdateOccupation(building);
         
@@ -215,11 +224,6 @@ public partial class BuildingMgr : Node2D
             GetNode<BuildingBase>(name).RecomputeProps();
         
         EmitSignalSpawnedBuilding(building);
-        if (_upgradedBuilding != null)
-        {
-            _upgradedBuilding = null;
-            IsEditing = false;
-        }
     }
 
     public void SetUpInitialBuildingsAndRegions()
@@ -253,6 +257,7 @@ public partial class BuildingMgr : Node2D
         var building = GetNode<BuildingBase>(buildingName);
         GridMgr.Instance.UpdateOccupation(building, true);
         SpawnedBuildings[building.Id].Remove(building);
+        UpdateAvailableBuildingList(building.Id);
         var neighbors = GridMgr.Instance.GetNeighbors(building);
         foreach (var name in neighbors)        
             GetNode<BuildingBase>(name).RecomputeProps();
@@ -271,7 +276,6 @@ public partial class BuildingMgr : Node2D
             LocalPos = building.Position,
             ZIdx = building.ZIndex
         };
-        ModifyAvailableBuildingList(true, newId);
         DestroyBuilding(buildingName);
         SelectBuilding(newId);
     }
@@ -286,12 +290,30 @@ public partial class BuildingMgr : Node2D
             if(AvailableBuildingIds.Contains(buildingId))
                 return;
             AvailableBuildingIds.Add(buildingId);
+            AvailableUpgradingIds.Remove(buildingId);
         }
         else
         {
             AvailableBuildingIds.Remove(buildingId);
         }
         EmitSignalAvailableBuildingChanged(add, buildingId);
+    }
+
+    public void UpdateAvailableBuildingList(string buildingId)
+    {
+        var buildingData = BuildingDatabase.GetById(buildingId);
+        if (buildingData == null)
+            return;
+        var currentCount = SpawnedBuildings.TryGetValue(buildingId, out var list) ? list.Count : 0;
+        if (buildingData.Limit >= 0 && currentCount >= buildingData.Limit)
+        {
+            ModifyAvailableBuildingList(false, buildingId);
+        }
+        else
+        {
+            if (!AvailableBuildingIds.Contains(buildingId))
+                ModifyAvailableBuildingList(true, buildingId);
+        }
     }
 
     public List<BuildingBase> GetBuildingsById(string id)
@@ -324,7 +346,19 @@ public partial class BuildingMgr : Node2D
             return;
         if (BuildingDatabase.GetById(buildingId) == null)
             return;
-        ModifyAvailableBuildingList(true, buildingId);
+        UpdateAvailableBuildingList(buildingId);
+    }
+    
+    public void UnlockUpgradedBuildings(string buildingId)
+    {
+        if (buildingId == null)
+            return;
+        if (AvailableBuildingIds.Contains(buildingId))
+            return;
+        var buildingData = BuildingDatabase.GetById(buildingId);
+        if (buildingData == null)
+            return;
+        AvailableUpgradingIds.Add(buildingId);
     }
 
     public List<string> BuildingNameToId(List<string> names)
