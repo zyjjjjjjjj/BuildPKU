@@ -11,6 +11,17 @@
 [ext_resource type="PackedScene" uid="uid://bde655sxu03kn" path="res://scenes/game_over_panel.tscn" id="7_kkiei"]
 [ext_resource type="PackedScene" uid="uid://jel574idb8ic" path="res://scenes/building_info_panel.tscn" id="9_cq5av"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ml6tl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_hovered"]
+bg_color = Color(0.5829251, 0.8122204, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_hovered_selected"]
+bg_color = Color(2.3295284e-05, 0.58166397, 0.90111107, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_selected"]
+bg_color = Color(0.3811598, 0.7300026, 0.9999986, 1)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vha3o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dh3a3"]
@@ -49,6 +60,19 @@ layout_mode = 2
 [node name="ItemList" type="ItemList" parent="HUDRoot/BuildingSideBar/VBoxContainer" unique_id=1839966837]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+theme_override_colors/font_hovered_color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+theme_override_colors/font_hovered_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/scroll_hint_color = Color(0, 0, 0, 0.2)
+theme_override_colors/guide_color = Color(0, 0, 0, 0.13333334)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ml6tl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ml6tl")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_item_hovered")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_item_hovered_selected")
+theme_override_styles/selected = SubResource("StyleBoxFlat_item_selected")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_item_selected")
 allow_reselect = true
 max_text_lines = 2
 max_columns = 2
