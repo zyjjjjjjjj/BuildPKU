@@ -16,6 +16,10 @@
 		"Description": "与{Src}相邻的{Dest}{Target}产出乘{Value}%。"
 	},
 	{
+		"Id": "adj_bonus_same_id_buff",
+		"Description": "与同类相邻的{Dest}{Target}产出乘{Value}%。"
+	},
+	{
 		"Id": "instant_money_buff",
 		"Description": "立刻获得{Value}资金"
 	},

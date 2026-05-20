@@ -92,7 +92,7 @@ public partial class BuffSideBar : PanelContainer
     private void RefreshAdjBonusList()
     {
         if (_adjBonusTitleLabel != null)
-            SetControlText(_adjBonusTitleLabel, "相邻加成效果");
+            SetControlText(_adjBonusTitleLabel, "建筑加成效果");
 
         if (_adjBonusList == null)
             return;
@@ -103,7 +103,7 @@ public partial class BuffSideBar : PanelContainer
         var adjBuffs = GetActiveAdjBuffs();
         if (adjBuffs.Count == 0)
         {
-            _adjBonusList.AddChild(CreateMutedLabel("暂无相邻加成"));
+            _adjBonusList.AddChild(CreateMutedLabel("暂无建筑加成"));
             return;
         }
 
@@ -125,11 +125,9 @@ public partial class BuffSideBar : PanelContainer
     private List<ActiveBuff> GetActiveAdjBuffs()
     {
         int currentYear = TimeMgr.Instance.CurrentYear;
-        return BuffMgr.Instance.AdjBuffs.Values
+        return BuffMgr.Instance.BuildingBuffs.Values
             .SelectMany(buffs => buffs)
-            .Concat(_mockAdjBuffs)
             .Where(buff => buff != null && buff.Data != null)
-            .Where(buff => buff.Data.Id == "adj_bonus_buff")
             .Where(buff => !buff.IsExpired())
             .ToList();
     }

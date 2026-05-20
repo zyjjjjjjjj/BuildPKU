@@ -278,5 +278,21 @@
 				"ConditionStat": "Research"
 			}
 		}
+	},
+	{
+		"Id": "yanyuanzongtiguihua",
+		"Name": "燕园总体规划",
+		"Description": "同类建筑相邻时, 所有产出提高50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_same_id_buff":{
+				"DestBuildingIdOrTag":"auto_all",
+				"Targets": ["Research", "Education","Environment","Population","Benefit"],
+				"Value": 150
+			}
+		}
 	}
 ]

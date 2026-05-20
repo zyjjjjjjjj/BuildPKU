@@ -178,9 +178,9 @@ public partial class BuffMgr : Node
 {
     public static BuffMgr Instance { get; private set; }
     private readonly List<ActiveBuff> _weightBuffs = [];
-    public IReadOnlyDictionary<string, List<ActiveBuff>> AdjBuffs => _adjBuffs;
-    private readonly Dictionary<string, List<ActiveBuff>> _adjBuffs = new Dictionary<string, List<ActiveBuff>>();
-    private readonly Dictionary<string, List<ActiveBuff>> _propBuffs = new Dictionary<string, List<ActiveBuff>>();
+    public IReadOnlyDictionary<string, List<ActiveBuff>> BuildingBuffs => _buildingBuffs;
+    private readonly Dictionary<string, List<ActiveBuff>> _buildingBuffs = new Dictionary<string, List<ActiveBuff>>();
+    
     private readonly List<ActiveBuff> _instantBuffs = [];
     public IReadOnlyList<ActiveBuff> TuitionBuffs => _tuitionBuffs;
     private readonly List<ActiveBuff> _tuitionBuffs = [];
@@ -217,11 +217,10 @@ public partial class BuffMgr : Node
             case "conditional_weight_add_buff":
                 _weightBuffs.Add(newBuff);
                 break;
+            case "adj_bonus_same_id_buff":
             case "basic_prop_buff":
-                AddBuffToDict(_propBuffs, newBuff);
-                break;
             case "adj_bonus_buff":
-                AddBuffToDict(_adjBuffs, newBuff);
+                AddBuffToDict(_buildingBuffs, newBuff);
                 break;
             case "tuition_buff":
                 _tuitionBuffs.Add(newBuff);
@@ -256,10 +255,12 @@ public partial class BuffMgr : Node
     {
         switch (buff.Data.Id)
         {
+            case "adj_bonus_same_id_buff":
             case "basic_prop_buff":
             case "adj_bonus_buff":
                 var idOrTag = buff.Args.DestBuildingIdOrTag;
                 var buildings = BuildingMgr.Instance.GetBuildingsByIdOrTag(idOrTag);
+                GD.Print($"apply{buff.Data.Id} to buildings with id/tag {idOrTag}, found {buildings?.Count ?? 0} buildings");
                 if (buildings != null)
                     foreach (var building in buildings)
                         building.ApplyBuff(buff);
@@ -301,13 +302,7 @@ public partial class BuffMgr : Node
         _costBuffs.Values.ToList().ForEach(buffList => buffList.RemoveAll(buff => buff.IsExpired()));
         
         HashSet<string> influencedBuildingIdsOrTags = [];
-        foreach (var pair in _adjBuffs)
-        {
-            if(pair.Value.Any(buff => buff.IsExpired() || buff.StartThisYear()))
-                influencedBuildingIdsOrTags.Add(pair.Key);
-            pair.Value.RemoveAll(buff => buff.IsExpired());
-        }
-        foreach (var pair in _propBuffs)
+        foreach (var pair in _buildingBuffs)
         {
             if(pair.Value.Any(buff => buff.IsExpired() || buff.StartThisYear()))
                 influencedBuildingIdsOrTags.Add(pair.Key);
@@ -368,42 +363,19 @@ public partial class BuffMgr : Node
                 break;
         }
     }
-
-    public List<ActiveBuff> GetAdjBuffs(string id, List<string> tags)
-    {
-        var result = new List<ActiveBuff>();
-        if(_adjBuffs.TryGetValue(id, out var idBuffs))
-            result.AddRange(idBuffs);
-        if(tags == null)
-            return result;
-        foreach (var tag in tags)
-        {
-            if(_adjBuffs.TryGetValue(tag, out var tagBuffs))
-                result.AddRange(tagBuffs);
-        }
-        return result;
-    }
-    
-    public List<ActiveBuff> GetPropBuffs(string id, List<string> tags)
-    {
-        var result = new List<ActiveBuff>();
-        if(_propBuffs.TryGetValue(id, out var idBuffs))
-            result.AddRange(idBuffs);
-        if(tags == null)
-            return result;
-        foreach (var tag in tags)
-        {
-            if(_propBuffs.TryGetValue(tag, out var tagBuffs))
-                result.AddRange(tagBuffs);
-        }
-        return result;
-    }
     
     public List<ActiveBuff> GetRelatedBuffs(string id, List<string> tags)
     {
         var result = new List<ActiveBuff>();
-        result.AddRange(GetAdjBuffs(id, tags));
-        result.AddRange(GetPropBuffs(id, tags));
+        if(_buildingBuffs.TryGetValue(id, out var idBuffs))
+            result.AddRange(idBuffs);
+        if(tags == null)  
+            return result;
+        foreach (var tag in tags)
+        {
+            if (_buildingBuffs.TryGetValue(tag, out var tagBuffs))
+                result.AddRange(tagBuffs);
+        }
         return result;
     }
     
@@ -429,6 +401,7 @@ public partial class BuffMgr : Node
     
     private void AddBuffToDict(Dictionary<string,List<ActiveBuff>> dict, ActiveBuff buff)
     {
+        GD.Print($"add buff {buff.Args.DestBuildingIdOrTag} to dict");
         if(dict.TryGetValue(buff.Args.DestBuildingIdOrTag, out var buffList))
             buffList.Add(buff);
         else

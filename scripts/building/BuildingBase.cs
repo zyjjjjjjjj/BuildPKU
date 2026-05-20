@@ -197,6 +197,17 @@ public partial class BuildingBase : Node2D
 		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
 	}
 	
+	private void ApplySameAdjBuff(ActiveBuff buff)
+	{
+		if(buff.Data.Id != "adj_bonus_same_id_buff")
+			return;
+		var neighbors = GridMgr.Instance.GetNeighborBuildingIds(this);
+		if (!neighbors.Contains(Id))
+			return;
+		_relatedBuffs.Add(buff);
+		ApplyMultiplier(buff.Args.Targets, buff.Args.Value);
+	}
+	
 	public void ApplyBuff(ActiveBuff buff)
 	{
 		switch (buff.Data.Id)
@@ -206,6 +217,12 @@ public partial class BuildingBase : Node2D
 				break;
 			case "adj_bonus_buff":
 				ApplyAdjBonus(buff);
+				break;
+			case "adj_bonus_same_id_buff":
+				ApplySameAdjBuff(buff);
+				break;
+			default:
+				GD.PrintErr($"未知的建筑增益类型: {buff.Data.Id}");
 				break;
 		}
 	}
