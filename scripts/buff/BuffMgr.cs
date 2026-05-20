@@ -188,7 +188,6 @@ public partial class BuffMgr : Node
     private Vector3 _accDeltaWeight;//add_min_weight_per_turn_buff专用
     private readonly List<ActiveBuff> _perTurnBuffs = new List<ActiveBuff>();//每回合都要触发的buff
     private readonly List<ActiveBuff> _scoreBuffs = new List<ActiveBuff>();
-    [Signal] public delegate void BuffsChangedEventHandler();
     
     public override void _EnterTree()
     {
@@ -250,7 +249,6 @@ public partial class BuffMgr : Node
         }
         if(newBuff.IsActive())
             ApplyBuff(newBuff);
-        EmitSignalBuffsChanged();
     }
     
     private void ApplyBuff(ActiveBuff buff)
@@ -329,8 +327,6 @@ public partial class BuffMgr : Node
         foreach (var perTurnBuff in _perTurnBuffs.Where(perTurnBuff => perTurnBuff.IsActive()))
             ApplyBuff(perTurnBuff);
         _perTurnBuffs.RemoveAll(buff => buff.IsExpired());
-        
-        EmitSignalBuffsChanged();
     }
     public void ApplyAllWeightBuffs(Weights weight)
     {

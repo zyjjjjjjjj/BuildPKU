@@ -5,6 +5,9 @@ public partial class GameMgr : Node2D
 {
     public static GameMgr Instance { get; private set; }
 
+    [Signal]
+    public delegate void StartedNewTurnEventHandler();
+
     public override void _EnterTree()
     {
 	    Instance = this;
@@ -32,5 +35,10 @@ public partial class GameMgr : Node2D
 	{
 		GD.Print("restart");
 		GetTree().ReloadCurrentScene();
+	}
+
+	public void StartNewTurn()
+	{
+		EmitSignalStartedNewTurn();
 	}
 }

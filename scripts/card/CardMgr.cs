@@ -42,7 +42,10 @@ public partial class CardMgr : Node
     private void OnYearAdvanced(int year)
     {
         if ((year - TimeMgr.Instance.InitialYear) % _cardIntervalYears != 0)
+        {
+            GameMgr.Instance.StartNewTurn();
             return;
+        }
 
         ShowCardChoices(year);
     }
@@ -137,5 +140,6 @@ public partial class CardMgr : Node
         activeCard.Buffs = buffs;
 
         BuffSideBar.Instance.AddCard(activeCard);
+        GameMgr.Instance.StartNewTurn();
     }
 }

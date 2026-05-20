@@ -77,8 +77,8 @@ public partial class ScoreMgr : Node
 	{
 		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeScores();
 		BuildingMgr.Instance.DestroyedBuilding += RecomputeScores;
-		BuffMgr.Instance.BuffsChanged += RecomputeScores;
-		TimeMgr.Instance.YearAdvanced += CheckMileStones;
+		GameMgr.Instance.StartedNewTurn += RecomputeScores;
+		TimeMgr.Instance.YearEnded += CheckMileStones;
 		InitializeScores();
 	}
 
@@ -165,15 +165,20 @@ public partial class ScoreMgr : Node
 		return extraScores;
 	}
 
-	private void CheckMileStones(int newYear)
+	private void CheckMileStones()
 	{
+		int newYear = TimeMgr.Instance.CurrentYear + 1;
 		var mileStone = MileStoneDatabase.GetNext(newYear);
 		if (mileStone == null)
 		{
 			throw new Exception("无尽头模式");
 		}
-		
-		if (mileStone.Year != newYear) return;
+
+		if (mileStone.Year != newYear)
+		{
+			TimeMgr.Instance.AdvanceYear();
+			return;
+		}
 		
 		if(ScoreContext.Reputation >= mileStone.TargetScore)
 		{
@@ -182,6 +187,10 @@ public partial class ScoreMgr : Node
 			{
 				GD.Print("游戏胜利");
 				EmitSignalGameCompleted();
+			}
+			else
+			{
+				TimeMgr.Instance.AdvanceYear();
 			}
 		}
 		else

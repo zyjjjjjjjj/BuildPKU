@@ -35,7 +35,7 @@ public partial class BuffSideBar : PanelContainer
     {
         if (_toggleButton != null)
             _toggleButton.Pressed += ToggleExpanded;
-        BuffMgr.Instance.BuffsChanged += Refresh;
+        GameMgr.Instance.StartedNewTurn += Refresh;
         //AddMockDataIfNeeded();
         Refresh();
     }

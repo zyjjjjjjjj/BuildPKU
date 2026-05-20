@@ -42,12 +42,12 @@ public partial class MoneyMgr : Node
 	public override void _Ready()
 	{
 		_currentMoney = InitialMoney;
-		TimeMgr.Instance.YearAdvanced += _OnYearAdvanced;
+		GameMgr.Instance.StartedNewTurn += _OnNewTurnStarted;
 	}
 
-	private void _OnYearAdvanced(int year)
+	private void _OnNewTurnStarted()
 	{
-		if(TimeMgr.Instance.InitialYear == year)
+		if(TimeMgr.Instance.InitialYear == TimeMgr.Instance.CurrentYear)
 			return;
 		AddMoney(MoneyPerYear);
 	}

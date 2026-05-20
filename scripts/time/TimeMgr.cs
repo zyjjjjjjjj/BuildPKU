@@ -17,9 +17,10 @@ public partial class TimeMgr : Node
 			EmitSignalYearAdvanced(_currentYear);
 		}
 	}
-	public int EndYear = 2026;
+	public int LastYear = 2026;
 	public int InitialYear = 1952;
 	[Signal] public delegate void YearAdvancedEventHandler(int newYear);
+	[Signal]  public delegate void YearEndedEventHandler();
 	
 	public override void _EnterTree()
 	{
@@ -45,10 +46,15 @@ public partial class TimeMgr : Node
 	
 	public void AdvanceYear()
 	{
-		if (CurrentYear < EndYear)
+		if (CurrentYear < LastYear)
 		{
 			CurrentYear++;
 		}
+	}
+
+	public void EndYear()
+	{
+		EmitSignalYearEnded();
 	}
 	
 	public override void _Input(InputEvent @event)
