@@ -109,7 +109,7 @@
 	}
   },
   {
-	"Id": "library0",
+	"Id": "old_library",
 	"Name": "老图书馆",
 	"Tags": [
 	  "education",
@@ -188,16 +188,18 @@
 	"Cost": 0,
 	"Benefit": 100,
 	"Destroyable": true,
-	"Limit": -1
+	"Limit": -1,
+	"UpgradeCost": {
+		"villa":0
+	}
   },
   {
 	"Id": "villa",
-	"Name": "静园",
+	"Name": "林草",
 	"Tags": [
 	  "education",
 	  "research",
 	  "environment",
-	  "wonder",
       "initial"
 	],
 	"Research": 0,
