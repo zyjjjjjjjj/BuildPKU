@@ -37,7 +37,10 @@ public partial class BuffSideBar : PanelContainer
         MouseFilter = MouseFilterEnum.Stop;
 
         if (_toggleButton != null)
+        {
             _toggleButton.Pressed += ToggleExpanded;
+            _toggleButton.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
+        }
         GameMgr.Instance.StartedNewTurn += Refresh;
         //AddMockDataIfNeeded();
         Refresh();
@@ -46,6 +49,7 @@ public partial class BuffSideBar : PanelContainer
     private void ToggleExpanded()
     {
         _isExpanded = !_isExpanded;
+        AudioMgr.Instance?.PlaySfx(_isExpanded ? AudioMgr.Sfx.CardPanelExpand : AudioMgr.Sfx.CardPanelCollapse);
         Refresh();
     }
 
@@ -175,11 +179,11 @@ public partial class BuffSideBar : PanelContainer
     private string BuildAdjBonusText(ActiveBuff buff)
     {
         return buff.Description;
-        var data = buff.Data;
-        string duration = FormatDuration(buff.Args.DurationYears, buff.StartYear);
-        string destBuildingName = GetBuildingDisplayName(buff.Args.DestBuildingIdOrTag);
-        string srcBuildingName = GetBuildingDisplayName(buff.Args.SrcBuildingIdOrTag);
-        return $"{destBuildingName} <- {srcBuildingName} ({duration})";
+        // var data = buff.Data;
+        // string duration = FormatDuration(buff.Args.DurationYears, buff.StartYear);
+        // string destBuildingName = GetBuildingDisplayName(buff.Args.DestBuildingIdOrTag);
+        // string srcBuildingName = GetBuildingDisplayName(buff.Args.SrcBuildingIdOrTag);
+        // return $"{destBuildingName} <- {srcBuildingName} ({duration})";
     }
 
     private string GetBuildingDisplayName(string buildingId)

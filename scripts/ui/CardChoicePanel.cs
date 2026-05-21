@@ -35,6 +35,7 @@ public partial class CardChoicePanel : PanelContainer
         {
             int index = i;
             _cardButtons[i].Pressed += () => ChooseIndex(index);
+            _cardButtons[i].MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
         }
     }
 

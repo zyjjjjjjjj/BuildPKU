@@ -144,7 +144,11 @@ public partial class CameraCtrl : Camera2D
 	private void ZoomByFactor(float factor)
 	{
 		float newZoom = Mathf.Clamp(Zoom.X * factor, _minZoom, _maxZoom);
+		if (Mathf.IsEqualApprox(newZoom, Zoom.X))
+			return;
+
 		Zoom = new Vector2(newZoom, newZoom);
+		AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.CameraZoom);
 
 		EmitSignal(SignalName.CameraZoom);
 	}

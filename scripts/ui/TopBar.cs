@@ -15,7 +15,8 @@ public partial class TopBar : Control
 		TimeMgr.Instance.YearAdvanced += _yearUpdate;
 		_yearUpdate(TimeMgr.Instance.InitialYear);
 		_nextYearButton = GetNode<Button>("CenterBar/NextYearButton");
-		_nextYearButton.Pressed += () => TimeMgr.Instance.AdvanceYear();
+		_nextYearButton.Pressed += () => TimeMgr.Instance.EndYear();
+		_nextYearButton.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
 	}
 
 	private void _yearUpdate(int year)

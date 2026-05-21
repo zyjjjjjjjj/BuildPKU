@@ -107,15 +107,26 @@ public partial class BuildingMgr : Node2D
         switch (keyEvent.Keycode)
         {
             case Key.Q:
-                _tmpBuilding?.RotateBuilding(false);
+                if (_tmpBuilding == null)
+                    break;
+                _tmpBuilding.RotateBuilding(false);
+                AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRotate);
                 break;
             case Key.E:
-                _tmpBuilding?.RotateBuilding(true);
+                if (_tmpBuilding == null)
+                    break;
+                _tmpBuilding.RotateBuilding(true);
+                AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRotate);
                 break;
         }
     }
 
     private void SelectBuilding(string buildingId)
+    {
+        SelectBuilding(buildingId, true);
+    }
+
+    private void SelectBuilding(string buildingId, bool playSfx)
     {
         if(buildingId == string.Empty)
         {
@@ -133,6 +144,8 @@ public partial class BuildingMgr : Node2D
         AddChild(_tmpBuilding);
         _tmpBuilding.GlobalPosition = GetLocalMousePosition();
         BuildingSideBar.Instance.UpdateActiveBuilding(buildingId);
+        if (playSfx)
+            AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildSelect);
     }
 
     public void TrySpawnBuilding(bool cost=true, bool exitEditingWhenLimitReached=true)
@@ -142,7 +155,11 @@ public partial class BuildingMgr : Node2D
 
         var offset = GridMgr.Instance.CheckSpace(_tmpBuilding, out var zIdx);
         if (!offset.HasValue)
+        {
+            if (cost)
+                AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildInvalid);
             return;
+        }
 
         var buildingData = BuildingDatabase.GetById(_tmpBuilding.Id);
         if (buildingData == null)
@@ -176,6 +193,8 @@ public partial class BuildingMgr : Node2D
             RotationStep = _tmpBuilding.RotationStep
         };
         SpawnBuilding(buildData);
+        if (cost)
+            AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildPlace);
         if (!AvailableBuildingIds.Contains(_tmpBuilding.Id))
         {
             IsEditing = false;
@@ -253,6 +272,11 @@ public partial class BuildingMgr : Node2D
 
     public void DestroyBuilding(string buildingName)
     {
+        DestroyBuilding(buildingName, true);
+    }
+
+    private void DestroyBuilding(string buildingName, bool playSfx)
+    {
         GD.Print($"尝试销毁建筑 {buildingName}");
         var building = GetNode<BuildingBase>(buildingName);
         GridMgr.Instance.UpdateOccupation(building, true);
@@ -262,6 +286,8 @@ public partial class BuildingMgr : Node2D
         foreach (var name in neighbors)        
             GetNode<BuildingBase>(name).RecomputeProps();
         building.QueueFree();
+        if (playSfx)
+            AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRemove);
         EmitSignalDestroyedBuilding();
     }
     
@@ -276,8 +302,9 @@ public partial class BuildingMgr : Node2D
             LocalPos = building.Position,
             ZIdx = building.ZIndex
         };
-        DestroyBuilding(buildingName);
-        SelectBuilding(newId);
+        AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildUpgrade);
+        DestroyBuilding(buildingName, false);
+        SelectBuilding(newId, false);
     }
     
     public void ModifyAvailableBuildingList(bool add, string buildingId)

@@ -68,6 +68,7 @@ public partial class CardMgr : Node
 
         IsChoosingCard = true;
         CardChoicePanel.Instance.ShowChoices(_currentChoices);
+        AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.CardShow);
     }
 
     private List<CardData> PickRandomCards(List<CardData> candidates, int count)
@@ -101,6 +102,7 @@ public partial class CardMgr : Node
             _pickedNonRepeatableCardIds.Add(card.Id);
 
         GD.Print($"Chosen card: {card.Name}");
+        AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.CardChoose);
 
         IsChoosingCard = false;
         _currentChoices.Clear();

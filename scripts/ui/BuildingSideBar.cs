@@ -42,6 +42,7 @@ public partial class BuildingSideBar : PanelContainer
 			AddBuildingItem(data);
 		}
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
+		_itemList.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
 	}
 	
 	public void RefreshItemList()
@@ -181,9 +182,12 @@ public partial class BuildingSideBar : PanelContainer
 
 	private void _DeselectAll()
 	{
+		var hadSelection = _onSelectedIndex >= 0;
 		_onSelectedIndex = -1;
 		_itemList.DeselectAll();
 		EmitSignal(SignalName.SideBarBuildingSelected, string.Empty);
+		if (hadSelection)
+			AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiCancel);
 	}
 
 	public void UpdateActiveBuilding(string buildingId)

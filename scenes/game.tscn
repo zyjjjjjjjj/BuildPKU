@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 [ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
+[ext_resource type="Script" uid="uid://b05alg2w7p6uf" path="res://scripts/audio/AudioMgr.cs" id="15_audio"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -49,6 +50,9 @@ script = ExtResource("2_lnu2h")
 GridWidth = 32
 GridHeight = 32
 Boundary = 1
+
+[node name="AudioMgr" type="Node" parent="." unique_id=1238719450]
+script = ExtResource("15_audio")
 
 [node name="buildingMgr" type="Node2D" parent="." unique_id=1097098745]
 y_sort_enabled = true

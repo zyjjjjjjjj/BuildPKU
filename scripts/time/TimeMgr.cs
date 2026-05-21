@@ -49,6 +49,7 @@ public partial class TimeMgr : Node
 		if (CurrentYear < LastYear)
 		{
 			CurrentYear++;
+			AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.YearAdvance);
 		}
 	}
 
@@ -68,7 +69,7 @@ public partial class TimeMgr : Node
 		switch (keyEvent.Keycode)
 		{
 			case Key.N:
-				AdvanceYear();
+				EndYear();
 				break;
 		}
 	}

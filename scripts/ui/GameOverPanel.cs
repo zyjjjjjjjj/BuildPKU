@@ -19,11 +19,13 @@ public partial class GameOverPanel : PanelContainer
 		{
 			Visible = true;
 			Text = "成功";
+			AudioMgr.Instance?.StopBgm();
 			GetTree().Paused = true;
 		};
 		ScoreMgr.Instance.GameFailed += () => {
 			Visible = true;
 			Text = "失败";
+			AudioMgr.Instance?.PlayBgm(AudioMgr.Bgm.GameOver);
 			GetTree().Paused = true;
 		};
 		_mainMenuButton.Pressed += OnMainMenuButtonPressed;

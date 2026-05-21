@@ -397,11 +397,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="CardChoicePanel" parent="HUDRoot" unique_id=919018097 node_paths=PackedStringArray("_cardNameLabels", "_cardDescriptionLabels", "_cardDurationLabels") instance=ExtResource("5_dh3a3")]
+[node name="CardChoicePanel" parent="HUDRoot" unique_id=919018097 node_paths=PackedStringArray("_cardNameLabels", "_cardDescriptionLabels") instance=ExtResource("5_dh3a3")]
 layout_mode = 1
 _cardNameLabels = []
 _cardDescriptionLabels = []
-_cardDurationLabels = []
 
 [node name="BuffSideBar" type="PanelContainer" parent="HUDRoot" unique_id=2072901608 node_paths=PackedStringArray("_toggleButton", "_cardList", "_adjBonusTitleLabel", "_adjBonusList")]
 layout_mode = 1

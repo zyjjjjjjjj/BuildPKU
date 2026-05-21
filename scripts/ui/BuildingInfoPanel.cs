@@ -24,6 +24,7 @@ public partial class BuildingInfoPanel : PanelContainer
 			BuildingMgr.Instance.DestroyBuilding(_instanceName);
 			HidePanel();
 		};
+		_destroyButton.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
 		HidePanel();
 	}
 
@@ -116,6 +117,7 @@ public partial class BuildingInfoPanel : PanelContainer
 			button.Text = $"{buildingData.Name}  费用: {kv.Value}";
 			button.ThemeTypeVariation = "SuccessButton";
 			_upgradeContainer.AddChild(button);
+			button.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
 			button.Pressed += () =>
 			{
 				BuildingMgr.Instance.TryUpgradeBuilding(building.Name, kv.Key);

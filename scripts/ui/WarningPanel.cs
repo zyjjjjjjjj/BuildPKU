@@ -32,6 +32,7 @@ public partial class WarningPanel : PanelContainer
 
     public void ShowWarning(string message)
     {
+        AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.Warning);
         _warningTimer.Stop();
         _warningTween?.Kill();
 
