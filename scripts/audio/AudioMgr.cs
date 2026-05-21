@@ -8,7 +8,8 @@ public partial class AudioMgr : Node
 
     public static class Bgm
     {
-        public const string MainTheme = "main_theme";
+        public const string TownTheme = "town_theme";
+        public const string Snowfall = "snowfall";
         public const string GameOver = "game_over";
     }
 
@@ -39,11 +40,19 @@ public partial class AudioMgr : Node
 
     private AudioStreamPlayer _bgmPlayer;
     private string _currentBgmId = string.Empty;
+    private bool _isPlayingPlaylist = false;
+    private int _playlistIndex = 0;
     private readonly Dictionary<string, AudioStream> _streams = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, AudioStream> _bgmStreams = new(StringComparer.OrdinalIgnoreCase);
+    private readonly List<string> _mainPlaylist =
+    [
+        Bgm.TownTheme,
+        Bgm.Snowfall,
+    ];
     private readonly Dictionary<string, string> _bgmPaths = new(StringComparer.OrdinalIgnoreCase)
     {
-        { Bgm.MainTheme, "res://assets/audio/bgm/HappyClappyLoop.ogg" },
+        { Bgm.TownTheme, "res://assets/audio/bgm/TownTheme.mp3" },
+        { Bgm.Snowfall, "res://assets/audio/bgm/Snowfall.ogg" },
         { Bgm.GameOver, "res://assets/audio/bgm/Game Over.ogg" },
     };
     private readonly Dictionary<string, string> _sfxPaths = new(StringComparer.OrdinalIgnoreCase)
@@ -86,10 +95,11 @@ public partial class AudioMgr : Node
             ProcessMode = ProcessModeEnum.Always,
         };
         AddChild(_bgmPlayer);
+        _bgmPlayer.Finished += OnBgmFinished;
 
         LoadConfiguredBgm();
         LoadConfiguredSfx();
-        CallDeferred(nameof(PlayBgm), Bgm.MainTheme);
+        CallDeferred(nameof(PlayMainPlaylist));
     }
 
     public void PlaySfx(string id)
@@ -111,6 +121,22 @@ public partial class AudioMgr : Node
 
     public void PlayBgm(string id)
     {
+        _isPlayingPlaylist = false;
+        PlayBgmStream(id);
+    }
+
+    public void PlayMainPlaylist()
+    {
+        if (_mainPlaylist.Count == 0)
+            return;
+
+        _isPlayingPlaylist = true;
+        _playlistIndex = Mathf.Clamp(_playlistIndex, 0, _mainPlaylist.Count - 1);
+        PlayBgmStream(_mainPlaylist[_playlistIndex]);
+    }
+
+    private void PlayBgmStream(string id)
+    {
         if (_currentBgmId == id && _bgmPlayer.Playing)
             return;
 
@@ -126,8 +152,18 @@ public partial class AudioMgr : Node
 
     public void StopBgm()
     {
+        _isPlayingPlaylist = false;
         _currentBgmId = string.Empty;
         _bgmPlayer?.Stop();
+    }
+
+    private void OnBgmFinished()
+    {
+        if (!_isPlayingPlaylist || _mainPlaylist.Count == 0)
+            return;
+
+        _playlistIndex = (_playlistIndex + 1) % _mainPlaylist.Count;
+        PlayBgmStream(_mainPlaylist[_playlistIndex]);
     }
 
     private void LoadConfiguredBgm()
@@ -142,10 +178,10 @@ public partial class AudioMgr : Node
             }
 
             if (stream is AudioStreamWav wav)
-                wav.LoopMode = AudioStreamWav.LoopModeEnum.Forward;
+                wav.LoopMode = AudioStreamWav.LoopModeEnum.Disabled;
 
             if (stream is AudioStreamOggVorbis ogg)
-                ogg.Loop = id == Bgm.MainTheme;
+                ogg.Loop = false;
 
             _bgmStreams[id] = stream;
         }
