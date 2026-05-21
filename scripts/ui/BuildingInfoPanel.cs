@@ -89,6 +89,7 @@ public partial class BuildingInfoPanel : PanelContainer
 	
 	public void ShowUpgradeOptions(BuildingBase building)
 	{
+		_upgradePanel.Visible = false;
 		var children = _upgradeContainer.GetChildren();
 		foreach (var child in children)
 		{
@@ -98,15 +99,11 @@ public partial class BuildingInfoPanel : PanelContainer
 		}
 		
 		var upgradeCost = BuildingDatabase.GetById(building.Id).UpgradeCost;
-		if(upgradeCost.Count == 0)
-		{
-			_upgradePanel.Visible = false;
-			return;
-		}
 		foreach (var kv in upgradeCost)
 		{
 			if(!BuildingMgr.Instance.AvailableUpgradingIds.Contains(kv.Key))
 				continue;
+			_upgradePanel.Visible = true;
 			var button = new Button();
 			var buildingData = BuildingDatabase.GetById(kv.Key);
 			if(buildingData == null)
