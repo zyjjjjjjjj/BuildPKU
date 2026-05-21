@@ -1,6 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using System.Linq;
 
 public partial class CardChoicePanel : PanelContainer
 {
@@ -13,7 +12,6 @@ public partial class CardChoicePanel : PanelContainer
     [Export] private Button[] _cardButtons;
     [Export] private Label[] _cardNameLabels;
     [Export] private Label[] _cardDescriptionLabels;
-    [Export] private Label[] _cardDurationLabels;
 
     private List<CardData> _currentCards = [];
 
@@ -83,13 +81,11 @@ public partial class CardChoicePanel : PanelContainer
 
         _cardNameLabels = new Label[_cardButtons.Length];
         _cardDescriptionLabels = new Label[_cardButtons.Length];
-        _cardDurationLabels = new Label[_cardButtons.Length];
 
         for (int i = 0; i < _cardButtons.Length; i++)
         {
             _cardNameLabels[i] = _cardButtons[i].GetNodeOrNull<Label>("MarginContainer/VBoxContainer/NameLabel");
             _cardDescriptionLabels[i] = _cardButtons[i].GetNodeOrNull<Label>("MarginContainer/VBoxContainer/DescriptionLabel");
-            _cardDurationLabels[i] = _cardButtons[i].GetNodeOrNull<Label>("MarginContainer/VBoxContainer/DurationLabel");
         }
     }
 
@@ -97,10 +93,8 @@ public partial class CardChoicePanel : PanelContainer
     {
         return _cardNameLabels != null
                && _cardDescriptionLabels != null
-               && _cardDurationLabels != null
                && _cardNameLabels.Length >= _cardButtons.Length
-               && _cardDescriptionLabels.Length >= _cardButtons.Length
-               && _cardDurationLabels.Length >= _cardButtons.Length;
+               && _cardDescriptionLabels.Length >= _cardButtons.Length;
     }
 
     private void SetCardLabels(int index, CardData card)
@@ -113,7 +107,6 @@ public partial class CardChoicePanel : PanelContainer
 
         _cardNameLabels[index].Text = card.Name;
         _cardDescriptionLabels[index].Text = card.Description;
-        _cardDurationLabels[index].Text = FormatCardDuration(card);
     }
 
     private void ClearCardLabels(int index)
@@ -123,7 +116,6 @@ public partial class CardChoicePanel : PanelContainer
 
         _cardNameLabels[index].Text = string.Empty;
         _cardDescriptionLabels[index].Text = string.Empty;
-        _cardDurationLabels[index].Text = string.Empty;
     }
 
     private bool HasCardLabels(int index)
@@ -131,38 +123,15 @@ public partial class CardChoicePanel : PanelContainer
         return index >= 0
                && _cardNameLabels != null
                && _cardDescriptionLabels != null
-               && _cardDurationLabels != null
                && index < _cardNameLabels.Length
                && index < _cardDescriptionLabels.Length
-               && index < _cardDurationLabels.Length
                && _cardNameLabels[index] != null
-               && _cardDescriptionLabels[index] != null
-               && _cardDurationLabels[index] != null;
+               && _cardDescriptionLabels[index] != null;
     }
 
     private string FormatCardText(CardData card)
     {
-        return $"{card.Name}\n\n{card.Description}\n\n{FormatCardDuration(card)}";
-    }
-
-    private string FormatCardDuration(CardData card)
-    {
-        if (card.Buffs == null || card.Buffs.Count == 0)
-            return "[无持续效果]";
-
-        var buffsProps = card.Buffs.Values.ToList();
-
-        if (buffsProps.Count == 0)
-            return "[无持续效果]";
-
-        if (buffsProps.All(buff => buff.DurationYears == 0))
-            return "[立即生效]";
-
-        if (buffsProps.Any(buff => buff.DurationYears < 0))
-            return "[永久]";
-
-        int maxDuration = buffsProps.Max(buff => buff.DurationYears);
-        return $"[持续 {maxDuration} 年]";
+        return $"{card.Name}\n\n{card.Description}";
     }
 
 }
