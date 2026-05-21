@@ -10,7 +10,8 @@ public partial class CellArea : Area2D
     {
         ZIndex = 100;
         _setUpCollision();
-        MouseEntered += OnMouseEntered;
+        MouseEntered += () => BuildingInfoPanel.Instance.RefreshPanel();
+        MouseExited += () => BuildingInfoPanel.Instance.RefreshPanel();
     }
 
     private void _setUpCollision()
@@ -65,22 +66,5 @@ public partial class CellArea : Area2D
                 break;
         }
         QueueRedraw();
-    }
-
-    private void OnMouseEntered()
-    {
-        var name = GridMgr.Instance.GetNameByIdx(Idx);
-        if (name == null)
-        {
-            UIMgr.Instance.HideBuildingInfo();
-            return;
-        }
-        var building = BuildingMgr.Instance.GetNodeOrNull<BuildingBase>(name);
-        if (building == null)
-        {             
-            UIMgr.Instance.HideBuildingInfo();
-            return;
-        }
-        UIMgr.Instance.ShowBuildingInfo(building);
     }
 }

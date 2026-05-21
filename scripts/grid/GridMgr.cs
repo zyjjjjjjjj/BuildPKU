@@ -393,4 +393,13 @@ public partial class GridMgr : Node2D
         _unlockedRegions.Add(regionName);
         QueueRedraw();
     }
+
+    public string GetCurrentPointingBuildingName()
+    {
+        var mousePos = GetGlobalMousePosition();
+        var idx = WorldToGridIdx(mousePos);
+        if(!_inBounds(idx))            
+            return null;
+        return _occupied.GetValueOrDefault(idx);
+    }
 }

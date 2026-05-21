@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public partial class BuildingInfoPanel : PanelContainer
 {
+	public static BuildingInfoPanel Instance { get; private set; }
 	[Export] private Label _idLabel;
 	[Export] private Label _resLabel;
 	[Export] private Label _eduLabel;
@@ -11,12 +12,24 @@ public partial class BuildingInfoPanel : PanelContainer
 	[Export] private Label _popLabel;
 	[Export] private Label _benLabel;
 	[Export] private MarginContainer _buffPanel;
-	[Export] private Label _buffLabel;
+	[Export] private VBoxContainer _buffContainer;
 	[Export] private Button _destroyButton;
 	[Export] private MarginContainer _upgradePanel;
 	[Export] private VBoxContainer _upgradeContainer;
 
-	private string _instanceName;
+	private string _instanceName = null;
+	
+	public override void _EnterTree()
+	{
+		Instance = this;
+	}
+
+	public override void _ExitTree()
+	{
+		if(Instance == this)
+			Instance = null;
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -31,7 +44,10 @@ public partial class BuildingInfoPanel : PanelContainer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (!Visible) return;
+		if(!Visible)
+			return;
+		if(!GetGlobalRect().HasPoint(GetViewport().GetMousePosition()))
+			RefreshPanel();
 	}
 
 	public void ShowPanel(BuildingBase building)
@@ -70,7 +86,13 @@ public partial class BuildingInfoPanel : PanelContainer
 	
 	public void ShowRelatedBuffs(BuildingBase building)
 	{
-		_buffLabel.Text = string.Empty;
+		var children = _buffContainer.GetChildren();
+		foreach (var child in children)		
+		{
+			if(child.Name == "Title") continue;
+			_buffContainer.RemoveChild(child);
+			child.QueueFree();
+		}
 		
 		var relatedBuffs = building.RelatedBuffs;
 		if(relatedBuffs.Count == 0)
@@ -78,11 +100,19 @@ public partial class BuildingInfoPanel : PanelContainer
 			_buffPanel.Visible = false;
 			return;
 		}
-		List<string> lines= new List<string>();
+		
+		HSeparator lastSeparator = null;
 		foreach (var buff in relatedBuffs)
-			lines.Add($"{buff.Description}");
-		var text = string.Join("\n", lines);
-		_buffLabel.Text = text;
+		{
+			var label = new Label();
+			label.Text = buff.Description;
+			_buffContainer.AddChild(label);
+			var separator = new HSeparator();
+			_buffContainer.AddChild(separator);
+			lastSeparator = separator;
+		}
+		_buffContainer.RemoveChild(lastSeparator);
+		lastSeparator?.QueueFree();
 		_buffPanel.Visible = true;
 		return;
 	}
@@ -127,6 +157,7 @@ public partial class BuildingInfoPanel : PanelContainer
 	public void HidePanel()
 	{
 		Visible = false;
+		_instanceName = null;
 		var children = _upgradeContainer.GetChildren();
 		foreach (var child in children)
 		{
@@ -134,5 +165,24 @@ public partial class BuildingInfoPanel : PanelContainer
 			button.QueueFree();
 		}
 		return;
+	}
+	
+	public void RefreshPanel()
+	{
+		var buildingName = GridMgr.Instance.GetCurrentPointingBuildingName();
+		if (buildingName == _instanceName)
+			return;
+		if(string.IsNullOrEmpty(buildingName))
+		{
+			HidePanel();
+			return;
+		}
+		var building = BuildingMgr.Instance.GetNodeOrNull<BuildingBase>(buildingName);
+		if (building == null)
+		{
+			HidePanel();
+			return;
+		}
+		ShowPanel(building);
 	}
 }

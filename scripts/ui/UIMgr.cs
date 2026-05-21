@@ -26,14 +26,4 @@ public partial class UIMgr : CanvasLayer
 	public override void _Process(double delta)
 	{
 	}
-	
-	public void ShowBuildingInfo(BuildingBase building)
-	{
-		_buildingInfoPanel.ShowPanel(building);
-	}
-	
-	public void HideBuildingInfo()
-	{
-		_buildingInfoPanel.HidePanel();
-	}
 }

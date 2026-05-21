@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cllss8mmt6jkr" path="res://scripts/ui/BuildingInfoPanel.cs" id="1_eqwah"]
 [ext_resource type="Theme" uid="uid://c42r8558dvmyi" path="res://themes/clashy/clashy.tres" id="2_q35r8"]
 
-[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffPanel", "_buffLabel", "_destroyButton", "_upgradePanel", "_upgradeContainer")]
+[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffPanel", "_buffContainer", "_destroyButton", "_upgradePanel", "_upgradeContainer")]
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("2_q35r8")
@@ -15,13 +15,14 @@ _envLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer
 _popLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5/Label2")
 _benLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6/Label2")
 _buffPanel = NodePath("MarginContainer/VBoxContainer/BuffPanel")
-_buffLabel = NodePath("MarginContainer/VBoxContainer/BuffPanel/BuffLabel")
+_buffContainer = NodePath("MarginContainer/VBoxContainer/BuffPanel/BuffContainer")
 _destroyButton = NodePath("MarginContainer/VBoxContainer/MarginContainer/Button")
 _upgradePanel = NodePath("MarginContainer/VBoxContainer/UpgradePanel")
 _upgradeContainer = NodePath("MarginContainer/VBoxContainer/UpgradePanel/Vbox")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1228620003]
 layout_mode = 2
+theme_override_constants/margin_left = 12
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1228620002]
 layout_mode = 2
@@ -103,15 +104,35 @@ text = "xxxx"
 
 [node name="BuffPanel" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1370966966]
 layout_mode = 2
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
-[node name="BuffLabel" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel" unique_id=1212198083]
+[node name="BuffContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BuffPanel" unique_id=527614604]
 layout_mode = 2
-autowrap_mode = 3
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1569120906]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "相关加成:"
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1330587605]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "adfadfasdfasdfsadfadf"
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1969796399]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1653879996]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "sdfadfadfadfadfadfad"
 
 [node name="UpgradePanel" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1028896219]
 layout_mode = 2
-theme_override_constants/margin_top = 11
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="Vbox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/UpgradePanel" unique_id=907772040]
 layout_mode = 2
