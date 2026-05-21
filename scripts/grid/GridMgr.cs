@@ -330,7 +330,7 @@ public partial class GridMgr : Node2D
             foreach(var dir in directions)
             {
                 var neighborIdx = point + dir;
-                if(!self.Contains(neighborIdx) && _inBounds(neighborIdx) && _isOccupied(neighborIdx))
+                if(!self.Contains(neighborIdx) && _inBounds(neighborIdx) && _isOccupied(neighborIdx) && _occupied[neighborIdx]!="boundary")
                 {
                     neighbors.Add(_occupied[neighborIdx]);
                 }
@@ -356,7 +356,7 @@ public partial class GridMgr : Node2D
                 for(int j=-radius;j<=radius;j++)
                 {
                     var neighborIdx = point + new Vector2I(i,j);
-                    if(!self.Contains(neighborIdx) && _inBounds(neighborIdx) && _isOccupied(neighborIdx))
+                    if(!self.Contains(neighborIdx) && _inBounds(neighborIdx) && _isOccupied(neighborIdx) && _occupied[neighborIdx]!="boundary")
                     {
                         neighbors.Add(_occupied[neighborIdx]);
                     }
