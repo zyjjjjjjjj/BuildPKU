@@ -121,7 +121,6 @@ public partial class BuildingInfoPanel : PanelContainer
 				HidePanel();
 			};
 		}
-		_upgradePanel.Visible = true;
 		return;
 	}
 	
