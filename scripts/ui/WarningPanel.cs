@@ -6,6 +6,7 @@ public partial class WarningPanel : PanelContainer
 
     private Label _warningLabel;
     private Timer _warningTimer;
+    private Tween _warningTween;
 
     public override void _EnterTree()
     {
@@ -26,17 +27,32 @@ public partial class WarningPanel : PanelContainer
         _warningTimer.WaitTime = 1.5;
         _warningTimer.Timeout += ClearWarning;
         AddChild(_warningTimer);
+        Visible = false;
     }
 
     public void ShowWarning(string message)
     {
+        _warningTimer.Stop();
+        _warningTween?.Kill();
+
         _warningLabel.Text = message;
-        _warningLabel.Visible = true;
+        Visible = true;
+        Modulate = new Color(1f, 1f, 1f, 0f);
+        Scale = new Vector2(0.96f, 0.96f);
+
+        _warningTween = CreateTween();
+        _warningTween.SetParallel(true);
+        _warningTween.TweenProperty(this, "modulate:a", 1f, 0.12f);
+        _warningTween.TweenProperty(this, "scale", Vector2.One, 0.12f);
+
         _warningTimer.Start();
     }
 
     private void ClearWarning()
     {
-        _warningLabel.Visible = false;
+        _warningTween?.Kill();
+        _warningTween = CreateTween();
+        _warningTween.TweenProperty(this, "modulate:a", 0f, 0.18f);
+        _warningTween.TweenCallback(Callable.From(() => Visible = false));
     }
 }
