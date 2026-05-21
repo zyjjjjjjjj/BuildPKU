@@ -1,24 +1,35 @@
 using Godot;
 using System;
 
-public partial class TopBar : HBoxContainer
+public partial class TopBar : Control
 {
 	// Called when the node enters the scene tree for the first time.
 	private Label _yearLabel;
+	private Label _nextGoalLabel;
 	private Button _nextYearButton;
 	
 	public override void _Ready()
 	{		
-		_yearLabel = GetNode<Label>("YearLabel");
+		_yearLabel = GetNode<Label>("CenterBar/YearLabel");
+		_nextGoalLabel = GetNode<Label>("NextGoalLabel");
 		TimeMgr.Instance.YearAdvanced += _yearUpdate;
 		_yearUpdate(TimeMgr.Instance.InitialYear);
-		_nextYearButton = GetNode<Button>("NextYearButton");
+		_nextYearButton = GetNode<Button>("CenterBar/NextYearButton");
 		_nextYearButton.Pressed += () => TimeMgr.Instance.AdvanceYear();
 	}
 
 	private void _yearUpdate(int year)
 	{
 		_yearLabel.Text = year.ToString();
+		UpdateNextGoal(year);
+	}
+
+	private void UpdateNextGoal(int year)
+	{
+		var mileStone = MileStoneDatabase.GetNext(year + 1);
+		_nextGoalLabel.Text = mileStone == null
+			? "已完成所有目标"
+			: $"下一目标: {mileStone.Year}年 / 声誉 {mileStone.TargetScore}";
 	}
 	
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
