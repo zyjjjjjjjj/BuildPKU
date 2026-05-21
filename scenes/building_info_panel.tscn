@@ -107,6 +107,7 @@ theme_override_constants/margin_top = 10
 
 [node name="BuffLabel" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel" unique_id=1212198083]
 layout_mode = 2
+autowrap_mode = 3
 
 [node name="UpgradePanel" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1028896219]
 layout_mode = 2
