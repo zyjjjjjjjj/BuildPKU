@@ -114,7 +114,7 @@ public partial class BuildingInfoPanel : PanelContainer
 				continue;
 			}
 			button.Text = $"{buildingData.Name}  费用: {kv.Value}";
-			button.Theme = GD.Load<Theme>("res://themes/upgrade_button.tres");
+			button.ThemeTypeVariation = "SuccessButton";
 			_upgradeContainer.AddChild(button);
 			button.Pressed += () =>
 			{
