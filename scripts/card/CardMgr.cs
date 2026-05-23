@@ -157,7 +157,6 @@ public partial class CardMgr : Node
             return;
         foreach (var cardId in evt.CardIds)
         {
-            GD.Print(cardId);
             var cardData = CardDatabase.GetCardDataById(cardId);
             if (cardData == null)
                 return;

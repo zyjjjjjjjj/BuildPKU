@@ -404,7 +404,6 @@ public partial class BuffMgr : Node
     
     private void AddBuffToDict(Dictionary<string,List<ActiveBuff>> dict, ActiveBuff buff)
     {
-        GD.Print($"add buff {buff.Args.DestBuildingIdOrTag} to dict");
         if(dict.TryGetValue(buff.Args.DestBuildingIdOrTag, out var buffList))
             buffList.Add(buff);
         else
