@@ -380,8 +380,6 @@ public partial class BuildingMgr : Node2D
     {
         if (buildingId == null)
             return;
-        if (AvailableBuildingIds.Contains(buildingId))
-            return;
         var buildingData = BuildingDatabase.GetById(buildingId);
         if (buildingData == null)
             return;
