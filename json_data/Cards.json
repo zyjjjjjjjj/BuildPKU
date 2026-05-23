@@ -350,5 +350,560 @@
 				"DestBuildingIdOrTag": "pc_lab"
 			}
 		}
+	},
+	{
+		"Id": "centennial_hall_effect",
+		"Name": "百周年纪念讲堂效果",
+		"Description": "奇观加成：使所有建筑三维收益提升至120%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1995,
+		"Repeatable": false,
+		"Buffs": {
+			"basic_prop_buff": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment"
+				],
+				"Value": 120
+			}
+		}
+	},
+	{
+		"Id": "canteen_effect",
+		"Name": "食堂效果",
+		"Description": "相邻建筑environment-30%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1950,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Target": "Environment",
+				"Value": -30,
+				"SrcBuildingIdOrTag": "canteen"
+			}
+		}
+	},
+	{
+		"Id": "campus_shop_effect",
+		"Name": "燕园副食店效果",
+		"Description": "两格范围内有“dormitory”tag的建筑population+50%，相邻建筑environment-20%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1975,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_tolerance_buff": {
+				"Target": "Population",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "campus_shop",
+				"DestBuildingIdOrTag": "dormitory",
+				"ConditionValue": 2
+			},
+			"adj_bonus_buff": {
+				"Target": "Environment",
+				"Value": -20,
+				"SrcBuildingIdOrTag": "campus_shop"
+			}
+		}
+	},
+	{
+		"Id": "boiler_effect",
+		"Name": "锅炉房效果",
+		"Description": "两格范围内的所有建筑environment-50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1955,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_tolerance_buff": {
+				"Target": "Environment",
+				"Value": -50,
+				"SrcBuildingIdOrTag": "boiler",
+				"ConditionValue": 2
+			}
+		}
+	},
+	{
+		"Id": "bbs_server_effect",
+		"Name": "BBS机房效果",
+		"Description": "相邻的“education”tag建筑全属性+10%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1995,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment",
+					"Population"
+				],
+				"Value": 10,
+				"SrcBuildingIdOrTag": "bbs_server",
+				"DestBuildingIdOrTag": "education"
+			}
+		}
+	},
+	{
+		"Id": "bath_effect",
+		"Name": "大浴室效果",
+		"Description": "相邻的“dormitory”tag建筑population+50%，environment-20%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1980,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff_1": {
+				"Target": "Population",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "bath",
+				"DestBuildingIdOrTag": "dormitory"
+			},
+			"adj_bonus_buff_2": {
+				"Target": "Environment",
+				"Value": -20,
+				"SrcBuildingIdOrTag": "bath",
+				"DestBuildingIdOrTag": "dormitory"
+			}
+		}
+	},
+	{
+		"Id": "basic_office_effect",
+		"Name": "基础学科教研室效果",
+		"Description": "相邻的“education”tag建筑education+100%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1975,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Target": "Education",
+				"Value": 100,
+				"SrcBuildingIdOrTag": "basic_office",
+				"DestBuildingIdOrTag": "education"
+			}
+		}
+	},
+	{
+		"Id": "stanford_center_effect",
+		"Name": "斯坦福中心效果",
+		"Description": "所有“education”“research”tag的建筑benefit+100%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 2000,
+		"Repeatable": false,
+		"Buffs": {
+			"basic_prop_buff_1": {
+				"Target": "Benefit",
+				"Value": 100,
+				"DestBuildingIdOrTag": "education"
+			},
+			"basic_prop_buff_2": {
+				"Target": "Benefit",
+				"Value": 100,
+				"DestBuildingIdOrTag": "research"
+			}
+		}
+	},
+	{
+		"Id": "teacher_apt_effect",
+		"Name": "教工宿舍效果",
+		"Description": "相邻的“research”tageducation+50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1965,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Target": "Education",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "teacher_apt",
+				"DestBuildingIdOrTag": "research"
+			}
+		}
+	},
+	{
+		"Id": "teaching_effect",
+		"Name": "文教楼效果",
+		"Description": "如果和“lab”tag的建筑相邻，自身的research，education+50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1950,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Targets": [
+					"Research",
+					"Education"
+				],
+				"Value": 50,
+				"SrcBuildingIdOrTag": "lab",
+				"DestBuildingIdOrTag": "teaching"
+			}
+		}
+	},
+	{
+		"Id": "teaching_complex_effect",
+		"Name": "教学楼群效果",
+		"Description": "如果和“lab”tag的建筑相邻，自身的research，education+50%；如果和另一个teaching_complex相邻，全属性+100%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1980,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Targets": [
+					"Research",
+					"Education"
+				],
+				"Value": 50,
+				"SrcBuildingIdOrTag": "lab",
+				"DestBuildingIdOrTag": "teaching_complex"
+			},
+			"adj_bonus_same_id_buff": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment",
+					"Population"
+				],
+				"Value": 100,
+				"DestBuildingIdOrTag": "teaching_complex"
+			}
+		}
+	},
+	{
+		"Id": "tech_lab_effect",
+		"Name": "546技物所效果",
+		"Description": "相邻的有“dormitory”“environment”tag的建筑environment -30%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1950,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff_1": {
+				"Target": "Environment",
+				"Value": -30,
+				"SrcBuildingIdOrTag": "tech_lab",
+				"DestBuildingIdOrTag": "dormitory"
+			},
+			"adj_bonus_buff_2": {
+				"Target": "Environment",
+				"Value": -30,
+				"SrcBuildingIdOrTag": "tech_lab",
+				"DestBuildingIdOrTag": "environment"
+			}
+		}
+	},
+	{
+		"Id": "thermal_station_effect",
+		"Name": "燕园热电站效果",
+		"Description": "相邻的所有建筑environment*0.8（等效-20%）",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1980,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Target": "Environment",
+				"Value": -20,
+				"SrcBuildingIdOrTag": "thermal_station"
+			}
+		}
+	},
+	{
+		"Id": "villa_effect",
+		"Name": "林草效果",
+		"Description": "相邻的建筑environment+100%；如果和另一个villa相邻，自身environment+200%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1905,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Target": "Environment",
+				"Value": 100,
+				"SrcBuildingIdOrTag": "villa"
+			},
+			"adj_bonus_same_id_buff": {
+				"Target": "Environment",
+				"Value": 200,
+				"DestBuildingIdOrTag": "villa"
+			}
+		}
+	},
+	{
+		"Id": "wind_lab_effect",
+		"Name": "大风洞实验室效果",
+		"Description": "相邻存在没有“lab”tag的建筑research-40%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1975,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff": {
+				"Target": "Research",
+				"Value": -40,
+				"SrcBuildingIdOrTag": "wind_lab",
+				"ConditionStat": "Tag",
+				"ConditionOp": "!=",
+				"ConditionValue": 0
+			}
+		}
+	},
+	{
+		"Id": "chem_lab_effect",
+		"Name": "新化学楼效果",
+		"Description": "相邻存在有“lab”tag的建筑research+50%；相邻存在有“education”tag的建筑education+50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1980,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff_1": {
+				"Target": "Research",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "lab",
+				"DestBuildingIdOrTag": "chem_lab"
+			},
+			"adj_bonus_buff_2": {
+				"Target": "Education",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "education",
+				"DestBuildingIdOrTag": "chem_lab"
+			}
+		}
+	},
+	{
+		"Id": "cluster_effect",
+		"Name": "智算中心效果",
+		"Description": "所有“education”“research”tag建筑三维属性+30%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 2010,
+		"Repeatable": false,
+		"Buffs": {
+			"basic_prop_buff_1": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment"
+				],
+				"Value": 30,
+				"DestBuildingIdOrTag": "education"
+			},
+			"basic_prop_buff_2": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment"
+				],
+				"Value": 30,
+				"DestBuildingIdOrTag": "research"
+			}
+		}
+	},
+	{
+		"Id": "express_effect",
+		"Name": "近邻宝效果",
+		"Description": "所有“dormitory”tag的建筑population+50%，environment+50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 2010,
+		"Repeatable": false,
+		"Buffs": {
+			"basic_prop_buff": {
+				"Targets": [
+					"Population",
+					"Environment"
+				],
+				"Value": 50,
+				"DestBuildingIdOrTag": "dormitory"
+			}
+		}
+	},
+	{
+		"Id": "farm_effect",
+		"Name": "教学试验田效果",
+		"Description": "与另一个farm相邻时environment+50%；如果和villa相邻，自身environment+200%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1970,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_same_id_buff": {
+				"Target": "Environment",
+				"Value": 50,
+				"DestBuildingIdOrTag": "farm"
+			},
+			"adj_bonus_buff": {
+				"Target": "Environment",
+				"Value": 200,
+				"SrcBuildingIdOrTag": "villa",
+				"DestBuildingIdOrTag": "farm"
+			}
+		}
+	},
+	{
+		"Id": "ground_effect",
+		"Name": "体育场效果",
+		"Description": "两格内存在ground时，自身三维属性+100%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1960,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_tolerance_buff": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment"
+				],
+				"Value": 100,
+				"SrcBuildingIdOrTag": "ground",
+				"DestBuildingIdOrTag": "ground",
+				"ConditionValue": 2
+			}
+		}
+	},
+	{
+		"Id": "high_apt_effect",
+		"Name": "中关高层公寓效果",
+		"Description": "相邻的“education”tag建筑education+50%；相邻的“dormitory”tag建筑population+40%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1980,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff_1": {
+				"Target": "Education",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "high_apt",
+				"DestBuildingIdOrTag": "education"
+			},
+			"adj_bonus_buff_2": {
+				"Target": "Population",
+				"Value": 40,
+				"SrcBuildingIdOrTag": "high_apt",
+				"DestBuildingIdOrTag": "dormitory"
+			}
+		}
+	},
+	{
+		"Id": "incuba_effect",
+		"Name": "创业孵化器效果",
+		"Description": "两格内的“research”tag建筑benefit+200%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 2000,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_tolerance_buff": {
+				"Target": "Benefit",
+				"Value": 200,
+				"SrcBuildingIdOrTag": "incuba",
+				"DestBuildingIdOrTag": "research",
+				"ConditionValue": 2
+			}
+		}
+	},
+	{
+		"Id": "inter_complex_effect",
+		"Name": "交叉学科楼群效果",
+		"Description": "相邻research/education/environment时自身对应属性+100%，与另一个相临时全属性+200%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 2000,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff_1": {
+				"Target": "Research",
+				"Value": 100,
+				"SrcBuildingIdOrTag": "research",
+				"DestBuildingIdOrTag": "inter_complex"
+			},
+			"adj_bonus_buff_2": {
+				"Target": "Education",
+				"Value": 100,
+				"SrcBuildingIdOrTag": "education",
+				"DestBuildingIdOrTag": "inter_complex"
+			},
+			"adj_bonus_buff_3": {
+				"Target": "Environment",
+				"Value": 100,
+				"SrcBuildingIdOrTag": "environment",
+				"DestBuildingIdOrTag": "inter_complex"
+			},
+			"adj_bonus_same_id_buff": {
+				"Targets": [
+					"Research",
+					"Education",
+					"Environment",
+					"Population"
+				],
+				"Value": 200,
+				"DestBuildingIdOrTag": "inter_complex"
+			}
+		}
+	},
+	{
+		"Id": "renovated_dorm_effect",
+		"Name": "改造公寓效果",
+		"Description": "和“convenience”tag建筑相邻时，自身population+100%，environment+50%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1990,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_buff_1": {
+				"Target": "Population",
+				"Value": 100,
+				"SrcBuildingIdOrTag": "convenience",
+				"DestBuildingIdOrTag": "renovated_dorm"
+			},
+			"adj_bonus_buff_2": {
+				"Target": "Environment",
+				"Value": 50,
+				"SrcBuildingIdOrTag": "convenience",
+				"DestBuildingIdOrTag": "renovated_dorm"
+			}
+		}
+	},
+	{
+		"Id": "res_building_effect",
+		"Name": "商用大厦效果",
+		"Description": "与另一个res_building相邻时，benefit+100%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1990,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_same_id_buff": {
+				"Target": "Benefit",
+				"Value": 100,
+				"DestBuildingIdOrTag": "res_building"
+			}
+		}
+	},
+	{
+		"Id": "library_effect",
+		"Name": "图书馆效果",
+		"Description": "每和一个建筑相邻，education-10%",
+		"CardType": "Buff",
+		"Rarity": "Common",
+		"MinYear": 1950,
+		"Repeatable": false,
+		"Buffs": {
+			"adj_bonus_with_cnt_buff": {
+				"Target": "Education",
+				"Value": -10,
+				"SrcBuildingIdOrTag": "all",
+				"DestBuildingIdOrTag": "library"
+			}
+		}
 	}
 ]
