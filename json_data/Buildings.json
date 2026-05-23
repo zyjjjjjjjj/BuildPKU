@@ -363,7 +363,7 @@
 	"Cost": 8000,
 	"Benefit": 3000,
 	"Destroyable": true,
-	"Limit": -1
+	"Limit": 1
   },
   {
 	"Id": "pc_lab",
@@ -380,7 +380,7 @@
 	"Cost": 12000,
 	"Benefit": 5000,
 	"Destroyable": true,
-	"Limit": -1
+	"Limit": 1
   },
   {
 	"Id": "tech_lab",
@@ -397,7 +397,7 @@
 	"Cost": 10000,
 	"Benefit": 3000,
 	"Destroyable": true,
-	"Limit": -1
+	"Limit": 1
   },
   {
 	"Id": "lib_base",

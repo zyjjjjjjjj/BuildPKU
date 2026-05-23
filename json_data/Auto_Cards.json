@@ -1,9 +1,141 @@
 [
-    {
-        "Year": 1960,
-        "CardIds": [
-            "shiyanshishengji",
-            "renhaizhanshu"
-        ]
-    }
+	{
+		"Year": 1952,
+		"CardIds": [
+			"research_priority",
+			"campus_greening",
+			"academic_reputation",
+			"biology_century",
+			"startup_grant",
+			"jiaoyubuzijinbokuan",
+			"small_but_beautiful",
+			"xiaoneizichanhuiliu",
+			"gongnongbingxueyuan",
+			"jiejuezhufangqianzhang",
+			"yifujuanzengzijin",
+			"shenyanyuanchengli",
+			"xiaoyuanbbs",
+			"gaozhiliangrencaiyinjin",
+			"beidafahuaqi",
+			"yanyuanzongtiguihua",
+			"tushuguanupdate",
+			"renhaizhanshu",
+			"dorm_upgrade_unlock",
+			"lab_upgrade_unlock",
+			"green_upgrade_unlock",
+			"administration_upgrade_unlock",
+			"old_library_upgrade_unlock",
+			"villa_effect"
+		]
+	},
+	{
+		"Year": 1957,
+		"CardIds": [
+			"library_unlock_and_effect",
+			"teaching_effect",
+			"canteen_unlock_and_effect",
+			"dpt_office_unlock_and_effect",
+			"bidorm_unlock_and_effect",
+			"hall_unlock_and_effect",
+			"cod_lab_unlock_and_effect",
+			"pc_lab_unlock_and_effect",
+			"tech_lab_unlock_and_effect",
+			"boiler_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1962,
+		"CardIds": [
+			"ground_effect",
+			"dpt_center_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1967,
+		"CardIds": [
+			"intl_dorm_unlock_and_effect",
+			"teacher_apt_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1972,
+		"CardIds": [
+			"multi_canteen_unlock_and_effect",
+			"farm_unlock_and_effect",
+			"mech_lab_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1977,
+		"CardIds": [
+			"lib_base_unlock_and_effect",
+			"wind_lab_unlock_and_effect",
+			"dorm70_unlock_and_effect",
+			"rs_lab_unlock_and_effect",
+			"basic_office_unlock_and_effect",
+			"campus_shop_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1982,
+		"CardIds": [
+			"chem_lab_unlock_and_effect",
+			"high_apt_unlock_and_effect",
+			"teaching_complex_unlock_and_effect",
+			"microelec_lab_unlock_and_effect",
+			"elec_building_unlock_and_effect",
+			"bath_unlock_and_effect",
+			"thermal_station_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1987,
+		"CardIds": [
+			"sackler_museum_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1992,
+		"CardIds": [
+			"new_library_unlock_and_effect",
+			"res_building_unlock_and_effect",
+			"pacific_center_unlock_and_effect",
+			"renovated_dorm_unlock_and_effect",
+			"college_dorm_unlock_and_effect",
+			"intl_center_unlock_and_effect",
+			"history_museum_unlock_and_effect",
+			"its_pku_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 1997,
+		"CardIds": [
+			"centennial_hall_unlock_and_effect",
+			"bbs_server_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 2002,
+		"CardIds": [
+			"com_canteen_unlock_and_effect",
+			"stanford_center_unlock_and_effect",
+			"inter_complex_unlock_and_effect",
+			"integ_lab_unlock_and_effect",
+			"incuba_unlock_and_effect",
+			"key_lib_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 2007,
+		"CardIds": [
+			"qdb_gym_unlock_and_effect"
+		]
+	},
+	{
+		"Year": 2012,
+		"CardIds": [
+			"express_unlock_and_effect",
+			"cluster_unlock_and_effect"
+		]
+	}
 ]
