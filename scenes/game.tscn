@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bpbwgwof5ifvx" path="res://scripts/GameMgr.cs" id="1_0tnpc"]
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/grid/GridMgr.cs" id="2_lnu2h"]
-[ext_resource type="Texture2D" uid="uid://caycwxqebyory" path="res://buildings/regions/map/全图.png" id="3_5newe"]
+[ext_resource type="Texture2D" uid="uid://dy44mu6qo8ggc" path="res://buildings/regions/map/围墙底图.png" id="3_e1j6l"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/building/BuildingMgr.cs" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/camera/CameraCtrl.cs" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dmtygt5cvj1tn" path="res://scenes/hud_ui.tscn" id="5_iywne"]
@@ -44,9 +44,9 @@ _minZoom = 0.35
 _maxZoom = 1.5
 
 [node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
-position = Vector2(1004.9998, 955.75)
-scale = Vector2(1.2705078, 1.2062987)
-texture = ExtResource("3_5newe")
+position = Vector2(1031.5, 1023.49994)
+scale = Vector2(0.9750976, 0.98291016)
+texture = ExtResource("3_e1j6l")
 
 [node name="gridMgr" type="Node2D" parent="." unique_id=1318667080]
 position = Vector2(2, 0)
