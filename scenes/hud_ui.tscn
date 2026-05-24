@@ -334,43 +334,50 @@ grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("1_27bld")
 
-[node name="CenterBar" type="HBoxContainer" parent="HUDRoot/TopBar" unique_id=1146200729]
+[node name="YearPanel" type="PanelContainer" parent="HUDRoot/TopBar" unique_id=1146200730]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -162.0
+offset_left = -172.0
+offset_top = 1.0
 offset_right = 162.0
-offset_bottom = 58.0
+offset_bottom = 112.0
 grow_horizontal = 2
 mouse_filter = 2
+
+[node name="YearRow" type="HBoxContainer" parent="HUDRoot/TopBar/YearPanel" unique_id=1146200729]
+layout_mode = 2
+theme_override_constants/separation = 18
 alignment = 1
 
-[node name="YearLabel" type="Label" parent="HUDRoot/TopBar/CenterBar" unique_id=1259621921]
+[node name="YearLabel" type="Label" parent="HUDRoot/TopBar/YearPanel/YearRow" unique_id=1259621921]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "0000"
 
-[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar/CenterBar" unique_id=1880808890]
+[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar/YearPanel/YearRow" unique_id=1880808890]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "下一年"
 
-[node name="NextGoalLabel" type="Label" parent="HUDRoot/TopBar" unique_id=1762200729]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -116.5
-offset_top = -29.0
-offset_right = 116.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+[node name="GoalPanel" type="PanelContainer" parent="HUDRoot/TopBar" unique_id=1429837111]
+layout_mode = 0
+offset_left = 1174.0
+offset_right = 1567.0
+offset_bottom = 61.0
+
+[node name="GoalRow" type="HBoxContainer" parent="HUDRoot/TopBar/GoalPanel" unique_id=778772575]
+layout_mode = 2
+alignment = 1
+
+[node name="NextGoalLabel" type="Label" parent="HUDRoot/TopBar/GoalPanel/GoalRow" unique_id=1762200729]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "下一目标: 1960年 / 声誉 100"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="WarningPanel" type="PanelContainer" parent="HUDRoot" unique_id=155276741]
 layout_mode = 1
