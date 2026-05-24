@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://l8tr0dk3v0wg"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_yupv2"]
-[ext_resource type="Texture2D" uid="uid://gfa0u2vt35a7" path="res://TMap/双人宿舍.png" id="2_yupv2"]
+[ext_resource type="Texture2D" uid="uid://gfa0u2vt35a7" path="res://TMap/bidorm.png" id="2_yupv2"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_mn0gj"]
 
 [node name="bidorm" type="Node2D" unique_id=229562284]

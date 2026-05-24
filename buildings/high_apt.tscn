@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dfahw6nfpn1ac"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_o3k16"]
-[ext_resource type="Texture2D" uid="uid://c134erbrae2pc" path="res://TMap/高层公寓.png" id="2_o3k16"]
+[ext_resource type="Texture2D" uid="uid://c134erbrae2pc" path="res://TMap/high_apt.png" id="2_o3k16"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_xgxk2"]
 
 [node name="high_apt" type="Node2D" unique_id=229562284]

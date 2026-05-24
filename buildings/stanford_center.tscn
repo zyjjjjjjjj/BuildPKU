@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://jhi6e5ybe6le"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_nbo4q"]
-[ext_resource type="Texture2D" uid="uid://duvgoqmopvts6" path="res://TMap/斯坦福中心.png" id="2_nbo4q"]
+[ext_resource type="Texture2D" uid="uid://duvgoqmopvts6" path="res://TMap/stanford_center.png" id="2_nbo4q"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_py7kp"]
 
 [node name="stanford_center" type="Node2D" unique_id=229562284]

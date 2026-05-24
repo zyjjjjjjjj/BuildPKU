@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://o0x20qj78gno"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_y5hty"]
-[ext_resource type="Texture2D" uid="uid://b3ed2mnvxq2bo" path="res://TMap/交叉学科综合体.png" id="2_y5hty"]
+[ext_resource type="Texture2D" uid="uid://b3ed2mnvxq2bo" path="res://TMap/inter_complex.png" id="2_y5hty"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_busxx"]
 
 [node name="inter_complex" type="Node2D" unique_id=229562284]

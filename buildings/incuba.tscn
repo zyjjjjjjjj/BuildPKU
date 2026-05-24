@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://gj7vw7knue0d"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_tc5dn"]
-[ext_resource type="Texture2D" uid="uid://cwgkvppebsjmp" path="res://TMap/北大孵化器.png" id="2_tc5dn"]
+[ext_resource type="Texture2D" uid="uid://cwgkvppebsjmp" path="res://TMap/incuba.png" id="2_tc5dn"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_gaa5i"]
 
 [node name="incuba" type="Node2D" unique_id=229562284]

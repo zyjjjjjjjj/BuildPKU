@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6jo5k2wo3twp"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_knol6"]
-[ext_resource type="Texture2D" uid="uid://cu6g12bl0w7ei" path="res://TMap/电气大楼.png" id="2_knol6"]
+[ext_resource type="Texture2D" uid="uid://cu6g12bl0w7ei" path="res://TMap/elec_building.png" id="2_knol6"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_d8xnh"]
 
 [node name="elec_building" type="Node2D" unique_id=229562284]

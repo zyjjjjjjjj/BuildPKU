@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bkto5l4fj6kt1"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_bpdgv"]
-[ext_resource type="Texture2D" uid="uid://d1y0hy1gkkrpx" path="res://TMap/图书馆地库.png" id="2_bpdgv"]
+[ext_resource type="Texture2D" uid="uid://d1y0hy1gkkrpx" path="res://TMap/lib_base.png" id="2_bpdgv"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_q6tyt"]
 
 [node name="lib_base" type="Node2D" unique_id=229562284]

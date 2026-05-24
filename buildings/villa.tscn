@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ds28o751feo6p"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_3h6g2"]
-[ext_resource type="Texture2D" uid="uid://c20rl8qkmrxwp" path="res://TMap/villa.PNG" id="2_3h6g2"]
+[ext_resource type="Texture2D" uid="uid://c20rl8qkmrxwp" path="res://TMap/villa.png" id="2_3h6g2"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_fotju"]
 
 [node name="villa" type="Node2D" unique_id=229562284]

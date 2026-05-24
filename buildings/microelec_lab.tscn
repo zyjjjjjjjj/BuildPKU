@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3id8qjp0imus"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_ppe8a"]
-[ext_resource type="Texture2D" uid="uid://cb4jte6t1ghmv" path="res://TMap/微电子实验室.png" id="2_ppe8a"]
+[ext_resource type="Texture2D" uid="uid://cb4jte6t1ghmv" path="res://TMap/microelec_lab.png" id="2_ppe8a"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_kl55y"]
 
 [node name="microelec_lab" type="Node2D" unique_id=229562284]

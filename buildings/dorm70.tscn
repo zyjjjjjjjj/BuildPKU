@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ciow4bqqwh7lk"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_ljh2d"]
-[ext_resource type="Texture2D" uid="uid://dy6ne87irerte" path="res://TMap/70年代老宿舍.png" id="2_ljh2d"]
+[ext_resource type="Texture2D" uid="uid://dy6ne87irerte" path="res://TMap/dorm70.png" id="2_ljh2d"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_a7jbf"]
 
 [node name="dorm70" type="Node2D" unique_id=229562284]

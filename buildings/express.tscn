@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ber6ot5m3vofo"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_jpkgu"]
-[ext_resource type="Texture2D" uid="uid://c0ypnfa01lxo5" path="res://TMap/express.PNG" id="2_jpkgu"]
+[ext_resource type="Texture2D" uid="uid://c0ypnfa01lxo5" path="res://TMap/express.png" id="2_jpkgu"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_wht7j"]
 
 [node name="express" type="Node2D" unique_id=229562284]

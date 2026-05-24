@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dtwgipui4g0ao"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_gsdvf"]
-[ext_resource type="Texture2D" uid="uid://bmm7s6i1g87kt" path="res://TMap/基础办公室.png" id="2_gsdvf"]
+[ext_resource type="Texture2D" uid="uid://bmm7s6i1g87kt" path="res://TMap/basic_office.png" id="2_gsdvf"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_5b8x6"]
 
 [node name="basic_office" type="Node2D" unique_id=229562284]

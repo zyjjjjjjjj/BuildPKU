@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bckr4wmdlmc3l"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_2gcyg"]
-[ext_resource type="Texture2D" uid="uid://c1ls5muhiw4hp" path="res://TMap/国际中心.png" id="2_2gcyg"]
+[ext_resource type="Texture2D" uid="uid://c1ls5muhiw4hp" path="res://TMap/intl_center.png" id="2_2gcyg"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_ge12o"]
 
 [node name="intl_center" type="Node2D" unique_id=229562284]

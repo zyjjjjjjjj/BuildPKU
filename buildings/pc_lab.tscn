@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dxuex8sdbii3p"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_ovtrb"]
-[ext_resource type="Texture2D" uid="uid://d2qx6rxqnx854" path="res://TMap/机房.png" id="2_ovtrb"]
+[ext_resource type="Texture2D" uid="uid://d2qx6rxqnx854" path="res://TMap/pc_lab.png" id="2_ovtrb"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_bdf4s"]
 
 [node name="pc_lab" type="Node2D" unique_id=229562284]

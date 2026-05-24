@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4bl5jpu65rb6"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_la581"]
-[ext_resource type="Texture2D" uid="uid://dbpsv5v6o6fw4" path="res://TMap/邱德拔.png" id="2_la581"]
+[ext_resource type="Texture2D" uid="uid://dbpsv5v6o6fw4" path="res://TMap/qdb_gym.png" id="2_la581"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_3fcxp"]
 
 [node name="qdb_gym" type="Node2D" unique_id=229562284]

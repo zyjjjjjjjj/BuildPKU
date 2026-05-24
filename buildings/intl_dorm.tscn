@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tvb7tiulh1pn"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_aciae"]
-[ext_resource type="Texture2D" uid="uid://cgofkwj3hnlkd" path="res://TMap/留学生宿舍.png" id="2_aciae"]
+[ext_resource type="Texture2D" uid="uid://cgofkwj3hnlkd" path="res://TMap/intl_dorm.png" id="2_aciae"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_c320n"]
 
 [node name="intl_dorm" type="Node2D" unique_id=229562284]

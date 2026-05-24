@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cjd7ychcvsl4k"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_gxw7i"]
-[ext_resource type="Texture2D" uid="uid://cm0xcn8bkexfx" path="res://TMap/wind-lab.PNG" id="2_gxw7i"]
+[ext_resource type="Texture2D" uid="uid://cm0xcn8bkexfx" path="res://TMap/wind_lab.png" id="2_gxw7i"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_t0ttv"]
 
 [node name="wind_lab" type="Node2D" unique_id=229562284]

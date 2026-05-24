@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqbpw65bgx0xo"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_lgdwi"]
-[ext_resource type="Texture2D" uid="uid://dexqd7tbnv7na" path="res://TMap/教师公寓正确版.png" id="2_lgdwi"]
+[ext_resource type="Texture2D" uid="uid://dexqd7tbnv7na" path="res://TMap/teacher_apt.png" id="2_lgdwi"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_ni2b1"]
 
 [node name="teacher_apt" type="Node2D" unique_id=229562284]

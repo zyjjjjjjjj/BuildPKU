@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://drtksluo8l01g"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_q37aq"]
-[ext_resource type="Texture2D" uid="uid://b3xm6i3k5rjdg" path="res://TMap/翻新宿舍.png" id="2_q37aq"]
+[ext_resource type="Texture2D" uid="uid://b3xm6i3k5rjdg" path="res://TMap/renovated_dorm.png" id="2_q37aq"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_w26te"]
 
 [node name="renovated_dorm" type="Node2D" unique_id=229562284]

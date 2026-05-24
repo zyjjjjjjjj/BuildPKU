@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmi3okcb2esxn"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_4rb73"]
-[ext_resource type="Texture2D" uid="uid://dhpebu3xjth2c" path="res://TMap/锅炉房.png" id="2_4rb73"]
+[ext_resource type="Texture2D" uid="uid://dhpebu3xjth2c" path="res://TMap/boiler.png" id="2_4rb73"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_aq83y"]
 
 [node name="boiler" type="Node2D" unique_id=229562284]

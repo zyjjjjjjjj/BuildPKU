@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ds2f4toqmgorj"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_6ltkv"]
-[ext_resource type="Texture2D" uid="uid://jk2vcm2mdb44" path="res://TMap/供热站.png" id="2_6ltkv"]
+[ext_resource type="Texture2D" uid="uid://jk2vcm2mdb44" path="res://TMap/thermal_station.png" id="2_6ltkv"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_b6hkb"]
 
 [node name="thermal_station" type="Node2D" unique_id=229562284]

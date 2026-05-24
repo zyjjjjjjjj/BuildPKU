@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0c14h474iudo"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_uxur8"]
-[ext_resource type="Texture2D" uid="uid://bb2qeamurae2i" path="res://TMap/超算中心.png" id="2_uxur8"]
+[ext_resource type="Texture2D" uid="uid://bb2qeamurae2i" path="res://TMap/cluster.png" id="2_uxur8"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_n46v5"]
 
 [node name="cluster" type="Node2D" unique_id=229562284]

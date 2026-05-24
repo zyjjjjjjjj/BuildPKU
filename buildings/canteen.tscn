@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d1m68s8uiu07f"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_axn1a"]
-[ext_resource type="Texture2D" uid="uid://hcl4udcevd15" path="res://TMap/食堂.png" id="2_axn1a"]
+[ext_resource type="Texture2D" uid="uid://hcl4udcevd15" path="res://TMap/canteen.png" id="2_axn1a"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_cft82"]
 
 [node name="canteen" type="Node2D" unique_id=229562284]
