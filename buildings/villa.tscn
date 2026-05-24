@@ -1,29 +1,17 @@
 [gd_scene format=3 uid="uid://ds28o751feo6p"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_3h6g2"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_6qwm1"]
+[ext_resource type="Texture2D" uid="uid://c20rl8qkmrxwp" path="res://TMap/villa.PNG" id="2_3h6g2"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_fotju"]
 
 [node name="villa" type="Node2D" unique_id=229562284]
 script = ExtResource("1_3h6g2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(2.9999993, -3.9999952)
-scale = Vector2(0.96093744, 1.0078125)
-texture = ExtResource("2_6qwm1")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1975558926]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(37, -101)
-scale = Vector2(0.48046878, 0.47265634)
-texture = ExtResource("2_6qwm1")
-
-[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=908099866]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(-29, 90)
-scale = Vector2(0.48046878, 0.47265634)
-texture = ExtResource("2_6qwm1")
+position = Vector2(3, -31.999996)
+scale = Vector2(1.0625, 1.0297806)
+texture = ExtResource("2_3h6g2")
+flip_h = true
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-61, -134)

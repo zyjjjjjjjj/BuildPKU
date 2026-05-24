@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cfxkekd57yypn"]
+
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_yqa7p"]
+[ext_resource type="Texture2D" uid="uid://cal2nas0tam28" path="res://buildings/regions/map/燕东园.png" id="2_yqa7p"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_iimip"]
+
+[node name="region_yan_dong_yuan" type="Node2D" unique_id=229562284]
+script = ExtResource("1_yqa7p")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1694276928]
+position = Vector2(-883.60944, 152.49995)
+scale = Vector2(1.0019044, 1.0101562)
+texture = ExtResource("2_yqa7p")
+
+[node name="grid" type="Node2D" parent="." unique_id=633337854]
+position = Vector2(-1208, -490)
+script = ExtResource("3_iimip")
+GridSize = Vector2i(10, 20)
+ShapeMask = Array[bool]([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true])

@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://bkto5l4fj6kt1"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_bpdgv"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_1p1e1"]
+[ext_resource type="Texture2D" uid="uid://d1y0hy1gkkrpx" path="res://TMap/图书馆地库.png" id="2_bpdgv"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_q6tyt"]
 
 [node name="lib_base" type="Node2D" unique_id=229562284]
 script = ExtResource("1_bpdgv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(5.499998, -4)
-scale = Vector2(1.4140624, 0.515625)
-texture = ExtResource("2_1p1e1")
+position = Vector2(565.3894, 162.43047)
+scale = Vector2(1.0156248, 1.249548)
+texture = ExtResource("2_bpdgv")
+offset = Vector2(-556.1989, -168.72726)
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-91, -35.999996)

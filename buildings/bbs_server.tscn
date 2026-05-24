@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://wu35dceu1r1o"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_87ual"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_52pqs"]
+[ext_resource type="Texture2D" uid="uid://dbt4ptugxocgu" path="res://TMap/教师公寓.png" id="2_87ual"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_qj0um"]
 
 [node name="bbs_server" type="Node2D" unique_id=229562284]
 script = ExtResource("1_87ual")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=433952825]
-position = Vector2(0, 4.5)
-scale = Vector2(0.4375, 0.5078125)
-texture = ExtResource("2_52pqs")
+position = Vector2(-1.4999993, -5.9824247)
+scale = Vector2(0.4140625, 0.36833408)
+texture = ExtResource("2_87ual")
 
 [node name="grid" type="Node2D" parent="." unique_id=2046688671]
 position = Vector2(-33, -30)

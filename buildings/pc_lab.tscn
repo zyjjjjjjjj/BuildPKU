@@ -1,23 +1,16 @@
 [gd_scene format=3 uid="uid://dxuex8sdbii3p"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_ovtrb"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_p4sjj"]
+[ext_resource type="Texture2D" uid="uid://d2qx6rxqnx854" path="res://TMap/机房.png" id="2_ovtrb"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_bdf4s"]
 
 [node name="pc_lab" type="Node2D" unique_id=229562284]
 script = ExtResource("1_ovtrb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(-22.000004, -1.5)
-scale = Vector2(0.98437494, 1.0078125)
-texture = ExtResource("2_p4sjj")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=949584238]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(83.00001, -3)
-scale = Vector2(0.41406247, 1.0078125)
-texture = ExtResource("2_p4sjj")
+position = Vector2(9.999998, -44.5)
+scale = Vector2(1.0833334, 0.77238804)
+texture = ExtResource("2_ovtrb")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-84.00001, -66)

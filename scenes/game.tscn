@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bcbum02nfn5q3"]
 
 [ext_resource type="Script" uid="uid://bpbwgwof5ifvx" path="res://scripts/GameMgr.cs" id="1_0tnpc"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="1_yqjtg"]
 [ext_resource type="Script" uid="uid://gnbi45mhoaom" path="res://scripts/grid/GridMgr.cs" id="2_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://caycwxqebyory" path="res://buildings/regions/map/全图.png" id="3_5newe"]
 [ext_resource type="Script" uid="uid://bxtqgfpr83dae" path="res://scripts/building/BuildingMgr.cs" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://xskqyt6tbn5o" path="res://scripts/camera/CameraCtrl.cs" id="4_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://dmtygt5cvj1tn" path="res://scenes/hud_ui.tscn" id="5_iywne"]
@@ -19,7 +19,11 @@
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 [ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
+[ext_resource type="PackedScene" uid="uid://cfxkekd57yypn" path="res://buildings/regions/region_yan_dong_yuan.tscn" id="14_e1j6l"]
+[ext_resource type="PackedScene" uid="uid://dlmt5umdv4mqf" path="res://buildings/regions/region_lang_run_yuan.tscn" id="15_5newe"]
 [ext_resource type="Script" uid="uid://b05alg2w7p6uf" path="res://scripts/audio/AudioMgr.cs" id="15_audio"]
+[ext_resource type="PackedScene" uid="uid://brotnv7rtsqok" path="res://buildings/regions/region_cheng_ze_yuan.tscn" id="16_37s47"]
+[ext_resource type="PackedScene" uid="uid://0q7gg51dxe6n" path="res://buildings/regions/region_nong_yuan.tscn" id="17_bt5mj"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -40,9 +44,9 @@ _minZoom = 0.2
 _maxZoom = 0.9
 
 [node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
-position = Vector2(1278.7384, 1598.5015)
-scale = Vector2(18.004086, 22.992163)
-texture = ExtResource("1_yqjtg")
+position = Vector2(1004.9998, 955.75)
+scale = Vector2(1.2705078, 1.2062987)
+texture = ExtResource("3_5newe")
 
 [node name="gridMgr" type="Node2D" parent="." unique_id=1318667080]
 position = Vector2(2, 0)
@@ -59,31 +63,43 @@ y_sort_enabled = true
 script = ExtResource("3_lbhrr")
 
 [node name="lake_00" parent="buildingMgr" unique_id=229562284 instance=ExtResource("6_dinhu")]
-position = Vector2(954, 820)
+position = Vector2(957, 693)
 
 [node name="ground_01" parent="buildingMgr" unique_id=1998733786 instance=ExtResource("7_ca42v")]
-position = Vector2(1215, 792)
+position = Vector2(1218, 665)
 
 [node name="villa_01" parent="buildingMgr" unique_id=1748882687 instance=ExtResource("9_ssvqc")]
-position = Vector2(696, 1158)
+position = Vector2(699, 1031)
 
 [node name="dorm_01" parent="buildingMgr" unique_id=1412420651 instance=ExtResource("10_264po")]
-position = Vector2(701, 1321)
+position = Vector2(704, 1194)
 
 [node name="dorm_02" parent="buildingMgr" unique_id=2097924923 instance=ExtResource("10_264po")]
-position = Vector2(699, 1385)
+position = Vector2(702, 1258)
 
 [node name="administration_00" parent="buildingMgr" unique_id=1249148625 instance=ExtResource("11_264po")]
-position = Vector2(791, 999)
+position = Vector2(794, 872)
 
 [node name="teaching_01" parent="buildingMgr" unique_id=1972881674 instance=ExtResource("12_1kice")]
-position = Vector2(1120, 1185)
+position = Vector2(1123, 1058)
 
 [node name="lab_01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
-position = Vector2(1153, 1341)
+position = Vector2(1156, 1214)
+
+[node name="region_yan_dong_yuan" parent="buildingMgr" unique_id=2125567007 instance=ExtResource("14_e1j6l")]
+position = Vector2(2552, 555)
 
 [node name="region_yan_nan_yuan" parent="buildingMgr" unique_id=444217144 instance=ExtResource("14_1kice")]
-position = Vector2(1851, 1901)
+position = Vector2(1275, 1707)
+
+[node name="region_lang_run_yuan" parent="buildingMgr" unique_id=1625980002 instance=ExtResource("15_5newe")]
+position = Vector2(1785, 552)
+
+[node name="region_cheng_ze_yuan2" parent="buildingMgr" unique_id=734458451 instance=ExtResource("16_37s47")]
+position = Vector2(1270, 553)
+
+[node name="region_nong_yuan" parent="buildingMgr" unique_id=1956321944 instance=ExtResource("17_bt5mj")]
+position = Vector2(2492, 1836)
 
 [node name="ScoreMgr" type="Node" parent="." unique_id=1482747704]
 script = ExtResource("6_p57ef")

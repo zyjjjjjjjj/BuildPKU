@@ -1,23 +1,16 @@
 [gd_scene format=3 uid="uid://1ypb2tqglwx7"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_c05e1"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_rlxah"]
+[ext_resource type="Texture2D" uid="uid://d0xq727mnrguq" path="res://TMap/lake.PNG" id="2_c05e1"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_hn8h4"]
 
 [node name="lake" type="Node2D" unique_id=229562284]
 script = ExtResource("1_c05e1")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(28.499992, 38.5)
-scale = Vector2(2.4921875, 2.5390623)
-texture = ExtResource("2_rlxah")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=165250776]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(224, 135)
-scale = Vector2(0.58593756, 1.9999999)
-texture = ExtResource("2_rlxah")
+position = Vector2(66.49999, 64)
+scale = Vector2(0.9921875, 1.03125)
+texture = ExtResource("2_c05e1")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-127.00001, -121.00003)

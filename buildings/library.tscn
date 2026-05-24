@@ -1,32 +1,19 @@
 [gd_scene format=3 uid="uid://b7sao50bcs3ng"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_k3bly"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_2sdun"]
+[ext_resource type="Texture2D" uid="uid://tmadsjl242lq" path="res://TMap/普通图书馆.png" id="2_k3bly"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_3scno"]
 
 [node name="library" type="Node2D" unique_id=229562284]
 script = ExtResource("1_k3bly")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(1, 60.500015)
-scale = Vector2(0.51562506, 0.5000001)
-texture = ExtResource("2_2sdun")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1223105800]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(65, -4.4999847)
-scale = Vector2(0.51562506, 0.5000001)
-texture = ExtResource("2_2sdun")
-
-[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1111918395]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(0.6230507, -4.2499924)
-scale = Vector2(0.50588995, 0.51171887)
-texture = ExtResource("2_2sdun")
+position = Vector2(31, -3.9999998)
+scale = Vector2(1.0039063, 0.85820895)
+texture = ExtResource("2_k3bly")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-31, -36.499985)
 script = ExtResource("3_3scno")
 GridSize = Vector2i(2, 2)
-ShapeMask = Array[bool]([true, true, true, false])
+ShapeMask = Array[bool]([true, true, false, true])

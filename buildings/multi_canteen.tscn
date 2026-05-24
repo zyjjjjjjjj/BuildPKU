@@ -1,23 +1,16 @@
 [gd_scene format=3 uid="uid://c3av5frkhp83m"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_y12si"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_udbb8"]
+[ext_resource type="Texture2D" uid="uid://baru3eqow4kw0" path="res://TMap/多元食堂.png" id="2_y12si"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_mq67p"]
 
 [node name="multi_canteen" type="Node2D" unique_id=229562284]
 script = ExtResource("1_y12si")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(-23.999996, 9)
-scale = Vector2(0.43749994, 1.5312501)
-texture = ExtResource("2_udbb8")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1950238700]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(41.500004, 3.0000076)
-scale = Vector2(0.5078125, 1.484375)
-texture = ExtResource("2_udbb8")
+position = Vector2(8, -51.14454)
+scale = Vector2(0.96093744, 1.1075315)
+texture = ExtResource("2_y12si")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-57, -93)

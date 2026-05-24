@@ -1,17 +1,16 @@
 [gd_scene format=3 uid="uid://cohyxrl57r7ad"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_epbja"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_ufn2d"]
+[ext_resource type="Texture2D" uid="uid://ur1jwwt1yt77" path="res://TMap/大饭厅.png" id="2_epbja"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_12nuj"]
 
 [node name="hall" type="Node2D" unique_id=229562284]
 script = ExtResource("1_epbja")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(5.000004, 2.0000153)
-scale = Vector2(1.5, 1.5312501)
-texture = ExtResource("2_ufn2d")
+position = Vector2(9.536743e-07, -79)
+scale = Vector2(1.0833333, 1.4016905)
+texture = ExtResource("2_epbja")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-93, -89.99999)

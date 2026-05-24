@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dlmt5umdv4mqf"]
+
+[ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_cw200"]
+[ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="2_al3b2"]
+[ext_resource type="Texture2D" uid="uid://dxsny07aoeu7n" path="res://buildings/regions/map/朗润园.png" id="2_t0a2l"]
+
+[node name="region_lang_run_yuan" type="Node2D" unique_id=229562284]
+script = ExtResource("1_cw200")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=694839043]
+position = Vector2(-825, -235)
+scale = Vector2(1.1968751, 0.99609375)
+texture = ExtResource("2_t0a2l")
+
+[node name="grid" type="Node2D" parent="." unique_id=633337854]
+position = Vector2(-1208, -490)
+script = ExtResource("2_al3b2")
+GridSize = Vector2i(12, 8)
+ShapeMask = Array[bool]([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true])

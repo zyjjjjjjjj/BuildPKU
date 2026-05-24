@@ -1,23 +1,16 @@
 [gd_scene format=3 uid="uid://cjd7ychcvsl4k"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_gxw7i"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_tjbo5"]
+[ext_resource type="Texture2D" uid="uid://cm0xcn8bkexfx" path="res://TMap/wind-lab.PNG" id="2_gxw7i"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_t0ttv"]
 
 [node name="wind_lab" type="Node2D" unique_id=229562284]
 script = ExtResource("1_gxw7i")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(28.999977, -58)
-scale = Vector2(0.9687499, 0.3906251)
-texture = ExtResource("2_tjbo5")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=183163591]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(-36.999992, 8)
-scale = Vector2(1.8828123, 0.3906251)
-texture = ExtResource("2_tjbo5")
+position = Vector2(-41, -74)
+scale = Vector2(1.0820314, 1.0090497)
+texture = ExtResource("2_gxw7i")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-162, -92)

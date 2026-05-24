@@ -1,35 +1,16 @@
 [gd_scene format=3 uid="uid://cmi3okcb2esxn"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_4rb73"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_2p2vs"]
+[ext_resource type="Texture2D" uid="uid://dhpebu3xjth2c" path="res://TMap/锅炉房.png" id="2_4rb73"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_aq83y"]
 
 [node name="boiler" type="Node2D" unique_id=229562284]
 script = ExtResource("1_4rb73")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(64, 8.000008)
-scale = Vector2(0.43749994, 1.5312501)
-texture = ExtResource("2_2p2vs")
-
-[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1950238700]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(3.5, -62.5)
-scale = Vector2(0.5078125, 0.49218744)
-texture = ExtResource("2_2p2vs")
-
-[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=435665595]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(2, 65.5)
-scale = Vector2(0.43749994, 0.5078127)
-texture = ExtResource("2_2p2vs")
-
-[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=994157838]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(-63, 1.0000076)
-scale = Vector2(0.43749994, 1.5312501)
-texture = ExtResource("2_2p2vs")
+position = Vector2(3.0000095, -34.00002)
+scale = Vector2(0.98958355, 0.87213117)
+texture = ExtResource("2_4rb73")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-95, -95)

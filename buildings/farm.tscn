@@ -1,17 +1,16 @@
 [gd_scene format=3 uid="uid://ixw0st8ti40y"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_siy0f"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_q7mid"]
+[ext_resource type="Texture2D" uid="uid://b54jekdr20txy" path="res://TMap/farm.png" id="2_siy0f"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_sji36"]
 
 [node name="farm" type="Node2D" unique_id=229562284]
 script = ExtResource("1_siy0f")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 1, 0, 1)
-position = Vector2(-7.562505, 2.250002)
-scale = Vector2(0.97753906, 0.9179687)
-texture = ExtResource("2_q7mid")
+position = Vector2(-3, -26)
+scale = Vector2(1.0043945, 0.9166958)
+texture = ExtResource("2_siy0f")
 
 [node name="grid" type="Node2D" parent="." unique_id=855007586]
 position = Vector2(-71, -58)

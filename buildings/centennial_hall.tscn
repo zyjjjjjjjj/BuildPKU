@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bu4p0rwo77srm"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_fq8q1"]
-[ext_resource type="Texture2D" uid="uid://b4jya0d57s4i7" path="res://centennial_hall.png" id="2_fq8q1"]
+[ext_resource type="Texture2D" uid="uid://b4jya0d57s4i7" path="res://TMap/centennial_hall.png" id="2_fq8q1"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_dfjoj"]
 
 [node name="centennial_hall" type="Node2D" unique_id=229562284]

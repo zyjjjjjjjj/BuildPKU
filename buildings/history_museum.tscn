@@ -1,17 +1,16 @@
 [gd_scene format=3 uid="uid://drtu3a728koew"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_4bhbj"]
-[ext_resource type="Texture2D" uid="uid://2tj33ga55fj4" path="res://icon.svg" id="2_3a6ho"]
+[ext_resource type="Texture2D" uid="uid://wyq5nrhk6mh6" path="res://TMap/历史博物馆.png" id="2_4bhbj"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_w2r0t"]
 
 [node name="history_museum" type="Node2D" unique_id=229562284]
 script = ExtResource("1_4bhbj")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=328235286]
-modulate = Color(0, 0, 1, 1)
-position = Vector2(3.0000076, -7.4999924)
-scale = Vector2(0.42187494, 1.4296876)
-texture = ExtResource("2_3a6ho")
+position = Vector2(3.000001, -53)
+scale = Vector2(1.0097655, 1.0148717)
+texture = ExtResource("2_4bhbj")
 
 [node name="grid" type="Node2D" parent="." unique_id=633337854]
 position = Vector2(-30, -98.99999)
