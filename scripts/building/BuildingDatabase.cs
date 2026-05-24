@@ -9,7 +9,7 @@ public class BuildingData
     public string Id{get;init;}
     public string Name{get;init;}
     public List<string> Tags { get; init; } = new List<string>();
-    public string IconPath => "res://icon.svg";
+    public string IconPath => $"res://TMap/{Id}.png";
     public string ScenePath => $"res://buildings/{Id}.tscn";
     public float Research { get; init; }
     public float Education { get; init; }
@@ -217,6 +217,11 @@ public static class BuildingDatabase
             if (!ResourceLoader.Exists(data.ScenePath))
             {
                 GD.PushWarning($"建筑配置 {id} 的 ScenePath 不存在: {data.ScenePath}");
+            }
+
+            if (!ResourceLoader.Exists(data.IconPath))
+            {
+                GD.PushWarning($"建筑配置 {id} 的 IconPath 不存在: {data.IconPath}");
             }
             if (data.Tags != null)
             {

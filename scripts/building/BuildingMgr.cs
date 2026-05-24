@@ -104,21 +104,21 @@ public partial class BuildingMgr : Node2D
         if (!keyEvent.Pressed || keyEvent.Echo)
             return;
 
-        switch (keyEvent.Keycode)
-        {
-            case Key.Q:
-                if (_tmpBuilding == null)
-                    break;
-                _tmpBuilding.RotateBuilding(false);
-                AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRotate);
-                break;
-            case Key.E:
-                if (_tmpBuilding == null)
-                    break;
-                _tmpBuilding.RotateBuilding(true);
-                AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRotate);
-                break;
-        }
+        // switch (keyEvent.Keycode)
+        // {
+        //     case Key.Q:
+        //         if (_tmpBuilding == null)
+        //             break;
+        //         _tmpBuilding.RotateBuilding(false);
+        //         AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRotate);
+        //         break;
+        //     case Key.E:
+        //         if (_tmpBuilding == null)
+        //             break;
+        //         _tmpBuilding.RotateBuilding(true);
+        //         AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRotate);
+        //         break;
+        // }
     }
 
     private void SelectBuilding(string buildingId)

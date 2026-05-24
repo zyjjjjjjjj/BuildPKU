@@ -67,6 +67,7 @@ offset_bottom = 317.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("2_lecxb")
+_itemBgColor = Color(0.2, 0.2, 0.2, 0.3137255)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuildingSideBar" unique_id=1548977131]
 layout_mode = 2

@@ -29,8 +29,8 @@
 script = ExtResource("1_0tnpc")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
-position = Vector2(1253, 1589)
-zoom = Vector2(0.2, 0.2)
+position = Vector2(1013, 948)
+zoom = Vector2(0.7, 0.7)
 limit_enabled = false
 limit_left = -12000
 limit_top = -1000
@@ -40,8 +40,8 @@ script = ExtResource("4_lbhrr")
 _dragSpeed = 100.0
 _edgeRatio = 0.001
 _zoomFactor = 1.05
-_minZoom = 0.2
-_maxZoom = 0.9
+_minZoom = 0.35
+_maxZoom = 1.5
 
 [node name="mapBackground" type="Sprite2D" parent="." unique_id=4091453]
 position = Vector2(1004.9998, 955.75)

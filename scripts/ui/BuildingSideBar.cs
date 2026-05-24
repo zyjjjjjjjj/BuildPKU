@@ -5,6 +5,7 @@ public partial class BuildingSideBar : PanelContainer
 {
 	public static BuildingSideBar Instance { get; private set; }
 	[Export] private ItemList _itemList;
+	[Export] private Color _itemBgColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
 	
 	[Signal] public delegate void SideBarBuildingSelectedEventHandler(string id);
 
@@ -80,12 +81,37 @@ public partial class BuildingSideBar : PanelContainer
 			return;
 
 		var displayText = $"{data.Name}\n￥{data.ActualCost}";
-		Texture2D icon = GD.Load<Texture2D>(data.IconPath);
+		Texture2D icon = CreateIconWithBackground(
+			GD.Load<Texture2D>(data.IconPath),
+			_itemBgColor,
+			64
+		);
 		_itemList.AddItem(displayText, icon);
 
 		var index = _itemList.GetItemCount() - 1;
 		_itemList.SetItemMetadata(index, data.Id);
 		_itemList.SetItemTooltip(index, BuildBuildingTooltip(data));
+	}
+	
+	private Texture2D CreateIconWithBackground(Texture2D source, Color bgColor, int size = 64)
+	{
+		if (source == null)
+			return null;
+
+		var bgImage = Image.Create(size, size, false, Image.Format.Rgba8);
+		bgImage.Fill(bgColor);
+
+		var srcImage = source.GetImage();
+		srcImage.Convert(Image.Format.Rgba8);
+
+		int padding = 8;
+		int iconSize = size - padding * 2;
+		srcImage.Resize(iconSize, iconSize, Image.Interpolation.Lanczos);
+
+		var dstPos = new Vector2I(padding, padding);
+		bgImage.BlendRect(srcImage, new Rect2I(Vector2I.Zero, srcImage.GetSize()), dstPos);
+
+		return ImageTexture.CreateFromImage(bgImage);
 	}
 
 	private string BuildBuildingTooltip(BuildingData data)

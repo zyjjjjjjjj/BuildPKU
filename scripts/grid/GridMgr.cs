@@ -269,7 +269,7 @@ public partial class GridMgr : Node2D
     }
     public Vector2? CheckSpace(BuildingBase building, out int zIdx)
     {
-        zIdx = GridHeight;
+        zIdx = -1;
         if(building == null)
              return null;
         var collisionPoints = building.GetCollisionAreas();
@@ -280,7 +280,7 @@ public partial class GridMgr : Node2D
             if (!_Buildable(idx))
                 return null;
             offset = GridIdxToWorld(idx) - collisionPoint.GlobalPosition;
-            if(idx.Y < zIdx)
+            if(idx.Y > zIdx)
                 zIdx = idx.Y;
         }
         return offset;
