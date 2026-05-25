@@ -5,7 +5,7 @@
 		"Description": "科研评分权重增加0.2。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"weight_add_buff": {
@@ -22,7 +22,7 @@
 		"Description": "环境评分权重增加0.2。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1954,
 		"Repeatable": false,
 		"Buffs": {
 			"weight_add_buff": {
@@ -39,7 +39,7 @@
 		"Description": "科研与教学评分权重增加0.2。",
 		"CardType": "Buff",
 		"Rarity": "Epic",
-		"MinYear": 1952,
+		"MinYear": 1965,
 		"Repeatable": false,
 		"Buffs": {
 			"weight_add_buff": {
@@ -57,7 +57,7 @@
 		"Description": "与草地相邻的实验室科研产出提高20%。",
 		"CardType": "Buff",
 		"Rarity": "Epic",
-		"MinYear": 1952,
+		"MinYear": 1999,
 		"Repeatable": false,
 		"Buffs": {
 			"adj_bonus_buff": {
@@ -108,7 +108,7 @@
 		"Description": "若总人口<500，科研与教学权重增加0.4",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1960,
 		"Repeatable": false,
 		"Buffs": {
 			"conditional_weight_add_buff": {
@@ -129,7 +129,7 @@
 		"Description": "所有收益为负的建筑收益乘0.5",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1960,
 		"Repeatable": false,
 		"Buffs": {
 			"basic_prop_buff": {
@@ -147,7 +147,7 @@
 		"Description": "学费提高一倍, 教学权重增加0.2",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1970,
 		"Repeatable": false,
 		"Buffs": {
 			"tuition_buff": {
@@ -167,7 +167,7 @@
 		"Description": "宿舍类建筑造价降低50%",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1980,
 		"Repeatable": false,
 		"Buffs": {
 			"cost_reduction_buff": {
@@ -182,7 +182,7 @@
 		"Description": "下两个建造的实验室建造花费变为0",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1990,
 		"Repeatable": false,
 		"Buffs": {
 			"cost_reduction_buff_limited": {
@@ -198,7 +198,7 @@
 		"Description": "所有建造花费大于3000的建筑建造花费变为3000",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 2001,
 		"Repeatable": false,
 		"Buffs": {
 			"cost_upper_bound_buff": {
@@ -213,7 +213,7 @@
 		"Description": "每回合,使最低的评分权重增加0.05",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 2005,
 		"Repeatable": false,
 		"Buffs": {
 			"add_min_weight_per_turn_buff": {
@@ -227,7 +227,7 @@
 		"Description": "根据教学评分的20%, 提升科研评分和人口数量",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 2010,
 		"Repeatable": false,
 		"Buffs": {
 			"score_transform_buff": {
@@ -246,7 +246,7 @@
 		"Description": "根据科研评分的50%, 提升收益",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 2010,
 		"Repeatable": false,
 		"Buffs": {
 			"score_transform_buff": {
@@ -264,7 +264,7 @@
 		"Description": "同类建筑相邻时, 所有产出提高50%",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1985,
 		"Repeatable": false,
 		"Buffs": {
 			"adj_bonus_same_id_buff": {
@@ -286,7 +286,7 @@
 		"Description": "老图书馆周边3格内所有建筑, 科研与教学产出提高20%, 环境产出提高50%",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1970,
 		"Repeatable": false,
 		"Buffs": {
 			"adj_bonus_with_tolerance_buff": {
@@ -316,7 +316,7 @@
 		"Description": "实验室每与一个宿舍相邻, 科研产出提高10%",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1958,
 		"Repeatable": false,
 		"Buffs": {
 			"adj_bonus_with_cnt_buff": {
