@@ -108,9 +108,24 @@ public static class CardDatabase
     {
         foreach (var card in _allCards.Values)
         {
-            foreach (var buffId in card.Buffs.Keys.Where(buffId => !BuffDatabase.Exists(Regex.Replace(buffId, @"_\d+$", ""))))
+            foreach (var pair in card.Buffs)
             {
-                GD.PrintErr($"卡牌 {card.Id} 包含未知 Buff: {buffId}");
+                var id = pair.Key;
+                var args = pair.Value;
+                if(!BuffDatabase.Exists(Regex.Replace(id, @"_\d+$", "")))
+                {
+                    GD.PrintErr($"卡牌 {card.Id} 包含未知 Buff: {id}");
+                    continue;
+                }
+                if(!string.IsNullOrEmpty(args.SrcBuildingIdOrTag) && !BuildingDatabase.Exists(args.SrcBuildingIdOrTag))
+                {
+                    GD.PrintErr($"卡牌 {card.Id} 包含未知建筑: {args.SrcBuildingIdOrTag}");
+                }
+                if(!string.IsNullOrEmpty(args.DestBuildingIdOrTag) && !BuildingDatabase.Exists(args.DestBuildingIdOrTag))
+                {
+                    GD.PrintErr($"卡牌 {card.Id} 包含未知建筑: {args.DestBuildingIdOrTag}");
+                }
+                
             }
         }
 

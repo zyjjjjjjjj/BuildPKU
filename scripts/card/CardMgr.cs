@@ -149,7 +149,7 @@ public partial class CardMgr : Node
             _pickedNonRepeatableCardIds.Add(cardData.Id);
     }
 
-    private void ActivateEvent(int year)
+    public void ActivateEvent(int year)
     {
         var evt = CardDatabase.GetEvent(year);
         if(evt == null)

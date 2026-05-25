@@ -65,5 +65,11 @@ public static class BuffDatabase
 
         foreach (var buff in list)
             _buffs[buff.Id] = buff;
+
+        CheckIllegal();
+    }
+
+    private static void CheckIllegal()
+    {
     }
 }
