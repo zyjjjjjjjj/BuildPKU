@@ -45,7 +45,7 @@ public static class BuffDatabase
         return _buffs.ContainsKey(id);
     }
 
-    private static void EnsureLoaded()
+    public static void EnsureLoaded()
     {
         if (_buffs != null)
             return;

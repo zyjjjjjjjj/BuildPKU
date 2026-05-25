@@ -22,6 +22,10 @@ public partial class GameMgr : Node2D
     // Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		BuildingDatabase.EnsureLoaded();
+		BuffDatabase.EnsureLoaded();
+		CardDatabase.EnsureLoaded();
+		MileStoneDatabase.EnsureLoaded();
 		//set up initial building
 		BuildingMgr.Instance.SetUpInitialBuildingsAndRegions();
 	}

@@ -52,7 +52,7 @@ public static class CardDatabase
         return _allCards.Values.ToList();
     }
 
-    private static void EnsureLoaded()
+    public static void EnsureLoaded()
     {
         if (_allCards != null && _events != null)
             return;

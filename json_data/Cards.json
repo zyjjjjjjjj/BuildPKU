@@ -414,7 +414,7 @@
 			"adj_bonus_with_cnt_buff": {
 				"Target": "Education",
 				"Value": -10,
-				"SrcBuildingIdOrTag": "all",
+				"SrcBuildingIdOrTag": "auto_all",
 				"DestBuildingIdOrTag": "library"
 			}
 		}

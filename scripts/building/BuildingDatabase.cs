@@ -118,7 +118,7 @@ public static class BuildingDatabase
 		return null;
 	}
 
-	private static void EnsureLoaded()
+	public static void EnsureLoaded()
 	{
 		if (_allBuildingDict != null && _initialBuildingIds != null && _allRegionDict != null && _tagsDict != null)
 			return;
@@ -179,7 +179,7 @@ public static class BuildingDatabase
 	
 	private static void AddAutoTag()
 	{
-		_tagsDict.Add("auto_all", "所有建筑");
+		_tagsDict.Add("auto_all", "建筑");
 		_tagsDict.Add("auto_pos_ben", "有收益的建筑");
 		_tagsDict.Add("auto_neg_ben", "收益为负的建筑");
 		foreach (var kv in _allBuildingDict)

@@ -43,7 +43,7 @@ public static class MileStoneDatabase
 		return _mileStonesList.All(mileStoneData => mileStoneData.Year <= year);
 	}
 
-	private static void EnsureLoaded()
+	public static void EnsureLoaded()
 	{
 		if (_mileStonesList != null)
 			return;
