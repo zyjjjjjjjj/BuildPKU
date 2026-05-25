@@ -28,7 +28,7 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 24
+theme_override_constants/separation = 48
 alignment = 1
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1781846186]
@@ -42,11 +42,11 @@ horizontal_alignment = 1
 
 [node name="CardsRow" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1390731719]
 layout_mode = 2
-theme_override_constants/separation = 22
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/CardsRow" unique_id=1357675146]
-custom_minimum_size = Vector2(220, 300)
+custom_minimum_size = Vector2(370, 500)
 layout_mode = 2
 autowrap_mode = 3
 
@@ -58,23 +58,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer" unique_id=1327282345]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 
 [node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer" unique_id=324195011]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button/MarginContainer/VBoxContainer" unique_id=1737492983]
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 autowrap_mode = 3
 
 [node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/CardsRow" unique_id=515187290]
-custom_minimum_size = Vector2(220, 300)
+custom_minimum_size = Vector2(370, 500)
 layout_mode = 2
 autowrap_mode = 3
 
@@ -86,23 +92,29 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer" unique_id=1380496963]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 
 [node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer" unique_id=160307323]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button2/MarginContainer/VBoxContainer" unique_id=655668781]
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 autowrap_mode = 3
 
 [node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/CardsRow" unique_id=1493576252]
-custom_minimum_size = Vector2(220, 300)
+custom_minimum_size = Vector2(370, 500)
 layout_mode = 2
 autowrap_mode = 3
 
@@ -114,17 +126,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer" unique_id=1580117922]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 30
 
 [node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer" unique_id=206206116]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 
 [node name="DescriptionLabel" type="Label" parent="MarginContainer/VBoxContainer/CardsRow/Button3/MarginContainer/VBoxContainer" unique_id=930150996]
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 autowrap_mode = 3

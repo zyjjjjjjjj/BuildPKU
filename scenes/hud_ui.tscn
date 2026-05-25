@@ -11,17 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://bde655sxu03kn" path="res://scenes/game_over_panel.tscn" id="7_kkiei"]
 [ext_resource type="PackedScene" uid="uid://jel574idb8ic" path="res://scenes/building_info_panel.tscn" id="9_cq5av"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ml6tl"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_hovered"]
-bg_color = Color(0.5829251, 0.8122204, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_hovered_selected"]
-bg_color = Color(2.3295284e-05, 0.58166397, 0.90111107, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_selected"]
-bg_color = Color(0.3811598, 0.7300026, 0.9999986, 1)
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vha3o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_warning_panel"]
@@ -40,6 +29,17 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ml6tl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_hovered"]
+bg_color = Color(0.5829251, 0.8122204, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_hovered_selected"]
+bg_color = Color(2.3295284e-05, 0.58166397, 0.90111107, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_selected"]
+bg_color = Color(0.3811598, 0.7300026, 0.9999986, 1)
+
 [node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974 node_paths=PackedStringArray("_buildingInfoPanel")]
 script = ExtResource("1_n3kp7")
 _buildingInfoPanel = NodePath("BuildingInfoPanel")
@@ -53,47 +53,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_ml6tl")
-
-[node name="BuildingSideBar" type="PanelContainer" parent="HUDRoot" unique_id=1250344828]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -218.0
-offset_top = -270.0
-offset_bottom = 317.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("2_lecxb")
-_itemBgColor = Color(0.2, 0.2, 0.2, 0.3137255)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuildingSideBar" unique_id=1548977131]
-layout_mode = 2
-
-[node name="ItemList" type="ItemList" parent="HUDRoot/BuildingSideBar/VBoxContainer" unique_id=1839966837]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
-theme_override_colors/font_hovered_color = Color(0.06666667, 0.06666667, 0.06666667, 1)
-theme_override_colors/font_hovered_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
-theme_override_colors/scroll_hint_color = Color(0, 0, 0, 0.2)
-theme_override_colors/guide_color = Color(0, 0, 0, 0.13333334)
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ml6tl")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ml6tl")
-theme_override_styles/hovered = SubResource("StyleBoxFlat_item_hovered")
-theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_item_hovered_selected")
-theme_override_styles/selected = SubResource("StyleBoxFlat_item_selected")
-theme_override_styles/selected_focus = SubResource("StyleBoxFlat_item_selected")
-allow_reselect = true
-max_text_lines = 2
-max_columns = 2
-fixed_column_width = 96
-icon_mode = 0
-fixed_icon_size = Vector2i(78, 78)
 
 [node name="ScoreBoard" type="PanelContainer" parent="HUDRoot" unique_id=414033882 node_paths=PackedStringArray("_repLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_moneyLabel", "_tuiLabel", "_totalBenLabel", "_buildBenLabel", "_resWeightLabel", "_eduWeightLabel", "_envWeightLabel")]
 layout_mode = 1
@@ -334,43 +293,50 @@ grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("1_27bld")
 
-[node name="CenterBar" type="HBoxContainer" parent="HUDRoot/TopBar" unique_id=1146200729]
+[node name="YearPanel" type="PanelContainer" parent="HUDRoot/TopBar" unique_id=1146200730]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -162.0
+offset_left = -172.0
+offset_top = 1.0
 offset_right = 162.0
-offset_bottom = 58.0
+offset_bottom = 112.0
 grow_horizontal = 2
 mouse_filter = 2
+
+[node name="YearRow" type="HBoxContainer" parent="HUDRoot/TopBar/YearPanel" unique_id=1146200729]
+layout_mode = 2
+theme_override_constants/separation = 18
 alignment = 1
 
-[node name="YearLabel" type="Label" parent="HUDRoot/TopBar/CenterBar" unique_id=1259621921]
+[node name="YearLabel" type="Label" parent="HUDRoot/TopBar/YearPanel/YearRow" unique_id=1259621921]
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = "0000"
 
-[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar/CenterBar" unique_id=1880808890]
+[node name="NextYearButton" type="Button" parent="HUDRoot/TopBar/YearPanel/YearRow" unique_id=1880808890]
 layout_mode = 2
+size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "下一年"
 
-[node name="NextGoalLabel" type="Label" parent="HUDRoot/TopBar" unique_id=1762200729]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -116.5
-offset_top = -29.0
-offset_right = 116.5
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+[node name="GoalPanel" type="PanelContainer" parent="HUDRoot/TopBar" unique_id=1429837111]
+layout_mode = 0
+offset_left = 1174.0
+offset_right = 1567.0
+offset_bottom = 61.0
+
+[node name="GoalRow" type="HBoxContainer" parent="HUDRoot/TopBar/GoalPanel" unique_id=778772575]
+layout_mode = 2
+alignment = 1
+
+[node name="NextGoalLabel" type="Label" parent="HUDRoot/TopBar/GoalPanel/GoalRow" unique_id=1762200729]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
 text = "下一目标: 1960年 / 声誉 100"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="WarningPanel" type="PanelContainer" parent="HUDRoot" unique_id=155276741]
 layout_mode = 1
@@ -402,6 +368,47 @@ autowrap_mode = 2
 layout_mode = 1
 _cardNameLabels = []
 _cardDescriptionLabels = []
+
+[node name="BuildingSideBar" type="PanelContainer" parent="HUDRoot" unique_id=1250344828]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -218.0
+offset_top = -270.0
+offset_bottom = 317.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("2_lecxb")
+_itemBgColor = Color(0.2, 0.2, 0.2, 0.3137255)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuildingSideBar" unique_id=1548977131]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="HUDRoot/BuildingSideBar/VBoxContainer" unique_id=1839966837]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+theme_override_colors/font_hovered_color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+theme_override_colors/font_hovered_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/scroll_hint_color = Color(0, 0, 0, 0.2)
+theme_override_colors/guide_color = Color(0, 0, 0, 0.13333334)
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ml6tl")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ml6tl")
+theme_override_styles/hovered = SubResource("StyleBoxFlat_item_hovered")
+theme_override_styles/hovered_selected = SubResource("StyleBoxFlat_item_hovered_selected")
+theme_override_styles/selected = SubResource("StyleBoxFlat_item_selected")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_item_selected")
+allow_reselect = true
+max_text_lines = 2
+max_columns = 2
+fixed_column_width = 96
+icon_mode = 0
+fixed_icon_size = Vector2i(78, 78)
 
 [node name="BuffSideBar" type="PanelContainer" parent="HUDRoot" unique_id=2072901608 node_paths=PackedStringArray("_toggleButton", "_cardList", "_adjBonusTitleLabel", "_adjBonusList")]
 layout_mode = 1

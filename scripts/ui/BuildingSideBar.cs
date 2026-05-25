@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public partial class BuildingSideBar : PanelContainer
 {
 	public static BuildingSideBar Instance { get; private set; }
+	private const int UpgradeTooltipLineLength = 16;
 	[Export] private ItemList _itemList;
 	[Export] private Color _itemBgColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
 	
@@ -127,7 +128,7 @@ public partial class BuildingSideBar : PanelContainer
 				var upgradeData = BuildingDatabase.GetById(id);
 				upgradeNames.Add(upgradeData?.Name ?? id);
 			}
-			upgradeText = string.Join(" / ", upgradeNames);
+			upgradeText = WrapUpgradeNames(upgradeNames, UpgradeTooltipLineLength, 5);
 		}
 		
 		return $"{data.Name}\n" +
@@ -137,6 +138,42 @@ public partial class BuildingSideBar : PanelContainer
 		       $"收益: {data.Benefit}\n" +
 		       $"建造上限: {limitText}\n" +
 		       $"可升级为: {upgradeText}";
+	}
+
+	private static string WrapUpgradeNames(List<string> upgradeNames, int maxLineLength, int prefixLength)
+	{
+		if (upgradeNames.Count == 0)
+			return string.Empty;
+
+		var lines = new List<string>();
+		var currentLine = string.Empty;
+		var firstLineLimit = Mathf.Max(1, maxLineLength - prefixLength);
+		var continuationPrefix = new string(' ', prefixLength);
+
+		foreach (var name in upgradeNames)
+		{
+			var nextLine = string.IsNullOrEmpty(currentLine)
+				? name
+				: $"{currentLine} / {name}";
+			var currentLimit = lines.Count == 0 ? firstLineLimit : maxLineLength;
+
+			if (currentLine.Length > 0 && nextLine.Length > currentLimit)
+			{
+				lines.Add(currentLine);
+				currentLine = name;
+				continue;
+			}
+
+			currentLine = nextLine;
+		}
+
+		if (!string.IsNullOrEmpty(currentLine))
+			lines.Add(currentLine);
+
+		for (var i = 1; i < lines.Count; i++)
+			lines[i] = continuationPrefix + lines[i];
+
+		return string.Join("\n", lines);
 	}
 
 	public override void _GuiInput(InputEvent @event)

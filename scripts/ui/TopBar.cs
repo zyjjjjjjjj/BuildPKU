@@ -10,11 +10,11 @@ public partial class TopBar : Control
 	
 	public override void _Ready()
 	{		
-		_yearLabel = GetNode<Label>("CenterBar/YearLabel");
-		_nextGoalLabel = GetNode<Label>("NextGoalLabel");
+		_yearLabel = GetNode<Label>("YearPanel/YearRow/YearLabel");
+		_nextGoalLabel = GetNode<Label>("GoalPanel/GoalRow/NextGoalLabel");
 		TimeMgr.Instance.YearAdvanced += _yearUpdate;
 		_yearUpdate(TimeMgr.Instance.InitialYear);
-		_nextYearButton = GetNode<Button>("CenterBar/NextYearButton");
+		_nextYearButton = GetNode<Button>("YearPanel/YearRow/NextYearButton");
 		_nextYearButton.Pressed += () => TimeMgr.Instance.EndYear();
 		_nextYearButton.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
 	}
