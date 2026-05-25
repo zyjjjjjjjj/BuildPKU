@@ -195,15 +195,16 @@ public partial class BuildingMgr : Node2D
         SpawnBuilding(buildData);
         if (cost)
             AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildPlace);
-        if (!AvailableBuildingIds.Contains(_tmpBuilding.Id))
-        {
-            IsEditing = false;
-            return;
-        }
         if (_upgradedBuilding != null)
         {
             _upgradedBuilding = null;
             IsEditing = false;
+            return;
+        }
+        if (!AvailableBuildingIds.Contains(_tmpBuilding.Id))
+        {
+            IsEditing = false;
+            return;
         }
         return;
     }
