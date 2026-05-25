@@ -28,6 +28,7 @@ public partial class GameMgr : Node2D
 		MileStoneDatabase.EnsureLoaded();
 		//set up initial building
 		BuildingMgr.Instance.SetUpInitialBuildingsAndRegions();
+		CardMgr.Instance.ActivateEvent(TimeMgr.Instance.InitialYear);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

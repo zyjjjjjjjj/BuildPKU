@@ -247,4 +247,16 @@ public static class BuildingDatabase
 		EnsureLoaded();
 		return _allBuildingDict.ContainsKey(id);
 	}
+	
+	public static bool IsTag(string id)
+	{
+		EnsureLoaded();
+		return _tagsDict.ContainsKey(id);
+	}
+
+	public static bool Exists(string idOrTag)
+	{
+		EnsureLoaded();
+		return IsId(idOrTag) || IsTag(idOrTag);
+	}
 }
