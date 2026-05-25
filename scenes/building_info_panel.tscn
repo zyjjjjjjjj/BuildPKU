@@ -4,8 +4,8 @@
 [ext_resource type="Theme" uid="uid://c42r8558dvmyi" path="res://themes/clashy/clashy.tres" id="2_q35r8"]
 
 [node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_scrollContainer", "_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffPanel", "_buffContainer", "_destroyButton", "_upgradePanel", "_upgradeContainer")]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 214.0
+offset_bottom = 532.0
 theme = ExtResource("2_q35r8")
 script = ExtResource("1_eqwah")
 _scrollContainer = NodePath("MarginContainer/ScrollContainer")
