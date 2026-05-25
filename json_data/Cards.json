@@ -335,7 +335,7 @@
 		"Description": "解锁联幢宿舍及其他宿舍升级路径。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"unlock_upgrading_buff": {
@@ -349,7 +349,7 @@
 		"Description": "解锁各类专业实验室的升级路径。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"unlock_upgrading_buff": {
@@ -363,7 +363,7 @@
 		"Description": "解锁草地的改良路径。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"unlock_upgrading_buff": {
@@ -377,7 +377,7 @@
 		"Description": "解锁行政楼的升级路径。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"unlock_upgrading_buff": {
@@ -391,7 +391,7 @@
 		"Description": "解锁老图书馆的升级路径。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"unlock_upgrading_buff": {
@@ -473,7 +473,7 @@
 		"Description": "林草获得特性：相邻的建筑环境+100%；如果和另一个林草相邻，自身环境+200%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
-		"MinYear": 1952,
+		"MinYear": 1953,
 		"Repeatable": false,
 		"Buffs": {
 			"unlock_upgrading_buff": {
