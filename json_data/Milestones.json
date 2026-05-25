@@ -5,26 +5,26 @@
 	},
 	{
 		"Year": 1972,
-		"TargetScore": 100
+		"TargetScore": 400
 	},
 	{
 		"Year": 1982,
-		"TargetScore": 100
+		"TargetScore": 600
 	},
 	{
 		"Year": 1992,
-		"TargetScore": 1000
+		"TargetScore": 1200
 	},
 	{
 		"Year": 2002,
-		"TargetScore": 1000
+		"TargetScore": 2600
 	},
 	{
 		"Year": 2012,
-		"TargetScore": 1500
+		"TargetScore": 3000
 	},
 	{
 		"Year": 2026,
-		"TargetScore": 1000
+		"TargetScore": 5000
 	}
 ]
