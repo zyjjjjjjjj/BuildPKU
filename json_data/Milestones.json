@@ -1,10 +1,30 @@
 [
 	{
-		"Year": 1960,
-		"TargetScore": 100
+		"Year": 1962,
+		"TargetScore": 300
+	},
+	{
+		"Year": 1972,
+		"TargetScore": 500
+	},
+	{
+		"Year": 1982,
+		"TargetScore": 800
+	},
+	{
+		"Year": 1992,
+		"TargetScore": 2000
+	},
+	{
+		"Year": 2002,
+		"TargetScore": 3000
+	},
+	{
+		"Year": 2012,
+		"TargetScore": 3500
 	},
 	{
 		"Year": 2026,
-		"TargetScore": 200
+		"TargetScore": 5000
 	}
 ]
