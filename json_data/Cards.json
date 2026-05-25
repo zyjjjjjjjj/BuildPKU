@@ -54,7 +54,7 @@
 	{
 		"Id": "biology_century",
 		"Name": "生物学的世纪",
-		"Description": "与绿地相邻的实验室科研产出提高20%。",
+		"Description": "与草地相邻的实验室科研产出提高20%。",
 		"CardType": "Buff",
 		"Rarity": "Epic",
 		"MinYear": 1952,
@@ -105,7 +105,7 @@
 	{
 		"Id": "small_but_beautiful",
 		"Name": "小而美",
-		"Description": "若总人口<500，科研与教育权重增加0.4",
+		"Description": "若总人口<500，科研与教学权重增加0.4",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1952,
@@ -144,7 +144,7 @@
 	{
 		"Id": "gongnongbingxueyuan",
 		"Name": "工农兵学员",
-		"Description": "学费提高一倍, 教育权重增加0.2",
+		"Description": "学费提高一倍, 教学权重增加0.2",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1952,
@@ -224,7 +224,7 @@
 	{
 		"Id": "gaozhiliangrencaiyinjin",
 		"Name": "高质量人才引进",
-		"Description": "根据教育评分的20%, 提升科研评分和人口数量",
+		"Description": "根据教学评分的20%, 提升科研评分和人口数量",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1952,
@@ -402,7 +402,7 @@
 	{
 		"Id": "library_unlock_and_effect",
 		"Name": "解锁：图书馆",
-		"Description": "解锁图书馆建筑。建成后，每和一个建筑相邻，education-10%。",
+		"Description": "解锁图书馆建筑。建成后，每和一个建筑相邻，教学-10%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -422,7 +422,7 @@
 	{
 		"Id": "teaching_effect",
 		"Name": "文教楼效果",
-		"Description": "文教楼获得特性：如果和“lab”tag的建筑相邻，自身的research，education+50%。",
+		"Description": "文教楼获得特性：如果和带有“实验室”标签的建筑相邻，自身的科研、教学+50%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -442,7 +442,7 @@
 	{
 		"Id": "ground_effect",
 		"Name": "体育场效果",
-		"Description": "体育场获得特性：两格内存在ground时，自身三维属性+100%。并允许前置建筑向其升级。",
+		"Description": "体育场获得特性：两格内存在体育场时，自身三维属性+100%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1962,
@@ -470,7 +470,7 @@
 	{
 		"Id": "villa_effect",
 		"Name": "林草效果",
-		"Description": "林草获得特性：相邻的建筑environment+100%；如果和另一个林草相邻，自身environment+200%。并允许前置建筑向其升级。",
+		"Description": "林草获得特性：相邻的建筑环境+100%；如果和另一个林草相邻，自身环境+200%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1952,
@@ -497,7 +497,7 @@
 	{
 		"Id": "canteen_unlock_and_effect",
 		"Name": "解锁：食堂",
-		"Description": "解锁食堂建筑。建成后，相邻建筑environment-30%。",
+		"Description": "解锁食堂建筑。建成后，相邻建筑环境-30%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -516,7 +516,7 @@
 	{
 		"Id": "multi_canteen_unlock_and_effect",
 		"Name": "解锁：多层食堂",
-		"Description": "解锁多层食堂建筑。建成后，相邻的有“dormitory”tag的建筑population+20%，相邻建筑environment-50%。并允许前置建筑向其升级。",
+		"Description": "解锁多层食堂建筑。建成后，相邻的带有“宿舍”标签的建筑人口+20%，相邻建筑环境-50%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1972,
@@ -547,7 +547,7 @@
 	{
 		"Id": "com_canteen_unlock_and_effect",
 		"Name": "解锁：综合食堂",
-		"Description": "解锁综合食堂建筑。建成后，两格内有“dormitory”tag的建筑population+50%，相邻建筑environment-20%。并允许前置建筑向其升级。",
+		"Description": "解锁综合食堂建筑。建成后，两格内带有“宿舍”标签的建筑人口+50%，相邻建筑环境-20%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2002,
@@ -596,7 +596,7 @@
 	{
 		"Id": "dpt_center_unlock_and_effect",
 		"Name": "解锁：产学研中心",
-		"Description": "解锁产学研中心建筑。建成后，相邻的“research”“education”建筑三维属性+20%。并允许前置建筑向其升级。",
+		"Description": "解锁产学研中心建筑。建成后，相邻的带有“科研”或“教学”标签的建筑三维属性+20%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1962,
@@ -670,7 +670,7 @@
 	{
 		"Id": "cod_lab_unlock_and_effect",
 		"Name": "解锁：计算机房",
-		"Description": "解锁计算机房建筑。建成后，相邻的有“dormitory”“environment”tag的建筑environment -30%。并允许前置建筑向其升级。",
+		"Description": "解锁计算机房建筑。建成后，相邻的带有“宿舍”或“环境景观”标签的建筑环境-30%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -702,7 +702,7 @@
 	{
 		"Id": "pc_lab_unlock_and_effect",
 		"Name": "解锁：实验室107",
-		"Description": "解锁实验室107建筑。建成后，相邻的有“dormitory”“environment”tag的建筑environment -30%。并允许前置建筑向其升级。",
+		"Description": "解锁实验室107建筑。建成后，相邻的带有“宿舍”或“环境景观”标签的建筑环境-30%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -734,7 +734,7 @@
 	{
 		"Id": "tech_lab_unlock_and_effect",
 		"Name": "解锁：546技物所",
-		"Description": "解锁546技物所建筑。建成后，相邻的有“dormitory”“environment”tag的建筑environment -30%。并允许前置建筑向其升级。",
+		"Description": "解锁546技物所建筑。建成后，相邻的带有“宿舍”或“环境景观”标签的建筑环境-30%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -786,7 +786,7 @@
 	{
 		"Id": "wind_lab_unlock_and_effect",
 		"Name": "解锁：大风洞实验室",
-		"Description": "解锁大风洞实验室建筑。建成后，相邻存在没有“lab”tag的建筑research-40%。并允许前置建筑向其升级。",
+		"Description": "解锁大风洞实验室建筑。建成后，相邻存在没有“实验室”标签的建筑时科研-40%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1977,
@@ -834,7 +834,7 @@
 	{
 		"Id": "farm_unlock_and_effect",
 		"Name": "解锁：教学试验田",
-		"Description": "解锁教学试验田建筑。建成后，与另一个教学试验田相邻时environment+50%；如果和林草相邻，自身environment+200%。并允许前置建筑向其升级。",
+		"Description": "解锁教学试验田建筑。建成后，与另一个教学试验田相邻时环境+50%；如果和林草相邻，自身环境+200%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1972,
@@ -865,7 +865,7 @@
 	{
 		"Id": "mech_lab_unlock_and_effect",
 		"Name": "解锁：力学机械厂",
-		"Description": "解锁力学机械厂建筑。建成后，相邻存在没有“lab”tag的建筑research-40%。并允许前置建筑向其升级。",
+		"Description": "解锁力学机械厂建筑。建成后，相邻存在没有“实验室”标签的建筑时科研-40%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1972,
@@ -913,7 +913,7 @@
 	{
 		"Id": "teacher_apt_unlock_and_effect",
 		"Name": "解锁：教工宿舍",
-		"Description": "解锁教工宿舍建筑。建成后，相邻的“research”tageducation+50%。并允许前置建筑向其升级。",
+		"Description": "解锁教工宿舍建筑。建成后，相邻的带有“科研”标签的建筑教学+50%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1967,
@@ -939,7 +939,7 @@
 	{
 		"Id": "boiler_unlock_and_effect",
 		"Name": "解锁：锅炉房",
-		"Description": "解锁锅炉房建筑。建成后，两格范围内的所有建筑environment-50%。",
+		"Description": "解锁锅炉房建筑。建成后，两格范围内的所有建筑环境-50%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1957,
@@ -959,7 +959,7 @@
 	{
 		"Id": "rs_lab_unlock_and_effect",
 		"Name": "解锁：遥感实验室",
-		"Description": "解锁遥感实验室建筑。建成后，相邻存在没有“lab”tag的建筑research-40%。并允许前置建筑向其升级。",
+		"Description": "解锁遥感实验室建筑。建成后，相邻存在没有“实验室”标签的建筑时科研-40%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1977,
@@ -987,7 +987,7 @@
 	{
 		"Id": "basic_office_unlock_and_effect",
 		"Name": "解锁：基础学科教研室",
-		"Description": "解锁基础学科教研室建筑。建成后，相邻的“education”tag建筑education+100%。并允许前置建筑向其升级。",
+		"Description": "解锁基础学科教研室建筑。建成后，相邻的带有“教学”标签的建筑教学+100%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1977,
@@ -1013,7 +1013,7 @@
 	{
 		"Id": "chem_lab_unlock_and_effect",
 		"Name": "解锁：新化学楼",
-		"Description": "解锁新化学楼建筑。建成后，相邻存在有“lab”tag的建筑research+50%；相邻存在有“education”tag的建筑education+50%。并允许前置建筑向其升级。",
+		"Description": "解锁新化学楼建筑。建成后，相邻存在带有“实验室”标签的建筑时科研+50%；相邻存在带有“教学”标签的建筑时教学+50%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1982,
@@ -1045,7 +1045,7 @@
 	{
 		"Id": "high_apt_unlock_and_effect",
 		"Name": "解锁：中关高层公寓",
-		"Description": "解锁中关高层公寓建筑。建成后，相邻的“education”tag建筑education+50%；相邻的“dormitory”tag建筑population+40%。并允许前置建筑向其升级。",
+		"Description": "解锁中关高层公寓建筑。建成后，相邻的带有“教学”标签的建筑教学+50%；相邻的带有“宿舍”标签的建筑人口+40%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1982,
@@ -1077,7 +1077,7 @@
 	{
 		"Id": "teaching_complex_unlock_and_effect",
 		"Name": "解锁：教学楼群",
-		"Description": "解锁教学楼群建筑。建成后，如果和“lab”tag的建筑相邻，自身的research，education+50%；如果和另一个教学楼群相邻，全属性+100%。并允许前置建筑向其升级。",
+		"Description": "解锁教学楼群建筑。建成后，如果和带有“实验室”标签的建筑相邻，自身的科研、教学+50%；如果和另一个教学楼群相邻，全属性+100%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1982,
@@ -1116,7 +1116,7 @@
 	{
 		"Id": "campus_shop_unlock_and_effect",
 		"Name": "解锁：燕园副食店",
-		"Description": "解锁燕园副食店建筑。建成后，两格范围内有“dormitory”tag的建筑population+50%，相邻建筑environment-20%。",
+		"Description": "解锁燕园副食店建筑。建成后，两格范围内带有“宿舍”标签的建筑人口+50%，相邻建筑环境-20%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1977,
@@ -1142,7 +1142,7 @@
 	{
 		"Id": "microelec_lab_unlock_and_effect",
 		"Name": "解锁：微电子所",
-		"Description": "解锁微电子所建筑。建成后，相邻存在有“lab”tag的建筑research+50%；相邻存在有“education”tag的建筑education+50%。并允许前置建筑向其升级。",
+		"Description": "解锁微电子所建筑。建成后，相邻存在带有“实验室”标签的建筑时科研+50%；相邻存在带有“教学”标签的建筑时教学+50%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1982,
@@ -1194,7 +1194,7 @@
 	{
 		"Id": "sackler_museum_unlock_and_effect",
 		"Name": "解锁：赛克勒博物馆",
-		"Description": "解锁赛克勒博物馆。奇观加成：使所有建筑research+100%。",
+		"Description": "解锁赛克勒博物馆。奇观加成：使所有建筑科研+100%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1987,
@@ -1208,7 +1208,7 @@
 	{
 		"Id": "new_library_unlock_and_effect",
 		"Name": "解锁：东区图书馆",
-		"Description": "解锁东区图书馆。奇观加成：使所有建筑teaching+100%。并允许前置建筑向其升级。",
+		"Description": "解锁东区图书馆。奇观加成：使所有建筑教学+100%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1992,
@@ -1254,7 +1254,7 @@
 	{
 		"Id": "qdb_gym_unlock_and_effect",
 		"Name": "解锁：邱德拔体育馆",
-		"Description": "解锁邱德拔体育馆。奇观加成：所有建筑的environment+100%。",
+		"Description": "解锁邱德拔体育馆。奇观加成：所有建筑的环境+100%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2007,
@@ -1272,7 +1272,7 @@
 	{
 		"Id": "bath_unlock_and_effect",
 		"Name": "解锁：大浴室",
-		"Description": "解锁大浴室建筑。建成后，相邻的“dormitory”tag建筑population+50%，environment-20%。",
+		"Description": "解锁大浴室建筑。建成后，相邻的带有“宿舍”标签的建筑人口+50%，环境-20%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1982,
@@ -1298,7 +1298,7 @@
 	{
 		"Id": "thermal_station_unlock_and_effect",
 		"Name": "解锁：燕园热电站",
-		"Description": "解锁燕园热电站建筑。建成后，相邻的所有建筑environment*0.8（等效-20%）。并允许前置建筑向其升级。",
+		"Description": "解锁燕园热电站建筑。建成后，相邻的所有建筑环境*0.8（等效-20%）。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1982,
@@ -1323,7 +1323,7 @@
 	{
 		"Id": "res_building_unlock_and_effect",
 		"Name": "解锁：商用大厦",
-		"Description": "解锁商用大厦建筑。建成后，与另一个商用大厦相邻时，benefit+100%。",
+		"Description": "解锁商用大厦建筑。建成后，与另一个商用大厦相邻时，收益+100%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1992,
@@ -1369,7 +1369,7 @@
 	{
 		"Id": "renovated_dorm_unlock_and_effect",
 		"Name": "解锁：改造公寓",
-		"Description": "解锁改造公寓建筑。建成后，和“convenience”tag建筑相邻时，自身population+100%，environment+50%。并允许前置建筑向其升级。",
+		"Description": "解锁改造公寓建筑。建成后，和带有“便利设施”标签的建筑相邻时，自身人口+100%，环境+50%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1992,
@@ -1478,7 +1478,7 @@
 	{
 		"Id": "bbs_server_unlock_and_effect",
 		"Name": "解锁：BBS机房",
-		"Description": "解锁BBS机房建筑。建成后，相邻的“education”tag建筑全属性+10%。",
+		"Description": "解锁BBS机房建筑。建成后，相邻的带有“教学”标签的建筑全属性+10%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1997,
@@ -1503,7 +1503,7 @@
 	{
 		"Id": "its_pku_unlock_and_effect",
 		"Name": "解锁：信息服务中心",
-		"Description": "解锁信息服务中心建筑。建成后，相邻的“education”“research”tag建筑全属性+20%。并允许前置建筑向其升级。",
+		"Description": "解锁信息服务中心建筑。建成后，相邻的带有“教学”或“科研”标签的建筑全属性+20%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 1992,
@@ -1545,7 +1545,7 @@
 	{
 		"Id": "stanford_center_unlock_and_effect",
 		"Name": "解锁：斯坦福中心",
-		"Description": "解锁斯坦福中心建筑。建成后，所有“education”“research”tag的建筑benefit+100%。并允许前置建筑向其升级。",
+		"Description": "解锁斯坦福中心建筑。建成后，所有带有“教学”或“科研”标签的建筑收益+100%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2002,
@@ -1575,7 +1575,7 @@
 	{
 		"Id": "inter_complex_unlock_and_effect",
 		"Name": "解锁：交叉学科楼群",
-		"Description": "解锁交叉学科楼群建筑。建成后，相邻research/education/environment时自身对应属性+100%，与另一个相临时全属性+200%。",
+		"Description": "解锁交叉学科楼群建筑。建成后，相邻带有科研、教学或环境景观标签的建筑时自身对应属性+100%，与另一个交叉学科楼群相邻时全属性+200%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2002,
@@ -1617,7 +1617,7 @@
 	{
 		"Id": "integ_lab_unlock_and_effect",
 		"Name": "解锁：集成实验室",
-		"Description": "解锁集成实验室建筑。建成后，所有“lab”tag的建筑research+50%。并允许前置建筑向其升级。",
+		"Description": "解锁集成实验室建筑。建成后，所有带有“实验室”标签的建筑科研+50%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2002,
@@ -1642,7 +1642,7 @@
 	{
 		"Id": "incuba_unlock_and_effect",
 		"Name": "解锁：创业孵化器",
-		"Description": "解锁创业孵化器建筑。建成后，两格内的“research”tag建筑benefit+200%。",
+		"Description": "解锁创业孵化器建筑。建成后，两格内的带有“科研”标签的建筑收益+200%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2002,
@@ -1663,7 +1663,7 @@
 	{
 		"Id": "express_unlock_and_effect",
 		"Name": "解锁：近邻宝",
-		"Description": "解锁近邻宝建筑。建成后，所有“dormitory”tag的建筑population+50%，environment+50%。",
+		"Description": "解锁近邻宝建筑。建成后，所有带有“宿舍”标签的建筑人口+50%，环境+50%。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2012,
@@ -1685,7 +1685,7 @@
 	{
 		"Id": "key_lib_unlock_and_effect",
 		"Name": "解锁：国重实验室",
-		"Description": "解锁国重实验室建筑。建成后，每回合使最低的参数+0.1。",
+		"Description": "解锁国重实验室建筑。建成后，每回合使最低的评分权重+0.1。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2002,
@@ -1702,7 +1702,7 @@
 	{
 		"Id": "cluster_unlock_and_effect",
 		"Name": "解锁：智算中心",
-		"Description": "解锁智算中心建筑。建成后，所有“education”“research”tag建筑三维属性+30%。并允许前置建筑向其升级。",
+		"Description": "解锁智算中心建筑。建成后，所有带有“教学”或“科研”标签的建筑三维属性+30%。并允许前置建筑向其升级。",
 		"CardType": "Buff",
 		"Rarity": "Common",
 		"MinYear": 2012,

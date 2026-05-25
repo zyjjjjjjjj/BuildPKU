@@ -16,10 +16,10 @@
 	"Destroyable": true,
 	"Limit": 5,
 	"UpgradeCost": {
-	  "bidorm": 0,
-	  "intl_dorm": 0,
-	  "dorm70": 0,
-	  "teacher_apt": 0
+	  "bidorm": 6000,
+	  "intl_dorm": 8000,
+	  "dorm70": 6000,
+	  "teacher_apt": 8000
 	}
   },
   {
@@ -30,24 +30,24 @@
 	  "research",
       "stage1"
 	],
-	"Research": 5,
-	"Education": 3,
+	"Research": 4,
+	"Education": 1,
 	"Environment": 0,
 	"Population": 0,
 	"Cost": 2000,
-	"Benefit": -1000,
+	"Benefit": -200,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "pc_lab": 0,
-	  "wind_lab": 0,
-	  "tech_lab": 0,
-	  "cod_lab": 0,
-	  "mech_lab": 0,
-	  "chem_lab": 0,
-	  "microelec_lab": 0,
-	  "rs_lab": 0,
-	  "integ_lab": 0
+	  "pc_lab": 9000,
+	  "wind_lab": 30000,
+	  "tech_lab": 7000,
+	  "cod_lab": 5000,
+	  "mech_lab": 25000,
+	  "chem_lab": 30000,
+	  "microelec_lab": 30000,
+	  "rs_lab": 25000,
+	  "integ_lab": 90000
 	}
   },
   {
@@ -62,13 +62,13 @@
 	"Education": 0,
 	"Environment": 10,
 	"Population": 0,
-	"Cost": 100,
+	"Cost": 500,
 	"Benefit": 0,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "farm": 0,
-	  "ground": 0
+	  "farm": 6000,
+	  "ground": 4000
 	}
   },
   {
@@ -83,8 +83,8 @@
 	"Education": 0,
 	"Environment": 50,
 	"Population": 100,
-	"Cost": 0,
-	"Benefit": 1000,
+	"Cost": 50000,
+	"Benefit": 500,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -98,14 +98,14 @@
 	],
 	"Research": 1,
 	"Education": 1,
-	"Environment": 0,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 0,
+	"Cost": 3000,
 	"Benefit": 500,
 	"Destroyable": true,
 	"Limit": 1,
 	"UpgradeCost": {
-	  "history_museum": 0
+	  "history_museum": 15000
 	}
   },
   {
@@ -119,15 +119,15 @@
       "radiation"
 	],
 	"Research": 3,
-	"Education": 10,
-	"Environment": 0,
+	"Education": 5,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 0,
-	"Benefit": 0,
+	"Cost": 5000,
+	"Benefit": -200,
 	"Destroyable": false,
 	"Limit": 1,
 	"UpgradeCost": {
-	  "lib_base": 0
+	  "lib_base": 9000
 	}
   },
   {
@@ -139,12 +139,12 @@
 	  "radiation",
       "year50"
 	],
-	"Research": 3,
-	"Education": 10,
-	"Environment": 0,
+	"Research": 4,
+	"Education": 8,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 0,
-	"Benefit": 0,
+	"Cost": 12000,
+	"Benefit": -1500,
 	"Destroyable": true,
 	"Limit": -1
   },
@@ -157,18 +157,18 @@
 	  "stage1",
       "year50"
 	],
-	"Research": 5,
-	"Education": 5,
+	"Research": 1,
+	"Education": 4,
 	"Environment": 0,
 	"Population": 0,
 	"Cost": 4000,
-	"Benefit": 200,
+	"Benefit": -200,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "elec_building": 0,
-	  "basic_office": 0,
-	  "teaching_complex": 0
+	  "elec_building": 7000,
+	  "basic_office": 5000,
+	  "teaching_complex": 10000
 	}
   },
   {
@@ -185,12 +185,12 @@
 	"Education": 0,
 	"Environment": 20,
 	"Population": 20,
-	"Cost": 0,
-	"Benefit": 100,
+	"Cost": 5000,
+	"Benefit": 0,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-		"villa":0
+		"villa": 3000
 	}
   },
   {
@@ -206,8 +206,8 @@
 	"Education": 0,
 	"Environment": 30,
 	"Population": 50,
-	"Cost": 0,
-	"Benefit": 0,
+	"Cost": 8000,
+	"Benefit": -100,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -220,15 +220,15 @@
 	],
 	"Research": 0,
 	"Education": 0,
-	"Environment": 25,
+	"Environment": 0,
 	"Population": 0,
 	"Cost": 3000,
-	"Benefit": 500,
+	"Benefit": 1000,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "multi_canteen": 0,
-	  "com_canteen": 0
+	  "multi_canteen": 8000,
+	  "com_canteen": 25000
 	}
   },
   {
@@ -240,14 +240,14 @@
 	],
 	"Research": 0,
 	"Education": 0,
-	"Environment": 30,
-	"Population": 50,
-	"Cost": 0,
-	"Benefit": 0,
+	"Environment": 0,
+	"Population": 0,
+	"Cost": 12000,
+	"Benefit": 3000,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "com_canteen": 0
+	  "com_canteen": 15000
 	}
   },
   {
@@ -259,10 +259,10 @@
 	],
 	"Research": 0,
 	"Education": 0,
-	"Environment": 30,
-	"Population": 50,
-	"Cost": 0,
-	"Benefit": 0,
+	"Environment": 0,
+	"Population": 0,
+	"Cost": 30000,
+	"Benefit": 6000,
 	"Destroyable": true,
 	"Limit": -1
   },
@@ -278,12 +278,12 @@
 	"Education": 2,
 	"Environment": 0,
 	"Population": 0,
-	"Cost": 1200,
+	"Cost": 2000,
 	"Benefit": 500,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "dpt_center": 0
+	  "dpt_center": 7000
 	}
   },
   {
@@ -294,19 +294,19 @@
 	  "office",
       "stage2"
 	],
-	"Research": 2,
-	"Education": 2,
+	"Research": 5,
+	"Education": 5,
 	"Environment": 0,
 	"Population": 0,
-	"Cost": 1200,
-	"Benefit": 500,
+	"Cost": 10000,
+	"Benefit": -1000,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "pacific_center": 0,
-	  "intl_center": 0,
-	  "stanford_center": 0,
-	  "cluster": 0
+	  "pacific_center": 22000,
+	  "intl_center": 18000,
+	  "stanford_center": 28000,
+	  "cluster": 80000
 	}
   },
   {
@@ -320,14 +320,14 @@
 	"Research": 0,
 	"Education": 0,
 	"Environment": 15,
-	"Population": 125,
-	"Cost": 1800,
-	"Benefit": 0,
+	"Population": 120,
+	"Cost": 8000,
+	"Benefit": -200,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "renovated_dorm": 0,
-	  "college_dorm": 0
+	  "renovated_dorm": 15000,
+	  "college_dorm": 15000
 	}
   },
   {
@@ -341,10 +341,10 @@
 	],
 	"Research": 0,
 	"Education": 2,
-	"Environment": 30,
+	"Environment": 10,
 	"Population": 50,
-	"Cost": 0,
-	"Benefit": 1000,
+	"Cost": 5000,
+	"Benefit": 800,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -357,11 +357,11 @@
       "stage2"
 	],
 	"Research": 8,
-	"Education": 8,
+	"Education": 2,
 	"Environment": 0,
 	"Population": 0,
 	"Cost": 8000,
-	"Benefit": 3000,
+	"Benefit": -2500,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -373,12 +373,12 @@
 	  "research",
       "stage2"
 	],
-	"Research": 10,
+	"Research": 6,
 	"Education": 4,
 	"Environment": 0,
-	"Population": 50,
+	"Population": 0,
 	"Cost": 12000,
-	"Benefit": 5000,
+	"Benefit": -2500,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -391,11 +391,11 @@
       "stage2"
 	],
 	"Research": 10,
-	"Education": 10,
-	"Environment": -20,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
 	"Cost": 10000,
-	"Benefit": 3000,
+	"Benefit": -2500,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -408,16 +408,16 @@
 	  "education",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 6,
+	"Education": 10,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 15000,
+	"Benefit": -2000,
 	"Destroyable": false,
 	"Limit": 1,
 	"UpgradeCost": {
-	  "new_lib": 2000
+	  "new_library": 60000
 	}
   },
   {
@@ -428,12 +428,12 @@
 	  "research",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
+	"Research": 18,
+	"Education": 2,
 	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 35000,
+	"Benefit": -6000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -447,15 +447,15 @@
 	],
 	"Research": 0,
 	"Education": 0,
-	"Environment": 10,
-	"Population": 20,
+	"Environment": 20,
+	"Population": 80,
 	"Cost": 10000,
-	"Benefit": 0,
+	"Benefit": 500,
 	"Destroyable": true,
 	"Limit": 3,
 	"UpgradeCost": {
-	  "renovated_dorm": 0,
-	  "college_dorm": 0
+	  "renovated_dorm": 13000,
+	  "college_dorm": 13000
 	}
   },
   {
@@ -466,12 +466,12 @@
 	  "environment",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 2,
+	"Education": 2,
+	"Environment": 15,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 8000,
+	"Benefit": -300,
 	"Destroyable": true,
 	"Limit": 4
   },
@@ -483,12 +483,12 @@
 	  "research",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 12,
+	"Education": 8,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 30000,
+	"Benefit": -6000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -500,16 +500,16 @@
 	  "dormitory",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
-	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 5,
+	"Population": 150,
+	"Cost": 8000,
+	"Benefit": -300,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "dorm": 0
+	  "dorm": 1000
 	}
   },
   {
@@ -520,16 +520,16 @@
 	  "dormitory",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
-	"Population": 0,
+	"Research": 2,
+	"Education": 2,
+	"Environment": 10,
+	"Population": 60,
 	"Cost": 10000,
-	"Benefit": 0,
+	"Benefit": -400,
 	"Destroyable": true,
 	"Limit": -1,
 	"UpgradeCost": {
-	  "high_apt": 0
+	  "high_apt": 13000
 	}
   },
   {
@@ -540,16 +540,16 @@
 	  "convenience",
       "stage1"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 5000,
+	"Benefit": 500,
 	"Destroyable": false,
 	"Limit": 1,
 	"UpgradeCost": {
-	  "thermal_station": 0
+	  "thermal_station": 9000
 	}
   },
   {
@@ -560,12 +560,12 @@
 	  "research",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 15,
+	"Education": 5,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 30000,
+	"Benefit": -6000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -578,12 +578,12 @@
 	  "office",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 3,
+	"Education": 12,
+	"Environment": 0,
 	"Population": 0,
 	"Cost": 10000,
-	"Benefit": 0,
+	"Benefit": -3000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -595,12 +595,12 @@
 	  "research",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 14,
+	"Education": 6,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 35000,
+	"Benefit": -6000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -613,11 +613,11 @@
       "stage3"
 	],
 	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
-	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Education": 6,
+	"Environment": 15,
+	"Population": 180,
+	"Cost": 25000,
+	"Benefit": -1000,
 	"Destroyable": true,
 	"Limit": 3
   },
@@ -629,12 +629,12 @@
 	  "education",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 5,
+	"Education": 20,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 15000,
+	"Benefit": -6000,
 	"Destroyable": true,
 	"Limit": 4
   },
@@ -646,12 +646,12 @@
 	  "convenience",
       "radiation02"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 12000,
+	"Benefit": 2000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -663,12 +663,12 @@
 	  "research",
       "stage3"
 	],
-	"Research": 4,
+	"Research": 16,
 	"Education": 4,
-	"Environment": -10,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 35000,
+	"Benefit": -6000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -680,12 +680,12 @@
 	  "education",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 2,
+	"Education": 10,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 12000,
+	"Benefit": -2500,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -701,10 +701,10 @@
 	],
 	"Research": 15,
 	"Education": 15,
-	"Environment": 50,
+	"Environment": 30,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 60000,
+	"Benefit": -6000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -718,12 +718,12 @@
 	  "environment",
       "wonder"
 	],
-	"Research": 15,
-	"Education": 15,
-	"Environment": 50,
+	"Research": 10,
+	"Education": 25,
+	"Environment": 30,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 80000,
+	"Benefit": -8000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -737,12 +737,12 @@
 	  "environment",
       "wonder"
 	],
-	"Research": 15,
-	"Education": 15,
-	"Environment": 50,
+	"Research": 10,
+	"Education": 20,
+	"Environment": 40,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 100000,
+	"Benefit": -8000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -756,12 +756,12 @@
 	  "environment",
       "wonder"
 	],
-	"Research": 15,
-	"Education": 15,
+	"Research": 5,
+	"Education": 5,
 	"Environment": 50,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 100000,
+	"Benefit": -5000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -773,12 +773,12 @@
 	  "convenience",
       "radiation02"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 8000,
+	"Benefit": 1000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -790,12 +790,12 @@
 	  "convenience",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 15000,
+	"Benefit": 1500,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -807,12 +807,12 @@
 	  "economic",
       "radiation03"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 40000,
+	"Benefit": 5000,
 	"Destroyable": true,
 	"Limit": 4
   },
@@ -826,12 +826,12 @@
 	  "center",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 10,
+	"Education": 10,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 35000,
+	"Benefit": -3000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -843,12 +843,12 @@
 	  "dormitory",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
-	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 20,
+	"Population": 200,
+	"Cost": 25000,
+	"Benefit": -500,
 	"Destroyable": true,
 	"Limit": 4
   },
@@ -860,12 +860,12 @@
 	  "dormitory",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
-	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Research": 2,
+	"Education": 5,
+	"Environment": 25,
+	"Population": 150,
+	"Cost": 25000,
+	"Benefit": -800,
 	"Destroyable": false,
 	"Limit": 4
   },
@@ -878,12 +878,12 @@
 	  "center",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 8,
+	"Education": 8,
+	"Environment": 10,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 30000,
+	"Benefit": 2000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -898,12 +898,12 @@
 	  "wonder",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 8,
+	"Education": 8,
+	"Environment": 20,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 20000,
+	"Benefit": -2000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -915,16 +915,16 @@
 	  "convenience",
       "stage1"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 2,
+	"Education": 2,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 8000,
+	"Benefit": -1000,
 	"Destroyable": true,
 	"Limit": 1,
 	"UpgradeCost": {
-	  "its.pku": 2000
+	  "its_pku": 10000
 	}
   },
   {
@@ -936,12 +936,12 @@
 	  "center",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 5,
+	"Education": 5,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 20000,
+	"Benefit": -2500,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -954,12 +954,12 @@
 	  "center",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 12,
+	"Education": 12,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 40000,
+	"Benefit": -4000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -971,12 +971,12 @@
 	  "education",
       "stage3"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 15,
+	"Education": 15,
+	"Environment": 5,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 35000,
+	"Benefit": -8000,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -989,12 +989,12 @@
 	  "education",
       "stage4"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 25,
+	"Education": 10,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 100000,
+	"Benefit": -10000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -1006,12 +1006,12 @@
 	  "economic",
       "research"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 5,
+	"Education": 2,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 30000,
+	"Benefit": 4000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -1023,12 +1023,12 @@
 	  "convenience",
       "radiation02"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 0,
+	"Education": 0,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 15000,
+	"Benefit": 1500,
 	"Destroyable": true,
 	"Limit": 1
   },
@@ -1041,12 +1041,12 @@
 	  "education",
       "stage4"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 30,
+	"Education": 10,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 120000,
+	"Benefit": -12000,
 	"Destroyable": false,
 	"Limit": 1
   },
@@ -1060,12 +1060,12 @@
 	  "center",
       "stage2"
 	],
-	"Research": 4,
-	"Education": 4,
-	"Environment": -10,
+	"Research": 20,
+	"Education": 20,
+	"Environment": 0,
 	"Population": 0,
-	"Cost": 10000,
-	"Benefit": 0,
+	"Cost": 100000,
+	"Benefit": -10000,
 	"Destroyable": false,
 	"Limit": 1
   }

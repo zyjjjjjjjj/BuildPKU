@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
 [ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
+[ext_resource type="PackedScene" uid="uid://2tfbgemsi5ul" path="res://buildings/old_library.tscn" id="14_bhx41"]
 [ext_resource type="PackedScene" uid="uid://cfxkekd57yypn" path="res://buildings/regions/region_yan_dong_yuan.tscn" id="14_e1j6l"]
 [ext_resource type="PackedScene" uid="uid://dlmt5umdv4mqf" path="res://buildings/regions/region_lang_run_yuan.tscn" id="15_5newe"]
 [ext_resource type="Script" uid="uid://b05alg2w7p6uf" path="res://scripts/audio/AudioMgr.cs" id="15_audio"]
@@ -75,6 +76,9 @@ position = Vector2(1123, 1058)
 
 [node name="lab_01" parent="buildingMgr" unique_id=1332427465 instance=ExtResource("13_5newe")]
 position = Vector2(1156, 1214)
+
+[node name="old_library" parent="buildingMgr" unique_id=861354955 instance=ExtResource("14_bhx41")]
+position = Vector2(898, 957)
 
 [node name="region_yan_dong_yuan" parent="buildingMgr" unique_id=2125567007 instance=ExtResource("14_e1j6l")]
 position = Vector2(2552, 555)
