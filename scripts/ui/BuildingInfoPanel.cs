@@ -5,6 +5,10 @@ using System.Collections.Generic;
 public partial class BuildingInfoPanel : PanelContainer
 {
 	public static BuildingInfoPanel Instance { get; private set; }
+	private const float MaxPanelViewportRatio = 0.65f;
+	private const float MinPanelMaxHeight = 260f;
+
+	[Export] private ScrollContainer _scrollContainer;
 	[Export] private Label _idLabel;
 	[Export] private Label _resLabel;
 	[Export] private Label _eduLabel;
@@ -75,13 +79,32 @@ public partial class BuildingInfoPanel : PanelContainer
 			_destroyButton.Disabled = true;
 		}
 		
-		ResetSize();
+		_scrollContainer.ScrollVertical = 0;
+		ApplyMaxHeight();
 		var pos = GetViewport().GetCanvasTransform() * building.GlobalPosition - Size;
 		if (pos.X < 0) pos.X += (Size.X);
 		if (pos.Y < 0) pos.Y += (Size.Y);
+		var viewportSize = GetViewportRect().Size;
+		pos.X = Mathf.Clamp(pos.X, 0, Mathf.Max(0, viewportSize.X - Size.X));
+		pos.Y = Mathf.Clamp(pos.Y, 0, Mathf.Max(0, viewportSize.Y - Size.Y));
 		GlobalPosition = pos;
 		Visible = true;
 		return;
+	}
+
+	private void ApplyMaxHeight()
+	{
+		_scrollContainer.CustomMinimumSize = Vector2.Zero;
+		ResetSize();
+
+		var maxHeight = Mathf.Max(MinPanelMaxHeight, GetViewportRect().Size.Y * MaxPanelViewportRatio);
+		if (_scrollContainer.GetChildCount() == 0)
+			return;
+
+		var content = _scrollContainer.GetChild<Control>(0);
+		var contentHeight = content.GetCombinedMinimumSize().Y;
+		_scrollContainer.CustomMinimumSize = new Vector2(0, Mathf.Min(contentHeight, maxHeight));
+		ResetSize();
 	}
 	
 	public void ShowRelatedBuffs(BuildingBase building)

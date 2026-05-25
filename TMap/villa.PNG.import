@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c20rl8qkmrxwp"
-path="res://.godot/imported/villa.png-0fd11adc4f8cb7dad1127af165674f5a.ctex"
+path="res://.godot/imported/villa.PNG-56351a547993e3c57eab55a93be0d716.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://TMap/villa.png"
-dest_files=["res://.godot/imported/villa.png-0fd11adc4f8cb7dad1127af165674f5a.ctex"]
+source_file="res://TMap/villa.PNG"
+dest_files=["res://.godot/imported/villa.PNG-56351a547993e3c57eab55a93be0d716.ctex"]
 
 [params]
 

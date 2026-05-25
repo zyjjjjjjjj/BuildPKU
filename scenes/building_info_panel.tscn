@@ -3,161 +3,167 @@
 [ext_resource type="Script" uid="uid://cllss8mmt6jkr" path="res://scripts/ui/BuildingInfoPanel.cs" id="1_eqwah"]
 [ext_resource type="Theme" uid="uid://c42r8558dvmyi" path="res://themes/clashy/clashy.tres" id="2_q35r8"]
 
-[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffPanel", "_buffContainer", "_destroyButton", "_upgradePanel", "_upgradeContainer")]
+[node name="BuildingInfoPanel" type="PanelContainer" unique_id=1650551941 node_paths=PackedStringArray("_scrollContainer", "_idLabel", "_resLabel", "_eduLabel", "_envLabel", "_popLabel", "_benLabel", "_buffPanel", "_buffContainer", "_destroyButton", "_upgradePanel", "_upgradeContainer")]
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("2_q35r8")
 script = ExtResource("1_eqwah")
-_idLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer/Label2")
-_resLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer2/Label2")
-_eduLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer3/Label2")
-_envLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer4/Label2")
-_popLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5/Label2")
-_benLabel = NodePath("MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6/Label2")
-_buffPanel = NodePath("MarginContainer/VBoxContainer/BuffPanel")
-_buffContainer = NodePath("MarginContainer/VBoxContainer/BuffPanel/BuffContainer")
-_destroyButton = NodePath("MarginContainer/VBoxContainer/MarginContainer/Button")
-_upgradePanel = NodePath("MarginContainer/VBoxContainer/UpgradePanel")
-_upgradeContainer = NodePath("MarginContainer/VBoxContainer/UpgradePanel/Vbox")
+_scrollContainer = NodePath("MarginContainer/ScrollContainer")
+_idLabel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer/Label2")
+_resLabel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer2/Label2")
+_eduLabel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer3/Label2")
+_envLabel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer4/Label2")
+_popLabel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5/Label2")
+_benLabel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6/Label2")
+_buffPanel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/BuffPanel")
+_buffContainer = NodePath("MarginContainer/ScrollContainer/VBoxContainer/BuffPanel/BuffContainer")
+_destroyButton = NodePath("MarginContainer/ScrollContainer/VBoxContainer/MarginContainer/Button")
+_upgradePanel = NodePath("MarginContainer/ScrollContainer/VBoxContainer/UpgradePanel")
+_upgradeContainer = NodePath("MarginContainer/ScrollContainer/VBoxContainer/UpgradePanel/Vbox")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1228620003]
 layout_mode = 2
 theme_override_constants/margin_left = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1228620002]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer" unique_id=1875608225]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=1228620002]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1285311108]
 layout_mode = 2
 
-[node name="HBoxContainer7" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1285311108]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7" unique_id=1660767896]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7" unique_id=1660767896]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer" unique_id=1830721401]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer" unique_id=1830721401]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer" unique_id=632396339]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer" unique_id=632396339]
 layout_mode = 2
 text = "名称:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer" unique_id=619348152]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer" unique_id=619348152]
 layout_mode = 2
 text = "xxxx"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer" unique_id=1215908476]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer" unique_id=1215908476]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer2" unique_id=1627265680]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer2" unique_id=1627265680]
 layout_mode = 2
 text = "科研:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer2" unique_id=104962391]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer2" unique_id=104962391]
 layout_mode = 2
 text = "xxxx"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer" unique_id=138416659]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer" unique_id=138416659]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer3" unique_id=750545326]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer3" unique_id=750545326]
 layout_mode = 2
 text = "教学:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer3" unique_id=787760676]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer/HBoxContainer3" unique_id=787760676]
 layout_mode = 2
 text = "xxxx"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7" unique_id=3043932]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7" unique_id=3043932]
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2" unique_id=935953785]
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2" unique_id=935953785]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer4" unique_id=185552507]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer4" unique_id=185552507]
 layout_mode = 2
 text = "环境:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer4" unique_id=1680821678]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer4" unique_id=1680821678]
 layout_mode = 2
 text = "xxxx"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2" unique_id=43489733]
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2" unique_id=43489733]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5" unique_id=1796683661]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5" unique_id=1796683661]
 layout_mode = 2
 text = "人口:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5" unique_id=1928074297]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer5" unique_id=1928074297]
 layout_mode = 2
 text = "xxxx"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2" unique_id=1036126194]
+[node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2" unique_id=1036126194]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6" unique_id=278392]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6" unique_id=278392]
 layout_mode = 2
 text = "收益:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6" unique_id=1486020126]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer7/VBoxContainer2/HBoxContainer6" unique_id=1486020126]
 layout_mode = 2
 text = "xxxx"
 
-[node name="BuffPanel" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1370966966]
+[node name="BuffPanel" type="MarginContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1370966966]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="BuffContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BuffPanel" unique_id=527614604]
+[node name="BuffContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/BuffPanel" unique_id=527614604]
 layout_mode = 2
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1569120906]
+[node name="Title" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1569120906]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "相关加成:"
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1330587605]
+[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1330587605]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "adfadfasdfasdfsadfadf"
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1969796399]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1969796399]
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1653879996]
+[node name="Label3" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/BuffPanel/BuffContainer" unique_id=1653879996]
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "sdfadfadfadfadfadfad"
 
-[node name="UpgradePanel" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=1028896219]
+[node name="UpgradePanel" type="MarginContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=1028896219]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 
-[node name="Vbox" type="VBoxContainer" parent="MarginContainer/VBoxContainer/UpgradePanel" unique_id=907772040]
+[node name="Vbox" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/UpgradePanel" unique_id=907772040]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/UpgradePanel/Vbox" unique_id=37936844]
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/UpgradePanel/Vbox" unique_id=37936844]
 layout_mode = 2
 text = "可升级为:"
 
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/UpgradePanel/Vbox" unique_id=1728105388]
+[node name="Button2" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/UpgradePanel/Vbox" unique_id=1728105388]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"SuccessButton"
 text = "Name  费用: 0000"
 
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/UpgradePanel/Vbox" unique_id=993863165]
+[node name="Button3" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/UpgradePanel/Vbox" unique_id=993863165]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"SuccessButton"
 text = "Name  费用: 0000"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=516191260]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer/VBoxContainer" unique_id=516191260]
 layout_mode = 2
 theme_override_constants/margin_top = 10
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/MarginContainer" unique_id=782685566]
+[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/MarginContainer" unique_id=782685566]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"DangerButton"
