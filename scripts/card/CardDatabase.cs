@@ -116,10 +116,14 @@ public static class CardDatabase
 
         foreach (var p in _events)
         {
+            var year = p.Key;
             foreach (var card in p.Value.CardIds)
             {
                 if(!_allCards.ContainsKey(card))
                     GD.PrintErr($"事件 {p.Value.Year} 包含未知卡牌: {card}");
+                var cardData = _allCards[card];
+                if(!cardData.Repeatable && cardData.MinYear < year)
+                    GD.PrintErr($"事件 {p.Value.Year} 包含不合法卡牌 {card} (MinYear: {cardData.MinYear})");
             }
         }
     }
