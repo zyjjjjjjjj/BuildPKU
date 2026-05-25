@@ -98,9 +98,6 @@ public partial class CardMgr : Node
             return;
         }
 
-        if (!card.Repeatable)
-            _pickedNonRepeatableCardIds.Add(card.Id);
-
         GD.Print($"Chosen card: {card.Name}");
         AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.CardChoose);
 
@@ -148,6 +145,8 @@ public partial class CardMgr : Node
         activeCard.Buffs = buffs;
 
         BuffSideBar.Instance.AddCard(activeCard);
+        if (!cardData.Repeatable)
+            _pickedNonRepeatableCardIds.Add(cardData.Id);
     }
 
     private void ActivateEvent(int year)
