@@ -13,7 +13,7 @@
 	},
 	{
 		"Id": "adj_bonus_buff",
-		"Description": "与{Src}相邻的{Dest}{Target}产出乘{Value}%。"
+		"Description": "与{Src}相邻的{Dest}, {Target}产出乘{Value}%。"
 	},
 	{
 		"Id": "adj_bonus_with_cnt_buff",
@@ -21,11 +21,11 @@
 	},
 	{
 		"Id": "adj_bonus_with_tolerance_buff",
-		"Description": "{Src}周边{ConditionValue}格内的{Dest}{Target}产出乘{Value}%。"
+		"Description": "{Src}周边{ConditionValue}格内的{Dest}, {Target}产出乘{Value}%。"
 	},
 	{
 		"Id": "adj_bonus_same_id_buff",
-		"Description": "与同类相邻的{Dest}{Target}产出乘{Value}%。"
+		"Description": "与同类相邻的{Dest}, {Target}产出乘{Value}%。"
 	},
 	{
 		"Id": "instant_money_buff",
