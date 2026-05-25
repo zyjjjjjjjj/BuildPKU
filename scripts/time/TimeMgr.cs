@@ -17,8 +17,8 @@ public partial class TimeMgr : Node
 			EmitSignalYearAdvanced(_currentYear);
 		}
 	}
-	public int LastYear = 2026;
-	public int InitialYear = 1952;
+	[Export] public int InitialYear = 1952;
+	[Export] public int LastYear = 2026;
 	[Signal] public delegate void YearAdvancedEventHandler(int newYear);
 	[Signal]  public delegate void YearEndedEventHandler();
 	
