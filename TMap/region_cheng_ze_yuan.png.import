@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxsny07aoeu7n"
-path="res://.godot/imported/朗润园.png-93aabf4540860591a10bc532673b242e.ctex"
+uid="uid://dab52g1v2fghq"
+path="res://.godot/imported/region_cheng_ze_yuan.png-f8f5db1c8f7d79037df964ae021d1f3b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://buildings/regions/map/朗润园.png"
-dest_files=["res://.godot/imported/朗润园.png-93aabf4540860591a10bc532673b242e.ctex"]
+source_file="res://TMap/region_cheng_ze_yuan.png"
+dest_files=["res://.godot/imported/region_cheng_ze_yuan.png-f8f5db1c8f7d79037df964ae021d1f3b.ctex"]
 
 [params]
 

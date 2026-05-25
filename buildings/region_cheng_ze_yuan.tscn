@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://brotnv7rtsqok"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_ypcyt"]
-[ext_resource type="Texture2D" uid="uid://dab52g1v2fghq" path="res://buildings/regions/map/承泽园.png" id="2_ypcyt"]
+[ext_resource type="Texture2D" uid="uid://dab52g1v2fghq" path="res://TMap/region_cheng_ze_yuan.png" id="2_ypcyt"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_5td3p"]
 
 [node name="region_cheng_ze_yuan" type="Node2D" unique_id=229562284]

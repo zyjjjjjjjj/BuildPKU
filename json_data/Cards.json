@@ -73,6 +73,73 @@
 		}
 	},
 	{
+		"Id": "unlock_yannanyuan",
+		"Name": "解锁：燕南园",
+		"Description": "开放燕南园地块的建造权限。",
+		"CardType": "Buff",
+		"Rarity": "normal",
+		"MinYear": 1952,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_region_buff": {
+				"DestBuildingIdOrTag": "region_yan_nan_yuan"
+			}
+		}
+	},
+		{
+		"Id": "unlock_yandongyuan",
+		"Name": "解锁：燕东园",
+		"Description": "开放燕东园地块的建造权限。",
+		"CardType": "Buff",
+		"Rarity": "normal",
+		"MinYear": 1952,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_region_buff": {
+				"DestBuildingIdOrTag": "region_yan_dong_yuan"
+			}
+		}
+	},	{
+		"Id": "unlock_langrunyuan",
+		"Name": "解锁：朗润园",
+		"Description": "开放朗润园地块的建造权限。",
+		"CardType": "Buff",
+		"Rarity": "normal",
+		"MinYear": 1952,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_region_buff": {
+				"DestBuildingIdOrTag": "region_lang_run_yuan"
+			}
+		}
+	},	{
+		"Id": "unlock_chengzeyuan",
+		"Name": "解锁：承泽园",
+		"Description": "开放承泽园地块的建造权限。",
+		"CardType": "Buff",
+		"Rarity": "normal",
+		"MinYear": 1952,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_region_buff": {
+				"DestBuildingIdOrTag": "region_cheng_ze_yuan"
+			}
+		}
+	},	{
+		"Id": "unlock_nongyuan",
+		"Name": "解锁：农园",
+		"Description": "开放农园地块的建造权限。",
+		"CardType": "Buff",
+		"Rarity": "normal",
+		"MinYear": 1952,
+		"Repeatable": false,
+		"Buffs": {
+			"unlock_region_buff": {
+				"DestBuildingIdOrTag": "region_nong_yuan"
+			}
+		}
+	},
+	{
 		"Id": "startup_grant",
 		"Name": "创业补助",
 		"Description": "立刻获得5000资金",

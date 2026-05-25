@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cfxkekd57yypn"]
 
 [ext_resource type="Script" uid="uid://nssh84oxytxc" path="res://scripts/building/BuildingBase.cs" id="1_yqa7p"]
-[ext_resource type="Texture2D" uid="uid://cal2nas0tam28" path="res://buildings/regions/map/燕东园.png" id="2_yqa7p"]
+[ext_resource type="Texture2D" uid="uid://cal2nas0tam28" path="res://TMap/region_yan_dong_yuan.png" id="2_yqa7p"]
 [ext_resource type="Script" uid="uid://bb3g0gv1fceid" path="res://scripts/building/BuildingGrid.cs" id="3_iimip"]
 
 [node name="region_yan_dong_yuan" type="Node2D" unique_id=229562284]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://durlqljmwt7wy"
-path="res://.godot/imported/农园.png-995aa0021dcfbbf363977a1f64db6f0c.ctex"
+uid="uid://dxsny07aoeu7n"
+path="res://.godot/imported/region_lang_run_yuan.png-9a4785fd816d3de3d87a5ccaceb202c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://buildings/regions/map/农园.png"
-dest_files=["res://.godot/imported/农园.png-995aa0021dcfbbf363977a1f64db6f0c.ctex"]
+source_file="res://TMap/region_lang_run_yuan.png"
+dest_files=["res://.godot/imported/region_lang_run_yuan.png-9a4785fd816d3de3d87a5ccaceb202c5.ctex"]
 
 [params]
 

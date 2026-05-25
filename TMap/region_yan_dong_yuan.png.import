@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dab52g1v2fghq"
-path="res://.godot/imported/承泽园.png-9c12680465d89408cda7ae3eeddd1de3.ctex"
+uid="uid://cal2nas0tam28"
+path="res://.godot/imported/region_yan_dong_yuan.png-f1d8c9cc13556525cac9ffff9f3a14f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://buildings/regions/map/承泽园.png"
-dest_files=["res://.godot/imported/承泽园.png-9c12680465d89408cda7ae3eeddd1de3.ctex"]
+source_file="res://TMap/region_yan_dong_yuan.png"
+dest_files=["res://.godot/imported/region_yan_dong_yuan.png-f1d8c9cc13556525cac9ffff9f3a14f5.ctex"]
 
 [params]
 

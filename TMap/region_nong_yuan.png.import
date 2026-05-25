@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cal2nas0tam28"
-path="res://.godot/imported/燕东园.png-54b60109d4afa50898ce17e9eab160d4.ctex"
+uid="uid://durlqljmwt7wy"
+path="res://.godot/imported/region_nong_yuan.png-ead0267662f81baa9ed34669eca884da.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://buildings/regions/map/燕东园.png"
-dest_files=["res://.godot/imported/燕东园.png-54b60109d4afa50898ce17e9eab160d4.ctex"]
+source_file="res://TMap/region_nong_yuan.png"
+dest_files=["res://.godot/imported/region_nong_yuan.png-ead0267662f81baa9ed34669eca884da.ctex"]
 
 [params]
 

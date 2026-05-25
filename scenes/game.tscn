@@ -19,13 +19,13 @@
 [ext_resource type="PackedScene" uid="uid://bq0be548k7ovq" path="res://buildings/administration.tscn" id="11_264po"]
 [ext_resource type="PackedScene" uid="uid://2nrr1i00qeq2" path="res://buildings/teaching.tscn" id="12_1kice"]
 [ext_resource type="PackedScene" uid="uid://csfajkr1k74a1" path="res://buildings/lab.tscn" id="13_5newe"]
-[ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/regions/region_yan_nan_yuan.tscn" id="14_1kice"]
+[ext_resource type="PackedScene" uid="uid://qlg3pe6hra5b" path="res://buildings/region_yan_nan_yuan.tscn" id="14_1kice"]
 [ext_resource type="PackedScene" uid="uid://2tfbgemsi5ul" path="res://buildings/old_library.tscn" id="14_bhx41"]
-[ext_resource type="PackedScene" uid="uid://cfxkekd57yypn" path="res://buildings/regions/region_yan_dong_yuan.tscn" id="14_e1j6l"]
-[ext_resource type="PackedScene" uid="uid://dlmt5umdv4mqf" path="res://buildings/regions/region_lang_run_yuan.tscn" id="15_5newe"]
+[ext_resource type="PackedScene" uid="uid://cfxkekd57yypn" path="res://buildings/region_yan_dong_yuan.tscn" id="14_e1j6l"]
+[ext_resource type="PackedScene" uid="uid://dlmt5umdv4mqf" path="res://buildings/region_lang_run_yuan.tscn" id="15_5newe"]
 [ext_resource type="Script" uid="uid://b05alg2w7p6uf" path="res://scripts/audio/AudioMgr.cs" id="15_audio"]
-[ext_resource type="PackedScene" uid="uid://brotnv7rtsqok" path="res://buildings/regions/region_cheng_ze_yuan.tscn" id="16_37s47"]
-[ext_resource type="PackedScene" uid="uid://0q7gg51dxe6n" path="res://buildings/regions/region_nong_yuan.tscn" id="17_bt5mj"]
+[ext_resource type="PackedScene" uid="uid://brotnv7rtsqok" path="res://buildings/region_cheng_ze_yuan.tscn" id="16_37s47"]
+[ext_resource type="PackedScene" uid="uid://0q7gg51dxe6n" path="res://buildings/region_nong_yuan.tscn" id="17_bt5mj"]
 
 [node name="root" type="Node2D" unique_id=1578770113]
 script = ExtResource("1_0tnpc")
@@ -89,7 +89,7 @@ position = Vector2(1275, 1707)
 [node name="region_lang_run_yuan" parent="buildingMgr" unique_id=1625980002 instance=ExtResource("15_5newe")]
 position = Vector2(1785, 552)
 
-[node name="region_cheng_ze_yuan2" parent="buildingMgr" unique_id=734458451 instance=ExtResource("16_37s47")]
+[node name="region_cheng_ze_yuan" parent="buildingMgr" unique_id=734458451 instance=ExtResource("16_37s47")]
 position = Vector2(1270, 553)
 
 [node name="region_nong_yuan" parent="buildingMgr" unique_id=1956321944 instance=ExtResource("17_bt5mj")]

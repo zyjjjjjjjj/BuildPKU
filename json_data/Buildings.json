@@ -1033,6 +1033,26 @@
 	"Limit": 1
   },
   {
+	"Id": "region_yan_nan_yuan",
+	"Name": "燕南园"
+  },
+  {
+	"Id": "region_yan_dong_yuan",
+	"Name": "燕东园"
+  },
+  {
+	"Id": "region_lang_run_yuan",
+	"Name": "朗润园"
+  },
+  {
+	"Id": "region_cheng_ze_yuan",
+	"Name": "承泽园"
+  },
+  {
+	"Id": "region_nong_yuan",
+	"Name": "农园"
+  },
+  {
 	"Id": "key_lib",
 	"Name": "国重实验室",
 	"Tags": [
