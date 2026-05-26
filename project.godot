@@ -13,7 +13,12 @@ config_version=5
 config/name="BuildPKU"
 run/main_scene="uid://bcbum02nfn5q3"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
+run/max_fps=30
 config/icon="res://TMap/icon.svg"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 

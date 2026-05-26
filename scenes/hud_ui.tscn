@@ -418,7 +418,6 @@ offset_right = 277.0
 offset_bottom = 474.0
 grow_vertical = 2
 script = ExtResource("6_47rti")
-_isExpanded = false
 _toggleButton = NodePath("MarginContainer/VBoxContainer/ToggleButton")
 _cardList = NodePath("MarginContainer/VBoxContainer/CardScroll/CardList")
 _adjBonusTitleLabel = NodePath("MarginContainer/VBoxContainer/AdjBonusTitleLabel")
