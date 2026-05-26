@@ -10,7 +10,7 @@ public partial class BuffSideBar : PanelContainer
     private readonly List<ActiveCard> _collectedCards = [];
     private readonly List<ActiveBuff> _mockAdjBuffs = [];
     private const int ListFontSize = 18;
-    private bool _isExpanded = true;
+    [Export] private bool _isExpanded = true;
 
     [Export] private bool _useMockData = false;
     [Export] private int _mockCardCount = 24;
@@ -19,7 +19,7 @@ public partial class BuffSideBar : PanelContainer
     [Export] private VBoxContainer _cardList;
     [Export] private Control _adjBonusTitleLabel;
     [Export] private VBoxContainer _adjBonusList;
-    [Export] private string _cardSectionTitle = "卡片栏";
+    [Export] private string _cardSectionTitle = "事件卡";
 
     public override void _EnterTree()
     {
@@ -67,7 +67,7 @@ public partial class BuffSideBar : PanelContainer
     public void RefreshCardList()
     {
         if (_toggleButton != null)
-            _toggleButton.Text = _isExpanded ? $"{_cardSectionTitle} <" : $"{_cardSectionTitle} >";
+            _toggleButton.Text = _isExpanded ? $"{_cardSectionTitle} v" : $"{_cardSectionTitle} >";
 
         if (_cardList == null)
             return;

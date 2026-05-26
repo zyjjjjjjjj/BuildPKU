@@ -40,9 +40,8 @@ bg_color = Color(2.3295284e-05, 0.58166397, 0.90111107, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_item_selected"]
 bg_color = Color(0.3811598, 0.7300026, 0.9999986, 1)
 
-[node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974 node_paths=PackedStringArray("_buildingInfoPanel")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1735141974]
 script = ExtResource("1_n3kp7")
-_buildingInfoPanel = NodePath("BuildingInfoPanel")
 
 [node name="HUDRoot" type="Control" parent="." unique_id=643724016]
 layout_mode = 3
@@ -382,7 +381,6 @@ offset_bottom = 317.0
 grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("2_lecxb")
-_itemBgColor = Color(0.2, 0.2, 0.2, 0.3137255)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUDRoot/BuildingSideBar" unique_id=1548977131]
 layout_mode = 2
@@ -420,6 +418,7 @@ offset_right = 277.0
 offset_bottom = 474.0
 grow_vertical = 2
 script = ExtResource("6_47rti")
+_isExpanded = false
 _toggleButton = NodePath("MarginContainer/VBoxContainer/ToggleButton")
 _cardList = NodePath("MarginContainer/VBoxContainer/CardScroll/CardList")
 _adjBonusTitleLabel = NodePath("MarginContainer/VBoxContainer/AdjBonusTitleLabel")
@@ -438,7 +437,7 @@ layout_mode = 2
 
 [node name="ToggleButton" type="Button" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=800869803]
 layout_mode = 2
-text = "卡片栏"
+text = "事件卡"
 
 [node name="CardScroll" type="ScrollContainer" parent="HUDRoot/BuffSideBar/MarginContainer/VBoxContainer" unique_id=405181208]
 custom_minimum_size = Vector2(0, 160)

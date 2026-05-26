@@ -3,7 +3,6 @@ using System;
 
 public partial class UIMgr : CanvasLayer
 {
-	[Export] private BuildingInfoPanel _buildingInfoPanel;
 	public static UIMgr Instance { get; private set; }
 
 	public override void _EnterTree()
