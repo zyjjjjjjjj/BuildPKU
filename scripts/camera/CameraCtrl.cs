@@ -52,9 +52,28 @@ public partial class CameraCtrl : Camera2D
 				HandleMove_Normal(delta);
 				break;
 			case Mode.Normal:
+				HandleMove_Edit(delta);
 				HandleMove_Normal(delta);
 				break;
 		}
+		var dir = Vector2.Zero;
+		if(Input.IsKeyPressed(Key.W))
+			dir += Vector2.Up;
+		if(Input.IsKeyPressed(Key.S))
+			dir += Vector2.Down;
+		if(Input.IsKeyPressed(Key.A))
+			dir += Vector2.Left;
+		if(Input.IsKeyPressed(Key.D))
+			dir += Vector2.Right;
+		dir = dir.Normalized();
+		Position += dir * MoveSpeed * (float)delta;
+		ClampCameraPosition();
+		var zoomFactor = 1f;
+		if(Input.IsKeyPressed(Key.Q))
+			zoomFactor /= _zoomFactor;
+		if(Input.IsKeyPressed(Key.E))
+			zoomFactor *= _zoomFactor;
+		ZoomByFactor(zoomFactor);
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
