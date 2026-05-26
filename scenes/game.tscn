@@ -115,7 +115,7 @@ script = ExtResource("10_kvpfn")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=677687319]
 position = Vector2(1013, 948)
-zoom = Vector2(0.7, 0.7)
+zoom = Vector2(0.8, 0.8)
 limit_enabled = false
 limit_left = -12000
 limit_top = -1000
