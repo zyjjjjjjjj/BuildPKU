@@ -127,3 +127,12 @@ _edgeRatio = 0.001
 _zoomFactor = 1.05
 _minZoom = 0.35
 _maxZoom = 1.5
+
+[node name="Label" type="Label" parent="." unique_id=435910674]
+offset_left = 4199.0
+offset_top = 3478.0
+offset_right = 4731.0
+offset_bottom = 3561.0
+theme_override_colors/font_color = Color(0.28744614, 0.41951495, 0.18031237, 1)
+theme_override_font_sizes/font_size = 60
+text = "Thanks for Playing!"
