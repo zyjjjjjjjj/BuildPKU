@@ -76,7 +76,7 @@ public partial class ScoreMgr : Node
 	public override void _Ready()
 	{
 		BuildingMgr.Instance.SpawnedBuilding += _ => RecomputeScores();
-		BuildingMgr.Instance.DestroyedBuilding += RecomputeScores;
+		BuildingMgr.Instance.DestroyedBuilding += _ => RecomputeScores();
 		GameMgr.Instance.StartedNewTurn += RecomputeScores;
 		TimeMgr.Instance.YearEnded += CheckMileStones;
 		InitializeScores();

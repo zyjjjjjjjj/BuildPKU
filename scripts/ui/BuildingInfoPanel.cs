@@ -156,6 +156,10 @@ public partial class BuildingInfoPanel : PanelContainer
 		{
 			if(!BuildingMgr.Instance.AvailableUpgradingIds.Contains(kv.Key))
 				continue;
+			var currentCnt = BuildingMgr.Instance.SpawnedBuildings.TryGetValue(kv.Key, out var list) ? list.Count : 0;
+			var limit = BuildingDatabase.GetById(kv.Key).Limit;
+			if (limit >= 0 && currentCnt >= limit)
+				continue;
 			_upgradePanel.Visible = true;
 			var button = new Button();
 			var buildingData = BuildingDatabase.GetById(kv.Key);

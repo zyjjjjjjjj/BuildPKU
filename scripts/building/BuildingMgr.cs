@@ -51,7 +51,7 @@ public partial class BuildingMgr : Node2D
     [Signal]
     public delegate void SpawnedBuildingEventHandler(BuildingBase building);
     [Signal]
-    public delegate void DestroyedBuildingEventHandler();
+    public delegate void DestroyedBuildingEventHandler(string buildingId);
     [Signal]
     public delegate void EnterEditorModeEventHandler();
     [Signal]
@@ -148,7 +148,7 @@ public partial class BuildingMgr : Node2D
             AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildSelect);
     }
 
-    public void TrySpawnBuilding(bool cost=true, bool exitEditingWhenLimitReached=true)
+    public void TrySpawnBuilding(bool cost=true)
     {
         if (_tmpBuilding == null)
             return;
@@ -201,7 +201,8 @@ public partial class BuildingMgr : Node2D
             IsEditing = false;
             return;
         }
-        if (!AvailableBuildingIds.Contains(_tmpBuilding.Id))
+        var currentCount = SpawnedBuildings.TryGetValue(_tmpBuilding.Id, out var list) ? list.Count : 0;
+        if (buildingData.Limit >= 0 && currentCount >= buildingData.Limit)
         {
             IsEditing = false;
             return;
@@ -233,8 +234,12 @@ public partial class BuildingMgr : Node2D
         }
         else
             SpawnedBuildings[buildingData.Id] = [building];
+        if(_upgradedBuilding != null)
+        {
+            UnlockBuildings(building.Id);
+        }
         
-        UpdateAvailableBuildingList(buildingData.Id);
+        //UpdateAvailableBuildingList(buildingData.Id);
         
         GridMgr.Instance.UpdateOccupation(building);
         
@@ -263,7 +268,7 @@ public partial class BuildingMgr : Node2D
             _tmpBuilding = building;
             _tmpBuilding.Id = Regex.Replace(building.Name, @"_\d+$", "");
             _tmpBuilding.Name = "tmpBuilding";
-            TrySpawnBuilding(false, false);
+            TrySpawnBuilding(false);
             if (_tmpBuilding != null) 
                 _tmpBuilding.Name = "tobedeleted";
             _tmpBuilding?.QueueFree();
@@ -271,25 +276,21 @@ public partial class BuildingMgr : Node2D
         }
     }
 
-    public void DestroyBuilding(string buildingName)
-    {
-        DestroyBuilding(buildingName, true);
-    }
-
-    private void DestroyBuilding(string buildingName, bool playSfx)
+    public void DestroyBuilding(string buildingName, bool playSfx = true)
     {
         GD.Print($"尝试销毁建筑 {buildingName}");
         var building = GetNode<BuildingBase>(buildingName);
+        var id = building.Id;
         GridMgr.Instance.UpdateOccupation(building, true);
         SpawnedBuildings[building.Id].Remove(building);
-        UpdateAvailableBuildingList(building.Id);
+        //UpdateAvailableBuildingList(building.Id);
         var neighbors = GridMgr.Instance.GetNeighbors(building);
         foreach (var name in neighbors)        
             GetNode<BuildingBase>(name).RecomputeProps();
         building.QueueFree();
         if (playSfx)
             AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.BuildRemove);
-        EmitSignalDestroyedBuilding();
+        EmitSignalDestroyedBuilding(id);
     }
     
     public void TryUpgradeBuilding(string buildingName, string newId)
@@ -312,36 +313,18 @@ public partial class BuildingMgr : Node2D
     {
         if (string.IsNullOrEmpty(buildingId))
             return;
-
         if(add)
         {
             if(AvailableBuildingIds.Contains(buildingId))
                 return;
             AvailableBuildingIds.Add(buildingId);
-            AvailableUpgradingIds.Remove(buildingId);
+            //AvailableUpgradingIds.Remove(buildingId);
         }
         else
         {
-            AvailableBuildingIds.Remove(buildingId);
+            //AvailableBuildingIds.Remove(buildingId);
         }
         EmitSignalAvailableBuildingChanged(add, buildingId);
-    }
-
-    public void UpdateAvailableBuildingList(string buildingId)
-    {
-        var buildingData = BuildingDatabase.GetById(buildingId);
-        if (buildingData == null)
-            return;
-        var currentCount = SpawnedBuildings.TryGetValue(buildingId, out var list) ? list.Count : 0;
-        if (buildingData.Limit >= 0 && currentCount >= buildingData.Limit)
-        {
-            ModifyAvailableBuildingList(false, buildingId);
-        }
-        else
-        {
-            if (!AvailableBuildingIds.Contains(buildingId))
-                ModifyAvailableBuildingList(true, buildingId);
-        }
     }
 
     public List<BuildingBase> GetBuildingsById(string id)
@@ -374,7 +357,8 @@ public partial class BuildingMgr : Node2D
             return;
         if (BuildingDatabase.GetById(buildingId) == null)
             return;
-        UpdateAvailableBuildingList(buildingId);
+        //UpdateAvailableBuildingList(buildingId);
+        ModifyAvailableBuildingList(true, buildingId);
     }
     
     public void UnlockUpgradedBuildings(string buildingId)

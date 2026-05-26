@@ -29,7 +29,9 @@ public partial class BuildingSideBar : PanelContainer
 	{
 		MouseFilter = MouseFilterEnum.Stop;
 		InitializeItemList();
-		BuildingMgr.Instance.AvailableBuildingChanged += UpdateItemList;
+		BuildingMgr.Instance.SpawnedBuilding += building => UpdateItemList(building.Id);
+		BuildingMgr.Instance.DestroyedBuilding += UpdateItemList;
+		BuildingMgr.Instance.AvailableBuildingChanged += (add, id) => AddBuildingItem(id);
 		BuildingMgr.Instance.ExitEditorMode += () => UpdateActiveBuilding(string.Empty);
 	}
 
@@ -39,59 +41,60 @@ public partial class BuildingSideBar : PanelContainer
 		_itemList.MouseFilter = MouseFilterEnum.Stop;
 		_itemList.Clear();
 		foreach (var id in BuildingDatabase.GetInitiallyAvailableIds())
-		{
-			var data = BuildingDatabase.GetById(id);
-			AddBuildingItem(data);
-		}
+			AddBuildingItem(id);
 		_itemList.ItemSelected += _OnSideBarSelectedBuilding;
 		_itemList.MouseEntered += () => AudioMgr.Instance?.PlaySfx(AudioMgr.Sfx.UiHover);
+	}
+
+	private void UpdateItem(int idx)
+	{
+		var buildingId = _itemList.GetItemMetadata(idx).ToString();
+		var buildingData = BuildingDatabase.GetById(buildingId);
+		var limit = buildingData.Limit;
+		var available = limit < 0 || 
+		                !BuildingMgr.Instance.SpawnedBuildings.TryGetValue(buildingId, out var list) ||
+		                list.Count < limit;
+		var text = $"{buildingData.Name}\n";
+		text += available ? $"￥{buildingData.ActualCost}" : "已达上限";
+		_itemList.SetItemText(idx, text);
+		_itemList.SetItemDisabled(idx, !available);
 	}
 	
 	public void RefreshItemList()
 	{
-		_itemList.Clear();
-		foreach (var id in BuildingMgr.Instance.AvailableBuildingIds)
+		for (var i = 0; i < _itemList.GetItemCount(); i++)
 		{
-			var data = BuildingDatabase.GetById(id);
-			AddBuildingItem(data);
+			UpdateItem(i);
 		}
 	}
 
-	private void UpdateItemList(bool add, string buildingId)
+	private void UpdateItemList(string buildingId)
 	{
-		if(add)
+		for (var i = 0; i < _itemList.GetItemCount(); i++)
 		{
-			var data = BuildingDatabase.GetById(buildingId);
-			AddBuildingItem(data);
-		}
-		else
-		{
-			for (var i = 0; i < _itemList.GetItemCount(); i++)
-			{
-				if (_itemList.GetItemMetadata(i).ToString() != buildingId) continue;
-				_itemList.RemoveItem(i);
-				break;
-			}
+			if (_itemList.GetItemMetadata(i).ToString() != buildingId) continue;
+			UpdateItem(i);
+			break;
 		}
 		return;
 	}
 
-	private void AddBuildingItem(BuildingData data)
+	private void AddBuildingItem(string id)
 	{
+		var data = BuildingDatabase.GetById(id);
 		if (data == null)
 			return;
-
-		var displayText = $"{data.Name}\n￥{data.ActualCost}";
+		var displayText = $"{data.Name}";
 		Texture2D icon = CreateIconWithBackground(
 			GD.Load<Texture2D>(data.IconPath),
 			_itemBgColor,
 			64
 		);
 		_itemList.AddItem(displayText, icon);
-
 		var index = _itemList.GetItemCount() - 1;
 		_itemList.SetItemMetadata(index, data.Id);
 		_itemList.SetItemTooltip(index, BuildBuildingTooltip(data));
+		UpdateItem(index);
 	}
 	
 	private Texture2D CreateIconWithBackground(Texture2D source, Color bgColor, int size = 64)
