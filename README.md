@@ -1,10 +1,37 @@
 # 我在燕园建北大 · BuildPKU
 
-[简体中文](#简体中文) | [English](#english)
+![BuildPKU 游戏预览 / Game Preview](assets/preview.jpg)
 
-![BuildPKU 游戏预览 / Game Preview](assets/audio/preview.jpg)
+## 实机截图 / Gameplay Screenshots
 
-[观看演示视频 / Watch Gameplay](assets/audio/preview.mp4)
+<table width="100%">
+  <tr>
+    <td colspan="3" width="50%" align="center">
+      校园初貌 / Starting Campus<br>
+      <a href="assets/Snipaste_2026-10-20_21-10-05.png"><img src="assets/Snipaste_2026-10-20_21-10-05.png" alt="校园初貌 / Starting Campus" width="100%"></a>
+    </td>
+    <td colspan="3" width="50%" align="center">
+      网格建造 / Grid Construction<br>
+      <a href="assets/Snipaste_2026-10-20_21-10-32.png"><img src="assets/Snipaste_2026-10-20_21-10-32.png" alt="网格建造 / Grid Construction" width="100%"></a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" width="33%" align="center">
+      发展方针 / Card Choices<br>
+      <a href="assets/Snipaste_2026-10-20_21-10-53.png"><img src="assets/Snipaste_2026-10-20_21-10-53.png" alt="发展方针选择 / Development Card Choices" width="100%"></a>
+    </td>
+    <td colspan="2" width="34%" align="center">
+      建筑升级 / Upgrades<br>
+      <a href="assets/Snipaste_2026-10-20_21-12-03.png"><img src="assets/Snipaste_2026-10-20_21-12-03.png" alt="建筑升级 / Building Upgrades" width="100%"></a>
+    </td>
+    <td colspan="2" width="33%" align="center">
+      后期校园 / Late-Game Campus<br>
+      <a href="assets/Snipaste_2026-10-20_21-12-21.png"><img src="assets/Snipaste_2026-10-20_21-12-21.png" alt="后期校园布局 / Late-Game Campus Layout" width="100%"></a>
+    </td>
+  </tr>
+</table>
+
+## [简体中文](#简体中文) | [English](#english)
 
 ## 简体中文
 
