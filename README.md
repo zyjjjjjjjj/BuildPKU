@@ -41,6 +41,12 @@
 
 游戏使用 **Godot + C#** 开发，将校园建设、资源经营与卡牌选择结合起来。你需要在有限的资金和空间中安排建筑，平衡科研、教学与环境，让校园在一年年的发展中积累声誉，完成不同阶段的发展目标。
 
+### 游戏理念
+
+**大学的价值，需要从多样的视角去理解与衡量。**
+
+科研探索、人才培养、校园环境与师生生活，都是一所大学值得珍视的部分。我们希望通过不同发展方向的选择与权衡，让玩家思考：怎样的校园才是自己心中的理想大学？游戏用数值呈现这些选择，也希望由此引出对大学评价标准的讨论，让不同的办学特色与发展路径都能被看见。
+
 ### 游戏玩法
 
 游戏从 **1952 年**开始，以年度为单位推进，最终目标是完成 **2026 年**的声誉里程碑。
@@ -137,6 +143,12 @@ build-pku/
 BuildPKU (Chinese title: 我在燕园建北大) is a 2D campus-building and strategy management game set at Peking University. It was an entry in the **2026 NetEase Thunder Fire × Peking University Game Jam**, where it received an **Outstanding Work Award (优秀作品奖)**.
 
 Built with **Godot + C#**, the game combines campus construction, resource management, and card choices. Plan buildings within limited space and budgets, balance research, education, and the campus environment, and grow your university's reputation to meet successive development goals.
+
+### Design Philosophy
+
+**The value of a university deserves to be understood and assessed from diverse perspectives.**
+
+Research, education, the campus environment, and the everyday lives of students and staff all contribute to a university's value. Through choices and trade-offs between development priorities, we invite players to consider what their ideal university would look like. The game represents these choices through numbers, while opening a broader conversation about how universities are evaluated and how different institutional strengths and paths of development can be recognized.
 
 ### Gameplay
 
